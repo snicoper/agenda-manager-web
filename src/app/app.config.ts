@@ -6,7 +6,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { CustomLuxonDateAdapter } from './shared/core/adapters/custom-luxon-date-adapter';
 import { AppConfig } from './shared/core/config/app-config';
-import { GlobalErrorHandler } from './shared/core/errors/global-error-handler';
+import { CustomErrorHandler } from './shared/core/errors/custom-error-handler';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     },
     {
       provide: ErrorHandler,
-      useClass: GlobalErrorHandler,
+      useClass: CustomErrorHandler,
     },
 
     provideLuxonDateAdapter(),
