@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter } from '@angular/material/core';
@@ -28,5 +29,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
+    provideHttpClient(),
   ],
 };
