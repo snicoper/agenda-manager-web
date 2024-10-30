@@ -3,11 +3,12 @@ import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, provideZoneChangeDete
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter } from '@angular/material/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter } from '@angular/router';
+import { provideRouter, TitleStrategy } from '@angular/router';
 import { routes } from './app.routes';
 import { CustomLuxonDateAdapter } from './shared/core/adapters/custom-luxon-date-adapter';
 import { AppConfig } from './shared/core/config/app-config';
 import { CustomErrorHandler } from './shared/core/errors/custom-error-handler';
+import { TitleStrategyService } from './shared/services/title-strategy.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,6 +23,8 @@ export const appConfig: ApplicationConfig = {
       provide: ErrorHandler,
       useClass: CustomErrorHandler,
     },
+
+    { provide: TitleStrategy, useClass: TitleStrategyService },
 
     provideLuxonDateAdapter(),
     { provide: DateAdapter, useValue: new CustomLuxonDateAdapter('es-ES') },
