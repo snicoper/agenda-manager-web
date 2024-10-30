@@ -2,9 +2,9 @@ import { computed, Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class LayoutService {
-  navbarState$ = signal(true);
-  sidebarState$ = signal(true);
-  footerState$ = signal(true);
+  private navbarState$ = signal(true);
+  private sidebarState$ = signal(true);
+  private footerState$ = signal(true);
 
   navbarState = computed(() => this.navbarState$());
   sidebarState = computed(() => this.sidebarState$());

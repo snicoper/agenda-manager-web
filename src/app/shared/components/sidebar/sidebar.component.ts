@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'am-sidebar',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent { }
+export class SidebarComponent {
+  private layoutService = inject(LayoutService);
+
+  sidebarState = computed(() => this.layoutService.sidebarState());
+}
