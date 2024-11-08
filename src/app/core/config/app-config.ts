@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ThemeManagerService } from '../../services/theme-manager.service';
+import { ThemeManagerService } from '../services/theme-manager.service';
 
 /** Configuración inicial de la aplicación. */
 @Injectable()

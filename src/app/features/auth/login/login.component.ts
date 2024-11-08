@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { PageBaseComponent } from '../../shared/components/pages/page-base/page-base.component';
-import { LayoutService } from '../../shared/services/layout.service';
+import { LayoutService } from '../../../core/services/layout.service';
+import { PageBaseComponent } from '../../../shared/components/pages/page-base/page-base.component';
 
 @Component({
   selector: 'am-login',

@@ -1,4 +1,4 @@
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 /** Wrapper para obtener la configuración en base al environment. */
 export const AppEnvironment = {

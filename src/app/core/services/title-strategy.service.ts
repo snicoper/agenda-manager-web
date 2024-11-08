@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
-import { AppEnvironment } from '../core/config/app-environment';
+import { AppEnvironment } from '../config/app-environment';
 
 @Injectable({ providedIn: 'root' })
 export class TitleStrategyService extends TitleStrategy {

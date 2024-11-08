@@ -2,5 +2,5 @@
 export enum ThemeColor {
   Auto = 'auto',
   Dark = 'dark-theme',
-  Light = 'light-theme'
+  Light = 'light-theme',
 }

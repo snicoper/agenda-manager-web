@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
-import { LayoutService } from '../../services/layout.service';
+import { LayoutService } from '../../../core/services/layout.service';
 
 @Component({
   selector: 'am-sidebar',

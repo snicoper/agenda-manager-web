@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterOutlet } from '@angular/router';
-import { ThemeManagerService } from './shared/services/theme-manager.service';
+import { ThemeManagerService } from './core/services/theme-manager.service';
 
 @Component({
   selector: 'am-root',

@@ -5,10 +5,10 @@ import { DateAdapter } from '@angular/material/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, TitleStrategy } from '@angular/router';
 import { routes } from './app.routes';
-import { CustomLuxonDateAdapter } from './shared/core/adapters/custom-luxon-date-adapter';
-import { AppConfig } from './shared/core/config/app-config';
-import { CustomErrorHandler } from './shared/core/errors/custom-error-handler';
-import { TitleStrategyService } from './shared/services/title-strategy.service';
+import { CustomLuxonDateAdapter } from './core/adapters/custom-luxon-date-adapter';
+import { AppConfig } from './core/config/app-config';
+import { CustomErrorHandler } from './core/errors/custom-error-handler';
+import { TitleStrategyService } from './core/services/title-strategy.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -5,6 +5,6 @@ export const routes: Routes = [
     path: 'auth',
     // data: { roles: [Role.Anonymous] },
     // canActivate: [AuthGuard],
-    loadChildren: () => import('./auth/auth.routes').then((m) => m.routes),
+    loadChildren: () => import('./features/auth/auth.routes').then((m) => m.routes),
   },
 ];
