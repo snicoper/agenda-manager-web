@@ -1,24 +1,22 @@
 import { provideHttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core';
-import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
-import { DateAdapter } from '@angular/material/core';
+import {
+  ApplicationConfig,
+  ErrorHandler,
+  inject,
+  provideAppInitializer,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import { MAT_LUXON_DATE_ADAPTER_OPTIONS, provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, TitleStrategy } from '@angular/router';
 import { routes } from './app.routes';
-import { CustomLuxonDateAdapter } from './core/adapters/custom-luxon-date-adapter';
-import { AppConfig } from './core/config/app-config';
+import { AppInitializer } from './core/config/app-initializer';
 import { CustomErrorHandler } from './core/errors/custom-error-handler';
 import { TitleStrategyService } from './core/services/title-strategy.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    AppConfig,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (config: AppConfig) => (): Promise<void> => config.load(),
-      multi: true,
-      deps: [AppConfig],
-    },
+    provideAppInitializer(() => inject(AppInitializer).load()),
     {
       provide: ErrorHandler,
       useClass: CustomErrorHandler,
@@ -27,7 +25,13 @@ export const appConfig: ApplicationConfig = {
     { provide: TitleStrategy, useClass: TitleStrategyService },
 
     provideLuxonDateAdapter(),
-    { provide: DateAdapter, useValue: new CustomLuxonDateAdapter('es-ES') },
+    {
+      provide: MAT_LUXON_DATE_ADAPTER_OPTIONS,
+      useValue: {
+        useUtc: true,
+        firstDayOfWeek: 1,
+      },
+    },
 
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),

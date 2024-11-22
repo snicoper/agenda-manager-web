@@ -18,7 +18,7 @@ export class ThemeManagerService {
     this.colorStorage = (this.browserStorageService.get(BrowserStorageKey.Theme) as ThemeColor) || ThemeColor.Auto;
 
     if (this.colorStorage === ThemeColor.Auto) {
-      // Establecer el color del sistema.
+      // Set the theme based on the user's system preferences.
       this.colorStorage = window.matchMedia('(prefers-color-scheme: dark)').matches
         ? ThemeColor.Dark
         : ThemeColor.Light;
@@ -54,7 +54,7 @@ export class ThemeManagerService {
         this.initialize();
         break;
       default:
-        logError(`ThemeColor (${theme}) no implementado`);
+        logError(`ThemeColor (${theme}) not implemented.`);
     }
 
     this.theme$.set(theme);
