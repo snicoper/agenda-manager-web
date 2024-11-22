@@ -37,3 +37,15 @@ $dark-theme: mat.define-theme(
 .dark-theme {
   @include mat.all-component-colors($dark-theme);
 }
+
+body {
+  &.light-theme {
+    background-color: #fafafa;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  &.dark-theme {
+    background-color: #101414;
+    color: #ffffff;
+  }
+}
