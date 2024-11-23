@@ -1,7 +1,6 @@
 import { computed, inject, Injectable, OnDestroy, signal } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { map, Observable } from 'rxjs';
-import { logDebug } from '../../errors/log-messages';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
 import { AuthState } from '../models/auth-state';
@@ -61,9 +60,9 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  tryRefreshToken(): void {
+  tryRefreshToken(): Observable<string> {
     if (!this.refreshToken) {
-      return;
+      return throwError(() => new Error('No refresh token available'));
     }
 
     this.state.update((state) => ({
@@ -72,14 +71,12 @@ export class AuthService implements OnDestroy {
       isLoggedIn: false,
     }));
 
-    logDebug('Refreshing token...');
-
     const refreshTokenRequest: RefreshTokenRequest = {
       refreshToken: this.refreshToken,
     };
 
-    this.authApiService.refreshToken(refreshTokenRequest).subscribe({
-      next: (response) => {
+    return this.authApiService.refreshToken(refreshTokenRequest).pipe(
+      map((response) => {
         this.state.update((state) => ({
           ...state,
           isLoading: false,
@@ -87,13 +84,19 @@ export class AuthService implements OnDestroy {
         }));
 
         this.setTokenFromLoginResponse(response);
-        logDebug('Token refreshed');
-      },
-      error: () => {
-        logDebug('Token refresh failed');
-        this.logout();
-      },
-    });
+
+        return this.getToken();
+      }),
+      catchError((error) => {
+        this.state.update((state) => ({
+          ...state,
+          isLoading: false,
+          isLoggedIn: false,
+        }));
+
+        return throwError(() => error);
+      }),
+    );
   }
 
   logout(): void {
@@ -191,7 +194,7 @@ export class AuthService implements OnDestroy {
   }
 
   private handleExpiredToken(): void {
-    this.tryRefreshToken();
+    this.tryRefreshToken().subscribe();
   }
 
   private isValidToken(): boolean {
