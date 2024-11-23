@@ -10,31 +10,20 @@ export class ApiInterceptor implements HttpInterceptor {
   private readonly localizationService = inject(LocalizationService);
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    let headers = request.headers;
     const token = this.authService.getToken();
+    const locale = this.localizationService.getLocaleValue();
 
-    if (token && !request.headers.has('Authorization')) {
-      request = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${token}`),
-      });
+    if (token && !headers.has('Authorization')) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
 
-    if (!request.headers.has('Accept-Language')) {
-      request = request.clone({
-        headers: request.headers.set('Accept-Language', this.localizationService.getLocaleValue()),
-      });
-    }
+    headers = headers
+      .set('Accept-Language', locale)
+      .set('Content-Language', locale)
+      .set('Content-Type', 'application/json');
 
-    if (!request.headers.has('Content-Language')) {
-      request = request.clone({
-        headers: request.headers.set('Content-Language', this.localizationService.getLocaleValue()),
-      });
-    }
-
-    if (!request.headers.has('Content-Type')) {
-      request = request.clone({
-        headers: request.headers.set('Content-Type', 'application/json'),
-      });
-    }
+    request = request.clone({ headers });
 
     return next.handle(request);
   }

@@ -54,7 +54,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   private handleUnauthorized(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (!this.authService.getToken() && !this.authService.getRefreshToken()) {
       this.authService.logout();
-      this.router.navigate([SiteUrls.login]);
+      this.router.navigate([SiteUrls.auth.login]);
 
       return throwError(() => new Error('No tokens available'));
     }
@@ -73,7 +73,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         catchError((error) => {
           this.isRefreshing = false;
           this.authService.logout();
-          this.router.navigate([SiteUrls.login]);
+          this.router.navigate([SiteUrls.auth.login]);
 
           return throwError(() => error);
         }),
