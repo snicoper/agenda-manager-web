@@ -1,7 +1,7 @@
-import { TimeProvider } from '../../types/time-provider.type';
+import { DateTimeProvider } from '../../types/datetime-provider.type';
 
 export interface LoginResponse {
   accessToken: string;
   refreshToken: string;
-  expires: TimeProvider;
+  expires: DateTimeProvider;
 }

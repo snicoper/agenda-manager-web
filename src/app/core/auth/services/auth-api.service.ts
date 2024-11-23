@@ -11,10 +11,7 @@ import { RefreshTokenRequest } from '../models/refresh-token.request';
 export class AuthApiService extends ApiService {
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.post<LoginRequest, LoginResponse>(loginRequest, ApiUrls.authentication.login, (response) => ({
-      // Mapping from ApiResponse to LoginResponse
       ...response.value,
-      refreshToken: response.value.refreshToken,
-      accessToken: response.value.accessToken,
       expires: DateTime.fromISO(response.value.expires.toString()),
     }));
   }
@@ -24,10 +21,7 @@ export class AuthApiService extends ApiService {
       refreshToken,
       ApiUrls.authentication.refreshToken,
       (response) => ({
-        // Mapping from ApiResponse to LoginResponse
         ...response.value,
-        refreshToken: response.value.refreshToken,
-        accessToken: response.value.accessToken,
         expires: DateTime.fromISO(response.value.expires.toString()),
       }),
     );
