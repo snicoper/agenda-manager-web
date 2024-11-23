@@ -1,18 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { LayoutService } from '../../../core/services/layout.service';
-import { PageBaseComponent } from '../../../shared/components/pages/page-base/page-base.component';
+import { LoginRequest } from '../../../../core/auth/models/login.request';
+import { AuthApiService } from '../../../../core/auth/services/auth-api.service';
+import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
 
 @Component({
-    selector: 'am-login',
-    imports: [CommonModule, PageBaseComponent],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss'
+  selector: 'am-login',
+  imports: [CommonModule, PageBaseComponent],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private layoutService = inject(LayoutService);
+  private authApiService = inject(AuthApiService);
 
-  handleToggleNavbar() {
-    this.layoutService.navbarToggle();
+  constructor() {
+    const loginRequest: LoginRequest = {
+      email: 'alice@example.com',
+      password: 'Password4!',
+    };
+
+    this.authApiService.login(loginRequest).subscribe((response) => {
+      console.log(response);
+    });
   }
 }
