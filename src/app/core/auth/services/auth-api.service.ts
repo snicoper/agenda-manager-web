@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../config/api-urls';
-import { ApiService } from '../../http/api.service';
+import { ApiService } from '../../services/api.service';
 import { LoginRequest } from '../models/login.request';
 import { LoginResponse } from '../models/login.response';
 import { RefreshTokenRequest } from '../models/refresh-token.request';
