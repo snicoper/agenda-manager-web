@@ -1,35 +1,37 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { LoginRequest } from '../../../../core/auth/models/login.request';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../core/auth/services/auth.service';
-import { logInfo } from '../../../../core/errors/log-messages';
 import { BadRequest } from '../../../../core/models/bad-request';
-import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
+import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
 
 @Component({
   selector: 'am-login',
-  imports: [CommonModule, PageBaseComponent],
+  imports: [CommonModule, PageSimpleComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private authService = inject(AuthService);
-  private badRequest: BadRequest | null = null;
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
+  private badRequest: BadRequest | undefined;
 
   constructor() {
-    const loginRequest: LoginRequest = {
-      email: 'alice@example.com',
-      password: 'Password4!',
-    };
+    this.buildForm();
+  }
 
-    this.authService.login(loginRequest).subscribe({
-      next: (isLoggedIn) => {
-        logInfo(String(isLoggedIn));
-      },
-      error: (error: HttpErrorResponse) => {
-        this.badRequest = error.error as BadRequest;
-      },
+  handleSubmit(): void {
+    // ...
+  }
+
+  private buildForm(): void {
+    this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
   }
 }

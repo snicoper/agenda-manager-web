@@ -1,0 +1,53 @@
+@if ((submitted() && formHasErrors()) || controlHasErrors() || getBadRequestErrors()) {
+  <div class="text-danger field-error-container">
+    <!-- Errores Angular. -->
+    <span>
+      @if (getControlErrorByErrorName("required")) {
+        <mat-hint>Campo requerido.</mat-hint>
+      }
+
+      @if (getControlErrorByErrorName("email")) {
+        <mat-hint>Campo email no valido.</mat-hint>
+      }
+
+      @if (getControlErrorByErrorName("noPasswordMatch")) {
+        <mat-hint>Las contraseñas no coinciden.</mat-hint>
+      }
+
+      @if (getControlErrorByErrorName("startGreaterThanFinish")) {
+        <mat-hint>La fecha de inicio no puede ser mayor a la fecha final.</mat-hint>
+      }
+
+      @if (getControlErrorByErrorName("noFutureDate")) {
+        <mat-hint>La fecha no puede ser futura.</mat-hint>
+      }
+
+      @if (getControlErrorByErrorName("invalidDateTime")) {
+        <mat-hint>La fecha no parece valida.</mat-hint>
+      }
+
+      @if (getControlErrorByErrorName("max")) {
+        <mat-hint>
+          Valor <span class="text-success">{{ getValidationErrorMax()?.actual }}</span> es superior al permitido
+          <span class="text-success">{{ getValidationErrorMax()?.max }}</span>
+        </mat-hint>
+      }
+
+      @if (getControlErrorByErrorName("min")) {
+        <mat-hint>
+          Valor <span class="text-success">{{ getValidationErrorMin()?.actual }}</span> es menor al mínimo necesario
+          <span class="text-success">{{ getValidationErrorMin()?.min }}</span>
+        </mat-hint>
+      }
+    </span>
+
+    <!-- errores obtenidos del backend. -->
+    @if (getBadRequestErrors()) {
+      <div>
+        @for (error of getBadRequestErrors(); track error) {
+          <mat-hint>{{ error }}</mat-hint>
+        }
+      </div>
+    }
+  </div>
+}

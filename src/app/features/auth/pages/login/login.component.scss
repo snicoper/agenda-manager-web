@@ -1,3 +1,24 @@
+@use "variables";
+
 :host {
   display: block;
+}
+
+.login-container {
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .form {
+    min-width: 500px;
+
+    .title {
+      text-align: center;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
 }

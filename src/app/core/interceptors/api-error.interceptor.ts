@@ -13,11 +13,13 @@ import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../auth/services/auth.service';
 import { SiteUrls } from '../config/site-urls';
 import { logObject } from '../errors/log-messages';
+import { SnackBarService } from '../services/snackbar.service';
 
 @Injectable()
 export class ApiErrorInterceptor implements HttpInterceptor {
   private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
+  private readonly snackBarService = inject(SnackBarService);
 
   private isRefreshing = false;
   private refreshTokenSubject$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
@@ -111,6 +113,8 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
   /** Errores 500. */
   private handleUnknownError(): void {
-    // ...
+    this.snackBarService.error(
+      `Ha ocurrido un error, por favor si el problema persiste póngase en contacto con la administración.`,
+    );
   }
 }
