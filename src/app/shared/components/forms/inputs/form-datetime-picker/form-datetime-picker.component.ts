@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DateTime } from 'luxon';
 import { BadRequest } from '../../../../../core/models/bad-request';
@@ -38,15 +38,7 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
     },
   ],
   standalone: true,
-  imports: [
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatHint,
-    MatButtonModule,
-    FieldErrorComponent,
-  ],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, FieldErrorComponent],
 })
 export class FormDatetimePickerComponent implements ControlValueAccessor, Validator {
   badRequest = input.required<BadRequest | undefined>();
