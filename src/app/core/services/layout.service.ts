@@ -10,27 +10,27 @@ export class LayoutService {
   sidebarState = computed(() => this.sidebarState$());
   footerState = computed(() => this.footerState$());
 
-  navbarToggle() {
+  navbarToggle(): void {
     this.navbarState$.update((value) => !value);
   }
 
-  navbarSetState(value: boolean) {
-    return this.navbarState$.set(value);
+  navbarSetState(value: boolean): void {
+    this.navbarState$.set(value);
   }
 
-  sidebarToggle() {
+  sidebarToggle(): void {
     this.sidebarState$.update((value) => !value);
   }
 
-  sidebarSetState(value: boolean) {
-    return this.sidebarState$.set(value);
+  sidebarSetState(value: boolean): void {
+    this.sidebarState$.set(value);
   }
 
-  footerToggle() {
+  footerToggle(): void {
     this.footerState$.update((value) => !value);
   }
 
-  footerSetState(value: boolean) {
-    return this.footerState$.set(value);
+  footerSetState(value: boolean): void {
+    this.footerState$.set(value);
   }
 }

@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {
   ApplicationConfig,
   ErrorHandler,
@@ -12,6 +12,7 @@ import { provideRouter, TitleStrategy } from '@angular/router';
 import { routes } from './app.routes';
 import { AppInitializer } from './core/config/app-initializer';
 import { CustomErrorHandler } from './core/errors/custom-error-handler';
+import { ApiErrorInterceptor } from './core/interceptors/api-error.interceptor';
 import { TitleStrategyService } from './core/services/title-strategy.service';
 
 export const appConfig: ApplicationConfig = {
@@ -33,9 +34,11 @@ export const appConfig: ApplicationConfig = {
       },
     },
 
+    { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
+
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
   ],
 };

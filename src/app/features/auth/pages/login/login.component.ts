@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { LoginRequest } from '../../../../core/auth/models/login.request';
-import { AuthApiService } from '../../../../core/auth/services/auth-api.service';
+import { AuthService } from '../../../../core/auth/services/auth.service';
+import { logInfo } from '../../../../core/errors/log-messages';
+import { BadRequest } from '../../../../core/models/bad-request';
 import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
 
 @Component({
@@ -11,7 +14,8 @@ import { PageBaseComponent } from '../../../../shared/components/pages/page-base
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private authApiService = inject(AuthApiService);
+  private authService = inject(AuthService);
+  private badRequest: BadRequest | null = null;
 
   constructor() {
     const loginRequest: LoginRequest = {
@@ -19,8 +23,13 @@ export class LoginComponent {
       password: 'Password4!',
     };
 
-    this.authApiService.login(loginRequest).subscribe((response) => {
-      console.log(response);
+    this.authService.login(loginRequest).subscribe({
+      next: (isLoggedIn) => {
+        logInfo(String(isLoggedIn));
+      },
+      error: (error: HttpErrorResponse) => {
+        this.badRequest = error.error as BadRequest;
+      },
     });
   }
 }

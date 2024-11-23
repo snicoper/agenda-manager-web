@@ -1,5 +1,7 @@
 import { AppEnvironment } from '../config/app-environment';
 
+/* eslint-disable  no-console  */
+
 interface LogSettings {
   key: string;
   color: string;
