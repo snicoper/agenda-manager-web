@@ -1,0 +1,29 @@
+@if (items.length) {
+  <mat-form-field>
+    <mat-label>{{ label() }}</mat-label>
+    <input
+      aria-label="Selección de zona horaria"
+      matInput
+      (ngModelChange)="onChangeValue($event)"
+      [(ngModel)]="value"
+      [matAutocomplete]="timezones"
+      [disabled]="isDisabled"
+      [id]="id()"
+      [placeholder]="placeholder()"
+    />
+
+    <mat-autocomplete #timezones="matAutocomplete">
+      @for (item of itemsFiltered; track $index) {
+        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <am-field-error
+    [badRequest]="badRequest()"
+    [fieldName]="fieldName()"
+    [fieldText]="label()"
+    [form]="form()"
+    [submitted]="submitted()"
+  />
+}

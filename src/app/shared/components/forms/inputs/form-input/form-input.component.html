@@ -1,0 +1,30 @@
+<mat-form-field>
+  <mat-label>{{ label() }}</mat-label>
+  <input
+    matInput
+    (ngModelChange)="onChangeValue($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [id]="id()"
+    [placeholder]="placeholder()"
+    [type]="formInputType()"
+    [value]="value"
+    [readonly]="readonly()"
+  />
+
+  @if (icon() && formIconPosition() === iconPositions.prefix) {
+    <mat-icon matPrefix>{{ icon() }}</mat-icon>
+  } @else if (icon() && formIconPosition() === iconPositions.suffix) {
+    <mat-icon matSuffix>{{ icon() }}</mat-icon>
+  }
+</mat-form-field>
+
+@if (form()) {
+  <am-field-error
+    [badRequest]="badRequest()"
+    [fieldName]="fieldName()"
+    [fieldText]="label()"
+    [form]="form()"
+    [submitted]="submitted()"
+  />
+}

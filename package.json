@@ -22,6 +22,8 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "@thednp/color-picker": "^2.0.2",
+    "@vvo/tzdb": "^6.149.0",
     "jwt-decode": "^4.0.0",
     "luxon": "^3.5.0",
     "rxjs": "~7.8.1",

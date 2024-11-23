@@ -1,0 +1,24 @@
+<mat-form-field>
+  <mat-label>{{ label() }}</mat-label>
+  <textarea
+    matInput
+    (ngModelChange)="onChangeValue($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [id]="id()"
+    [placeholder]="placeholder()"
+    [value]="value"
+    [readonly]="readonly()"
+    [rows]="rows()"
+  ></textarea>
+</mat-form-field>
+
+@if (form()) {
+  <am-field-error
+    [badRequest]="badRequest()"
+    [fieldName]="fieldName()"
+    [fieldText]="label()"
+    [form]="form()"
+    [submitted]="submitted()"
+  />
+}

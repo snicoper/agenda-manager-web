@@ -1,0 +1,28 @@
+<div class="form-group d-flex flex-column">
+  <label class="mb-2" [for]="id()">{{ label() }}</label>
+  <div class="color-picker">
+    <input
+      #colorPicker
+      (ngModelChange)="onChangeValue($event)"
+      [(ngModel)]="value"
+      [disabled]="isDisabled"
+      [id]="id()"
+      [name]="id()"
+      [value]="value"
+      [attr.data-format]="dataFormat()"
+      [readonly]="readonly()"
+      data-function="color-picker"
+      class="btn-appearance"
+    />
+  </div>
+
+  @if (form()) {
+    <am-field-error
+      [badRequest]="badRequest()"
+      [fieldName]="fieldName()"
+      [fieldText]="label()"
+      [form]="form()"
+      [submitted]="submitted()"
+    />
+  }
+</div>
