@@ -1,5 +1,5 @@
 import { DateTime, Interval } from 'luxon';
-import { WeekDay } from '../types/weekdays/weekday';
+import { WeekDay } from '../types/weekday-flags';
 
 export abstract class DateUtils {
   /**
