@@ -1,11 +1,13 @@
 import { computed, inject, Injectable, OnDestroy, signal } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { map, Observable } from 'rxjs';
+import { logDebug } from '../../errors/log-messages';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
 import { AuthState } from '../models/auth-state';
 import { LoginRequest } from '../models/login.request';
 import { LoginResponse } from '../models/login.response';
+import { RefreshTokenRequest } from '../models/refresh-token.request';
 import { AuthApiService } from './auth-api.service';
 
 @Injectable({ providedIn: 'root' })
@@ -70,7 +72,13 @@ export class AuthService implements OnDestroy {
       isLoggedIn: false,
     }));
 
-    this.authApiService.refreshToken(this.refreshToken).subscribe({
+    logDebug('Refreshing token...');
+
+    const refreshTokenRequest: RefreshTokenRequest = {
+      refreshToken: this.refreshToken,
+    };
+
+    this.authApiService.refreshToken(refreshTokenRequest).subscribe({
       next: (response) => {
         this.state.update((state) => ({
           ...state,
@@ -79,9 +87,10 @@ export class AuthService implements OnDestroy {
         }));
 
         this.setTokenFromLoginResponse(response);
+        logDebug('Token refreshed');
       },
       error: () => {
-        // Si falla el refresh, hacemos logout.
+        logDebug('Token refresh failed');
         this.logout();
       },
     });
