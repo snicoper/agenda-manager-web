@@ -14,13 +14,13 @@ import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-l
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
+import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
 import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
 
 @Component({
   selector: 'am-login',
   imports: [
     ReactiveFormsModule,
-    // RouterLink,
     MatCardModule,
     MatButtonModule,
     MatDivider,
@@ -80,7 +80,7 @@ export class LoginComponent {
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, CustomValidators.email]],
       password: ['', [Validators.required]],
     });
   }

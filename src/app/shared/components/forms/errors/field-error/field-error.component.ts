@@ -3,6 +3,7 @@ import { Component, OnInit, input } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { MatHint } from '@angular/material/form-field';
 import { BadRequest } from '../../../../../core/models/bad-request';
+import { getValidationErrorMessage } from '../../validators/custom-validator-errors';
 
 @Component({
   selector: 'am-field-error',
@@ -53,29 +54,11 @@ export class FieldErrorComponent implements OnInit {
     return undefined;
   }
 
-  getControlErrorByErrorName(errorName: string): ValidationErrors | null {
-    return this.control?.hasError(errorName) ? this.control.errors : null;
-  }
-
-  /** Maneja un error "Validator.max(x)" de Angular. */
-  getValidationErrorMax(): { max: number; actual: number } | void {
-    const validationError = this.getControlErrorByErrorName('max');
-
-    if (validationError) {
-      const data = validationError['max'];
-
-      return data;
+  getValidationErrors(): string[] | undefined {
+    if (!this.control?.errors) {
+      return [];
     }
-  }
 
-  /** Maneja un error "Validator.min(x)" de Angular. */
-  getValidationErrorMin(): { min: number; actual: number } | void {
-    const validationError = this.getControlErrorByErrorName('min');
-
-    if (validationError) {
-      const data = validationError['min'];
-
-      return data;
-    }
+    return Object.keys(this.control.errors).map((error) => getValidationErrorMessage(error));
   }
 }
