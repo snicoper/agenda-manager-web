@@ -1,9 +1,96 @@
+@use "variables" as *;
+
 html,
 body {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--am-primary);
+
+  &:hover {
+    color: var(--am-accent);
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/***************
+ * TEXTS.
+ */
+
+.nl2br {
+  white-space: pre-wrap;
+}
+
+.small {
+  font-size: 0.8rem;
+}
+
+/***************
+ * COLORS.
+ */
+
+.bg-transparent {
+  background-color: transparent;
+  color: transparent;
+}
+
+.bg-success {
+  background-color: $am-color-success;
+  color: #ffffff;
+}
+
+.bg-info {
+  background-color: $am-color-info;
+  color: #000000;
+}
+
+.bg-warning {
+  background-color: $am-color-warning;
+  color: #000000;
+}
+
+.bg-danger {
+  background-color: $am-color-danger;
+  color: #ffffff;
+}
+
+.text-success {
+  color: $am-color-success;
+}
+
+.text-info {
+  color: $am-color-info;
+}
+
+.text-warning {
+  color: $am-color-warning;
+}
+
+.text-danger {
+  color: $am-color-danger;
+}
+
+.text-muted {
+  color: #8d8b8b;
+}
+
+/***********************
+ *
+ */
+
+/** Centrar elementos verticalmente. */
+.align-center {
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
 }

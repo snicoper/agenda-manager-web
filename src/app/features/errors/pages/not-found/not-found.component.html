@@ -1,0 +1,14 @@
+<am-page-simple>
+  <section class="not-found-container">
+    <img alt="logo" ngSrc="images/404.jpg" width="400" height="300" />
+    <h2 class="mat-headline-4">Página no encontrada</h2>
+    <span class="mat-headline-2">:(</span>
+    <div>
+      <am-btn-back />
+      <button [routerLink]="siteUrls.home" color="accent" mat-flat-button class="ms-2">
+        <mat-icon>home</mat-icon>
+        Inicio
+      </button>
+    </div>
+  </section>
+</am-page-simple>

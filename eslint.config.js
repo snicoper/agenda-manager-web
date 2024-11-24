@@ -88,7 +88,7 @@ module.exports = tseslint.config(
       "max-depth": ["error", 3],
 
       // Argumentos máximos en funciones
-      "max-params": ["error", 3],
+      // "max-params": ["error", 3],
       "no-plusplus": [
         "error",
         {

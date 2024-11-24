@@ -1,0 +1,99 @@
+// Variables
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  // 4px
+  2: 0.5rem,
+  // 8px
+  3: 1rem,
+  // 16px
+  4: 1.5rem,
+  // 24px
+  5: 3rem // 48px,,
+);
+
+// Breakpoints (opcional, si quieres responsive)
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+// Generar clases de margin y padding
+@each $space-key, $space-value in $spacers {
+  // Margin
+  .m-#{$space-key} {
+    margin: $space-value !important;
+  }
+  .mt-#{$space-key} {
+    margin-top: $space-value !important;
+  }
+  .mb-#{$space-key} {
+    margin-bottom: $space-value !important;
+  }
+  .ms-#{$space-key} {
+    margin-left: $space-value !important;
+  }
+  .me-#{$space-key} {
+    margin-right: $space-value !important;
+  }
+  .mx-#{$space-key} {
+    margin-left: $space-value !important;
+    margin-right: $space-value !important;
+  }
+  .my-#{$space-key} {
+    margin-top: $space-value !important;
+    margin-bottom: $space-value !important;
+  }
+
+  // Padding
+  .p-#{$space-key} {
+    padding: $space-value !important;
+  }
+  .pt-#{$space-key} {
+    padding-top: $space-value !important;
+  }
+  .pb-#{$space-key} {
+    padding-bottom: $space-value !important;
+  }
+  .ps-#{$space-key} {
+    padding-left: $space-value !important;
+  }
+  .pe-#{$space-key} {
+    padding-right: $space-value !important;
+  }
+  .px-#{$space-key} {
+    padding-left: $space-value !important;
+    padding-right: $space-value !important;
+  }
+  .py-#{$space-key} {
+    padding-top: $space-value !important;
+    padding-bottom: $space-value !important;
+  }
+}
+
+// Clases responsive (opcional)
+@each $breakpoint-key, $breakpoint-value in $breakpoints {
+  @media (min-width: $breakpoint-value) {
+    @each $space-key, $space-value in $spacers {
+      // Margin responsive
+      .m-#{$breakpoint-key}-#{$space-key} {
+        margin: $space-value !important;
+      }
+      .mt-#{$breakpoint-key}-#{$space-key} {
+        margin-top: $space-value !important;
+      }
+      // ... resto de margenes
+
+      // Padding responsive
+      .p-#{$breakpoint-key}-#{$space-key} {
+        padding: $space-value !important;
+      }
+      .pt-#{$breakpoint-key}-#{$space-key} {
+        padding-top: $space-value !important;
+      }
+      // ... resto de paddings
+    }
+  }
+}

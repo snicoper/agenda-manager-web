@@ -26,6 +26,8 @@ export class AuthGuard {
   }
 
   private async handleUnauthorized(returnUrl: string): Promise<void> {
+    logDebug('No autorizado');
+    logDebug(`Redireccionando a ${SiteUrls.auth.login}`);
     await this.router.navigate([SiteUrls.auth.login], { queryParams: { returnUrl } });
   }
 

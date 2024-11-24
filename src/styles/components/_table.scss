@@ -1,0 +1,40 @@
+// Tabla tipo lista.
+.table-list {
+  width: 100%;
+
+  tbody {
+    tr.table-list-row {
+      td,
+      th {
+        padding: 10px;
+        border-bottom: 1px solid var(--aw-background-secondary);
+      }
+    }
+  }
+}
+
+// Ocultar botones de acción hasta hacer hover en la row.
+// Example: <mat-icon class="btn-action">add</mat-icon>
+table {
+  tr {
+    td,
+    th {
+      .material-icons {
+        &.btn-action {
+          display: none !important;
+        }
+      }
+    }
+
+    &:hover {
+      td,
+      th {
+        .material-icons {
+          &.btn-action {
+            display: inline-block !important;
+          }
+        }
+      }
+    }
+  }
+}

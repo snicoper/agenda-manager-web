@@ -1,0 +1,29 @@
+@use "variables" as *;
+
+.alert {
+  border-radius: 4px;
+
+  &.alert-success {
+    border: 1px solid scale($am-color-success, 10);
+    background-color: $am-color-success;
+    color: scale($am-color-success, 60);
+  }
+
+  &.alert-info {
+    border: 1px solid scale($am-color-info, 10);
+    background-color: $am-color-info;
+    color: scale($am-color-info, 60);
+  }
+
+  &.alert-warning {
+    border: 1px solid scale($am-color-warning, 10);
+    background-color: $am-color-warning;
+    color: scale($am-color-warning, 60);
+  }
+
+  &.alert-danger {
+    border: 1px solid scale($am-color-danger, 10);
+    background-color: $am-color-danger;
+    color: scale($am-color-danger, 60);
+  }
+}

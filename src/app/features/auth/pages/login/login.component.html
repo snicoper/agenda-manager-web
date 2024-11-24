@@ -1,3 +1,49 @@
 <am-page-simple>
-  <section class="login-container"></section>
+  <section class="login-container">
+    <form (ngSubmit)="handleSubmit()" [formGroup]="form" class="form">
+      <mat-card class="mat-elevation-z3 p-4">
+        <mat-card-header>
+          <mat-card-title class="title">
+            <h1>Identificarse</h1>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <am-non-field-errors [badRequest]="badRequest" />
+
+          <!-- email -->
+          <am-form-input
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="isSubmitted"
+            fieldName="email"
+            formControlName="email"
+            label="Correo electrónico"
+            icon="mail"
+          />
+
+          <!-- password -->
+          <am-form-input
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="isSubmitted"
+            [formInputType]="formInputType.Password"
+            fieldName="password"
+            formControlName="password"
+            label="Contraseña"
+            icon="lock"
+          />
+
+          <mat-divider />
+        </mat-card-content>
+
+        <mat-card-footer class="mt-4 ms-2">
+          <am-btn-loading [loading]="isLoading" btnText="Identificar" />
+          <!-- <button mat-stroked-button class="ms-2" type="button" [routerLink]="[siteUrl.accounts.recoveryPassword]">
+            ¿Olvidaste contraseña?
+          </button> -->
+        </mat-card-footer>
+      </mat-card>
+    </form>
+  </section>
 </am-page-simple>

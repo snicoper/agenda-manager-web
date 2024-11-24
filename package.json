@@ -24,6 +24,7 @@
     "@angular/router": "^19.0.0",
     "@thednp/color-picker": "^2.0.2",
     "@vvo/tzdb": "^6.149.0",
+    "bootstrap": "^5.3.3",
     "jwt-decode": "^4.0.0",
     "luxon": "^3.5.0",
     "rxjs": "~7.8.1",

@@ -1,14 +1,34 @@
-import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute, Router } from '@angular/router';
+import { finalize } from 'rxjs';
+import { LoginRequest } from '../../../../core/auth/models/login.request';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { BadRequest } from '../../../../core/models/bad-request';
+import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
+import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
+import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
+import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
 import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
 
 @Component({
   selector: 'am-login',
-  imports: [CommonModule, PageSimpleComponent],
+  imports: [
+    ReactiveFormsModule,
+    // RouterLink,
+    MatCardModule,
+    MatButtonModule,
+    MatDivider,
+    PageSimpleComponent,
+    FormInputComponent,
+    NonFieldErrorsComponent,
+    BtnLoadingComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -17,19 +37,49 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private shackBarService = inject(SnackBarService);
 
-  private badRequest: BadRequest | undefined;
+  private readonly returnUrl = this.route.snapshot.queryParams['returnUrl'];
+
+  readonly formInputType = FormInputType;
+
+  form: FormGroup = this.formBuilder.group({});
+  badRequest: BadRequest | undefined;
+  isSubmitted = false;
+  isLoading = false;
 
   constructor() {
     this.buildForm();
+
+    this.shackBarService.success('Bienvenido a la aplicación');
   }
 
   handleSubmit(): void {
-    // ...
+    this.authService.logout();
+    this.isSubmitted = true;
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.isLoading = true;
+    const loginRequest = this.form.value as LoginRequest;
+
+    this.authService
+      .login(loginRequest)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.router.navigate([this.returnUrl ?? '/'], { replaceUrl: true });
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
+        },
+      });
   }
 
   private buildForm(): void {
-    this.formBuilder.group({
+    this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });

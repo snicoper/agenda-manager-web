@@ -13,17 +13,17 @@ import { BadRequest } from '../../../../../core/models/bad-request';
 export class NonFieldErrorsComponent {
   badRequest = input.required<BadRequest | undefined>();
 
-  get hasErrors(): boolean {
+  get hasError(): boolean {
     if (this.badRequest()?.status === HttpStatusCode.Conflict) {
-      return !!Object.values(this.badRequest()?.errors as Record<string, string[]>).flat().length;
+      return [this.badRequest()?.detail].flat().length > 0;
     }
 
     return false;
   }
 
-  getErrors(): string[] | undefined {
+  get getError(): string | undefined {
     if (this.badRequest()?.status === HttpStatusCode.Conflict) {
-      return Object.values(this.badRequest()?.errors as Record<string, string[]>).flat();
+      return this.badRequest()?.detail;
     }
 
     return undefined;

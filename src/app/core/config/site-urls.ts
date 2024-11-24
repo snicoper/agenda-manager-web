@@ -2,6 +2,6 @@ export const SiteUrls = {
   home: '/',
 
   auth: {
-    login: '/login',
+    login: '/auth/login',
   },
 };

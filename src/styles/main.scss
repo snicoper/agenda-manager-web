@@ -1,3 +1,7 @@
 @use "variables";
-@use "material/themes";
+@use "material/main.scss" as material;
+
 @use "base";
+
+@use "utilities/main" as utilities;
+@use "components/main" as components;

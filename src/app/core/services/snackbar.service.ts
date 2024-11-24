@@ -13,16 +13,19 @@ export class SnackBarService {
    * @param message Mensaje a mostrar
    * @param posY MatSnackBarVerticalPosition ('top' | 'bottom').
    * @param posX MatSnackBarHorizontalPosition ('start' | 'center' | 'end' | 'left' | 'right').
+   * @param duration Duración en milisegundos.
    */
   success(
     message: string,
     posY: MatSnackBarVerticalPosition = 'top',
     posX: MatSnackBarHorizontalPosition = 'right',
+    duration = 3000,
   ): void {
     this.matSnackBar.open(message, 'X', {
       panelClass: ['snackbar-success'],
       verticalPosition: posY,
       horizontalPosition: posX,
+      duration: duration,
     });
   }
 
@@ -33,16 +36,19 @@ export class SnackBarService {
    * @param message Mensaje a mostrar
    * @param posY MatSnackBarVerticalPosition ('top' | 'bottom').
    * @param posX MatSnackBarHorizontalPosition ('start' | 'center' | 'end' | 'left' | 'right').
+   * @param duration Duración en milisegundos.
    */
   info(
     message: string,
     posY: MatSnackBarVerticalPosition = 'top',
     posX: MatSnackBarHorizontalPosition = 'right',
+    duration = 3000,
   ): void {
     this.matSnackBar.open(message, 'X', {
       panelClass: ['snackbar-info'],
       verticalPosition: posY,
       horizontalPosition: posX,
+      duration: duration,
     });
   }
 
@@ -53,16 +59,19 @@ export class SnackBarService {
    * @param message Mensaje a mostrar
    * @param posY MatSnackBarVerticalPosition ('top' | 'bottom').
    * @param posX MatSnackBarHorizontalPosition ('start' | 'center' | 'end' | 'left' | 'right').
+   * @param duration Duración en milisegundos.
    */
   warning(
     message: string,
     posY: MatSnackBarVerticalPosition = 'top',
     posX: MatSnackBarHorizontalPosition = 'right',
+    duration = 3000,
   ): void {
     this.matSnackBar.open(message, 'X', {
       panelClass: ['snackbar-warning'],
       verticalPosition: posY,
       horizontalPosition: posX,
+      duration: duration,
     });
   }
 
@@ -73,16 +82,19 @@ export class SnackBarService {
    * @param message Mensaje a mostrar
    * @param posY MatSnackBarVerticalPosition ('top' | 'bottom').
    * @param posX MatSnackBarHorizontalPosition ('start' | 'center' | 'end' | 'left' | 'right').
+   * @param duration Duración en milisegundos.
    */
   error(
     message: string,
     posY: MatSnackBarVerticalPosition = 'top',
     posX: MatSnackBarHorizontalPosition = 'right',
+    duration = 3000,
   ): void {
     this.matSnackBar.open(message, 'X', {
       panelClass: ['snackbar-danger'],
       verticalPosition: posY,
       horizontalPosition: posX,
+      duration: duration,
     });
   }
 }

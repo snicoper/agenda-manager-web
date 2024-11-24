@@ -1,0 +1,35 @@
+/** Toast. **/
+.mat-mdc-snack-bar-container {
+  &.snackbar-success,
+  &.snackbar-error,
+  &.snackbar-warning {
+    max-width: 300px;
+    position: relative;
+    right: 0;
+    top: 60px;
+  }
+
+  &.snackbar-success {
+    --mdc-snackbar-container-color: #66bb6a;
+    --mat-mdc-snack-bar-button-color: #ffffff;
+    --mdc-snackbar-supporting-text-color: #ffffff;
+  }
+
+  &.snackbar-info {
+    --mdc-snackbar-container-color: #64b5f6;
+    --mat-mdc-snack-bar-button-color: #000000;
+    --mdc-snackbar-supporting-text-color: #000000;
+  }
+
+  &.snackbar-warning {
+    --mdc-snackbar-container-color: #ffcc80;
+    --mat-mdc-snack-bar-button-color: #000000;
+    --mdc-snackbar-supporting-text-color: #000000;
+  }
+
+  &.snackbar-danger {
+    --mdc-snackbar-container-color: #e57373;
+    --mat-mdc-snack-bar-button-color: #ffffff;
+    --mdc-snackbar-supporting-text-color: #ffffff;
+  }
+}

@@ -1,11 +1,9 @@
-@if (hasErrors) {
+@if (hasError) {
   <mat-card>
     <mat-card-content>
       <div class="alert alert-danger">
         <mat-list>
-          @for (error of getErrors(); track error) {
-            <mat-list-item>{{ error }}</mat-list-item>
-          }
+          <mat-list-item>{{ getError }}</mat-list-item>
         </mat-list>
       </div>
     </mat-card-content>
