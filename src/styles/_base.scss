@@ -17,10 +17,10 @@ body {
 
 a {
   text-decoration: none;
-  color: var(--am-primary);
+  color: var(--sys-primary);
 
   &:hover {
-    color: var(--am-accent);
+    color: var(--sys-secondary);
   }
 }
 
@@ -50,39 +50,39 @@ a {
 }
 
 .bg-success {
-  background-color: var(--am-success);
+  background-color: var(--sys-success);
   color: #ffffff;
 }
 
 .bg-info {
-  background-color: var(--am-info);
+  background-color: var(--sys-info);
   color: #000000;
 }
 
 .bg-warning {
-  background-color: var(--am-warning);
+  background-color: var(--sys-warning);
   color: #000000;
 }
 
 .bg-danger {
-  background-color: var(--am-danger);
+  background-color: var(--sys-danger);
   color: #ffffff;
 }
 
 .text-success {
-  color: var(--am-success);
+  color: var(--sys-success);
 }
 
 .text-info {
-  color: var(--am-info);
+  color: var(--sys-info);
 }
 
 .text-warning {
-  color: var(--am-warning);
+  color: var(--sys-warning);
 }
 
 .text-danger {
-  color: var(--am-danger);
+  color: var(--sys-danger);
 }
 
 .text-muted {

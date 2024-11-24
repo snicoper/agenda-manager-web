@@ -13,7 +13,7 @@ export class SnackBarService {
    * @param message Mensaje a mostrar
    * @param posY MatSnackBarVerticalPosition ('top' | 'bottom').
    * @param posX MatSnackBarHorizontalPosition ('start' | 'center' | 'end' | 'left' | 'right').
-   * @param duration Duración en milisegundos.
+   * @param duration Duración en mili segundos.
    */
   success(
     message: string,
@@ -36,7 +36,7 @@ export class SnackBarService {
    * @param message Mensaje a mostrar
    * @param posY MatSnackBarVerticalPosition ('top' | 'bottom').
    * @param posX MatSnackBarHorizontalPosition ('start' | 'center' | 'end' | 'left' | 'right').
-   * @param duration Duración en milisegundos.
+   * @param duration Duración en mili segundos.
    */
   info(
     message: string,
@@ -59,7 +59,7 @@ export class SnackBarService {
    * @param message Mensaje a mostrar
    * @param posY MatSnackBarVerticalPosition ('top' | 'bottom').
    * @param posX MatSnackBarHorizontalPosition ('start' | 'center' | 'end' | 'left' | 'right').
-   * @param duration Duración en milisegundos.
+   * @param duration Duración en mili segundos.
    */
   warning(
     message: string,
@@ -82,7 +82,7 @@ export class SnackBarService {
    * @param message Mensaje a mostrar
    * @param posY MatSnackBarVerticalPosition ('top' | 'bottom').
    * @param posX MatSnackBarHorizontalPosition ('start' | 'center' | 'end' | 'left' | 'right').
-   * @param duration Duración en milisegundos.
+   * @param duration Duración en mili segundos.
    */
   error(
     message: string,
