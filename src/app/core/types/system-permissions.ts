@@ -8,6 +8,7 @@ export interface Permission {
 export interface SystemPermissionsType {
   Appointments: Permission;
   AppointmentStatuses: Permission;
+  AuditRecords: Permission;
   Calendars: Permission;
   CalendarHolidays: Permission;
   Resources: Permission;
@@ -33,6 +34,13 @@ export const SystemPermissions: SystemPermissionsType = {
     Read: 'appointment-status:read',
     Update: 'appointment-status:update',
     Delete: 'appointment-status:delete',
+  },
+
+  AuditRecords: {
+    Create: 'audit-record:create',
+    Read: 'audit-record:read',
+    Update: 'audit-record:update',
+    Delete: 'audit-record:delete',
   },
 
   Calendars: {
