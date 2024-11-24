@@ -4,10 +4,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { LoginRequest } from '../../../../core/auth/models/login.request';
 import { AuthService } from '../../../../core/auth/services/auth.service';
+import { SiteUrls } from '../../../../core/config/site-urls';
 import { BadRequest } from '../../../../core/models/bad-request';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -20,6 +21,7 @@ import { PageSimpleComponent } from '../../../../shared/components/pages/page-si
   selector: 'am-login',
   imports: [
     ReactiveFormsModule,
+    RouterLink,
     MatCardModule,
     MatButtonModule,
     MatDivider,
@@ -39,6 +41,7 @@ export class LoginComponent {
 
   private readonly returnUrl = this.route.snapshot.queryParams['returnUrl'];
 
+  readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
 
   form: FormGroup = this.formBuilder.group({});

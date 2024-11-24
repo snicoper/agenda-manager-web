@@ -1,6 +1,10 @@
 export const SiteUrls = {
   home: '/',
 
+  accounts: {
+    recoveryPassword: '/accounts/recovery-password',
+  },
+
   auth: {
     login: '/auth/login',
   },

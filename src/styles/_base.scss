@@ -8,6 +8,8 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--sys-background);
+  color: var(--sys-on-background);
 }
 
 /** Importante, para ocultar los permisos en los directivos. */
