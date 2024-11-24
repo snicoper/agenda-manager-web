@@ -50,39 +50,39 @@ a {
 }
 
 .bg-success {
-  background-color: $am-color-success;
+  background-color: var(--am-success);
   color: #ffffff;
 }
 
 .bg-info {
-  background-color: $am-color-info;
+  background-color: var(--am-info);
   color: #000000;
 }
 
 .bg-warning {
-  background-color: $am-color-warning;
+  background-color: var(--am-warning);
   color: #000000;
 }
 
 .bg-danger {
-  background-color: $am-color-danger;
+  background-color: var(--am-danger);
   color: #ffffff;
 }
 
 .text-success {
-  color: $am-color-success;
+  color: var(--am-success);
 }
 
 .text-info {
-  color: $am-color-info;
+  color: var(--am-info);
 }
 
 .text-warning {
-  color: $am-color-warning;
+  color: var(--am-warning);
 }
 
 .text-danger {
-  color: $am-color-danger;
+  color: var(--am-danger);
 }
 
 .text-muted {

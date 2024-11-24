@@ -1,4 +1,4 @@
-// Variables
+// Variables.
 $spacers: (
   0: 0,
   1: 0.25rem,
@@ -9,10 +9,10 @@ $spacers: (
   // 16px
   4: 1.5rem,
   // 24px
-  5: 3rem // 48px,,
+  5: 3rem // 48px,,,,,
 );
 
-// Breakpoints (opcional, si quieres responsive)
+// Breakpoints.
 $breakpoints: (
   sm: 576px,
   md: 768px,
@@ -20,80 +20,96 @@ $breakpoints: (
   xl: 1200px,
 );
 
-// Generar clases de margin y padding
+// Generar clases de margin y padding.
 @each $space-key, $space-value in $spacers {
   // Margin
   .m-#{$space-key} {
-    margin: $space-value !important;
+    margin: $space-value;
   }
   .mt-#{$space-key} {
-    margin-top: $space-value !important;
+    margin-top: $space-value;
   }
   .mb-#{$space-key} {
-    margin-bottom: $space-value !important;
+    margin-bottom: $space-value;
   }
   .ms-#{$space-key} {
-    margin-left: $space-value !important;
+    margin-left: $space-value;
   }
   .me-#{$space-key} {
-    margin-right: $space-value !important;
+    margin-right: $space-value;
   }
   .mx-#{$space-key} {
-    margin-left: $space-value !important;
-    margin-right: $space-value !important;
+    margin-left: $space-value;
+    margin-right: $space-value;
   }
   .my-#{$space-key} {
-    margin-top: $space-value !important;
-    margin-bottom: $space-value !important;
+    margin-top: $space-value;
+    margin-bottom: $space-value;
   }
 
   // Padding
   .p-#{$space-key} {
-    padding: $space-value !important;
+    padding: $space-value;
   }
   .pt-#{$space-key} {
-    padding-top: $space-value !important;
+    padding-top: $space-value;
   }
   .pb-#{$space-key} {
-    padding-bottom: $space-value !important;
+    padding-bottom: $space-value;
   }
   .ps-#{$space-key} {
-    padding-left: $space-value !important;
+    padding-left: $space-value;
   }
   .pe-#{$space-key} {
-    padding-right: $space-value !important;
+    padding-right: $space-value;
   }
   .px-#{$space-key} {
-    padding-left: $space-value !important;
-    padding-right: $space-value !important;
+    padding-left: $space-value;
+    padding-right: $space-value;
   }
   .py-#{$space-key} {
-    padding-top: $space-value !important;
-    padding-bottom: $space-value !important;
+    padding-top: $space-value;
+    padding-bottom: $space-value;
   }
 }
 
-// Clases responsive (opcional)
+// Clases responsive.
 @each $breakpoint-key, $breakpoint-value in $breakpoints {
   @media (min-width: $breakpoint-value) {
     @each $space-key, $space-value in $spacers {
-      // Margin responsive
+      // Margin responsive.
       .m-#{$breakpoint-key}-#{$space-key} {
-        margin: $space-value !important;
+        margin: $space-value;
       }
       .mt-#{$breakpoint-key}-#{$space-key} {
-        margin-top: $space-value !important;
+        margin-top: $space-value;
       }
-      // ... resto de margenes
+      .mb-#{$breakpoint-key}-#{$space-key} {
+        margin-bottom: $space-value;
+      }
+      .ms-#{$breakpoint-key}-#{$space-key} {
+        margin-left: $space-value;
+      }
+      .me-#{$breakpoint-key}-#{$space-key} {
+        margin-right: $space-value;
+      }
 
-      // Padding responsive
+      // Padding responsive.
       .p-#{$breakpoint-key}-#{$space-key} {
-        padding: $space-value !important;
+        padding: $space-value;
       }
       .pt-#{$breakpoint-key}-#{$space-key} {
-        padding-top: $space-value !important;
+        padding-top: $space-value;
       }
-      // ... resto de paddings
+      .pb-#{$breakpoint-key}-#{$space-key} {
+        padding-bottom: $space-value;
+      }
+      .ps-#{$breakpoint-key}-#{$space-key} {
+        padding-left: $space-value;
+      }
+      .pe-#{$breakpoint-key}-#{$space-key} {
+        padding-right: $space-value;
+      }
     }
   }
 }

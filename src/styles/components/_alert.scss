@@ -1,29 +1,27 @@
-@use "variables" as *;
-
 .alert {
   border-radius: 4px;
 
   &.alert-success {
-    border: 1px solid scale($am-color-success, 10);
-    background-color: $am-color-success;
-    color: scale($am-color-success, 60);
+    border: 1px solid scale(var(--am-success), 10);
+    background-color: var(--am-success);
+    color: scale(var(--am-success), 60);
   }
 
   &.alert-info {
-    border: 1px solid scale($am-color-info, 10);
-    background-color: $am-color-info;
-    color: scale($am-color-info, 60);
+    border: 1px solid scale(var(--am-info), 10);
+    background-color: var(--am-info);
+    color: scale(var(--am-info), 60);
   }
 
   &.alert-warning {
-    border: 1px solid scale($am-color-warning, 10);
-    background-color: $am-color-warning;
-    color: scale($am-color-warning, 60);
+    border: 1px solid scale(var(--am-warning), 10);
+    background-color: var(--am-warning);
+    color: scale(var(--am-warning), 60);
   }
 
   &.alert-danger {
-    border: 1px solid scale($am-color-danger, 10);
-    background-color: $am-color-danger;
-    color: scale($am-color-danger, 60);
+    border: 1px solid scale(var(--am-danger), 10);
+    background-color: var(--am-danger);
+    color: scale(var(--am-danger), 60);
   }
 }
