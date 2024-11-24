@@ -1,16 +1,20 @@
 @if ((submitted() && formHasErrors()) || controlHasErrors() || getBadRequestErrors()) {
-  <div class="text-danger field-error-container">
+  <div class="field-error-container">
     @for (error of getValidationErrors(); track $index) {
-      <mat-hint>{{ error }}</mat-hint>
+      <span class="text-danger">
+        <mat-hint>{{ error }}</mat-hint>
+        <br />
+      </span>
     }
 
     <!-- errores obtenidos del backend. -->
     @if (getBadRequestErrors()) {
-      <div>
-        @for (error of getBadRequestErrors(); track error) {
+      @for (error of getBadRequestErrors(); track $index) {
+        <span class="text-danger">
           <mat-hint>{{ error }}</mat-hint>
-        }
-      </div>
+          <br />
+        </span>
+      }
     }
   </div>
 }

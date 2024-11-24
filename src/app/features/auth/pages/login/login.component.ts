@@ -9,7 +9,6 @@ import { finalize } from 'rxjs';
 import { LoginRequest } from '../../../../core/auth/models/login.request';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { BadRequest } from '../../../../core/models/bad-request';
-import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
@@ -37,7 +36,6 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private shackBarService = inject(SnackBarService);
 
   private readonly returnUrl = this.route.snapshot.queryParams['returnUrl'];
 
@@ -50,8 +48,6 @@ export class LoginComponent {
 
   constructor() {
     this.buildForm();
-
-    this.shackBarService.success('Bienvenido a la aplicación');
   }
 
   handleSubmit(): void {
