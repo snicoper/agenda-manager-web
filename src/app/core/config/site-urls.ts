@@ -4,4 +4,9 @@ export const SiteUrls = {
   auth: {
     login: '/auth/login',
   },
+
+  errors: {
+    notFound: '/errors/404',
+    forbidden: '/errors/403',
+  },
 };

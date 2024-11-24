@@ -3,6 +3,26 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { AuthService } from '../auth/services/auth.service';
 import { SiteUrls } from '../config/site-urls';
 import { logDebug } from '../errors/log-messages';
+import { SystemRole } from '../types/system-roles';
+
+//   {
+//     path: 'appointments',
+//     component: AppointmentsComponent,
+//     data: {
+//       auth: {
+//         roles: [SystemRoles.AssignableStaff, SystemRoles.Employee],
+//         permissions: [SystemPermissions.Appointments.Read],
+//         requiresAll: false // necesita ser staff O employee Y tener el permiso
+//       }
+//     },
+//     canActivate: [AuthGuard]
+//   }
+
+interface RouteAuthConfig {
+  permissions?: string[];
+  roles?: SystemRole[];
+  requiresAll?: boolean;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard {
@@ -22,26 +42,57 @@ export class AuthGuard {
       return false;
     }
 
-    return this.checkPermissions(route.data['permissions']);
+    const config = route.data['auth'] as RouteAuthConfig;
+
+    return this.checkAuthorization(config);
   }
 
   private async handleUnauthorized(returnUrl: string): Promise<void> {
-    logDebug('No autorizado');
-    logDebug(`Redireccionando a ${SiteUrls.auth.login}`);
     await this.router.navigate([SiteUrls.auth.login], { queryParams: { returnUrl } });
   }
 
-  private checkPermissions(permissions?: string[]): boolean {
+  private checkAuthorization(config?: RouteAuthConfig): boolean {
+    if (!config?.permissions?.length && !config?.roles?.length) {
+      return true;
+    }
+
+    const requiresAll = config.requiresAll ?? true;
+
+    const hasPermissions = this.checkPermissions(config.permissions, requiresAll);
+    const hasRoles = this.checkRoles(config.roles, requiresAll);
+
+    return hasPermissions && hasRoles;
+  }
+
+  private checkPermissions(permissions?: string[], requiresAll = true): boolean {
     if (!permissions?.length) {
       return true;
     }
 
-    const hasPermission = permissions.every((permission) => this.authService.hasPermission(permission));
+    const hasPermissions = requiresAll
+      ? permissions.every((permission) => this.authService.hasPermission(permission))
+      : permissions.some((permission) => this.authService.hasPermission(permission));
 
-    if (!hasPermission) {
+    if (!hasPermissions) {
       logDebug(`Permisos requeridos para acceder: ${permissions.join(', ')}`);
     }
 
-    return hasPermission;
+    return hasPermissions;
+  }
+
+  private checkRoles(roles?: SystemRole[], requiresAll = true): boolean {
+    if (!roles?.length) {
+      return true;
+    }
+
+    const hasRoles = requiresAll
+      ? roles.every((role) => this.authService.hasRole(role))
+      : roles.some((role) => this.authService.hasRole(role));
+
+    if (!hasRoles) {
+      logDebug(`Roles requeridos para acceder: ${roles.join(', ')}`);
+    }
+
+    return hasRoles;
   }
 }
