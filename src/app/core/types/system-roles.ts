@@ -15,6 +15,8 @@ export const SystemRoles = Object.freeze({
    * and external collaborators to be assigned as resources.
    */
   AssignableStaff: 'AssignableStaff' as const,
+
+  Anonymous: 'Anonymous' as const,
 });
 
 export type SystemRole = (typeof SystemRoles)[keyof typeof SystemRoles];
