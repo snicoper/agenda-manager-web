@@ -48,18 +48,27 @@ export class RecoveryPasswordComponent {
   badRequest: BadRequest | undefined;
   isSubmitted = false;
   isLoading = false;
-  isSuccess: boolean | undefined;
+
+  // Alert.
+  isAlertVisible = false;
+  alertMessage = '';
+  alertType: 'success' | 'danger' | undefined;
+  response = false;
 
   constructor() {
     this.buildForm();
   }
 
   handleResetForm(): void {
-    this.isSuccess = undefined;
+    this.badRequest = undefined;
+    this.isSubmitted = false;
+    this.isAlertVisible = false;
+    this.alertMessage = '';
+    this.alertType = undefined;
+    this.response = false;
   }
 
   handleSubmit(): void {
-    this.isSuccess = undefined;
     this.isSubmitted = true;
 
     if (this.form.invalid) {
@@ -75,14 +84,20 @@ export class RecoveryPasswordComponent {
       .subscribe({
         next: (response) => {
           if (response) {
-            this.isSuccess = true;
+            this.isAlertVisible = true;
+            this.alertMessage = 'Email sent successfully';
+            this.alertType = 'success';
+            this.response = response;
           }
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;
 
           if (error.status === HttpStatusCode.NotFound) {
-            this.isSuccess = false;
+            this.isAlertVisible = true;
+            this.alertMessage = 'Email not found';
+            this.alertType = 'danger';
+            this.response = false;
           }
         },
       });

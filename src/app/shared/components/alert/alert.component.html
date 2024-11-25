@@ -1,5 +1,41 @@
-@if (type()) {
-  <div [class]="'alert alert-' + type()">
-    <ng-content />
+@if (show()) {
+  <div
+    class="alert alert-container"
+    [attr.aria-label]="'Alert: ' + type()"
+    [attr.aria-live]="type() === 'danger' ? 'assertive' : 'polite'"
+    [ngClass]="{
+      'alert-success': type() === 'success',
+      'alert-danger': type() === 'danger',
+      'alert-warning': type() === 'warning',
+      'alert-info': type() === 'info',
+    }"
+    role="alert"
+  >
+    @if (showIcon()) {
+      <div class="alert-icon">
+        @switch (type()) {
+          @case ("success") {
+            <mat-icon>check_circle</mat-icon>
+          }
+          @case ("danger") {
+            <mat-icon>error</mat-icon>
+          }
+          @case ("warning") {
+            <mat-icon>warning</mat-icon>
+          }
+          @case ("info") {
+            <mat-icon>info</mat-icon>
+          }
+        }
+      </div>
+    }
+
+    <div class="alert-content">
+      {{ message() }}
+    </div>
+
+    @if (dismissible()) {
+      <mat-icon class="alert-close" (click)="handleClose()">close</mat-icon>
+    }
   </div>
 }
