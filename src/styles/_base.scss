@@ -8,7 +8,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: var(--sys-background);
+  background: var(--sys-background);
   color: var(--sys-on-background);
 }
 
@@ -19,10 +19,10 @@ body {
 
 a {
   text-decoration: none;
-  color: var(--sys-primary);
+  color: var(--sys-on-primary);
 
   &:hover {
-    color: var(--sys-secondary);
+    color: var(--sys-on-secondary);
   }
 }
 
@@ -52,43 +52,39 @@ a {
 }
 
 .bg-success {
-  background-color: var(--sys-success);
+  background-color: var(--extended-success-color-container);
   color: #ffffff;
 }
 
 .bg-info {
-  background-color: var(--sys-info);
+  background-color: var(--extended-info-color-container);
   color: #000000;
 }
 
 .bg-warning {
-  background-color: var(--sys-warning);
+  background-color: var(--extended-warning-color-container);
   color: #000000;
 }
 
-.bg-danger {
-  background-color: var(--sys-danger);
+.bg-error {
+  background-color: var(--sys-error-container);
   color: #ffffff;
 }
 
 .text-success {
-  color: var(--sys-success);
+  color: var(--extended-success-on-color-container);
 }
 
 .text-info {
-  color: var(--sys-info);
+  color: var(--extended-info-on-color-container);
 }
 
 .text-warning {
-  color: var(--sys-warning);
+  color: var(--extended-warning-on-color-container);
 }
 
-.text-danger {
-  color: var(--sys-danger);
-}
-
-.text-muted {
-  color: #8d8b8b;
+.text-error {
+  color: var(--sys-error);
 }
 
 /***********************

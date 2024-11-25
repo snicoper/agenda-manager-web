@@ -91,7 +91,7 @@ export class SnackBarService {
     duration = 3000,
   ): void {
     this.matSnackBar.open(message, 'X', {
-      panelClass: ['snackbar-danger'],
+      panelClass: ['snackbar-error'],
       verticalPosition: posY,
       horizontalPosition: posX,
       duration: duration,

@@ -5,7 +5,7 @@
     [attr.aria-live]="type() === 'danger' ? 'assertive' : 'polite'"
     [ngClass]="{
       'alert-success': type() === 'success',
-      'alert-danger': type() === 'danger',
+      'alert-error': type() === 'danger',
       'alert-warning': type() === 'warning',
       'alert-info': type() === 'info',
     }"

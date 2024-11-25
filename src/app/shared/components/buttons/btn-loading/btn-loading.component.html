@@ -1,17 +1,10 @@
 @if (loading()) {
-  <button
-    mat-stroked-button
-    disabled
-    (click)="handleClick()"
-    [ngClass]="extraCss()"
-    [color]="color()"
-    [type]="btnType()"
-  >
+  <button mat-flat-button disabled (click)="handleClick()" [ngClass]="extraCss()" [color]="color()" [type]="btnType()">
     <mat-spinner [color]="spinnerColor()" [diameter]="25"></mat-spinner> {{ btnTextLoading() }}
   </button>
 } @else {
   <button
-    mat-stroked-button
+    mat-flat-button
     (click)="handleClick()"
     [ngClass]="extraCss()"
     [color]="color()"

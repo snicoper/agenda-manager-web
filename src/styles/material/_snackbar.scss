@@ -1,4 +1,5 @@
 /** Toast. **/
+// Selecciona los colores en base a los colores del tema.
 .mat-mdc-snack-bar-container {
   &.snackbar-success,
   &.snackbar-error,
@@ -10,26 +11,26 @@
   }
 
   &.snackbar-success {
-    --mdc-snackbar-container-color: #66bb6a;
-    --mat-mdc-snack-bar-button-color: #ffffff;
-    --mdc-snackbar-supporting-text-color: #ffffff;
+    --mdc-snackbar-container-color: var(--extended-success-color-container);
+    --mat-mdc-snack-bar-button-color: var(--extended-success-on-color-container);
+    --mdc-snackbar-supporting-text-color: var(--extended-success-on-color-container);
   }
 
   &.snackbar-info {
-    --mdc-snackbar-container-color: #64b5f6;
-    --mat-mdc-snack-bar-button-color: #000000;
-    --mdc-snackbar-supporting-text-color: #000000;
+    --mdc-snackbar-container-color: var(--extended-info-color-container);
+    --mat-mdc-snack-bar-button-color: var(--extended-info-on-color-container);
+    --mdc-snackbar-supporting-text-color: var(--extended-info-on-color-container);
   }
 
   &.snackbar-warning {
-    --mdc-snackbar-container-color: #ffcc80;
-    --mat-mdc-snack-bar-button-color: #000000;
-    --mdc-snackbar-supporting-text-color: #000000;
+    --mdc-snackbar-container-color: var(--extended-warning-color-container);
+    --mat-mdc-snack-bar-button-color: var(--extended-warning-on-color-container);
+    --mdc-snackbar-supporting-text-color: var(--extended-warning-on-color-container);
   }
 
-  &.snackbar-danger {
-    --mdc-snackbar-container-color: #e57373;
-    --mat-mdc-snack-bar-button-color: #ffffff;
-    --mdc-snackbar-supporting-text-color: #ffffff;
+  &.snackbar-error {
+    --mdc-snackbar-container-color: var(--sys-error-container);
+    --mat-mdc-snack-bar-button-color: var(--sys-on-error-container);
+    --mdc-snackbar-supporting-text-color: var(--sys-on-error-container);
   }
 }
