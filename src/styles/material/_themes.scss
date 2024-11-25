@@ -8,8 +8,8 @@ $light-theme: mat.define-theme(
   (
     color: (
       theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: mat.$blue-palette,
+      tertiary: mat.$azure-palette,
       use-system-variables: true,
     ),
     typography: (
@@ -24,8 +24,8 @@ $dark-theme: mat.define-theme(
   (
     color: (
       theme-type: dark,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: mat.$blue-palette,
+      tertiary: mat.$azure-palette,
       use-system-variables: true,
     ),
     typography: (
@@ -186,15 +186,21 @@ html {
 
 // Button colors.
 .btn-primary {
-  @include mat.button-color($light-theme, $color-variant: primary);
+  // @include mat.button-color($light-theme, $color-variant: primary);
+  background-color: var(--sys-primary-container) !important;
+  color: var(--sys-on-primary-container) !important;
 }
 
 .btn-secondary {
   @include mat.button-color($light-theme, $color-variant: secondary);
+  // background-color: var(--sys-secondary-container) !important;
+  // color: var(--sys-on-secondary-container) !important;
 }
 
 .btn-tertiary {
   @include mat.button-color($light-theme, $color-variant: tertiary);
+  // background-color: var(--sys-tertiary-container) !important;
+  // color: var(--sys-on-tertiary-container) !important;
 }
 
 .btn-success {
