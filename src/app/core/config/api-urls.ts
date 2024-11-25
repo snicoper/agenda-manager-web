@@ -1,6 +1,6 @@
 export const ApiUrls = {
   authentication: {
-    login: '/authentication/login',
-    refreshToken: '/authentication/refresh-token',
+    login: '/auth/login',
+    refreshToken: '/auth/refresh-token',
   },
 };
