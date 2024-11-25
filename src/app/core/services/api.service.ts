@@ -9,13 +9,13 @@ export abstract class ApiService {
   protected readonly http = inject(HttpClient);
   protected readonly baseUrl = AppEnvironment.baseApiUrl;
 
-  get<TResponse>(endpoint = '', mapper?: (data: ApiResponse<TResponse>) => TResponse): Observable<TResponse> {
+  protected get<TResponse>(endpoint = '', mapper?: (data: ApiResponse<TResponse>) => TResponse): Observable<TResponse> {
     const url = `${this.baseUrl}${endpoint}`;
 
     return this.http.get<ApiResponse<TResponse>>(url).pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
-  post<TRequest, TResponse>(
+  protected post<TRequest, TResponse>(
     entity: TRequest,
     endpoint = '',
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
@@ -27,7 +27,7 @@ export abstract class ApiService {
       .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
-  put<TRequest, TResponse>(
+  protected put<TRequest, TResponse>(
     entity: TRequest,
     endpoint = '',
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
@@ -39,7 +39,10 @@ export abstract class ApiService {
       .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
-  delete<TResponse>(endpoint = '', mapper?: (data: ApiResponse<TResponse>) => TResponse): Observable<TResponse> {
+  protected delete<TResponse>(
+    endpoint = '',
+    mapper?: (data: ApiResponse<TResponse>) => TResponse,
+  ): Observable<TResponse> {
     const url = `${this.baseUrl}${endpoint}`;
 
     return this.http.delete<ApiResponse<TResponse>>(url).pipe(map((response) => this.handleResponse(response, mapper)));

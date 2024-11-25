@@ -50,10 +50,10 @@ export class RecoveryPasswordComponent {
   isLoading = false;
 
   // Alert.
-  isAlertVisible = false;
+  showAlert = false;
   alertMessage = '';
   alertType: 'success' | 'danger' | undefined;
-  response = false;
+  responseValue = false;
 
   constructor() {
     this.buildForm();
@@ -62,10 +62,10 @@ export class RecoveryPasswordComponent {
   handleResetForm(): void {
     this.badRequest = undefined;
     this.isSubmitted = false;
-    this.isAlertVisible = false;
+    this.showAlert = false;
     this.alertMessage = '';
     this.alertType = undefined;
-    this.response = false;
+    this.responseValue = false;
   }
 
   handleSubmit(): void {
@@ -84,20 +84,20 @@ export class RecoveryPasswordComponent {
       .subscribe({
         next: (response) => {
           if (response) {
-            this.isAlertVisible = true;
+            this.showAlert = true;
             this.alertMessage = 'Email sent successfully';
             this.alertType = 'success';
-            this.response = response;
+            this.responseValue = response;
           }
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;
 
           if (error.status === HttpStatusCode.NotFound) {
-            this.isAlertVisible = true;
+            this.showAlert = true;
             this.alertMessage = 'Email not found';
             this.alertType = 'danger';
-            this.response = false;
+            this.responseValue = false;
           }
         },
       });
