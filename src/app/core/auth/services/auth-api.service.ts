@@ -9,21 +9,17 @@ import { RefreshTokenRequest } from '../models/refresh-token.request';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService extends ApiService {
-  login(loginRequest: LoginRequest): Observable<LoginResponse> {
-    return this.post<LoginRequest, LoginResponse>(loginRequest, ApiUrls.authentication.login, (response) => ({
+  login(request: LoginRequest): Observable<LoginResponse> {
+    return this.post<LoginRequest, LoginResponse>(request, ApiUrls.auth.login, (response) => ({
       ...response.value,
       expires: DateTime.fromISO(response.value.expires.toString()),
     }));
   }
 
   refreshToken(refreshToken: RefreshTokenRequest): Observable<LoginResponse> {
-    return this.post<RefreshTokenRequest, LoginResponse>(
-      refreshToken,
-      ApiUrls.authentication.refreshToken,
-      (response) => ({
-        ...response.value,
-        expires: DateTime.fromISO(response.value.expires.toString()),
-      }),
-    );
+    return this.post<RefreshTokenRequest, LoginResponse>(refreshToken, ApiUrls.auth.refreshToken, (response) => ({
+      ...response.value,
+      expires: DateTime.fromISO(response.value.expires.toString()),
+    }));
   }
 }

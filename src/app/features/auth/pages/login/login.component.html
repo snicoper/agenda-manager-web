@@ -4,7 +4,7 @@
       <mat-card class="mat-elevation-z10 p-4">
         <mat-card-header>
           <mat-card-title class="title">
-            <h1>Identificarse</h1>
+            <h1>Iniciar sesión</h1>
           </mat-card-title>
         </mat-card-header>
 
@@ -16,6 +16,7 @@
             [badRequest]="badRequest"
             [form]="form"
             [submitted]="isSubmitted"
+            [formInputType]="formInputType.Email"
             fieldName="email"
             formControlName="email"
             label="Correo electrónico"

@@ -62,10 +62,10 @@ export class LoginComponent {
     }
 
     this.isLoading = true;
-    const loginRequest = this.form.value as LoginRequest;
+    const request = this.form.value as LoginRequest;
 
     this.authService
-      .login(loginRequest)
+      .login(request)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {

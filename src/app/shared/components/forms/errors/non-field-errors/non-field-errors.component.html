@@ -1,7 +1,5 @@
 @if (hasError) {
-  <div class="alert alert-danger mb-2">
-    <mat-list>
-      <mat-list-item>{{ getError }}</mat-list-item>
-    </mat-list>
-  </div>
+  <am-alert type="danger">
+    {{ getError }}
+  </am-alert>
 }
