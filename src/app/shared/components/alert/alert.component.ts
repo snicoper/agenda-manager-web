@@ -9,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './alert.component.scss',
 })
 export class AlertComponent {
-  type = input.required<'success' | 'danger' | 'warning' | 'info' | undefined>();
+  type = input.required<'success' | 'error' | 'warning' | 'info' | undefined>();
   message = input.required<string | undefined>();
   dismissible = input(true);
   showIcon = input(true);

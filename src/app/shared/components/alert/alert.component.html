@@ -2,10 +2,10 @@
   <div
     class="alert alert-container"
     [attr.aria-label]="'Alert: ' + type()"
-    [attr.aria-live]="type() === 'danger' ? 'assertive' : 'polite'"
+    [attr.aria-live]="type() === 'error' ? 'assertive' : 'polite'"
     [ngClass]="{
       'alert-success': type() === 'success',
-      'alert-error': type() === 'danger',
+      'alert-error': type() === 'error',
       'alert-warning': type() === 'warning',
       'alert-info': type() === 'info',
     }"
@@ -17,7 +17,7 @@
           @case ("success") {
             <mat-icon>check_circle</mat-icon>
           }
-          @case ("danger") {
+          @case ("error") {
             <mat-icon>error</mat-icon>
           }
           @case ("warning") {

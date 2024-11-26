@@ -1,30 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { BadRequest } from '../../../../core/models/bad-request';
-import { AlertComponent } from '../../../../shared/components/alert/alert.component';
+import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
 import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
-import { RecoveryPasswordRequest } from '../../models/recovery-password-request';
+import { RecoveryConfirmPasswordRequest } from '../../models/recovery-confirm-password-request';
 import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
-  selector: 'am-recovery-password',
+  selector: 'am-confirm-recovery-password',
   imports: [
-    ReactiveFormsModule,
-    RouterLink,
     CommonModule,
+    RouterLink,
+    ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
     MatDivider,
@@ -32,14 +32,18 @@ import { AccountApiService } from '../../services/account-api.service';
     FormInputComponent,
     BtnLoadingComponent,
     NonFieldErrorsComponent,
-    AlertComponent,
   ],
-  templateUrl: './recovery-password.component.html',
-  styleUrl: './recovery-password.component.scss',
+  templateUrl: './confirm-recovery-password.component.html',
+  styleUrl: './confirm-recovery-password.component.scss',
 })
-export class RecoveryPasswordComponent {
+export class ConfirmRecoveryPasswordComponent {
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly accountApiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly snackBarService = inject(SnackBarService);
+
+  private token = this.route.snapshot.queryParams['token'];
 
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
@@ -49,23 +53,8 @@ export class RecoveryPasswordComponent {
   isSubmitted = false;
   isLoading = false;
 
-  // Alert.
-  showAlert = false;
-  alertMessage = '';
-  alertType: 'success' | 'error' | undefined;
-  responseValue = false;
-
   constructor() {
     this.buildForm();
-  }
-
-  handleResetForm(): void {
-    this.badRequest = undefined;
-    this.isSubmitted = false;
-    this.showAlert = false;
-    this.alertMessage = '';
-    this.alertType = undefined;
-    this.responseValue = false;
   }
 
   handleSubmit(): void {
@@ -76,36 +65,32 @@ export class RecoveryPasswordComponent {
     }
 
     this.isLoading = true;
-    const request = this.form.value as RecoveryPasswordRequest;
+    const request = this.form.value as RecoveryConfirmPasswordRequest;
+    request.token = this.token;
 
     this.accountApiService
-      .recoveryPassword(request)
+      .confirmRecoveryPassword(request)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
-        next: (response) => {
-          if (response) {
-            this.showAlert = true;
-            this.alertMessage = 'Email sent successfully';
-            this.alertType = 'success';
-            this.responseValue = response;
-          }
+        next: () => {
+          this.snackBarService.success('La contraseña se ha actualizado correctamente.');
+          this.router.navigate([SiteUrls.auth.login]);
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;
-
-          if (error.status === HttpStatusCode.NotFound) {
-            this.showAlert = true;
-            this.alertMessage = 'Email not found';
-            this.alertType = 'error';
-            this.responseValue = false;
-          }
         },
       });
   }
 
   private buildForm(): void {
-    this.form = this.formBuilder.group({
-      email: ['', [Validators.required, CustomValidators.email]],
-    });
+    this.form = this.formBuilder.group(
+      {
+        newPassword: ['', [Validators.required, CustomValidators.strongPassword]],
+        confirmNewPassword: ['', [Validators.required]],
+      },
+      {
+        validators: CustomValidators.passwordMustMatch('newPassword', 'confirmNewPassword'),
+      },
+    );
   }
 }

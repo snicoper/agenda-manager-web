@@ -5,5 +5,6 @@ export const ApiUrls = {
   },
   accounts: {
     recoveryPassword: '/accounts/recovery-password',
+    confirmRecoveryPassword: '/accounts/confirm-recovery-password',
   },
 };
