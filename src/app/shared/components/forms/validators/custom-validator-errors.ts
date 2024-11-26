@@ -28,7 +28,7 @@ export const CustomValidationErrors = {
 } as const;
 
 // Y un helper para obtener los mensajes fácilmente.
-export const getValidationErrorMessage = (error: string, control?: AbstractControl, params?: any): string => {
+export const getValidationErrorMessage = (error: string, control?: AbstractControl, params?: any): string[] => {
   const errorMessage = CustomValidationErrors[error as keyof typeof CustomValidationErrors];
 
   // Caso especial para strongPassword.
@@ -36,24 +36,22 @@ export const getValidationErrorMessage = (error: string, control?: AbstractContr
     const failedChecks = control.errors['strongPassword'].failedChecks;
 
     if (failedChecks?.length > 0) {
-      return failedChecks
-        .map(
-          (check: string) =>
-            CustomValidationErrors.strongPassword[check as keyof typeof CustomValidationErrors.strongPassword],
-        )
-        .join(', ');
+      return failedChecks.map(
+        (check: string) =>
+          CustomValidationErrors.strongPassword[check as keyof typeof CustomValidationErrors.strongPassword],
+      );
     }
 
-    return CustomValidationErrors.strongPassword.default;
+    return [CustomValidationErrors.strongPassword.default];
   }
 
   if (typeof errorMessage === 'function') {
-    return errorMessage(params);
+    return [errorMessage(params)];
   }
 
   if (typeof errorMessage === 'object') {
-    return errorMessage.default;
+    return [errorMessage.default];
   }
 
-  return errorMessage || `Error de validación: ${error}`;
+  return [errorMessage || `Error de validación: ${error}`];
 };

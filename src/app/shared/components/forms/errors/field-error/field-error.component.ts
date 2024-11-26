@@ -4,7 +4,7 @@ import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BadRequest } from '../../../../../core/models/bad-request';
-import { CustomValidationErrors, getValidationErrorMessage } from '../../validators/custom-validator-errors';
+import { getValidationErrorMessage } from '../../validators/custom-validator-errors';
 
 @Component({
   selector: 'am-field-error',
@@ -55,21 +55,11 @@ export class FieldErrorComponent implements OnInit {
     return undefined;
   }
 
-  // En el componente
-  getValidationErrors(): string[] | undefined {
+  getValidationErrors(): string[] {
     if (!this.control?.errors) {
       return [];
     }
 
-    if (this.control.errors['strongPassword']) {
-      const failedChecks = this.control.errors['strongPassword'].failedChecks;
-
-      return failedChecks.map(
-        (check: string) =>
-          CustomValidationErrors.strongPassword[check as keyof typeof CustomValidationErrors.strongPassword],
-      );
-    }
-
-    return Object.keys(this.control.errors).map((error) => getValidationErrorMessage(error, this.control));
+    return Object.keys(this.control.errors).flatMap((error) => getValidationErrorMessage(error, this.control));
   }
 }
