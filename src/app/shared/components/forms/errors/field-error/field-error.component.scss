@@ -1,4 +1,38 @@
 .field-error-container {
   position: relative;
-  top: -14px;
+  top: -20px;
+  left: -10px;
+  animation: slideIn 0.2s ease-out;
+}
+
+::ng-deep .mat-mdc-list-item {
+  height: 32px !important;
+  padding: 0 !important;
+}
+
+// Si usas el icono
+::ng-deep .mat-mdc-list-item .mat-icon {
+  font-size: 16px !important;
+  height: 16px !important;
+  width: 16px !important;
+  margin-right: 8px !important;
+  color: var(--sys-error) !important;
+}
+
+// Para el texto
+::ng-deep .mdc-list-item__primary-text {
+  font-size: 15px !important;
+  margin: 0 !important;
+  color: var(--sys-error) !important;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

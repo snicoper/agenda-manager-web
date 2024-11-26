@@ -85,7 +85,7 @@ export class ConfirmRecoveryPasswordComponent {
   private buildForm(): void {
     this.form = this.formBuilder.group(
       {
-        newPassword: ['', [Validators.required, CustomValidators.strongPassword]],
+        newPassword: ['', [Validators.required, CustomValidators.strongPassword()]],
         confirmNewPassword: ['', [Validators.required]],
       },
       {

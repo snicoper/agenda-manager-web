@@ -1,14 +1,15 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit, input } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { MatHint } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { BadRequest } from '../../../../../core/models/bad-request';
-import { getValidationErrorMessage } from '../../validators/custom-validator-errors';
+import { CustomValidationErrors, getValidationErrorMessage } from '../../validators/custom-validator-errors';
 
 @Component({
   selector: 'am-field-error',
   standalone: true,
-  imports: [MatHint],
+  imports: [MatListModule, MatIcon],
   templateUrl: './field-error.component.html',
   styleUrl: './field-error.component.scss',
 })
@@ -54,11 +55,21 @@ export class FieldErrorComponent implements OnInit {
     return undefined;
   }
 
+  // En el componente
   getValidationErrors(): string[] | undefined {
     if (!this.control?.errors) {
       return [];
     }
 
-    return Object.keys(this.control.errors).map((error) => getValidationErrorMessage(error));
+    if (this.control.errors['strongPassword']) {
+      const failedChecks = this.control.errors['strongPassword'].failedChecks;
+
+      return failedChecks.map(
+        (check: string) =>
+          CustomValidationErrors.strongPassword[check as keyof typeof CustomValidationErrors.strongPassword],
+      );
+    }
+
+    return Object.keys(this.control.errors).map((error) => getValidationErrorMessage(error, this.control));
   }
 }

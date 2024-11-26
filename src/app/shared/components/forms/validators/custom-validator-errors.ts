@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { AbstractControl } from '@angular/forms';
+
 /** Mensajes de error para validaciones */
 export const CustomValidationErrors = {
   /** Errores genéricos */
@@ -25,9 +27,25 @@ export const CustomValidationErrors = {
   minLengthArray: (min: number) => `Debe seleccionar al menos ${min} elementos`,
 } as const;
 
-// Y un helper para obtener los mensajes fácilmente
-export const getValidationErrorMessage = (error: string, params?: any): string => {
+// Y un helper para obtener los mensajes fácilmente.
+export const getValidationErrorMessage = (error: string, control?: AbstractControl, params?: any): string => {
   const errorMessage = CustomValidationErrors[error as keyof typeof CustomValidationErrors];
+
+  // Caso especial para strongPassword.
+  if (error === 'strongPassword' && control?.errors?.['strongPassword']) {
+    const failedChecks = control.errors['strongPassword'].failedChecks;
+
+    if (failedChecks?.length > 0) {
+      return failedChecks
+        .map(
+          (check: string) =>
+            CustomValidationErrors.strongPassword[check as keyof typeof CustomValidationErrors.strongPassword],
+        )
+        .join(', ');
+    }
+
+    return CustomValidationErrors.strongPassword.default;
+  }
 
   if (typeof errorMessage === 'function') {
     return errorMessage(params);

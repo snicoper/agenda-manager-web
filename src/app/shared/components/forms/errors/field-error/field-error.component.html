@@ -1,20 +1,23 @@
 @if ((submitted() && formHasErrors()) || controlHasErrors() || getBadRequestErrors()) {
   <div class="field-error-container">
-    @for (error of getValidationErrors(); track $index) {
-      <span class="text-error">
-        <mat-hint>{{ error }}</mat-hint>
-        <br />
-      </span>
-    }
-
-    <!-- errores obtenidos del backend. -->
-    @if (getBadRequestErrors()) {
-      @for (error of getBadRequestErrors(); track $index) {
-        <span class="text-error">
-          <mat-hint>{{ error }}</mat-hint>
-          <br />
-        </span>
+    <mat-list>
+      <!-- Errores de validación del frontend -->
+      @for (error of getValidationErrors(); track $index) {
+        <mat-list-item>
+          <mat-icon matListItemIcon>error</mat-icon>
+          <span class="text-error" matListItemTitle>{{ error }}</span>
+        </mat-list-item>
       }
-    }
+
+      <!-- Errores del backend -->
+      @if (getBadRequestErrors()) {
+        @for (error of getBadRequestErrors(); track $index) {
+          <mat-list-item>
+            <mat-icon matListItemIcon>error</mat-icon>
+            <span class="text-error" matListItemTitle>{{ error }}</span>
+          </mat-list-item>
+        }
+      }
+    </mat-list>
   </div>
 }
