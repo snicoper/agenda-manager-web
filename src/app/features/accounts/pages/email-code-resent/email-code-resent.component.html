@@ -1,0 +1,33 @@
+<am-page-simple>
+  <section class="email-code-resent-container">
+    <mat-card class="mat-elevation-z10 p-4">
+      <mat-card-header>
+        <mat-card-title class="title">
+          <h2>Enviar código de confirmación</h2>
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="content">
+        <div>
+          La cuenta con el email <strong>{{ email }}</strong> requiere ser verificada.
+        </div>
+      </mat-card-content>
+
+      <mat-card-footer class="mt-4 ms-2 d-flex justify-content-center">
+        <am-btn-loading
+          (eventClick)="handleSendCode()"
+          [loading]="isLoading"
+          [btnText]="resultSuccess ? 'Código enviado con éxito' : 'Enviar código'"
+          [disabled]="resultSuccess"
+          [styles]="resultSuccess ? 'btn-success' : ''"
+        />
+
+        @if (resultSuccess) {
+          <button mat-flat-button class="ms-2" type="button" [routerLink]="[siteUrls.auth.login]">
+            Iniciar sesión
+          </button>
+        }
+      </mat-card-footer>
+    </mat-card>
+  </section>
+</am-page-simple>

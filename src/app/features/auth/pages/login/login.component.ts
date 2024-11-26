@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -73,6 +73,13 @@ export class LoginComponent {
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;
+
+          if (error.status === HttpStatusCode.Conflict && this.badRequest?.code === 'UserErrors.EmailIsNotConfirmed') {
+            // Redirect to resent email verification.
+            this.router.navigate(['/accounts/email-code-resent'], {
+              queryParams: { email: request.email },
+            });
+          }
         },
       });
   }

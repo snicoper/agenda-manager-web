@@ -3,6 +3,8 @@ export const SiteUrls = {
 
   accounts: {
     recoveryPassword: '/accounts/recovery-password',
+    emailCodeResent: '/accounts/email-code-resent',
+    emailCodeVerify: '/accounts/email-code-verify',
   },
 
   auth: {

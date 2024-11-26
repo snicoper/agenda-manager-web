@@ -3,5 +3,6 @@ export interface BadRequest {
   status: number;
   title: string;
   type: string;
+  code?: string;
   errors: Record<string, string[]>;
 }

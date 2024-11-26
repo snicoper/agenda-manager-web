@@ -19,7 +19,7 @@ export class BtnLoadingComponent {
   btnTextLoading = input<string>();
   spinnerColor = input('warn');
   btnType = input(BtnType.submit);
-  extraCss = input('');
+  styles = input('');
   disabled = input(false);
 
   eventClick = output<void>();

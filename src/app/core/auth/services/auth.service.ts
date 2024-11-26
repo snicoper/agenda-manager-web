@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, OnDestroy, signal } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { logDebug } from '../../errors/log-messages';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
 import { AuthState } from '../models/auth-state';
@@ -39,20 +40,11 @@ export class AuthService implements OnDestroy {
   }
 
   login(loginRequest: LoginRequest): Observable<boolean> {
-    this.state.update((state) => ({
-      ...state,
-      isLoading: true,
-      isLoggedIn: false,
-    }));
+    this.updateAuthState({ isLoading: true, isLoggedIn: false });
 
     return this.authApiService.login(loginRequest).pipe(
       map((response) => {
-        this.state.update((state) => ({
-          ...state,
-          isLoading: false,
-          isLoggedIn: true,
-        }));
-
+        this.updateAuthState({ isLoading: false, isLoggedIn: true });
         this.setTokenFromLoginResponse(response);
 
         return true;
@@ -62,37 +54,25 @@ export class AuthService implements OnDestroy {
 
   tryRefreshToken(): Observable<string> {
     if (!this.refreshToken) {
-      return throwError(() => new Error('No refresh token available'));
+      logDebug('No refresh token available');
+
+      return of('No refresh token available');
     }
 
-    this.state.update((state) => ({
-      ...state,
-      isLoading: true,
-      isLoggedIn: false,
-    }));
-
+    this.updateAuthState({ isLoading: true, isLoggedIn: false });
     const refreshTokenRequest: RefreshTokenRequest = {
       refreshToken: this.refreshToken,
     };
 
     return this.authApiService.refreshToken(refreshTokenRequest).pipe(
       map((response) => {
-        this.state.update((state) => ({
-          ...state,
-          isLoading: false,
-          isLoggedIn: true,
-        }));
-
+        this.updateAuthState({ isLoading: false, isLoggedIn: true });
         this.setTokenFromLoginResponse(response);
 
         return this.getToken();
       }),
       catchError((error) => {
-        this.state.update((state) => ({
-          ...state,
-          isLoading: false,
-          isLoggedIn: false,
-        }));
+        this.updateAuthState({ isLoading: false, isLoggedIn: false });
 
         return throwError(() => error);
       }),
@@ -100,12 +80,7 @@ export class AuthService implements OnDestroy {
   }
 
   logout(): void {
-    this.state.update((state) => ({
-      ...state,
-      isLoading: false,
-      isLoggedIn: false,
-    }));
-
+    this.updateAuthState({ isLoading: true, isLoggedIn: false });
     this.browserStorageService.remove(BrowserStorageKey.AccessToken);
     this.browserStorageService.remove(BrowserStorageKey.RefreshToken);
     this.tokenDecode = {};
@@ -153,6 +128,13 @@ export class AuthService implements OnDestroy {
     return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 
+  private updateAuthState(newState: AuthState): void {
+    this.state.update((currentState) => ({
+      ...currentState,
+      ...newState,
+    }));
+  }
+
   private setTokenFromLoginResponse(response: LoginResponse): void {
     this.browserStorageService.set(BrowserStorageKey.AccessToken, response.accessToken);
     this.browserStorageService.set(BrowserStorageKey.RefreshToken, response.refreshToken);
@@ -165,23 +147,22 @@ export class AuthService implements OnDestroy {
   private restoreAuthState(): void {
     const storedToken = this.browserStorageService.get(BrowserStorageKey.AccessToken);
 
-    if (storedToken) {
-      try {
-        this.tokenDecode = jwtDecode(storedToken);
-        this.accessToken = storedToken;
-        this.refreshToken = this.browserStorageService.get(BrowserStorageKey.RefreshToken) ?? '';
+    if (!storedToken) {
+      return;
+    }
 
-        if (!this.isExpired()) {
-          this.state.update((state) => ({
-            ...state,
-            isLoggedIn: true,
-          }));
-        } else {
-          this.logout();
-        }
-      } catch {
+    try {
+      this.tokenDecode = jwtDecode(storedToken);
+      this.accessToken = storedToken;
+      this.refreshToken = this.browserStorageService.get(BrowserStorageKey.RefreshToken) ?? '';
+
+      if (!this.isExpired()) {
+        this.updateAuthState({ isLoading: this.state().isLoading, isLoggedIn: true });
+      } else {
         this.logout();
       }
+    } catch {
+      this.logout();
     }
   }
 

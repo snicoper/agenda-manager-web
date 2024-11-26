@@ -16,7 +16,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
 import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
-import { RecoveryPasswordRequest } from '../../models/recovery-password-request';
+import { RecoveryPasswordRequest } from '../../models/recovery-password.request';
 import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
