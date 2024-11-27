@@ -82,7 +82,7 @@ export class LoginComponent {
             this.formSate.badRequest?.code === ApiResultErrors.users.emailIsNotConfirmed
           ) {
             // Redirect to confirm email page.
-            this.router.navigate([SiteUrls.accounts.ConfirmEmailResent], {
+            this.router.navigate([SiteUrls.accounts.confirmEmailResent], {
               queryParams: { email: request.email },
             });
           }

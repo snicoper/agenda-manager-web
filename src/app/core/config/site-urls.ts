@@ -4,8 +4,8 @@ export const SiteUrls = {
 
   accounts: {
     recoveryPassword: '/accounts/recovery-password',
-    ConfirmEmailResent: '/accounts/confirm-email-resent',
-    ConfirmEmailVerify: '/accounts/confirm-email-verify',
+    confirmEmailResent: '/accounts/confirm-email-resent',
+    confirmEmailVerify: '/accounts/confirm-email-verify',
   },
 
   auth: {
