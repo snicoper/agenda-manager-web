@@ -4,5 +4,6 @@ export const ApiResultErrors = {
     userIsNotActive: 'UserErrors.UserIsNotActive',
     userNotFound: 'UserErrors.UserNotFound',
     emailIsNotConfirmed: 'UserErrors.EmailIsNotConfirmed',
+    userTokenNotFoundOrExpired: 'UserTokenErrors.UserTokenNotFoundOrExpired',
   },
 };

@@ -51,15 +51,15 @@ export class RecoveryPasswordComponent {
 
   private readonly ERROR_MESSAGES = {
     [ApiResultErrors.users.userIsNotActive]: {
-      message: 'Su cuenta está bloqueada. Contacta con soporte',
+      message: 'Su cuenta no está activa. Contacte con el administrador',
       expectedStatus: HttpStatusCode.Conflict,
     },
     [ApiResultErrors.users.emailIsNotConfirmed]: {
-      message: 'Su cuenta no está confirmada. Revise su correo',
+      message: 'Su cuenta esta pendiente de confirmación. Revise su correo',
       expectedStatus: HttpStatusCode.Conflict,
     },
     [ApiResultErrors.users.userNotFound]: {
-      message: 'Usuario no encontrado',
+      message: 'El correo electrónico no está registrado',
       expectedStatus: HttpStatusCode.NotFound,
     },
   };
@@ -114,7 +114,7 @@ export class RecoveryPasswordComponent {
       .subscribe({
         next: (response) => {
           if (response) {
-            this.setAlertSuccessState('Se ha enviado un correo electrónico con un enlace para recuperar su contraseña');
+            this.setAlertSuccessState('Se ha enviado un correo electrónico con un enlace para recuperar la contraseña');
           }
         },
         error: (error: HttpErrorResponse) => this.handleError(error),
