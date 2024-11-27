@@ -8,16 +8,16 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
-import { EmailCodeResentRequest } from '../../models/email-code-resent.request';
+import { ConfirmEmailResentRequest } from '../../models/confirm-email-resent.request';
 import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
-  selector: 'am-email-code-resent',
+  selector: 'am-confirm-email-resent',
   imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, PageSimpleComponent, BtnLoadingComponent],
-  templateUrl: './email-code-resent.component.html',
-  styleUrl: './email-code-resent.component.scss',
+  templateUrl: './confirm-email-resent.component.html',
+  styleUrl: './confirm-email-resent.component.scss',
 })
-export class EmailCodeResentComponent {
+export class ConfirmEmailResentComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly accountApiService = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
@@ -34,10 +34,10 @@ export class EmailCodeResentComponent {
 
     const request = {
       email: this.email,
-    } as EmailCodeResentRequest;
+    } as ConfirmEmailResentRequest;
 
     this.accountApiService
-      .emailCodeResent(request)
+      .confirmEmailResent(request)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {

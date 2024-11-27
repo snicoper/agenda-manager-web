@@ -6,7 +6,7 @@ export const ApiUrls = {
   accounts: {
     recoveryPassword: '/accounts/recovery-password',
     confirmRecoveryPassword: '/accounts/confirm-recovery-password',
-    emailCodeResent: '/accounts/email-code-resent',
-    emailCodeVerify: '/accounts/email-code-verify',
+    confirmEmailResent: '/accounts/confirm-email-resent',
+    confirmEmailVerify: '/accounts/confirm-email-verify',
   },
 };

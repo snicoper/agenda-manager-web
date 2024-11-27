@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
+import { ConfirmEmailResentComponent } from './pages/confirm-email-resent/confirm-email-resent.component';
+import { ConfirmEmailVerifyComponent } from './pages/confirm-email-verify/confirm-email-verify.component';
 import { ConfirmRecoveryPasswordComponent } from './pages/confirm-recovery-password/confirm-recovery-password.component';
-import { EmailCodeResentComponent } from './pages/email-code-resent/email-code-resent.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 
 export const routes: Routes = [
@@ -15,8 +16,13 @@ export const routes: Routes = [
     title: 'Cambiar contraseña',
   },
   {
-    path: 'email-code-resent',
-    component: EmailCodeResentComponent,
+    path: 'confirm-email-resent',
+    component: ConfirmEmailResentComponent,
     title: 'Enviar código de verificación',
+  },
+  {
+    path: 'confirm-email-verify',
+    component: ConfirmEmailVerifyComponent,
+    title: 'Confirmar correo electrónico',
   },
 ];

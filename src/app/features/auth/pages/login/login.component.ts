@@ -75,8 +75,8 @@ export class LoginComponent {
           this.badRequest = error.error;
 
           if (error.status === HttpStatusCode.Conflict && this.badRequest?.code === 'UserErrors.EmailIsNotConfirmed') {
-            // Redirect to resent email verification.
-            this.router.navigate(['/accounts/email-code-resent'], {
+            // Redirect to confirm email page.
+            this.router.navigate([SiteUrls.accounts.ConfirmEmailResent], {
               queryParams: { email: request.email },
             });
           }
