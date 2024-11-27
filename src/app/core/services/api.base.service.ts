@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { AppEnvironment } from '../config/app-environment';
-import { ApiResponse } from '../models/api-response';
+import { ApiResponse } from '../models/api.response';
 
 @Injectable({ providedIn: 'root' })
-export abstract class ApiService {
+export abstract class ApiBaseService {
   protected readonly http = inject(HttpClient);
   protected readonly baseUrl = AppEnvironment.baseApiUrl;
 

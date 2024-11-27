@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../core/config/api-urls';
-import { ApiService } from '../../../core/services/api.service';
+import { ApiBaseService } from '../../../core/services/api.base.service';
 import { ConfirmEmailResentRequest } from '../models/confirm-email-resent.request';
 import { ConfirmEmailVerifyRequest } from '../models/confirm-email-verify.request';
 import { RecoveryConfirmPasswordRequest } from '../models/recovery-confirm-password.request';
 import { RecoveryPasswordRequest } from '../models/recovery-password.request';
 
 @Injectable({ providedIn: 'root' })
-export class AccountApiService extends ApiService {
+export class AccountApiService extends ApiBaseService {
   /** Recovery password. */
   recoveryPassword(request: RecoveryPasswordRequest): Observable<boolean> {
     return this.post<RecoveryPasswordRequest, boolean>(

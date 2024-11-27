@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Settings } from 'luxon';
 import { BaseState } from '../states/base.state';
-import { LocalizationUtils } from './localization-utils';
+import { LocalizationUtils } from './localization.utils';
 
 @Injectable({ providedIn: 'root' })
 export class TimeZoneState extends BaseState<string> {
