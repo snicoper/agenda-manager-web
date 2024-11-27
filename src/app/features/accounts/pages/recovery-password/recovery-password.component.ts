@@ -8,6 +8,7 @@ import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { SystemErrors } from '../../../../core/errors/system-errors';
 import { BadRequest } from '../../../../core/models/bad-request';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -18,6 +19,13 @@ import { CustomValidators } from '../../../../shared/components/forms/validators
 import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
 import { RecoveryPasswordRequest } from '../../models/recovery-password.request';
 import { AccountApiService } from '../../services/account-api.service';
+
+interface AlertState {
+  isSuccess: boolean;
+  show: boolean;
+  type: 'success' | 'error' | undefined;
+  message: string | undefined;
+}
 
 @Component({
   selector: 'am-recovery-password',
@@ -41,6 +49,21 @@ export class RecoveryPasswordComponent {
   private readonly accountApiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
 
+  private readonly ERROR_MESSAGES = {
+    [SystemErrors.users.userIsNotActive]: {
+      message: 'Su cuenta está bloqueada. Contacta con soporte',
+      expectedStatus: HttpStatusCode.Conflict,
+    },
+    [SystemErrors.users.emailIsNotConfirmed]: {
+      message: 'Su cuenta no está confirmada. Revise su correo',
+      expectedStatus: HttpStatusCode.Conflict,
+    },
+    [SystemErrors.users.userNotFound]: {
+      message: 'Usuario no encontrado',
+      expectedStatus: HttpStatusCode.NotFound,
+    },
+  };
+
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
 
@@ -50,10 +73,12 @@ export class RecoveryPasswordComponent {
   isLoading = false;
 
   // Alert.
-  showAlert = false;
-  alertMessage = '';
-  alertType: 'success' | 'error' | undefined;
-  responseValue = false;
+  alertState: AlertState = {
+    isSuccess: false,
+    show: false,
+    type: undefined,
+    message: undefined,
+  };
 
   constructor() {
     this.buildForm();
@@ -62,10 +87,13 @@ export class RecoveryPasswordComponent {
   handleResetForm(): void {
     this.badRequest = undefined;
     this.isSubmitted = false;
-    this.showAlert = false;
-    this.alertMessage = '';
-    this.alertType = undefined;
-    this.responseValue = false;
+
+    this.alertState = {
+      isSuccess: false,
+      show: false,
+      type: undefined,
+      message: undefined,
+    };
   }
 
   handleSubmit(): void {
@@ -84,23 +112,41 @@ export class RecoveryPasswordComponent {
       .subscribe({
         next: (response) => {
           if (response) {
-            this.showAlert = true;
-            this.alertMessage = 'Email sent successfully';
-            this.alertType = 'success';
-            this.responseValue = response;
+            this.setAlertSuccessState('Se ha enviado un correo electrónico con un enlace para recuperar su contraseña');
           }
         },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
-
-          if (error.status === HttpStatusCode.NotFound) {
-            this.showAlert = true;
-            this.alertMessage = 'Email not found';
-            this.alertType = 'error';
-            this.responseValue = false;
-          }
-        },
+        error: (error: HttpErrorResponse) => this.handleError(error),
       });
+  }
+
+  private handleError(error: HttpErrorResponse): void {
+    const errorConfig = this.ERROR_MESSAGES[error.error.code];
+
+    if (errorConfig && error.status === errorConfig.expectedStatus) {
+      this.setAlertErrorState(errorConfig.message);
+
+      return;
+    }
+
+    this.badRequest = error.error;
+  }
+
+  private setAlertErrorState(message: string): void {
+    this.alertState = {
+      isSuccess: false,
+      show: true,
+      type: 'error',
+      message,
+    };
+  }
+
+  private setAlertSuccessState(message: string): void {
+    this.alertState = {
+      isSuccess: true,
+      show: true,
+      type: 'success',
+      message,
+    };
   }
 
   private buildForm(): void {
