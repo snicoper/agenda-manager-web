@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterOutlet } from '@angular/router';
-import { ThemeManagerService } from './core/services/theme-manager.service';
+import { ThemeState } from './core/states/theme.state';
 
 @Component({
   selector: 'am-root',
@@ -10,9 +10,9 @@ import { ThemeManagerService } from './core/services/theme-manager.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  private themeManagerService = inject(ThemeManagerService);
+  private themeState = inject(ThemeState);
 
   handleChange(): void {
-    this.themeManagerService.toggle();
+    this.themeState.toggle();
   }
 }
