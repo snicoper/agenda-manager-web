@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
@@ -9,7 +9,8 @@ import { finalize } from 'rxjs';
 import { LoginRequest } from '../../../../core/auth/models/login.request';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { BadRequest } from '../../../../core/models/bad-request';
+import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
+import { FormState } from '../../../../core/models/form-state';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
@@ -44,10 +45,12 @@ export class LoginComponent {
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
 
-  form: FormGroup = this.formBuilder.group({});
-  badRequest: BadRequest | undefined;
-  isSubmitted = false;
-  isLoading = false;
+  readonly formSate: FormState = {
+    form: this.formBuilder.group({}),
+    badRequest: undefined,
+    isSubmitted: false,
+    isLoading: false,
+  };
 
   constructor() {
     this.buildForm();
@@ -55,26 +58,29 @@ export class LoginComponent {
 
   handleSubmit(): void {
     this.authService.logout();
-    this.isSubmitted = true;
+    this.formSate.isSubmitted = true;
 
-    if (this.form.invalid) {
+    if (this.formSate.form.invalid) {
       return;
     }
 
-    this.isLoading = true;
-    const request = this.form.value as LoginRequest;
+    this.formSate.isLoading = true;
+    const request = this.formSate.form.value as LoginRequest;
 
     this.authService
       .login(request)
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(finalize(() => (this.formSate.isLoading = false)))
       .subscribe({
         next: () => {
           this.router.navigate([this.returnUrl ?? '/'], { replaceUrl: true });
         },
         error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
+          this.formSate.badRequest = error.error;
 
-          if (error.status === HttpStatusCode.Conflict && this.badRequest?.code === 'UserErrors.EmailIsNotConfirmed') {
+          if (
+            error.status === HttpStatusCode.Conflict &&
+            this.formSate.badRequest?.code === ApiResultErrors.users.emailIsNotConfirmed
+          ) {
             // Redirect to confirm email page.
             this.router.navigate([SiteUrls.accounts.ConfirmEmailResent], {
               queryParams: { email: request.email },
@@ -85,7 +91,7 @@ export class LoginComponent {
   }
 
   private buildForm(): void {
-    this.form = this.formBuilder.group({
+    this.formSate.form = this.formBuilder.group({
       email: ['', [Validators.required, CustomValidators.email]],
       password: ['', [Validators.required]],
     });

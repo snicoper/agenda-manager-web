@@ -56,14 +56,8 @@
 </div>
 
 <div class="d-flex justify-content-center mt-4">
-  @if (form()) {
+  @if (formState().form) {
     <br />
-    <am-field-error
-      [badRequest]="badRequest()"
-      [fieldName]="fieldName()"
-      [fieldText]="label()"
-      [form]="form()"
-      [submitted]="submitted()"
-    />
+    <am-field-error [formState]="formState()" [fieldName]="fieldName()" [fieldText]="label()" />
   }
 </div>

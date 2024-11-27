@@ -1,4 +1,4 @@
-export const SystemErrors = {
+export const ApiResultErrors = {
   // Users.
   users: {
     userIsNotActive: 'UserErrors.UserIsNotActive',

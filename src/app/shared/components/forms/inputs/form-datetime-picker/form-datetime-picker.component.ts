@@ -2,7 +2,6 @@ import { Component, forwardRef, input } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
-  FormGroup,
   FormsModule,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
@@ -14,7 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DateTime } from 'luxon';
-import { BadRequest } from '../../../../../core/models/bad-request';
+import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -41,9 +40,7 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, FieldErrorComponent],
 })
 export class FormDatetimePickerComponent implements ControlValueAccessor, Validator {
-  badRequest = input.required<BadRequest | undefined>();
-  form = input.required<FormGroup>();
-  submitted = input.required<boolean>();
+  formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
   id = input(Math.random().toString());
@@ -115,7 +112,7 @@ export class FormDatetimePickerComponent implements ControlValueAccessor, Valida
     this.minutesValue = this.padValue(this.minutesValue);
 
     if (!this.value?.isValid || !this.isValidTime()) {
-      const control = this.form().get(this.fieldName()) as AbstractControl;
+      const control = this.formState().form.get(this.fieldName()) as AbstractControl;
       this.validate(control);
 
       return;

@@ -1,4 +1,4 @@
-@if ((submitted() && formHasErrors()) || controlHasErrors() || getBadRequestErrors()) {
+@if ((formState().isSubmitted && formHasErrors()) || controlHasErrors() || getBadRequestErrors()) {
   <div class="field-error-container">
     <mat-list>
       <!-- Errores de validación del frontend -->

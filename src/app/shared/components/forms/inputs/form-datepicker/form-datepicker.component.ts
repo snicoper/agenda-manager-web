@@ -1,10 +1,10 @@
 import { Component, forwardRef, input } from '@angular/core';
-import { ControlValueAccessor, FormGroup, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DateTime } from 'luxon';
-import { BadRequest } from '../../../../../core/models/bad-request';
+import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormInputType } from '../../models/form-input-type';
 
@@ -26,9 +26,7 @@ import { FormInputType } from '../../models/form-input-type';
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, FieldErrorComponent],
 })
 export class FormDatepickerComponent implements ControlValueAccessor {
-  badRequest = input.required<BadRequest | undefined>();
-  form = input.required<FormGroup>();
-  submitted = input.required<boolean>();
+  formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
   id = input(Math.random().toString());

@@ -1,9 +1,9 @@
 import { Component, forwardRef, input } from '@angular/core';
-import { ControlValueAccessor, FormGroup, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { BadRequest } from '../../../../../core/models/bad-request';
+import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormIconPosition } from '../../models/form-icon-position';
 import { FormInputType } from '../../models/form-input-type';
@@ -27,9 +27,8 @@ import { FormInputType } from '../../models/form-input-type';
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIcon, FieldErrorComponent],
 })
 export class FormInputComponent implements ControlValueAccessor {
-  badRequest = input.required<BadRequest | undefined>();
-  form = input.required<FormGroup>();
-  submitted = input.required<boolean>();
+  formState = input.required<FormState>();
+
   fieldName = input.required<string>();
   label = input.required<string>();
   id = input(Math.random().toString());

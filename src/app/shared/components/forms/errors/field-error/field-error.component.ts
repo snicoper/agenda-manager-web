@@ -1,9 +1,9 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit, input } from '@angular/core';
-import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { BadRequest } from '../../../../../core/models/bad-request';
+import { FormState } from '../../../../../core/models/form-state';
 import { getValidationErrorMessage } from '../../validators/custom-validator-errors';
 
 @Component({
@@ -14,9 +14,8 @@ import { getValidationErrorMessage } from '../../validators/custom-validator-err
   styleUrl: './field-error.component.scss',
 })
 export class FieldErrorComponent implements OnInit {
-  badRequest = input.required<BadRequest | undefined>();
-  form = input.required<FormGroup>();
-  submitted = input(false);
+  formState = input.required<FormState>();
+
   fieldText = input<string>('');
   fieldName = input<string>('');
   validateOnlyOnSubmit = input(false);
@@ -24,11 +23,14 @@ export class FieldErrorComponent implements OnInit {
   control: AbstractControl | undefined;
 
   ngOnInit(): void {
-    this.control = this.form()?.get(this.fieldName()) as AbstractControl;
+    this.control = this.formState().form?.get(this.fieldName()) as AbstractControl;
   }
 
   formHasErrors(): boolean | ValidationErrors | null | undefined {
-    return (this.submitted() && this.form()?.dirty) || (this.form()?.touched && this.control?.errors);
+    return (
+      (this.formState().isSubmitted && this.formState().form?.dirty) ||
+      (this.formState().form?.touched && this.control?.errors)
+    );
   }
 
   controlHasErrors(): boolean {
@@ -36,20 +38,20 @@ export class FieldErrorComponent implements OnInit {
       return false;
     }
 
-    if (this.submitted() && this.control.errors) {
+    if (this.formState().isSubmitted && this.control.errors) {
       return true;
     }
 
     if (this.validateOnlyOnSubmit()) {
-      return !!(this.submitted() && this.control.dirty && this.control.errors);
+      return !!(this.formState().isSubmitted && this.control.dirty && this.control.errors);
     }
 
     return !!(this.control.dirty && this.control.errors);
   }
 
   getBadRequestErrors(): string[] | undefined {
-    if (this.badRequest()?.status === HttpStatusCode.BadRequest) {
-      return this.badRequest()?.errors[this.fieldName()];
+    if (this.formState().badRequest?.status === HttpStatusCode.BadRequest) {
+      return this.formState().badRequest?.errors[this.fieldName()];
     }
 
     return undefined;

@@ -8,12 +8,6 @@
   {{ label() }}
 </mat-checkbox>
 
-@if (form()) {
-  <am-field-error
-    [badRequest]="badRequest()"
-    [fieldName]="fieldName()"
-    [fieldText]="label()"
-    [form]="form()"
-    [submitted]="submitted()"
-  />
+@if (formState().form) {
+  <am-field-error [formState]="formState()" [fieldName]="fieldName()" [fieldText]="label()" />
 }

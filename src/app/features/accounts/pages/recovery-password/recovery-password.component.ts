@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { SystemErrors } from '../../../../core/errors/system-errors';
-import { BadRequest } from '../../../../core/models/bad-request';
+import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
+import { FormState } from '../../../../core/models/form-state';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -50,15 +50,15 @@ export class RecoveryPasswordComponent {
   private readonly formBuilder = inject(FormBuilder);
 
   private readonly ERROR_MESSAGES = {
-    [SystemErrors.users.userIsNotActive]: {
+    [ApiResultErrors.users.userIsNotActive]: {
       message: 'Su cuenta está bloqueada. Contacta con soporte',
       expectedStatus: HttpStatusCode.Conflict,
     },
-    [SystemErrors.users.emailIsNotConfirmed]: {
+    [ApiResultErrors.users.emailIsNotConfirmed]: {
       message: 'Su cuenta no está confirmada. Revise su correo',
       expectedStatus: HttpStatusCode.Conflict,
     },
-    [SystemErrors.users.userNotFound]: {
+    [ApiResultErrors.users.userNotFound]: {
       message: 'Usuario no encontrado',
       expectedStatus: HttpStatusCode.NotFound,
     },
@@ -67,10 +67,12 @@ export class RecoveryPasswordComponent {
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
 
-  form: FormGroup = this.formBuilder.group({});
-  badRequest: BadRequest | undefined;
-  isSubmitted = false;
-  isLoading = false;
+  formState: FormState = {
+    form: this.formBuilder.group({}),
+    badRequest: undefined,
+    isLoading: false,
+    isSubmitted: false,
+  };
 
   // Alert.
   alertState: AlertState = {
@@ -85,8 +87,8 @@ export class RecoveryPasswordComponent {
   }
 
   handleResetForm(): void {
-    this.badRequest = undefined;
-    this.isSubmitted = false;
+    this.formState.badRequest = undefined;
+    this.formState.isSubmitted = false;
 
     this.alertState = {
       isSuccess: false,
@@ -97,18 +99,18 @@ export class RecoveryPasswordComponent {
   }
 
   handleSubmit(): void {
-    this.isSubmitted = true;
+    this.formState.isSubmitted = true;
 
-    if (this.form.invalid) {
+    if (this.formState.form.invalid) {
       return;
     }
 
-    this.isLoading = true;
-    const request = this.form.value as RecoveryPasswordRequest;
+    this.formState.isLoading = true;
+    const request = this.formState.form.value as RecoveryPasswordRequest;
 
     this.accountApiService
       .recoveryPassword(request)
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(finalize(() => (this.formState.isLoading = false)))
       .subscribe({
         next: (response) => {
           if (response) {
@@ -128,7 +130,7 @@ export class RecoveryPasswordComponent {
       return;
     }
 
-    this.badRequest = error.error;
+    this.formState.badRequest = error.error;
   }
 
   private setAlertErrorState(message: string): void {
@@ -150,7 +152,7 @@ export class RecoveryPasswordComponent {
   }
 
   private buildForm(): void {
-    this.form = this.formBuilder.group({
+    this.formState.form = this.formBuilder.group({
       email: ['', [Validators.required, CustomValidators.email]],
     });
   }

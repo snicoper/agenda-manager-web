@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, forwardRef, input } from '@angular/core';
-import { ControlValueAccessor, FormGroup, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import ColorPicker, { ColorPickerOptions } from '@thednp/color-picker';
-import { BadRequest } from '../../../../../core/models/bad-request';
+import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -23,9 +23,7 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
   imports: [FormsModule, FieldErrorComponent],
 })
 export class FormColorPickerComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
-  badRequest = input.required<BadRequest | undefined>();
-  form = input.required<FormGroup>();
-  submitted = input.required<boolean>();
+  formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
   id = input(Math.random().toString());

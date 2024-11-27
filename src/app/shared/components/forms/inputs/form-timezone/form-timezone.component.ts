@@ -5,7 +5,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { getTimeZones } from '@vvo/tzdb';
-import { BadRequest } from '../../../../../core/models/bad-request';
+import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormTimeZoneItem } from './form-time-zone.item.model';
 
@@ -28,9 +28,7 @@ import { FormTimeZoneItem } from './form-time-zone.item.model';
   imports: [FormsModule, CommonModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, FieldErrorComponent],
 })
 export class FormTimezoneComponent implements ControlValueAccessor {
-  badRequest = input.required<BadRequest | undefined>();
-  form = input.required<FormGroup>();
-  submitted = input.required<boolean>();
+  formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
   id = input(Math.random().toString());
@@ -81,9 +79,12 @@ export class FormTimezoneComponent implements ControlValueAccessor {
   }
 
   isInvalid(): boolean {
-    const control = this.form().get(this.fieldName()) as FormGroup;
+    const control = this.formState().form.get(this.fieldName()) as FormGroup;
 
-    return !!((this.submitted() && control.invalid) || this.badRequest()?.errors[this.fieldName()]);
+    return !!(
+      (this.formState().isSubmitted && control.invalid) ||
+      this.formState().badRequest?.errors[this.fieldName()]
+    );
   }
 
   private filter(value: string): FormTimeZoneItem[] {
