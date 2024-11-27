@@ -12,7 +12,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../auth/services/auth.service';
 import { SiteUrls } from '../config/site-urls';
-import { logObject } from '../errors/log-messages';
+import { logError, logWarning } from '../errors/debug-logger';
 import { SnackBarService } from '../services/snackbar.service';
 
 @Injectable()
@@ -30,12 +30,12 @@ export class ApiErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         switch (error.status) {
           case HttpStatusCode.Unauthorized:
-            return this.handleUnauthorized(request, next);
+            return this.handleUnauthorized(request, next, error);
           case HttpStatusCode.NotFound:
             this.handleNotFound(error);
             break;
           case HttpStatusCode.Forbidden:
-            this.handleForbidden();
+            this.handleForbidden(error);
             break;
           case HttpStatusCode.BadRequest:
           case HttpStatusCode.Conflict:
@@ -44,7 +44,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           case HttpStatusCode.NoContent:
             break;
           default:
-            this.handleUnknownError();
+            this.handleUnknownError(error);
         }
 
         return throwError(() => error);
@@ -53,7 +53,13 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   }
 
   /** Manejar error Unauthorized. */
-  private handleUnauthorized(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  private handleUnauthorized(
+    request: HttpRequest<unknown>,
+    next: HttpHandler,
+    error: HttpErrorResponse,
+  ): Observable<HttpEvent<unknown>> {
+    logWarning(error);
+
     if (!this.authService.getToken() && !this.authService.getRefreshToken()) {
       this.authService.logout();
       this.router.navigate([SiteUrls.auth.login]);
@@ -98,21 +104,23 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
   /** Manejar error NotFound. */
   private handleNotFound(error: HttpErrorResponse): void {
-    logObject(error);
+    logWarning(error);
   }
 
   /** Manejar error Forbidden.  */
-  private handleForbidden(): void {
-    // ...
+  private handleForbidden(error: HttpErrorResponse): void {
+    logWarning(error);
   }
 
   /** Manejar error BadRequest. */
   private handleBadRequest(error: HttpErrorResponse): void {
-    logObject(error);
+    logWarning(error);
   }
 
   /** Errores 500. */
-  private handleUnknownError(): void {
+  private handleUnknownError(error: HttpErrorResponse): void {
+    logError(error);
+
     this.snackBarService.error(
       `Ha ocurrido un error, por favor si el problema persiste póngase en contacto con la administración.`,
     );

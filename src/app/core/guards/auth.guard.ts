@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../auth/services/auth.service';
 import { SiteUrls } from '../config/site-urls';
-import { logDebug } from '../errors/log-messages';
+import { logDebug } from '../errors/debug-logger';
 import { SystemRole } from '../types/system-roles';
 
 //   {

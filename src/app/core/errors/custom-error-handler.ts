@@ -1,10 +1,10 @@
 import { ErrorHandler } from '@angular/core';
-import { logObject } from './log-messages';
+import { logError } from './debug-logger';
 
 export class CustomErrorHandler implements ErrorHandler {
   // eslint-disable-next-line
   handleError(error: any): void {
-    logObject(error);
+    logError(error);
 
     throw error;
   }

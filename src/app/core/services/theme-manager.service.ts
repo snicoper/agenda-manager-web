@@ -1,5 +1,5 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { logError } from '../errors/log-messages';
+import { logError } from '../errors/debug-logger';
 import { BrowserStorageKey } from '../types/browser-storage-key.enum';
 import { ThemeColor } from '../types/theme-color.enum';
 import { BrowserStorageService } from './browser-storage.service';
