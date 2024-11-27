@@ -1,4 +1,5 @@
 export const SiteUrls = {
+  // Pagina principal una vez se haya autenticado.
   home: '/',
 
   accounts: {

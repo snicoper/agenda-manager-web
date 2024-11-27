@@ -72,7 +72,7 @@ export class LoginComponent {
       .pipe(finalize(() => (this.formSate.isLoading = false)))
       .subscribe({
         next: () => {
-          this.router.navigate([this.returnUrl ?? '/'], { replaceUrl: true });
+          this.router.navigate([this.returnUrl ?? SiteUrls.home], { replaceUrl: true });
         },
         error: (error: HttpErrorResponse) => {
           this.formSate.badRequest = error.error;
