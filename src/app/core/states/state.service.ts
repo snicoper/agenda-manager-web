@@ -1,5 +1,5 @@
 export interface StateService<T> {
   refresh(): void;
-  get(): T;
+  get(): T | null;
   clean(): void;
 }

@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon';
 
+// TODO: In development.
+
 // Definición del enum como objeto const
 export const WeekDays = {
   None: 0,
