@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-content>
+    <!-- content -->
+    <ng-content />
+
+    <!-- subtitle -->
+    <ng-content select="[awHeaderSubtitle]" />
+
+    <am-breadcrumb [breadcrumb]="breadcrumb()" />
+
+    <!-- header links -->
+    <ng-content select=".header-links" />
+  </mat-card-content>
+</mat-card>
+
+<div class="pb-2"></div>

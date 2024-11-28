@@ -1,0 +1,25 @@
+@if (breadcrumb().hasItems()) {
+  <nav aria-label="breadcrumb">
+    <div class="d-flex flex-row">
+      @for (bread of breadcrumb().getItems(); track $index) {
+        @if (bread.active) {
+          <a [routerLink]="bread.link">
+            @if (bread.icon) {
+              <mat-icon>{{ bread.icon }}</mat-icon>
+            }
+            {{ bread.text }}
+          </a>
+        } @else {
+          @if (bread.icon) {
+            <mat-icon>{{ bread.icon }}</mat-icon>
+          }
+          <span class="text-muted">{{ bread.text }}</span>
+        }
+
+        @if ($index !== breadcrumb().getItems().length - 1) {
+          <span>&nbsp; / &nbsp;</span>
+        }
+      }
+    </div>
+  </nav>
+}
