@@ -3,10 +3,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { BrowserStorageService } from '../../../../../core/services/browser-storage.service';
-import { BrowserStorageKey } from '../../../../../core/types/browser-storage-key.enum';
-import { SystemRoles } from '../../../../../core/types/system-roles';
-import { RequiredRoleDirective } from '../../../../directives/required-role.directive';
+import { BrowserStorageService } from '../../../../core/services/browser-storage.service';
+import { BrowserStorageKey } from '../../../../core/types/browser-storage-key.enum';
+import { SystemRoles } from '../../../../core/types/system-roles';
+import { RequiredRoleDirective } from '../../../directives/required-role.directive';
 import { SidenavMenu, SidenavMenuItem, SidenavMenus } from './sidenav-menu';
 
 @Component({

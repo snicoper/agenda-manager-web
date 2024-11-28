@@ -7,7 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { LayoutService } from '../../../core/services/layout.service';
-import { SidebarMenuComponent } from '../pages/page-base/sidebar-menu/sidebar-menu.component';
+import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 
 @Component({
   selector: 'am-sidebar',
