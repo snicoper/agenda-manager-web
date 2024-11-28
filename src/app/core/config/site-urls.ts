@@ -12,6 +12,10 @@ export const SiteUrls = {
     login: '/auth/login',
   },
 
+  authorization: {
+    roles: '/authorization/roles',
+  },
+
   errors: {
     notFound: '/errors/404',
     forbidden: '/errors/403',

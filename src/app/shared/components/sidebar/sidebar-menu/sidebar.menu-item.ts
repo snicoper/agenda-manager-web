@@ -14,6 +14,8 @@ interface SidebarMenuItem {
 interface SubMenuItem {
   icon: string;
   text: string;
+  role?: SystemRole | SystemRole[];
+  permission?: AllPermissions | AllPermissions[];
   route: keyof typeof SiteUrls | string;
 }
 
@@ -25,7 +27,7 @@ export const sidebarMenuItems: SidebarMenuItem[] = [
     title: 'Administración',
     role: [SystemRoles.Administrator],
     items: [
-      { icon: 'manage_accounts', text: 'Roles', route: 'SiteUrls.roles' },
+      { icon: 'manage_accounts', text: 'Roles', route: SiteUrls.authorization.roles },
       { icon: 'group', text: 'Usuarios', route: 'SiteUrls.users' },
       { icon: 'history', text: 'Auditoría', route: 'SiteUrls.audit' },
     ],

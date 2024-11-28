@@ -22,9 +22,14 @@
               [routerLink]="subItem.route"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
+              [amRequiredRole]="subItem.role"
+              [amRequiredPermission]="subItem.permission"
+              [requiresAll]="true"
             >
-              <mat-icon>{{ subItem.icon }}</mat-icon>
-              {{ subItem.text }}
+              <span class="mat-list-item-link">
+                <mat-icon>{{ subItem.icon }}</mat-icon>
+                <span class="mat-list-item-text">{{ subItem.text }}</span>
+              </span>
             </mat-list-item>
           }
         </mat-nav-list>
