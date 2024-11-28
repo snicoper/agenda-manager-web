@@ -1,3 +1,9 @@
 :host {
   display: block;
 }
+
+.content-container {
+  height: calc(100dvh - 70px);
+  background-color: var(--mat-background);
+  padding: 0.2rem 1rem;
+}

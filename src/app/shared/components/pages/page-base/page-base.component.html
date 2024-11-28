@@ -1,7 +1,12 @@
-<nav>
+<main class="main">
+  <!-- navbar -->
   <am-navbar />
-</nav>
 
-<section>
-  <ng-content />
-</section>
+  <!-- content -->
+
+  <am-sidenav>
+    <div class="content-container">
+      <ng-content />
+    </div>
+  </am-sidenav>
+</main>

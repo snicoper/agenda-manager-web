@@ -19,8 +19,8 @@ import { ThemeColor } from '../../../core/types/theme-color.enum';
 })
 export class NavbarComponent {
   private layoutService = inject(LayoutService);
-  private themeState = inject(ThemeState);
   private authService = inject(AuthService);
+  private themeState = inject(ThemeState);
 
   navbarState = computed(() => this.layoutService.navbarState());
   theme = computed(() => this.themeState.value());
