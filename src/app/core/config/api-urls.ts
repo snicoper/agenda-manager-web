@@ -9,4 +9,7 @@ export const ApiUrls = {
     confirmEmailResent: '/accounts/confirm-email-resent',
     confirmEmailVerify: '/accounts/confirm-email-verify',
   },
+  authorization: {
+    getPaginated: '/roles/paginated',
+  },
 };
