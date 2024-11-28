@@ -13,6 +13,7 @@ import { routes } from './app.routes';
 import { AppInitializer } from './core/config/app-initializer';
 import { CustomErrorHandler } from './core/errors/custom-error-handler';
 import { ApiErrorInterceptor } from './core/interceptors/api-error.interceptor';
+import { ApiResultInterceptor } from './core/interceptors/api-result.interceptor';
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { TitleStrategyService } from './core/services/title-strategy.service';
 
@@ -36,6 +37,7 @@ export const appConfig: ApplicationConfig = {
     },
 
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiResultInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
 
     provideZoneChangeDetection({ eventCoalescing: true }),
