@@ -13,7 +13,7 @@ export class TitleStrategyService extends TitleStrategy {
     const title = this.buildTitle(routerState);
 
     if (title !== undefined) {
-      this.title.setTitle(`${AppEnvironment.siteName} | ${title}`);
+      this.title.setTitle(`${AppEnvironment.SiteName} | ${title}`);
     }
   }
 }

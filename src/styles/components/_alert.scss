@@ -20,8 +20,8 @@
   }
 
   &.alert-error {
-    border: 1px solid var(--sys-error-container);
-    background-color: var(--sys-error-container);
-    color: var(--sys-on-error-container);
+    border: 1px solid var(--mat-error-container);
+    background-color: var(--mat-error-container);
+    color: var(--mat-on-error-container);
   }
 }

@@ -69,7 +69,7 @@ const formatLogMessage = (key: string, debugData: unknown): string => {
  * @returns void.
  */
 const display = (debugData: unknown, settings: LogSettings): void => {
-  if (AppEnvironment.isDebug) {
+  if (AppEnvironment.IsDebug) {
     const background = `background: ${settings.color}; color: white`;
     const formatMessage = formatLogMessage(settings.key, debugData);
     const data = debugData && typeof debugData === 'object' ? debugData : undefined;

@@ -16,14 +16,14 @@
   height: 16px !important;
   width: 16px !important;
   margin-right: 8px !important;
-  color: var(--sys-error) !important;
+  color: var(--mat-error) !important;
 }
 
 // Para el texto
 ::ng-deep .mdc-list-item__primary-text {
   font-size: 15px !important;
   margin: 0 !important;
-  color: var(--sys-error) !important;
+  color: var(--mat-error) !important;
 }
 
 @keyframes slideIn {

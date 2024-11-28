@@ -29,8 +29,8 @@
   }
 
   &.snackbar-error {
-    --mdc-snackbar-container-color: var(--sys-error-container);
-    --mat-mdc-snack-bar-button-color: var(--sys-on-error-container);
-    --mdc-snackbar-supporting-text-color: var(--sys-on-error-container);
+    --mdc-snackbar-container-color: var(--mat-error-container);
+    --mat-mdc-snack-bar-button-color: var(--mat-on-error-container);
+    --mdc-snackbar-supporting-text-color: var(--mat-on-error-container);
   }
 }

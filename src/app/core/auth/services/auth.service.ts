@@ -1,6 +1,8 @@
 import { computed, inject, Injectable, OnDestroy, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { SiteUrls } from '../../config/site-urls';
 import { logDebug } from '../../errors/debug-logger';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
@@ -14,6 +16,7 @@ import { AuthApiService } from './auth-api.service';
 export class AuthService implements OnDestroy {
   private readonly browserStorageService = inject(BrowserStorageService);
   private readonly authApiService = inject(AuthApiService);
+  private readonly router = inject(Router);
 
   private state = signal<AuthState>({
     isLoading: false,
@@ -84,6 +87,8 @@ export class AuthService implements OnDestroy {
     this.browserStorageService.remove(BrowserStorageKey.AccessToken);
     this.browserStorageService.remove(BrowserStorageKey.RefreshToken);
     this.tokenDecode = {};
+
+    this.router.navigate([SiteUrls.auth.login]);
   }
 
   getToken(): string {

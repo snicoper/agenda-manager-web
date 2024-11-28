@@ -1,3 +1,32 @@
 @if (navbarState()) {
-  <h2>Navbar</h2>
+  <nav class="navbar-container">
+    <mat-toolbar class="mat-elevation-z1">
+      <button mat-icon-button (click)="handleToggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="cursor-pointer" [routerLink]="siteUrls.home">{{ siteName }}</span>
+      <span class="d-flex m-auto"></span>
+
+      <button (click)="handleToggleTheme()" mat-icon-button>
+        <span>
+          @if (theme() === themeColor.Light) {
+            <mat-icon>light_mode</mat-icon>
+          } @else {
+            <mat-icon>dark_mode</mat-icon>
+          }
+        </span>
+      </button>
+
+      <button mat-raised-button [mat-menu-trigger-for]="profile" aria-label="Perfil de usuario">
+        {{ userEmail }}
+      </button>
+      <mat-menu #profile="matMenu">
+        <button mat-menu-item (click)="handleLogout()">
+          <mat-icon>logout</mat-icon>
+          Desconectar
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+  </nav>
 }

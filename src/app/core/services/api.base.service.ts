@@ -7,7 +7,7 @@ import { ApiResponse } from '../models/api.response';
 @Injectable({ providedIn: 'root' })
 export abstract class ApiBaseService {
   protected readonly http = inject(HttpClient);
-  protected readonly baseUrl = AppEnvironment.baseApiUrl;
+  protected readonly baseUrl = AppEnvironment.BaseApiUrl;
 
   protected get<TResponse>(endpoint = '', mapper?: (data: ApiResponse<TResponse>) => TResponse): Observable<TResponse> {
     const url = `${this.baseUrl}${endpoint}`;
