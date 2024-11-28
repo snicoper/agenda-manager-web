@@ -1,0 +1,51 @@
+<div class="sidebar-items-container">
+  <mat-accordion multi>
+    <!-- administration -->
+    <mat-expansion-panel
+      (closed)="handleClosedExpansionPanel('administration')"
+      (opened)="handleOpenExpansionPanel('administration')"
+      [amRequiredRole]="roles.Administrator"
+      [expanded]="stateSidebarMenu('administration')"
+      class="sidebar-item mat-elevation-z0"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>settings</mat-icon>
+          Configuración
+        </mat-panel-title>
+        <mat-panel-description></mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-nav-list>
+        <mat-list-item>Item 1</mat-list-item>
+        <mat-list-item>Item 1</mat-list-item>
+        <mat-list-item>Item 1</mat-list-item>
+        <mat-list-item>Item 1</mat-list-item>
+      </mat-nav-list>
+    </mat-expansion-panel>
+
+    <!-- calendars -->
+    <mat-expansion-panel
+      (closed)="handleClosedExpansionPanel('calendars')"
+      (opened)="handleOpenExpansionPanel('calendars')"
+      [amRequiredRole]="roles.Administrator"
+      [expanded]="stateSidebarMenu('calendars')"
+      class="sidebar-item mat-elevation-z0"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>calendar_month</mat-icon>
+          Calendarios
+        </mat-panel-title>
+        <mat-panel-description></mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-nav-list>
+        <mat-list-item>Item 1</mat-list-item>
+        <mat-list-item>Item 1</mat-list-item>
+        <mat-list-item>Item 1</mat-list-item>
+        <mat-list-item>Item 1</mat-list-item>
+      </mat-nav-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

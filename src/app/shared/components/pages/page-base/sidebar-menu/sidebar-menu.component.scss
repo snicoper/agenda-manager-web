@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.sidebar-items-container {
+  mat-panel-title {
+    flex-basis: auto;
+
+    mat-icon {
+      margin-right: 0.4rem;
+    }
+  }
+}
