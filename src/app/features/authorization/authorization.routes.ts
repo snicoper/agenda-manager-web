@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { SystemPermissions } from '../../core/types/system-permissions';
-import { RoleListComponent } from './role-list/role-list.component';
+import { RoleListComponent } from './pages/role-list/role-list.component';
 
 export const routes: Routes = [
   {

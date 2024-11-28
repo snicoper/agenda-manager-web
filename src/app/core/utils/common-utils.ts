@@ -29,7 +29,7 @@ export class CommonUtils {
    * @param url Una de las propiedades.
    * @param args Remplaza el {key} por el value de.
    */
-  static urlReplaceParams(url: string, args: Record<string, string>): string {
+  static buildUrl(url: string, args: Record<string, string>): string {
     const keys = Object.keys(args);
     const values = Object.values(args);
 
