@@ -1,0 +1,5 @@
+<mat-form-field>
+  <mat-label>Filtrar</mat-label>
+  <input matInput (ngModelChange)="handleFilterChange($event)" [(ngModel)]="term" placeholder="Filtrar" />
+  <mat-icon matPrefix>search</mat-icon>
+</mat-form-field>
