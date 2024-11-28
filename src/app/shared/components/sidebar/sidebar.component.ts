@@ -6,13 +6,13 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 import { LayoutService } from '../../../core/services/layout.service';
 
 @Component({
-  selector: 'am-sidenav',
+  selector: 'am-sidebar',
   standalone: true,
   imports: [CommonModule, NgOptimizedImage, MatSidenavModule, MatDividerModule],
-  templateUrl: './sidenav.component.html',
-  styleUrl: './sidenav.component.scss',
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.scss',
 })
-export class SidenavComponent {
+export class SidebarComponent {
   private readonly layoutService = inject(LayoutService);
   private readonly authService = inject(AuthService);
 
