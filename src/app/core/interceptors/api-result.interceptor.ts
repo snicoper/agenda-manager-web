@@ -1,84 +1,96 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponse,
-  HttpStatusCode,
-} from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiResultItemFilter } from '../api-result/api-result-item-filter';
-import { ApiResultItemOrderBy } from '../api-result/api-result-item-order-by';
+import { Filter } from '../api-result/api-result-item-filter';
+import { Order } from '../api-result/api-result-item-order-by';
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
+// Interfaces base para tipar las respuestas
+interface ApiResultData {
+  [key: string]: unknown;
+  filters?: string | Filter[];
+  order?: string | Order;
+}
 
-/** Comprueba si es un ApiResult y deserializa filters. */
+interface ApiResultWrapper {
+  [key: string]: unknown;
+  value?: ApiResultData;
+}
+
 @Injectable()
 export class ApiResultInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
       map((event) => {
-        if (event instanceof HttpResponse && event.status === HttpStatusCode.Ok) {
-          event = this.apiResultOrder(event);
-          event = this.apiResultFilter(event);
+        if (!(event instanceof HttpResponse)) {
+          return event;
         }
 
-        return event;
+        const body = event.body as ApiResultWrapper | ApiResultData;
+
+        if (!this.isApiResult(body)) {
+          return event;
+        }
+
+        const transformed =
+          'value' in body
+            ? { ...body, value: this.transformData(body.value as ApiResultData) }
+            : this.transformData(body as ApiResultData);
+
+        return event.clone({ body: transformed });
       }),
     );
   }
 
-  private apiResultFilter(event: HttpResponse<any>): HttpResponse<any> {
-    // Filtros de ResultValue<ApiResult>.
-    if (
-      Object.hasOwn(event.body, 'value') &&
-      Object.hasOwn(event.body.value, 'filters') &&
-      event.body.value.filters.length
-    ) {
-      event.body.value.filters = JSON.parse(event.body.value.filters) as ApiResultItemFilter[];
-
-      return event;
-    } else if (Object.hasOwn(event.body, 'value') && Object.hasOwn(event.body.value, 'filters')) {
-      event.body.value.filters = [] as ApiResultItemFilter[];
-
-      return event;
+  private isApiResult(body: unknown): boolean {
+    if (!body || typeof body !== 'object') {
+      return false;
     }
 
-    // Filtros de ApiResult.
-    if (Object.hasOwn(event.body, 'filters') && event.body.filters.length) {
-      event.body.filters = JSON.parse(event.body.filters) as ApiResultItemFilter[];
-    } else if (Object.hasOwn(event.body, 'filters')) {
-      event.body.filters = [] as ApiResultItemFilter[];
-    }
+    const data = body as ApiResultWrapper;
 
-    return event;
+    return Boolean(
+      'filters' in body || 'order' in body || (data.value && ('filters' in data.value || 'order' in data.value)),
+    );
   }
 
-  private apiResultOrder(event: HttpResponse<any>): HttpResponse<any> {
-    // Order de ResultValue<ApiResult>.
-    if (
-      Object.hasOwn(event.body, 'value') &&
-      Object.hasOwn(event.body.value, 'order') &&
-      event.body.value.order.length
-    ) {
-      event.body.value.order = JSON.parse(event.body.value.order) as ApiResultItemOrderBy;
+  private transformData(data: ApiResultData): ApiResultData {
+    return {
+      ...data,
+      filters: this.parseFilters(data.filters),
+      order: this.parseOrder(data.order)?.toString(),
+    };
+  }
 
-      return event;
-    } else if (Object.hasOwn(event.body, 'value') && Object.hasOwn(event.body.value, 'order')) {
-      event.body.value.order = '';
-
-      return event;
+  private parseFilters(filters?: string | Filter[]): Filter[] {
+    if (!filters) {
+      return [];
     }
 
-    // Order de ApiResult.
-    if (Object.hasOwn(event.body, 'order') && event.body.order.length) {
-      event.body.order = JSON.parse(event.body.order) as ApiResultItemOrderBy;
-    } else if (Object.hasOwn(event.body, 'order')) {
-      event.body.order = '';
+    if (Array.isArray(filters)) {
+      return filters;
     }
 
-    return event;
+    try {
+      return JSON.parse(filters) as Filter[];
+    } catch {
+      return [];
+    }
+  }
+
+  private parseOrder(order?: string | Order): Order | null {
+    if (!order) {
+      return null;
+    }
+
+    if (typeof order !== 'string') {
+      return order;
+    }
+
+    try {
+      return JSON.parse(order) as Order;
+    } catch {
+      return null;
+    }
   }
 }

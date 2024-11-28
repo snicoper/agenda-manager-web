@@ -1,21 +1,22 @@
 import { LogicalOperator } from './types/logical-operator';
 import { RelationalOperator } from './types/relational-operator';
 
-export class ApiResultItemFilter {
+export interface FilterOptions {
   propertyName: string;
-  relationalOperator: RelationalOperator;
+  operator: RelationalOperator;
   value: string;
-  logicalOperator: LogicalOperator;
+  logicalOperator?: LogicalOperator;
+}
 
+export class Filter {
   constructor(
-    propertyName: string,
-    operator: RelationalOperator,
-    value: string,
-    logicalOperator = LogicalOperator.None,
-  ) {
-    this.propertyName = propertyName;
-    this.relationalOperator = operator;
-    this.value = value;
-    this.logicalOperator = logicalOperator;
+    readonly propertyName: string,
+    readonly relationalOperator: RelationalOperator,
+    readonly value: string,
+    public logicalOperator: LogicalOperator = LogicalOperator.None,
+  ) {}
+
+  static create(options: FilterOptions): Filter {
+    return new Filter(options.propertyName, options.operator, options.value, options.logicalOperator);
   }
 }
