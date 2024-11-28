@@ -10,4 +10,22 @@
       margin-right: 0.4rem;
     }
   }
+
+  mat-nav-list {
+    mat-list-item {
+      &.active {
+        background-color: var(--mat-surface-variant);
+      }
+
+      mat-icon {
+        position: relative;
+        top: 5px;
+        padding-right: 10px;
+      }
+
+      .mat-list-item-link {
+        color: var(--mat-on-background);
+      }
+    }
+  }
 }

@@ -1,9 +1,19 @@
+@use "variables" as *;
+
 :host {
   display: block;
 }
 
-.content-container {
-  height: calc(100dvh - 70px);
-  background-color: var(--mat-background);
-  padding: 0.2rem 1rem;
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--navbar-height));
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--navbar-height));
+    background-color: var(--mat-background);
+    padding: 0.2rem 1rem;
+  }
 }

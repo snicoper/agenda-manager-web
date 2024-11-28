@@ -3,27 +3,39 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BrowserStorageService } from '../../../../core/services/browser-storage.service';
 import { BrowserStorageKey } from '../../../../core/types/browser-storage-key.enum';
-import { SystemRoles } from '../../../../core/types/system-roles';
+import { RequiredPermissionDirective } from '../../../directives/required-permission.directive';
 import { RequiredRoleDirective } from '../../../directives/required-role.directive';
-import { SidenavMenu, SidenavMenuItem, SidenavMenus } from './sidenav-menu';
+import { sidebarMenuItems } from './sidebar.menu-item';
+import { SidenavMenuItem, SidenavMenus, SidenavMenuState } from './sidenav-menu-state';
 
 @Component({
   selector: 'am-sidebar-menu',
-  imports: [MatSidenavModule, MatExpansionModule, MatIconModule, MatListModule, RequiredRoleDirective],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatListModule,
+    RequiredRoleDirective,
+    RequiredPermissionDirective,
+  ],
   templateUrl: './sidebar-menu.component.html',
   styleUrl: './sidebar-menu.component.scss',
 })
 export class SidebarMenuComponent {
   private readonly browserStorageService = inject(BrowserStorageService);
 
-  private readonly sidenavMenu: SidenavMenu;
+  private readonly sidenavMenuState: SidenavMenuState;
 
-  readonly roles = SystemRoles;
+  readonly sidenavMenuItems = sidebarMenuItems;
 
   constructor() {
-    this.sidenavMenu = this.browserStorageService.getParse<SidenavMenu>(BrowserStorageKey.Sidenav) ?? SidenavMenus;
+    this.sidenavMenuState =
+      this.browserStorageService.getParse<SidenavMenuState>(BrowserStorageKey.Sidenav) ?? SidenavMenus;
   }
 
   stateSidebarMenu(sidebarMenu: string): boolean {
@@ -55,12 +67,12 @@ export class SidebarMenuComponent {
   }
 
   private getSidenavMenuItem(name: string): SidenavMenuItem | undefined {
-    const sidebarMenuItem = this.sidenavMenu.find((item: SidenavMenuItem) => item.name === name);
+    const sidebarMenuItem = this.sidenavMenuState.find((item: SidenavMenuItem) => item.name === name);
 
     return sidebarMenuItem;
   }
 
   private saveSidenavState(): void {
-    this.browserStorageService.setObject(BrowserStorageKey.Sidenav, this.sidenavMenu);
+    this.browserStorageService.setObject(BrowserStorageKey.Sidenav, this.sidenavMenuState);
   }
 }

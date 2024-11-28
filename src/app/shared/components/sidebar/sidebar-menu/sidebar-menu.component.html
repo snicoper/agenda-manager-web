@@ -1,51 +1,34 @@
 <div class="sidebar-items-container">
   <mat-accordion multi>
-    <!-- administration -->
-    <mat-expansion-panel
-      (closed)="handleClosedExpansionPanel('administration')"
-      (opened)="handleOpenExpansionPanel('administration')"
-      [amRequiredRole]="roles.Administrator"
-      [expanded]="stateSidebarMenu('administration')"
-      class="sidebar-item mat-elevation-z0"
-    >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>settings</mat-icon>
-          Configuración
-        </mat-panel-title>
-        <mat-panel-description></mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <mat-nav-list>
-        <mat-list-item>Item 1</mat-list-item>
-        <mat-list-item>Item 1</mat-list-item>
-        <mat-list-item>Item 1</mat-list-item>
-        <mat-list-item>Item 1</mat-list-item>
-      </mat-nav-list>
-    </mat-expansion-panel>
-
-    <!-- calendars -->
-    <mat-expansion-panel
-      (closed)="handleClosedExpansionPanel('calendars')"
-      (opened)="handleOpenExpansionPanel('calendars')"
-      [amRequiredRole]="roles.Administrator"
-      [expanded]="stateSidebarMenu('calendars')"
-      class="sidebar-item mat-elevation-z0"
-    >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>calendar_month</mat-icon>
-          Calendarios
-        </mat-panel-title>
-        <mat-panel-description></mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <mat-nav-list>
-        <mat-list-item>Item 1</mat-list-item>
-        <mat-list-item>Item 1</mat-list-item>
-        <mat-list-item>Item 1</mat-list-item>
-        <mat-list-item>Item 1</mat-list-item>
-      </mat-nav-list>
-    </mat-expansion-panel>
+    @for (item of sidenavMenuItems; track $index) {
+      <mat-expansion-panel
+        (closed)="handleClosedExpansionPanel(item.id)"
+        (opened)="handleOpenExpansionPanel(item.id)"
+        [amRequiredRole]="item.role"
+        [amRequiredPermission]="item.permission"
+        [requiresAll]="true"
+        [expanded]="stateSidebarMenu(item.id)"
+        class="sidebar-item mat-elevation-z0"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>{{ item.icon }}</mat-icon>
+            {{ item.title }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          @for (subItem of item.items; track $index) {
+            <mat-list-item
+              [routerLink]="subItem.route"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <mat-icon>{{ subItem.icon }}</mat-icon>
+              {{ subItem.text }}
+            </mat-list-item>
+          }
+        </mat-nav-list>
+      </mat-expansion-panel>
+    }
   </mat-accordion>
 </div>

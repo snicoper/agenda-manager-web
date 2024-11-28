@@ -1,8 +1,17 @@
+@use "variables" as *;
+
 :host {
   display: block;
 }
 
 .sidebar-container {
+  display: flex;
+  min-height: calc(100vh - var(--navbar-height));
+  flex-direction: column;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--mat-tertiary-container) transparent;
+
   .sidebar-content {
     .profile {
       .profile-image {
