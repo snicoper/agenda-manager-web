@@ -6,9 +6,11 @@ export class LayoutService {
   private sidebarState$ = signal(true);
   private footerState$ = signal(true);
 
-  navbarState = computed(() => this.navbarState$());
-  sidebarState = computed(() => this.sidebarState$());
-  footerState = computed(() => this.footerState$());
+  readonly layoutState = computed(() => ({
+    navbarState: this.navbarState$(),
+    sidebarState: this.sidebarState$(),
+    footerState: this.footerState$(),
+  }));
 
   navbarToggle(): void {
     this.navbarState$.update((value) => !value);

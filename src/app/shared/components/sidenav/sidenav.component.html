@@ -1,6 +1,16 @@
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" [opened]="sidebarState()" mode="side">
-    <p>Auto-resizing sidenav</p>
+<mat-drawer-container class="sidebar-container" autosize>
+  <mat-drawer #drawer class="sidebar-content" [opened]="sidebarState()" mode="side">
+    <section class="profile">
+      <div class="profile-image">
+        <img ngSrc="images/user.jpg" class="mat-elevation-z2" alt="photo" width="120" height="120" />
+      </div>
+
+      <div class="profile-info">
+        <h3 class="mat-headline-6">{{ email }}</h3>
+      </div>
+
+      <mat-divider />
+    </section>
   </mat-drawer>
 
   <ng-content />
