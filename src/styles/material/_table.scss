@@ -1,4 +1,13 @@
-.mat-mdc-row:hover .mat-mdc-cell {
-  border-color: var(--aw-background-secondary);
-  background-color: var(--aw-background-secondary);
+.mat-mdc-row {
+  .mat-mdc-cell {
+    border-bottom: 1px solid var(--mat-on-primary-fixed);
+  }
+  &:hover .mat-mdc-cell {
+    background-color: var(--mat-surface-variant);
+    border-color: var(--mat-background);
+  }
+
+  &:nth-child(odd) {
+    background-color: var(--mat-background);
+  }
 }
