@@ -1,18 +1,18 @@
 import { Sort } from '@angular/material/sort';
 import { OrderType } from './types/order-type';
 
-export class Order {
+export class ApiResultOrder {
   constructor(
     readonly propertyName: string,
     readonly orderType: OrderType,
   ) {}
 
-  static fromSort(sort: Sort): Order | null {
+  static fromSort(sort: Sort): ApiResultOrder | null {
     if (!sort.direction) {
       return null;
     }
 
-    return new Order(sort.active, sort.direction.toUpperCase() as OrderType);
+    return new ApiResultOrder(sort.active, sort.direction.toUpperCase() as OrderType);
   }
 
   toString(): string {

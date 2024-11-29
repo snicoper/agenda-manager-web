@@ -1,7 +1,7 @@
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
-import { Filter } from './api-result-item-filter';
-import { Order } from './api-result-item-order-by';
+import { ApiResultFilter } from './api-result-filter';
+import { ApiResultOrder } from './api-result-order';
 import { PaginationInfo } from './pagination-info';
 import { LogicalOperator } from './types/logical-operator';
 import { OrderType } from './types/order-type';
@@ -19,10 +19,10 @@ export class ApiResult<T> {
   items: T[] = [];
 
   /** Ordenación. */
-  order: Order | string = '';
+  order: ApiResultOrder | string = '';
 
   /** Filtros. */
-  filters: Filter[] = [];
+  filters: ApiResultFilter[] = [];
 
   constructor() {
     this.cleanFilters();
@@ -55,7 +55,7 @@ export class ApiResult<T> {
       concat = LogicalOperator.None;
     }
 
-    const filter = new Filter(propertyName, operator, value, concat);
+    const filter = new ApiResultFilter(propertyName, operator, value, concat);
     this.filters.push(filter);
 
     return this;
@@ -67,7 +67,7 @@ export class ApiResult<T> {
    * @param filter Filtro a eliminar.
    * @returns ApiResult<T>.
    */
-  removeFilter(filter: Filter): this {
+  removeFilter(filter: ApiResultFilter): this {
     const index = this.filters.findIndex((item) => item.propertyName === filter.propertyName);
 
     if (index >= 0) {
@@ -122,7 +122,7 @@ export class ApiResult<T> {
    * @returns ApiResult<T>.
    */
   addOrder(propertyName: string, orderType: OrderType): this {
-    this.order = { propertyName: propertyName, orderType: orderType } as Order;
+    this.order = { propertyName: propertyName, orderType: orderType } as ApiResultOrder;
 
     return this;
   }

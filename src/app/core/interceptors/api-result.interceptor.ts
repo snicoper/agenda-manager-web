@@ -2,14 +2,14 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } fr
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Filter } from '../api-result/api-result-item-filter';
-import { Order } from '../api-result/api-result-item-order-by';
+import { ApiResultFilter } from '../api-result/api-result-filter';
+import { ApiResultOrder } from '../api-result/api-result-order';
 
 // Interfaces base para tipar las respuestas
 interface ApiResultData {
   [key: string]: unknown;
-  filters?: string | Filter[];
-  order?: string | Order;
+  filters?: string | ApiResultFilter[];
+  order?: string | ApiResultOrder;
 }
 
 interface ApiResultWrapper {
@@ -62,7 +62,7 @@ export class ApiResultInterceptor implements HttpInterceptor {
     };
   }
 
-  private parseFilters(filters?: string | Filter[]): Filter[] {
+  private parseFilters(filters?: string | ApiResultFilter[]): ApiResultFilter[] {
     if (!filters) {
       return [];
     }
@@ -72,13 +72,13 @@ export class ApiResultInterceptor implements HttpInterceptor {
     }
 
     try {
-      return JSON.parse(filters) as Filter[];
+      return JSON.parse(filters) as ApiResultFilter[];
     } catch {
       return [];
     }
   }
 
-  private parseOrder(order?: string | Order): Order | null {
+  private parseOrder(order?: string | ApiResultOrder): ApiResultOrder | null {
     if (!order) {
       return null;
     }
@@ -88,7 +88,7 @@ export class ApiResultInterceptor implements HttpInterceptor {
     }
 
     try {
-      return JSON.parse(order) as Order;
+      return JSON.parse(order) as ApiResultOrder;
     } catch {
       return null;
     }

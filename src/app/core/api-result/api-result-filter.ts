@@ -8,7 +8,7 @@ export interface FilterOptions {
   logicalOperator?: LogicalOperator;
 }
 
-export class Filter {
+export class ApiResultFilter {
   constructor(
     readonly propertyName: string,
     readonly relationalOperator: RelationalOperator,
@@ -16,7 +16,7 @@ export class Filter {
     public logicalOperator: LogicalOperator = LogicalOperator.None,
   ) {}
 
-  static create(options: FilterOptions): Filter {
-    return new Filter(options.propertyName, options.operator, options.value, options.logicalOperator);
+  static create(options: FilterOptions): ApiResultFilter {
+    return new ApiResultFilter(options.propertyName, options.operator, options.value, options.logicalOperator);
   }
 }
