@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -25,6 +26,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
     MatSortModule,
     MatPaginatorModule,
     MatProgressSpinner,
+    MatButtonModule,
     PageBaseComponent,
     PageHeaderComponent,
     TableFilterComponent,
