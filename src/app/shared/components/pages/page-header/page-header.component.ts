@@ -7,7 +7,6 @@ import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
   selector: 'am-page-header',
   templateUrl: './page-header.component.html',
   styleUrl: './page-header.component.scss',
-  standalone: true,
   imports: [MatCardModule, BreadcrumbComponent],
 })
 export class PageHeaderComponent {

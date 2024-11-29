@@ -8,7 +8,6 @@ import { getValidationErrorMessage } from '../../validators/custom-validator-err
 
 @Component({
   selector: 'am-field-error',
-  standalone: true,
   imports: [MatListModule, MatIcon],
   templateUrl: './field-error.component.html',
   styleUrl: './field-error.component.scss',

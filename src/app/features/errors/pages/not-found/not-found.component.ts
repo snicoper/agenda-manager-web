@@ -10,7 +10,6 @@ import { PageSimpleComponent } from '../../../../shared/components/pages/page-si
 
 @Component({
   selector: 'am-not-found',
-  standalone: true,
   imports: [
     RouterLink,
     NgOptimizedImage,

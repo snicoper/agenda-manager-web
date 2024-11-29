@@ -7,7 +7,6 @@ import { AlertComponent } from '../../../alert/alert.component';
 
 @Component({
   selector: 'am-non-field-errors',
-  standalone: true,
   imports: [MatCardModule, MatListModule, AlertComponent],
   templateUrl: './non-field-errors.component.html',
 })

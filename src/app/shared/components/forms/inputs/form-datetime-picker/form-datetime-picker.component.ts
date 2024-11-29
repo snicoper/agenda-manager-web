@@ -36,7 +36,6 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
       multi: true,
     },
   ],
-  standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, FieldErrorComponent],
 })
 export class FormDatetimePickerComponent implements ControlValueAccessor, Validator {

@@ -19,7 +19,6 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
       multi: true,
     },
   ],
-  standalone: true,
   imports: [FormsModule, FieldErrorComponent],
 })
 export class FormColorPickerComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {

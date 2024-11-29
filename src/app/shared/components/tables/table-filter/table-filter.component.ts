@@ -9,7 +9,6 @@ import { RelationalOperator } from '../../../../core/api-result/types/relational
 
 @Component({
   selector: 'am-table-filter',
-  standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatIcon, MatInputModule],
   templateUrl: './table-filter.component.html',
 })

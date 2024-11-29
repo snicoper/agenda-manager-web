@@ -24,7 +24,6 @@ import { FormTimeZoneItem } from './form-time-zone.item.model';
       multi: true,
     },
   ],
-  standalone: true,
   imports: [FormsModule, CommonModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, FieldErrorComponent],
 })
 export class FormTimezoneComponent implements ControlValueAccessor {

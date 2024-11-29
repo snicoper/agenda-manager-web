@@ -22,7 +22,6 @@ import { FormInputType } from '../../models/form-input-type';
       multi: true,
     },
   ],
-  standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, FieldErrorComponent],
 })
 export class FormDatepickerComponent implements ControlValueAccessor {

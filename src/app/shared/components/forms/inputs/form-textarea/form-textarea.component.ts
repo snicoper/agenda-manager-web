@@ -21,7 +21,6 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
       multi: true,
     },
   ],
-  standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, TextFieldModule, FieldErrorComponent],
 })
 export class FormTextareaComponent implements ControlValueAccessor {

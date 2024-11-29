@@ -10,7 +10,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { AppEnvironment } from '../../config/app-environment';
-import { ApiResponseProcessor } from '../processor/api-response.proccesor';
+import { ApiResponseProcessor } from '../processors/api-response.proccesor';
 
 @Injectable()
 export class ApiResultInterceptor implements HttpInterceptor {

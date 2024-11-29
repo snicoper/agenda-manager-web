@@ -11,7 +11,6 @@ import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 
 @Component({
   selector: 'am-sidebar',
-  standalone: true,
   imports: [
     CommonModule,
     NgOptimizedImage,

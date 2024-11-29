@@ -7,7 +7,6 @@ import { BtnType } from './btn-type';
 
 @Component({
   selector: 'am-btn-loading',
-  standalone: true,
   imports: [NgClass, MatProgressSpinner, MatButtonModule, MatIcon],
   templateUrl: './btn-loading.component.html',
 })

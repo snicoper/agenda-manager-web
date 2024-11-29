@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'am-btn-back',
-  standalone: true,
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './btn-back.component.html',
 })

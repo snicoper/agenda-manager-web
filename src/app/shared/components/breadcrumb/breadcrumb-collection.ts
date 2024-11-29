@@ -10,6 +10,18 @@ export class BreadcrumbCollection {
     return this;
   }
 
+  push(item: BreadcrumbItem): this {
+    this.items.push(item);
+
+    return this;
+  }
+
+  unshift(item: BreadcrumbItem): this {
+    this.items.unshift(item);
+
+    return this;
+  }
+
   getItems(): BreadcrumbItem[] {
     return this.items;
   }

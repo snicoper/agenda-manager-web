@@ -19,7 +19,6 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
       multi: true,
     },
   ],
-  standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatCheckbox, FieldErrorComponent],
 })
 export class FormCheckboxComponent implements ControlValueAccessor {

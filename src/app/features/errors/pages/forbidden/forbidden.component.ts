@@ -7,7 +7,6 @@ import { PageSimpleComponent } from '../../../../shared/components/pages/page-si
 @Component({
   selector: 'am-forbidden',
   templateUrl: './forbidden.component.html',
-  standalone: true,
   imports: [RouterLink, PageSimpleComponent, BtnBackComponent],
 })
 export class ForbiddenComponent {
