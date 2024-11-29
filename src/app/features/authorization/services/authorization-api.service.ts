@@ -11,8 +11,13 @@ export class AuthorizationApiService extends ApiBaseService {
   getRolesPaginated(apiResult: ApiResult<RoleResponse>): Observable<ApiResult<RoleResponse>> {
     return this.getPaginated(
       apiResult,
-      ApiUrls.authorization.getPaginated,
+      ApiUrls.roles.getPaginated,
       (response) => response.value as ApiResult<RoleResponse>,
     );
+  }
+
+  /** Get role by id. */
+  getRoleById(): Observable<ApiResult<RoleResponse>> {
+    return this.get(ApiUrls.roles.getById, (response) => response.value);
   }
 }

@@ -27,7 +27,7 @@ export const sidebarMenuItems: SidebarMenuItem[] = [
     title: 'Administración',
     role: [SystemRoles.Administrator],
     items: [
-      { icon: 'manage_accounts', text: 'Roles', route: SiteUrls.authorization.roles },
+      { icon: 'manage_accounts', text: 'Roles', route: SiteUrls.roles.list },
       { icon: 'group', text: 'Usuarios', route: 'SiteUrls.users' },
       { icon: 'history', text: 'Auditoría', route: 'SiteUrls.audit' },
     ],

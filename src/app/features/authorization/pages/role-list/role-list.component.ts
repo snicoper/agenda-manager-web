@@ -60,7 +60,7 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   handleSelectRow(role: RoleResponse): void {
-    const url = CommonUtils.buildUrl('SiteUrl.employees.details', { id: role.id });
+    const url = CommonUtils.buildUrl(SiteUrls.roles.details, { id: role.id });
     this.router.navigateByUrl(url);
   }
 
@@ -80,7 +80,7 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Roles', SiteUrls.authorization.roles, '', false);
+    this.breadcrumb.add('Roles', SiteUrls.roles.list, '', false);
   }
 
   private loadRoles(): void {
