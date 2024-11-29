@@ -17,15 +17,23 @@ body {
 
 a {
   text-decoration: none;
-  color: var(--mat-on-primary);
+  color: var(--mat-outline);
 
   &:hover {
-    color: var(--mat-on-secondary);
+    color: var(--mat-outline-variant);
   }
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.text-muted {
+  color: var(--mat-outline-variant);
+}
+
+.text-muted-secondary {
+  color: var(--mat-outline);
 }
 
 /***************
