@@ -17,7 +17,7 @@ export class AuthorizationApiService extends ApiBaseService {
   }
 
   /** Get role by id. */
-  getRoleById(): Observable<ApiResult<RoleResponse>> {
-    return this.get(ApiUrls.roles.getById, (response) => response.value);
+  getRoleById(): Observable<RoleResponse> {
+    return this.get<RoleResponse>(ApiUrls.roles.getById, (response) => response.value);
   }
 }

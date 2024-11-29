@@ -39,7 +39,7 @@ export class RoleListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly displayedColumns = ['name', 'description'];
+  readonly displayedColumns = ['name', 'description', 'isEditable'];
   readonly fieldsFilter = ['name', 'description'];
 
   dataSource = new MatTableDataSource<RoleResponse>();
