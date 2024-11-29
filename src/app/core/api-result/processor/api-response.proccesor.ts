@@ -53,11 +53,11 @@ export class ApiResponseProcessor {
     if (this.isResultValue(body)) {
       // Procesar ResultValue<ApiResult>.
       body.value.filters = this.processFilters(body.value) || [];
-      body.value.order = this.processOrder(body.value);
+      body.value.order = this.processOrder(body.value) || undefined;
     } else {
       // Procesar ApiResult directamente.
-      body.filters = this.processFilters(body);
-      body.order = this.processOrder(body);
+      body.filters = this.processFilters(body) || [];
+      body.order = this.processOrder(body) || undefined;
     }
 
     return response;
