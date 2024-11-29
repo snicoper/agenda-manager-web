@@ -1,14 +1,13 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logDebug } from '../../../../core/errors/debug-logger';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
@@ -32,7 +31,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
   templateUrl: './role-list.component.html',
   styleUrl: './role-list.component.scss',
 })
-export class RoleListComponent {
+export class RoleListComponent implements AfterViewInit {
   private readonly apiService = inject(AuthorizationApiService);
   private readonly router = inject(Router);
 
@@ -40,17 +39,24 @@ export class RoleListComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly breadcrumb = new BreadcrumbCollection();
-
   readonly displayedColumns = ['name', 'description'];
   readonly fieldsFilter = ['name', 'description'];
 
-  dataSource!: MatTableDataSource<RoleResponse, MatPaginator>;
+  dataSource = new MatTableDataSource<RoleResponse>();
   apiResult = new ApiResult<RoleResponse>();
   loading = true;
 
   constructor() {
     this.setBreadcrumb();
-    this.loadRoles();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+      this.loadRoles();
+    });
   }
 
   handleSelectRow(role: RoleResponse): void {
@@ -84,10 +90,13 @@ export class RoleListComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (response) => {
-          logDebug(response);
-          this.apiResult = ApiResult.clone<RoleResponse>(response);
-          this.dataSource = new MatTableDataSource(response.items);
-          this.dataSource.sort = this.sort;
+          this.apiResult = ApiResult.create<RoleResponse>(response);
+          this.dataSource.data = this.apiResult.items;
+
+          if (this.sort && this.apiResult.order) {
+            this.sort.active = this.apiResult.order.propertyName;
+            this.sort.direction = this.apiResult.order.orderType.toLowerCase() as SortDirection;
+          }
         },
       });
   }

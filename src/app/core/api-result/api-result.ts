@@ -12,7 +12,7 @@ export class ApiResult<T> {
   pageSize = 25;
   totalItems = 0;
   totalPages = 1;
-  order: ApiResultOrder | string = '';
+  order: ApiResultOrder | undefined;
   filters: ApiResultFilter[] = [];
 
   constructor() {
@@ -21,13 +21,15 @@ export class ApiResult<T> {
   }
 
   /**
-   * Clonar un ApiResult<T>.
+   * Crea un ApiResult<T>.
    *
    * @param apiResult ApiResult<T> a clonar.
    * @returns ApiResult<T>.
    */
-  static clone<TModel>(apiResult: ApiResult<TModel>): ApiResult<TModel> {
-    return Object.assign(new ApiResult<TModel>(), apiResult);
+  static create<TModel>(apiResult: ApiResult<TModel>): ApiResult<TModel> {
+    const result = Object.assign(new ApiResult<TModel>(), apiResult);
+
+    return result;
   }
 
   /**
@@ -158,7 +160,7 @@ export class ApiResult<T> {
 
   /** Limpiar order. */
   cleanOrder(): void {
-    this.order = '';
+    this.order = undefined;
   }
 
   /**
