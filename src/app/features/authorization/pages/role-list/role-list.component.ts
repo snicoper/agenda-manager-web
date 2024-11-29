@@ -5,7 +5,7 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
@@ -21,6 +21,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
 @Component({
   selector: 'am-role-list',
   imports: [
+    RouterLink,
     MatCardModule,
     MatTableModule,
     MatSortModule,
@@ -45,6 +46,7 @@ export class RoleListComponent implements AfterViewInit {
   readonly breadcrumb = new BreadcrumbCollection();
   readonly displayedColumns = ['name', 'description', 'isEditable'];
   readonly fieldsFilter = ['name', 'description'];
+  readonly siteUrls = SiteUrls;
 
   dataSource = new MatTableDataSource<RoleResponse>();
   apiResult = new ApiResult<RoleResponse>();

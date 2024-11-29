@@ -6,12 +6,12 @@ import { PageBaseComponent } from '../../../../shared/components/pages/page-base
 import { PageHeaderComponent } from '../../../../shared/components/pages/page-header/page-header.component';
 
 @Component({
-  selector: 'am-role-details',
+  selector: 'am-role-create',
   imports: [PageBaseComponent, PageHeaderComponent],
-  templateUrl: './role-details.component.html',
-  styleUrl: './role-details.component.scss',
+  templateUrl: './role-create.component.html',
+  styleUrl: './role-create.component.scss',
 })
-export class RoleDetailsComponent {
+export class RoleCreateComponent {
   readonly breadcrumb = new BreadcrumbCollection();
 
   constructor() {
@@ -21,6 +21,6 @@ export class RoleDetailsComponent {
   private setBreadcrumb(): void {
     this.breadcrumb
       .push(new BreadcrumbItem('Roles', SiteUrls.roles.list))
-      .push(new BreadcrumbItem('Detalles', SiteUrls.roles.details, '', false));
+      .push(new BreadcrumbItem('Añadir rol', SiteUrls.roles.create, '', false));
   }
 }

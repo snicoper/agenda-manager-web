@@ -5,9 +5,8 @@
     <mat-card-content>
       <!-- toolbar -->
       <div class="d-flex flex-row">
-        <div>
-          <button mat-stroked-button>Añadir rol</button>
-        </div>
+        <button mat-raised-button [routerLink]="siteUrls.roles.create">Añadir rol</button>
+
         <div class="ms-auto">
           <am-table-filter
             (filterChange)="handleFilterChange($event)"
