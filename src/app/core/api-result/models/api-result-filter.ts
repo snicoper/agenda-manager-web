@@ -1,5 +1,5 @@
-import { LogicalOperator } from './types/logical-operator';
-import { RelationalOperator } from './types/relational-operator';
+import { LogicalOperator } from '../types/logical-operator';
+import { RelationalOperator } from '../types/relational-operator';
 
 export interface FilterOptions {
   propertyName: string;

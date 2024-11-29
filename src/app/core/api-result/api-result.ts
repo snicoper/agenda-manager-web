@@ -1,7 +1,7 @@
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
-import { ApiResultFilter } from './api-result-filter';
-import { ApiResultOrder } from './api-result-order';
+import { ApiResultFilter } from './models/api-result-filter';
+import { ApiResultOrder } from './models/api-result-order';
 import { LogicalOperator } from './types/logical-operator';
 import { OrderType } from './types/order-type';
 import { RelationalOperator } from './types/relational-operator';
