@@ -80,7 +80,7 @@ export class RoleListComponent {
   private loadRoles(): void {
     this.loading = true;
     this.apiService
-      .getRolesPaginated(new ApiResult<RoleResponse>())
+      .getRolesPaginated(this.apiResult)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (response) => {

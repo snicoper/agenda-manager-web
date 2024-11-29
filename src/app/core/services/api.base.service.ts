@@ -70,8 +70,8 @@ export abstract class ApiBaseService {
     const params = new URLSearchParams();
 
     // Parámetros de paginación
-    params.append('pageNumber', apiResult.pagination.pageNumber.toString());
-    params.append('pageSize', apiResult.pagination.pageSize.toString());
+    params.append('pageNumber', apiResult.pageNumber.toString());
+    params.append('pageSize', apiResult.pageSize.toString());
 
     // Ordenación
     if (apiResult.order) {

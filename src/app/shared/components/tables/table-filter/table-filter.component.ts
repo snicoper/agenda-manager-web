@@ -32,7 +32,7 @@ export class TableFilterComponent<T> {
 
     // Las búsquedas siempre lo hace desde la pagina 1.
     if (this.term.length > 0) {
-      this.apiResult().pagination.pageNumber = 1;
+      this.apiResult().pageNumber = 1;
     } else {
       this.filterChange.emit(this.apiResult());
 

@@ -2,26 +2,17 @@ import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { ApiResultFilter } from './api-result-filter';
 import { ApiResultOrder } from './api-result-order';
-import { PaginationInfo } from './pagination-info';
 import { LogicalOperator } from './types/logical-operator';
 import { OrderType } from './types/order-type';
 import { RelationalOperator } from './types/relational-operator';
 
 export class ApiResult<T> {
-  pagination: PaginationInfo = {
-    pageNumber: 1,
-    pageSize: 25,
-    totalItems: 0,
-    totalPages: 1,
-  };
-
-  /** Items devueltos. */
   items: T[] = [];
-
-  /** Ordenación. */
+  pageNumber = 1;
+  pageSize = 25;
+  totalItems = 0;
+  totalPages = 1;
   order: ApiResultOrder | string = '';
-
-  /** Filtros. */
   filters: ApiResultFilter[] = [];
 
   constructor() {
@@ -134,11 +125,8 @@ export class ApiResult<T> {
    * @returns ApiResult<T> con pagination aplicada.
    */
   handlePageEvent(pageEvent: PageEvent): this {
-    this.pagination = {
-      ...this.pagination,
-      pageNumber: pageEvent.pageIndex + 1,
-      pageSize: pageEvent.pageSize,
-    };
+    this.pageNumber = pageEvent.pageIndex + 1;
+    this.pageSize = pageEvent.pageSize;
 
     return this;
   }
@@ -163,10 +151,7 @@ export class ApiResult<T> {
         this.cleanOrder();
     }
 
-    this.pagination = {
-      ...this.pagination,
-      pageNumber: 1,
-    };
+    this.pageNumber = 1;
 
     return this;
   }
