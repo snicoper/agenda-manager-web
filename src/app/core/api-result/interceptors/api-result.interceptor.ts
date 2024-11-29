@@ -9,6 +9,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
+import { AppEnvironment } from '../../config/app-environment';
 import { ApiResponseProcessor } from '../processor/api-response.proccesor';
 
 @Injectable()
@@ -23,8 +24,10 @@ export class ApiResultInterceptor implements HttpInterceptor {
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        // eslint-disable-next-line
-        console.error('Error en ApiResultInterceptor:', error);
+        if (AppEnvironment.IsDebug) {
+          // eslint-disable-next-line no-console
+          console.error('Error en ApiResultInterceptor:', error);
+        }
 
         return throwError(() => error);
       }),
