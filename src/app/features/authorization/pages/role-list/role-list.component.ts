@@ -13,6 +13,7 @@ import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/b
 import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/pages/page-header/page-header.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
+import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { RoleResponse } from '../../models/role.response';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
@@ -27,6 +28,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
     PageBaseComponent,
     PageHeaderComponent,
     TableFilterComponent,
+    BoolToIconPipe,
   ],
   templateUrl: './role-list.component.html',
   styleUrl: './role-list.component.scss',

@@ -14,6 +14,6 @@ export class BoolToIconPipe implements PipeTransform {
       return '<span class="material-icons text-success">check_circle</span>';
     }
 
-    return '<span class="material-icons text-danger">cancel</span>';
+    return '<span class="material-icons text-error">cancel</span>';
   }
 }
