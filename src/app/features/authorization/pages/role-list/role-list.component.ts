@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -21,6 +22,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
 @Component({
   selector: 'am-role-list',
   imports: [
+    CommonModule,
     RouterLink,
     MatCardModule,
     MatTableModule,

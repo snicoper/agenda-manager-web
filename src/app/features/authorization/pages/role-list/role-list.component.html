@@ -22,7 +22,8 @@
         matSort
         (matSortChange)="handleSortChange($event)"
         [dataSource]="dataSource"
-        [class]="{ hidden: loading }"
+        [ngClass]="{ hidden: loading }"
+        class="table-list"
       >
         <!-- name field -->
         <ng-container matColumnDef="name">
