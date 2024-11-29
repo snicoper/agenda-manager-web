@@ -20,137 +20,66 @@ export class ApiResult<T> {
     this.cleanOrder();
   }
 
-  /**
-   * Crea un ApiResult<T>.
-   *
-   * @param apiResult ApiResult<T> a clonar.
-   * @returns ApiResult<T>.
-   */
   static create<TModel>(apiResult: ApiResult<TModel>): ApiResult<TModel> {
-    const result = Object.assign(new ApiResult<TModel>(), apiResult);
-
-    return result;
+    return Object.assign(new ApiResult<TModel>(), apiResult);
   }
 
-  /**
-   * Añade un nuevo filtro.
-   * Si es el primer filtro que añade, concat lo cambiara por LogicalOperator.None
-   * independientemente del valor en concat que se pase.
-   *
-   * @param propertyName Nombre de la propiedad.
-   * @param operator Operador lógico.
-   * @param value Valor del filtro.
-   * @param concat Tipo de concatenación.
-   * @returns ApiResult<T>.
-   */
   addFilter(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.None): this {
-    if (this.filters.length === 0) {
-      concat = LogicalOperator.None;
-    }
+    const filter = new ApiResultFilter(
+      propertyName,
+      operator,
+      value,
+      this.filters.length === 0 ? LogicalOperator.None : concat,
+    );
 
-    const filter = new ApiResultFilter(propertyName, operator, value, concat);
     this.filters.push(filter);
 
     return this;
   }
 
-  /**
-   * Elimina un filtro.
-   *
-   * @param filter Filtro a eliminar.
-   * @returns ApiResult<T>.
-   */
   removeFilter(filter: ApiResultFilter): this {
-    const index = this.filters.findIndex((item) => item.propertyName === filter.propertyName);
-
-    if (index >= 0) {
-      this.filters.splice(index, 1);
-    }
-
-    this.logicalOperatorInFirstFilter();
-
-    return this;
+    return this.removeFilterByPropertyName(filter.propertyName);
   }
 
-  /**
-   * Elimina un filtro por el propertyName.
-   *
-   * @param propertyName Nombre de la propiedad a eliminar.
-   * @returns ApiResult<T>.
-   */
   removeFilterByPropertyName(propertyName: string): this {
     const index = this.filters.findIndex((item) => item.propertyName === propertyName);
 
     if (index >= 0) {
       this.filters.splice(index, 1);
+      this.logicalOperatorInFirstFilter();
     }
-
-    this.logicalOperatorInFirstFilter();
 
     return this;
   }
 
-  /**
-   * Comprueba si hay algún filtro por el nombre de la propiedad.
-   *
-   * @param propertyName Nombre de la propiedad a comprobar.
-   * @returns true si existe, false en caso contrario.
-   */
   hasFilterByPropertyName(propertyName: string): boolean {
-    const index = this.filters.findIndex((item) => item.propertyName === propertyName);
-
-    return index >= 0;
+    return this.filters.some((item) => item.propertyName === propertyName);
   }
 
-  /** Limpiar filtros. */
   cleanFilters(): void {
     this.filters = [];
   }
 
-  /**
-   * Añade un orden de una propiedad.
-   *
-   * @param propertyName Nombre de la propiedad.
-   * @param orderType Tipo de orden.
-   * @returns ApiResult<T>.
-   */
   addOrder(propertyName: string, orderType: OrderType): this {
-    this.order = { propertyName: propertyName, orderType: orderType } as ApiResultOrder;
+    this.order = { propertyName, orderType };
 
     return this;
   }
 
-  /**
-   * Wrapper al cambiar de pagina con MatPaginator.
-   *
-   * @param pageEvent PageEvent emitido por MatPaginator.
-   * @returns ApiResult<T> con pagination aplicada.
-   */
-  handlePageEvent(pageEvent: PageEvent): this {
-    this.pageNumber = pageEvent.pageIndex + 1;
-    this.pageSize = pageEvent.pageSize;
+  handlePageEvent({ pageIndex, pageSize }: PageEvent): this {
+    this.pageNumber = pageIndex + 1;
+    this.pageSize = pageSize;
 
     return this;
   }
 
-  /**
-   * Wrapper para añadir el filtro de order desde una table con MatSort.
-   *
-   * @param sortState Resultado del filtro MatSort.
-   * @returns ApiResult<T> con el filtro aplicado.
-   */
-  handleSortChange(sortState: Sort): this {
-    const propertyName = sortState.active;
+  handleSortChange({ active: propertyName, direction }: Sort): this {
+    const upperDirection = direction.toUpperCase();
 
-    switch (sortState.direction.toUpperCase()) {
-      case OrderType.Ascending:
-        this.addOrder(propertyName, OrderType.Ascending);
-        break;
-      case OrderType.Descending:
-        this.addOrder(propertyName, OrderType.Descending);
-        break;
-      default:
-        this.cleanOrder();
+    if (upperDirection === OrderType.Ascending || upperDirection === OrderType.Descending) {
+      this.addOrder(propertyName, upperDirection as OrderType);
+    } else {
+      this.cleanOrder();
     }
 
     this.pageNumber = 1;
@@ -158,22 +87,14 @@ export class ApiResult<T> {
     return this;
   }
 
-  /** Limpiar order. */
   cleanOrder(): void {
     this.order = undefined;
   }
 
-  /**
-   * Comprueba si el primer elemento en los filtros tiene el LogicalOperator != None.
-   */
   private logicalOperatorInFirstFilter(): void {
-    if (this.filters.length === 0) {
-      return;
-    }
+    const [firstFilter] = this.filters;
 
-    const firstFilter = this.filters[0];
-
-    if (firstFilter.logicalOperator !== LogicalOperator.None) {
+    if (firstFilter?.logicalOperator !== LogicalOperator.None) {
       firstFilter.logicalOperator = LogicalOperator.None;
     }
   }
