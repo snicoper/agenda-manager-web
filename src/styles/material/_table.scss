@@ -3,7 +3,7 @@
     border-bottom: 1px solid var(--mat-on-primary-fixed);
   }
   &:hover .mat-mdc-cell {
-    background-color: var(--mat-surface-variant);
+    background-color: var(--mat-stepper-header-hover-state-layer-color);
     border-color: var(--mat-background);
   }
 
