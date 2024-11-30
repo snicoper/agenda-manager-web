@@ -33,9 +33,6 @@ export class TableFilterComponent<T> {
       this.filterChange.emit(this.apiResult());
     }
 
-    // Limpiar los filtros anteriores.
-    this.fieldsFilter().forEach((propertyName) => this.apiResult().removeFilterByPropertyName(propertyName));
-
     // Las búsquedas siempre lo hace desde la pagina 1.
     if (this.term.length > 0) {
       this.apiResult().pageNumber = 1;

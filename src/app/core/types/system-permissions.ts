@@ -94,10 +94,10 @@ export const SystemPermissions: SystemPermissionsType = {
   },
 
   UserTokens: {
-    Create: 'user-tokens:create',
-    Read: 'user-tokens:read',
-    Update: 'user-tokens:update',
-    Delete: 'user-tokens:delete',
+    Create: 'user-token:create',
+    Read: 'user-token:read',
+    Update: 'user-token:update',
+    Delete: 'user-token:delete',
   },
 
   Roles: {
@@ -117,7 +117,7 @@ export const SystemPermissions: SystemPermissionsType = {
 
 /** Mapea los permisos a nombres de human readable. */
 export interface ModuleRoleDisplayNameType {
-  appointments: string;
+  appointment: string;
   'appointment-status': string;
   'audit-record': string;
   calendar: string;
@@ -127,15 +127,16 @@ export interface ModuleRoleDisplayNameType {
   'resource-type': string;
   service: string;
   user: string;
-  'user-tokens': string;
+  'user-token': string;
   role: string;
   permission: string;
+
   get(key: string): string;
   fromPermission(permissionName: string): string;
 }
 
 export const ModuleRoleDisplayName: ModuleRoleDisplayNameType = {
-  appointments: 'Citas',
+  appointment: 'Citas',
   'appointment-status': 'Estados de la cita',
   'audit-record': 'Registros de auditoría',
   calendar: 'Calendarios',
@@ -145,7 +146,7 @@ export const ModuleRoleDisplayName: ModuleRoleDisplayNameType = {
   'resource-type': 'Tipos de recursos',
   service: 'Servicios',
   user: 'Usuarios',
-  'user-tokens': 'Tokens de usuario',
+  'user-token': 'Tokens de usuario',
   role: 'Roles',
   permission: 'Permisos',
 

@@ -12,7 +12,10 @@ import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/b
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/pages/page-header/page-header.component';
-import { RoleWithPermissionAvailabilityByIdResponse } from '../../models/roleWithPermissionAvailabilityById.response';
+import {
+  Permission,
+  RoleWithPermissionAvailabilityByIdResponse,
+} from '../../models/roleWithPermissionAvailabilityById.response';
 import { UpdatePermissionForRoleRequest } from '../../models/update-permission-for-role.request';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
@@ -26,6 +29,8 @@ export class RoleDetailsComponent {
   private readonly authorizationApiService = inject(AuthorizationApiService);
   private readonly route = inject(ActivatedRoute);
   private readonly snackBarService = inject(SnackBarService);
+
+  private readonly actionOrder = ['Read', 'Update', 'Create', 'Delete'];
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly roleId = this.route.snapshot.paramMap.get('id') ?? '';
@@ -46,6 +51,10 @@ export class RoleDetailsComponent {
     const displayName = ModuleRoleDisplayName.get(moduleName);
 
     return displayName;
+  }
+
+  sortPermissionsByActionOrder(permissions: Permission[]): Permission[] {
+    return this.actionOrder.map((action) => permissions.find((p) => p.action.toLowerCase() === action.toLowerCase())!);
   }
 
   handleUpdatePermissionForRole(permissionId: string, isAssigned: boolean): void {

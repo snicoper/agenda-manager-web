@@ -14,17 +14,17 @@
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Lectura</th>
-              <th>Edición</th>
-              <th>Creación</th>
-              <th>Eliminación</th>
+              <th>Leer</th>
+              <th>Editar</th>
+              <th>Crear</th>
+              <th>Eliminar</th>
             </tr>
           </thead>
           <tbody>
             @for (permission of roleInfo?.permissions; track $index) {
               <tr>
                 <th>{{ getModuleRoleDisplayName(permission.moduleName) }}</th>
-                @for (item of permission.permissions; track $index) {
+                @for (item of sortPermissionsByActionOrder(permission.permissions); track $index) {
                   <td>
                     <mat-slide-toggle
                       [checked]="item.isAssigned"
