@@ -12,6 +12,7 @@ import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
+import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/pages/page-header/page-header.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
@@ -88,7 +89,7 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Roles', SiteUrls.roles.list, '', false);
+    this.breadcrumb.push(new BreadcrumbItem('Roles', SiteUrls.roles.list));
   }
 
   private loadRoles(): void {

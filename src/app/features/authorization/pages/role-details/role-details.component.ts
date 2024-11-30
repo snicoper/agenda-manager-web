@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
@@ -7,7 +8,7 @@ import { PageHeaderComponent } from '../../../../shared/components/pages/page-he
 
 @Component({
   selector: 'am-role-details',
-  imports: [PageBaseComponent, PageHeaderComponent],
+  imports: [MatCardModule, PageBaseComponent, PageHeaderComponent],
   templateUrl: './role-details.component.html',
   styleUrl: './role-details.component.scss',
 })

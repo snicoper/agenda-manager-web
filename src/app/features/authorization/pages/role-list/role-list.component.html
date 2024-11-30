@@ -17,61 +17,63 @@
       </div>
 
       <!-- table -->
-      <table
-        mat-table
-        matSort
-        (matSortChange)="handleSortChange($event)"
-        [dataSource]="dataSource"
-        [ngClass]="{ hidden: loading }"
-        class="table-list"
-      >
-        <!-- name field -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-        </ng-container>
+      <div class="table-container">
+        <table
+          mat-table
+          matSort
+          class="table-striped table-selectable"
+          (matSortChange)="handleSortChange($event)"
+          [dataSource]="dataSource"
+          [ngClass]="{ hidden: loading }"
+        >
+          <!-- name field -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          </ng-container>
 
-        <!-- description field -->
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
-          <td mat-cell *matCellDef="let row">{{ row.description }}</td>
-        </ng-container>
+          <!-- description field -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+            <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+          </ng-container>
 
-        <!-- active -->
-        <ng-container matColumnDef="isEditable">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Editable</th>
-          <td mat-cell *matCellDef="let row">
-            <span [innerHTML]="row.active | boolToIcon"></span>
-          </td>
-        </ng-container>
+          <!-- active -->
+          <ng-container matColumnDef="isEditable">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Editable</th>
+            <td mat-cell *matCellDef="let row">
+              <span [innerHTML]="row.active | boolToIcon"></span>
+            </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="handleSelectRow(row)"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="handleSelectRow(row)"></tr>
 
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell p-4" [attr.colspan]="displayedColumns.length">No hay datos a mostrar</td>
-        </tr>
-      </table>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell p-4" [attr.colspan]="displayedColumns.length">No hay datos a mostrar</td>
+          </tr>
+        </table>
 
-      <!-- paginator -->
-      @if (dataSource) {
-        <mat-paginator
-          showFirstLastButtons
-          (page)="handlePageEvent($event)"
-          [length]="apiResult.totalItems"
-          [pageSize]="apiResult.pageSize"
-          [pageIndex]="apiResult.pageNumber - 1"
-          [pageSizeOptions]="[25, 50, 100]"
-          aria-label="Selección de pagina"
-        />
-      }
+        <!-- paginator -->
+        @if (dataSource) {
+          <mat-paginator
+            showFirstLastButtons
+            (page)="handlePageEvent($event)"
+            [length]="apiResult.totalItems"
+            [pageSize]="apiResult.pageSize"
+            [pageIndex]="apiResult.pageNumber - 1"
+            [pageSizeOptions]="[25, 50, 100]"
+            aria-label="Selección de pagina"
+          />
+        }
 
-      @if (loading) {
-        <!-- spinner -->
-        <div class="d-flex justify-content-center p-5">
-          <mat-progress-spinner color="primary" mode="indeterminate" />
-        </div>
-      }
+        @if (loading) {
+          <!-- spinner -->
+          <div class="d-flex justify-content-center p-5">
+            <mat-progress-spinner color="primary" mode="indeterminate" />
+          </div>
+        }
+      </div>
     </mat-card-content>
   </mat-card>
 </am-page-base>

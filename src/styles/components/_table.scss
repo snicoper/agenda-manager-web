@@ -1,17 +1,189 @@
-// Tabla tipo lista.
-.table-list {
-  width: 100%;
+// Variables.
+$table-padding-default: 1rem;
+$table-padding-compact: 0.5rem;
+$table-padding-mobile: 0.75rem 0.5rem;
+$table-font-size: 0.875rem;
+$table-font-size-mobile: 0.813rem;
+$table-border-radius: 8px;
 
-  tbody {
-    tr.mat-mdc-row {
-      td,
-      th {
-        cursor: pointer;
-      }
+// Mixins reutilizables.
+@mixin table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: $table-border-radius;
+  background-color: var(--mat-table-background-color, var(--mat-sys-surface));
+}
+
+@mixin table-cell-base {
+  padding: $table-padding-default;
+  text-align: left;
+  vertical-align: middle;
+}
+
+@mixin table-hover-effect {
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: var(--mat-surface-container-highest);
+  }
+}
+
+@mixin table-header-cell {
+  color: var(--mat-on-surface);
+  font-weight: 500;
+  font-size: $table-font-size;
+  white-space: nowrap;
+}
+
+@mixin table-body-cell {
+  color: var(--mat-on-surface);
+  font-size: $table-font-size;
+}
+
+// Estilos base compartidos
+.table-base {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  th,
+  td {
+    @include table-cell-base;
+  }
+
+  tbody tr {
+    @include table-hover-effect;
+    border-bottom: 1px solid var(--mat-outline-variant);
+
+    &:last-child {
+      border-bottom: none;
     }
   }
 }
 
+// Contenedor para Material Table.
+.table-container {
+  @include table-container;
+
+  .mat-mdc-header-row {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  // Bordes redondeados en scroll.
+  &::before,
+  &::after {
+    content: "";
+    position: sticky;
+    width: 8px;
+    height: 100%;
+    top: 0;
+  }
+
+  &::before {
+    left: 0;
+  }
+  &::after {
+    right: 0;
+  }
+}
+
+// Contenedor para tabla personalizada
+.custom-table-container {
+  @include table-container;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem 0;
+
+  .table {
+    @extend .table-base;
+
+    border-collapse: collapse;
+
+    thead {
+      tr {
+        background-color: inherit;
+      }
+
+      th {
+        @include table-header-cell;
+
+        &:first-child {
+          border-top-left-radius: $table-border-radius;
+        }
+        &:last-child {
+          border-top-right-radius: $table-border-radius;
+        }
+      }
+    }
+
+    tbody td {
+      @include table-body-cell;
+    }
+  }
+}
+
+// Utilidades compartidas.
+// Alineación.
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+
+// Modificadores.
+.table-compact {
+  th,
+  td {
+    padding: $table-padding-compact !important;
+  }
+}
+
+.table-bordered {
+  td,
+  th {
+    border: 1px solid var(--mat-outline-variant);
+  }
+}
+
+.table-striped {
+  tbody {
+    tr:nth-child(even) {
+      background-color: var(--mat-surface-container-low);
+    }
+  }
+}
+
+.table-selectable {
+  tbody tr {
+    td,
+    th {
+      cursor: pointer;
+    }
+  }
+}
+
+.table-border-bottom {
+  tbody tr {
+    border-bottom: 1px solid var(--mat-outline-variant);
+  }
+}
+
+// Media queries.
+@media (max-width: 768px) {
+  .table-base {
+    th,
+    td {
+      padding: $table-padding-mobile;
+      font-size: $table-font-size-mobile;
+    }
+  }
+}
+
+/****************************************************************/
 // Ocultar botones de acción hasta hacer hover en la row.
 // Example: <mat-icon class="btn-action">add</mat-icon>
 table {
@@ -26,8 +198,7 @@ table {
     }
 
     &:hover {
-      td,
-      th {
+      td {
         .material-icons {
           &.btn-action {
             display: inline-block !important;
@@ -35,5 +206,15 @@ table {
         }
       }
     }
+  }
+}
+
+.mat-mdc-row {
+  .mat-mdc-cell {
+    border-bottom: 1px solid var(--mat-outline-variant);
+  }
+
+  &:hover .mat-mdc-cell {
+    background-color: var(--mat-stepper-header-hover-state-layer-color);
   }
 }
