@@ -22,6 +22,8 @@ $table-border-radius: 8px;
 
 @mixin table-hover-effect {
   transition: background-color 0.2s ease;
+  border-bottom: 1px solid var(--mat-outline-variant);
+
   &:hover {
     background-color: var(--mat-surface-container-highest);
   }
@@ -52,7 +54,6 @@ $table-border-radius: 8px;
 
   tbody tr {
     @include table-hover-effect;
-    border-bottom: 1px solid var(--mat-outline-variant);
 
     &:last-child {
       border-bottom: none;

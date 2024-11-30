@@ -12,5 +12,6 @@ export const ApiUrls = {
   roles: {
     getPaginated: '/roles/paginated',
     getById: '/roles/{roleId}',
+    getRoleWithPermissionAvailabilityById: '/roles/{roleId}/permission-availability',
   },
 };

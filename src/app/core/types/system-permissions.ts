@@ -1,3 +1,4 @@
+/** Permisos del sistema. */
 export interface Permission {
   Create: string;
   Read: string;
@@ -111,5 +112,50 @@ export const SystemPermissions: SystemPermissionsType = {
     Read: 'permission:read',
     Update: 'permission:update',
     Delete: 'permission:delete',
+  },
+};
+
+/** Mapea los permisos a nombres de human readable. */
+export interface ModuleRoleDisplayNameType {
+  appointments: string;
+  'appointment-status': string;
+  'audit-record': string;
+  calendar: string;
+  'calendar-holiday': string;
+  resource: string;
+  'resource-schedule': string;
+  'resource-type': string;
+  service: string;
+  user: string;
+  'user-tokens': string;
+  role: string;
+  permission: string;
+  get(key: string): string;
+  fromPermission(permissionName: string): string;
+}
+
+export const ModuleRoleDisplayName: ModuleRoleDisplayNameType = {
+  appointments: 'Citas',
+  'appointment-status': 'Estados de la cita',
+  'audit-record': 'Registros de auditoría',
+  calendar: 'Calendarios',
+  'calendar-holiday': 'Días festivos del calendario',
+  resource: 'Recursos',
+  'resource-schedule': 'Horarios de los recursos',
+  'resource-type': 'Tipos de recursos',
+  service: 'Servicios',
+  user: 'Usuarios',
+  'user-tokens': 'Tokens de usuario',
+  role: 'Roles',
+  permission: 'Permisos',
+
+  get(key: string): string {
+    return this[key as keyof Omit<ModuleRoleDisplayNameType, 'get' | 'fromPermission'>];
+  },
+
+  fromPermission(permissionName: string): string {
+    const moduleName = permissionName.split(':')[0];
+
+    return ModuleRoleDisplayName.get(moduleName);
   },
 };
