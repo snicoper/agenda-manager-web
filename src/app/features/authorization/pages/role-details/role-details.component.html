@@ -26,7 +26,10 @@
                 <th>{{ getModuleRoleDisplayName(permission.moduleName) }}</th>
                 @for (item of permission.permissions; track $index) {
                   <td>
-                    <mat-slide-toggle [checked]="item.isAssigned"></mat-slide-toggle>
+                    <mat-slide-toggle
+                      [checked]="item.isAssigned"
+                      (change)="handleUpdatePermissionForRole(item.permissionId, !item.isAssigned)"
+                    ></mat-slide-toggle>
                   </td>
                 }
               </tr>

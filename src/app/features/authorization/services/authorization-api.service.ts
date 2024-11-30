@@ -5,6 +5,7 @@ import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api.base.service';
 import { RoleResponse } from '../models/role.response';
 import { RoleWithPermissionAvailabilityByIdResponse } from '../models/roleWithPermissionAvailabilityById.response';
+import { UpdatePermissionForRoleRequest } from '../models/update-permission-for-role.request';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorizationApiService extends ApiBaseService {
@@ -27,5 +28,18 @@ export class AuthorizationApiService extends ApiBaseService {
     const url = ApiUrls.roles.getRoleWithPermissionAvailabilityById.replace('{roleId}', roleId);
 
     return this.get<RoleWithPermissionAvailabilityByIdResponse>(url, (response) => response.value);
+  }
+
+  /** Update permission for role. */
+  updatePermissionForRole(
+    roleId: string,
+    permissionId: string,
+    request: UpdatePermissionForRoleRequest,
+  ): Observable<boolean> {
+    const url = ApiUrls.roles.updatePermissionForRole
+      .replace('{roleId}', roleId)
+      .replace('{permissionId}', permissionId);
+
+    return this.put<UpdatePermissionForRoleRequest, boolean>(request, url, (response) => response.value);
   }
 }

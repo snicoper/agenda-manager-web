@@ -1,5 +1,5 @@
 export interface Permission {
-  id: string;
+  permissionId: string;
   action: string;
   isAssigned: boolean;
 }
