@@ -28,6 +28,7 @@
                   <td>
                     <mat-slide-toggle
                       [checked]="item.isAssigned"
+                      [disabled]="isUpdating"
                       (change)="handleUpdatePermissionForRole(item.permissionId, !item.isAssigned)"
                     ></mat-slide-toggle>
                   </td>

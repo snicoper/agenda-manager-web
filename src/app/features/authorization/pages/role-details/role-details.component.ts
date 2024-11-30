@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logDebug } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -30,6 +31,7 @@ export class RoleDetailsComponent {
   readonly roleId = this.route.snapshot.paramMap.get('id') ?? '';
 
   roleInfo: RoleWithPermissionAvailabilityByIdResponse | null = null;
+  isUpdating = false;
 
   constructor() {
     if (!this.roleId) {
@@ -51,19 +53,24 @@ export class RoleDetailsComponent {
       return;
     }
 
+    this.isUpdating = true;
+
     const request = {
       isAssigned,
     } as UpdatePermissionForRoleRequest;
 
-    this.authorizationApiService.updatePermissionForRole(this.roleInfo.roleId, permissionId, request).subscribe({
-      next: () => {
-        this.snackBarService.success('Permiso actualizado con éxito.');
-        this.loadRole();
-      },
-      error: (error: HttpErrorResponse) => {
-        logDebug(error);
-      },
-    });
+    this.authorizationApiService
+      .updatePermissionForRole(this.roleInfo.roleId, permissionId, request)
+      .pipe(finalize(() => (this.isUpdating = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Permiso actualizado con éxito.');
+          this.loadRole();
+        },
+        error: (error: HttpErrorResponse) => {
+          logDebug(error);
+        },
+      });
   }
 
   private setBreadcrumb(): void {

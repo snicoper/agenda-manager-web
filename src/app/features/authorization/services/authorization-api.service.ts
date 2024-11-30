@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiResult } from '../../../core/api-result/api-result';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api.base.service';
+import { CreateRoleRequest } from '../models/create-role.request';
 import { RoleResponse } from '../models/role.response';
 import { RoleWithPermissionAvailabilityByIdResponse } from '../models/roleWithPermissionAvailabilityById.response';
 import { UpdatePermissionForRoleRequest } from '../models/update-permission-for-role.request';
@@ -28,6 +29,11 @@ export class AuthorizationApiService extends ApiBaseService {
     const url = ApiUrls.roles.getRoleWithPermissionAvailabilityById.replace('{roleId}', roleId);
 
     return this.get<RoleWithPermissionAvailabilityByIdResponse>(url, (response) => response.value);
+  }
+
+  /** Create role. */
+  createRole(request: CreateRoleRequest): Observable<string> {
+    return this.post<CreateRoleRequest, string>(request, ApiUrls.roles.createRole, (response) => response.value);
   }
 
   /** Update permission for role. */

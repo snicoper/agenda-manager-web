@@ -13,6 +13,7 @@ export const ApiUrls = {
     getPaginated: '/roles/paginated',
     getById: '/roles/{roleId}',
     getRoleWithPermissionAvailabilityById: '/roles/{roleId}/permission-availability',
+    createRole: '/roles',
     updatePermissionForRole: '/roles/{roleId}/permissions/{permissionId}',
   },
 };
