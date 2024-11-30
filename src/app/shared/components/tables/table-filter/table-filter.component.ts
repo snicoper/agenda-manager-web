@@ -25,9 +25,16 @@ export class TableFilterComponent<T> {
    * em base al valor de term.
    */
   handleFilterChange(event: Event): void {
-    this.fieldsFilter().forEach((propertyName) => this.apiResult().removeFilterByPropertyName(propertyName));
-
+    this.apiResult().cleanFilters();
     this.term = String(event);
+
+    // Si el termino es 0, no se hace nada.
+    if (this.term.length === 0) {
+      this.filterChange.emit(this.apiResult());
+    }
+
+    // Limpiar los filtros anteriores.
+    this.fieldsFilter().forEach((propertyName) => this.apiResult().removeFilterByPropertyName(propertyName));
 
     // Las búsquedas siempre lo hace desde la pagina 1.
     if (this.term.length > 0) {
@@ -38,6 +45,7 @@ export class TableFilterComponent<T> {
       return;
     }
 
+    // Agregar los filtros.
     this.fieldsFilter().forEach((element: string) => {
       this.apiResult().addFilter(element, RelationalOperator.Contains, this.term, LogicalOperator.Or);
     });
