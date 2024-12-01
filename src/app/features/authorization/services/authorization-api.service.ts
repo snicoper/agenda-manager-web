@@ -57,4 +57,11 @@ export class AuthorizationApiService extends ApiBaseService {
 
     return this.put<UpdatePermissionForRoleRequest, boolean>(request, url, (response) => response.value as boolean);
   }
+
+  /** Delete role. */
+  deleteRole(roleId: string): Observable<boolean> {
+    const url = CommonUtils.buildUrl(ApiUrls.roles.deleteRole, { roleId: roleId });
+
+    return this.delete<boolean>(url, (response) => response.value as boolean);
+  }
 }

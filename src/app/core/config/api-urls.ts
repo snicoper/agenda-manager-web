@@ -15,5 +15,6 @@ export const ApiUrls = {
     getRoleWithPermissionAvailabilityById: '/roles/{roleId}/permission-availability',
     createRole: '/roles',
     updatePermissionForRole: '/roles/{roleId}/permissions/{permissionId}',
+    deleteRole: '/roles/{roleId}',
   },
 };

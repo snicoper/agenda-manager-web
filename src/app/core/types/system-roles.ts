@@ -8,13 +8,6 @@ export const SystemRoles = Object.freeze({
 
   /** User who receives the services. */
   Customer: 'Customer' as const,
-
-  /**
-   * User who can be assigned as a STAFF type resource.
-   * This role is independent of Employee, allowing both internal employees
-   * and external collaborators to be assigned as resources.
-   */
-  AssignableResource: 'AssignableResource' as const,
 });
 
 export type SystemRole = (typeof SystemRoles)[keyof typeof SystemRoles];

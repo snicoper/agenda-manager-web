@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
@@ -11,6 +13,8 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
+import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
@@ -34,6 +38,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
     MatPaginatorModule,
     MatProgressSpinner,
     MatButtonModule,
+    MatIconModule,
     PageBaseComponent,
     PageHeaderComponent,
     TableFilterComponent,
@@ -47,12 +52,13 @@ export class RoleListComponent implements AfterViewInit {
   private readonly apiService = inject(AuthorizationApiService);
   private readonly router = inject(Router);
   private readonly matDialog = inject(MatDialog);
+  private readonly snackBarService = inject(SnackBarService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly displayedColumns = ['name', 'description', 'isEditable'];
+  readonly displayedColumns = ['name', 'description', 'isEditable', 'actions'];
   readonly fieldsFilter = ['name', 'description'];
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
@@ -102,6 +108,28 @@ export class RoleListComponent implements AfterViewInit {
           this.loadRoles();
         }
       }
+    });
+  }
+
+  handleDeleteRole(roleId: string): void {
+    this.apiService.deleteRole(roleId).subscribe({
+      next: () => {
+        this.snackBarService.success('El role ha sido eliminado com éxito!');
+
+        this.loadRoles();
+      },
+      error: (error: HttpErrorResponse) => {
+        if (
+          error.status === HttpStatusCode.Conflict &&
+          error.error.code === ApiResultErrors.roles.roleHasUsersAssigned
+        ) {
+          this.snackBarService.error('No se puede eliminar el role porque tiene usuarios asignados.');
+
+          return;
+        }
+
+        this.snackBarService.error('Ha ocurrido un error al eliminar el role.');
+      },
     });
   }
 
