@@ -21,6 +21,7 @@ import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/b
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/pages/page-header/page-header.component';
+import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
@@ -42,6 +43,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
     PageBaseComponent,
     PageHeaderComponent,
     TableFilterComponent,
+    PaginatorComponent,
     BoolToIconPipe,
     RequiredPermissionDirective,
   ],
