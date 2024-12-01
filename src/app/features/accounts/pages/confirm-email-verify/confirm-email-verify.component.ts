@@ -6,7 +6,7 @@ import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
-import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
+import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 import { ConfirmEmailVerifyRequest } from '../../models/confirm-email-verify.request';
 import { AccountApiService } from '../../services/account-api.service';
 

@@ -7,7 +7,7 @@ import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
-import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
+import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 import { ConfirmEmailResentRequest } from '../../models/confirm-email-resent.request';
 import { AccountApiService } from '../../services/account-api.service';
 

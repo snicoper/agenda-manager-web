@@ -9,6 +9,7 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
@@ -19,8 +20,8 @@ import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
-import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
-import { PageHeaderComponent } from '../../../../shared/components/pages/page-header/page-header.component';
+import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
+import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
@@ -40,6 +41,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
     MatProgressSpinner,
     MatButtonModule,
     MatIconModule,
+    MatTooltipModule,
     PageBaseComponent,
     PageHeaderComponent,
     TableFilterComponent,
@@ -80,6 +82,11 @@ export class RoleListComponent implements AfterViewInit {
 
       this.loadRoles();
     });
+  }
+
+  handleRoleUserAssignments(roleId: string): void {
+    const url = CommonUtils.buildUrl(SiteUrls.roles.roleUserAssignments, { id: roleId });
+    this.router.navigateByUrl(url);
   }
 
   handleSelectRow(role: RoleResponse): void {

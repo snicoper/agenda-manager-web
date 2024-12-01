@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { BtnBackComponent } from '../../../../shared/components/buttons/btn-back/btn-back.component';
-import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
+import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 
 @Component({
   selector: 'am-not-found',

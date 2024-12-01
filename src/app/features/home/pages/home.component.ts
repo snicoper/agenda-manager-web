@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { SiteUrls } from '../../../core/config/site-urls';
-import { PageBaseComponent } from '../../../shared/components/pages/page-base/page-base.component';
+import { PageBaseComponent } from '../../../shared/components/layout/page-base/page-base.component';
 
 @Component({
   selector: 'am-home',

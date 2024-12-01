@@ -5,8 +5,8 @@ import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api.base.service';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CreateRoleRequest } from '../models/create-role.request';
+import { RoleWithPermissionAvailabilityByIdResponse } from '../models/role-with-permission-availability-by-id.response';
 import { RoleResponse } from '../models/role.response';
-import { RoleWithPermissionAvailabilityByIdResponse } from '../models/roleWithPermissionAvailabilityById.response';
 import { UpdatePermissionForRoleRequest } from '../models/update-permission-for-role.request';
 
 @Injectable({ providedIn: 'root' })

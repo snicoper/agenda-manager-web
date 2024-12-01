@@ -1,35 +1,48 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logDebug } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { ModuleRoleDisplayName } from '../../../../core/types/system-permissions';
+import { CommonUtils } from '../../../../core/utils/common-utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
-import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
-import { PageHeaderComponent } from '../../../../shared/components/pages/page-header/page-header.component';
+import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
+import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import {
   Permission,
   RoleWithPermissionAvailabilityByIdResponse,
-} from '../../models/roleWithPermissionAvailabilityById.response';
+} from '../../models/role-with-permission-availability-by-id.response';
 import { UpdatePermissionForRoleRequest } from '../../models/update-permission-for-role.request';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
 @Component({
   selector: 'am-role-details',
-  imports: [MatCardModule, MatSlideToggleModule, MatIconModule, PageBaseComponent, PageHeaderComponent, AlertComponent],
+  imports: [
+    MatCardModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+    PageBaseComponent,
+    PageHeaderComponent,
+    AlertComponent,
+  ],
   templateUrl: './role-details.component.html',
   styleUrl: './role-details.component.scss',
 })
 export class RoleDetailsComponent {
   private readonly authorizationApiService = inject(AuthorizationApiService);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly snackBarService = inject(SnackBarService);
 
   private readonly actionOrder = ['Read', 'Update', 'Create', 'Delete'];
@@ -49,6 +62,11 @@ export class RoleDetailsComponent {
 
     this.setBreadcrumb();
     this.loadRole();
+  }
+
+  handleNavigateToRoleUserAssignments(): void {
+    const url = CommonUtils.buildUrl(SiteUrls.roles.roleUserAssignments, { id: this.roleId });
+    this.router.navigateByUrl(url);
   }
 
   getModuleRoleDisplayName(moduleName: string): string {

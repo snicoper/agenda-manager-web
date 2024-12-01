@@ -15,6 +15,7 @@ export const SiteUrls = {
   roles: {
     list: '/authorization/roles',
     details: '/authorization/roles/{id}',
+    roleUserAssignments: '/authorization/roles/{id}/user-assignments',
   },
 
   errors: {

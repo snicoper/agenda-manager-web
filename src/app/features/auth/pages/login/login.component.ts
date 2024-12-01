@@ -16,7 +16,7 @@ import { NonFieldErrorsComponent } from '../../../../shared/components/forms/err
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
-import { PageSimpleComponent } from '../../../../shared/components/pages/page-simple/page-simple.component';
+import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 
 @Component({
   selector: 'am-login',
