@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiResult } from '../../../core/api-result/api-result';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api.base.service';
+import { CommonUtils } from '../../../core/utils/common-utils';
 import { CreateRoleRequest } from '../models/create-role.request';
 import { RoleResponse } from '../models/role.response';
 import { RoleWithPermissionAvailabilityByIdResponse } from '../models/roleWithPermissionAvailabilityById.response';
@@ -21,19 +22,26 @@ export class AuthorizationApiService extends ApiBaseService {
 
   /** Get role by id. */
   getRoleById(): Observable<RoleResponse> {
-    return this.get<RoleResponse>(ApiUrls.roles.getById, (response) => response.value);
+    return this.get<RoleResponse>(ApiUrls.roles.getById, (response) => response.value as RoleResponse);
   }
 
   /** Get role with permission availability by id. */
   getRoleWithPermissionAvailabilityById(roleId: string): Observable<RoleWithPermissionAvailabilityByIdResponse> {
-    const url = ApiUrls.roles.getRoleWithPermissionAvailabilityById.replace('{roleId}', roleId);
+    const url = CommonUtils.buildUrl(ApiUrls.roles.getRoleWithPermissionAvailabilityById, { roleId: roleId });
 
-    return this.get<RoleWithPermissionAvailabilityByIdResponse>(url, (response) => response.value);
+    return this.get<RoleWithPermissionAvailabilityByIdResponse>(
+      url,
+      (response) => response.value as RoleWithPermissionAvailabilityByIdResponse,
+    );
   }
 
   /** Create role. */
   createRole(request: CreateRoleRequest): Observable<string> {
-    return this.post<CreateRoleRequest, string>(request, ApiUrls.roles.createRole, (response) => response.value);
+    return this.post<CreateRoleRequest, string>(
+      request,
+      ApiUrls.roles.createRole,
+      (response) => response.value as string,
+    );
   }
 
   /** Update permission for role. */
@@ -42,10 +50,11 @@ export class AuthorizationApiService extends ApiBaseService {
     permissionId: string,
     request: UpdatePermissionForRoleRequest,
   ): Observable<boolean> {
-    const url = ApiUrls.roles.updatePermissionForRole
-      .replace('{roleId}', roleId)
-      .replace('{permissionId}', permissionId);
+    const url = CommonUtils.buildUrl(ApiUrls.roles.updatePermissionForRole, {
+      roleId: roleId,
+      permissionId: permissionId,
+    });
 
-    return this.put<UpdatePermissionForRoleRequest, boolean>(request, url, (response) => response.value);
+    return this.put<UpdatePermissionForRoleRequest, boolean>(request, url, (response) => response.value as boolean);
   }
 }

@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/pages/page-header/page-header.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
+import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { RoleCreateDialogComponent } from '../../components/role-create-dialog/role-create-dialog.component';
 import { RoleResponse } from '../../models/role.response';
@@ -36,6 +38,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
     PageHeaderComponent,
     TableFilterComponent,
     BoolToIconPipe,
+    RequiredPermissionDirective,
   ],
   templateUrl: './role-list.component.html',
   styleUrl: './role-list.component.scss',
@@ -52,6 +55,7 @@ export class RoleListComponent implements AfterViewInit {
   readonly displayedColumns = ['name', 'description', 'isEditable'];
   readonly fieldsFilter = ['name', 'description'];
   readonly siteUrls = SiteUrls;
+  readonly systemPermissions = SystemPermissions;
 
   dataSource = new MatTableDataSource<RoleResponse>();
   apiResult = new ApiResult<RoleResponse>();

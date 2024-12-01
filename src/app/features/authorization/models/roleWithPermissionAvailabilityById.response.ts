@@ -13,5 +13,6 @@ export interface RoleWithPermissionAvailabilityByIdResponse {
   roleId: string;
   roleName: string;
   roleDescription: string;
+  roleIsEditable: boolean;
   permissions: ModulePermission[];
 }

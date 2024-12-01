@@ -1,4 +1,5 @@
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { SystemRole, SystemRoles } from '../../../../core/types/system-roles';
 import { AllPermissions } from '../../../directives/required-permission.directive';
 
@@ -27,7 +28,12 @@ export const sidebarMenuItems: SidebarMenuItem[] = [
     title: 'Administración',
     role: [SystemRoles.Administrator],
     items: [
-      { icon: 'manage_accounts', text: 'Roles', route: SiteUrls.roles.list },
+      {
+        icon: 'manage_accounts',
+        text: 'Roles',
+        permission: [SystemPermissions.Roles.Read],
+        route: SiteUrls.roles.list,
+      },
       { icon: 'group', text: 'Usuarios', route: 'SiteUrls.users' },
       { icon: 'history', text: 'Auditoría', route: 'SiteUrls.audit' },
     ],

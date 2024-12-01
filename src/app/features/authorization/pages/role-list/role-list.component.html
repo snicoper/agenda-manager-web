@@ -5,7 +5,13 @@
     <mat-card-content>
       <!-- toolbar -->
       <div class="d-flex flex-row">
-        <button mat-raised-button (click)="handleOpenDialogCreateRole()">Añadir rol</button>
+        <button
+          [amRequiredPermission]="systemPermissions.Roles.Create"
+          mat-raised-button
+          (click)="handleOpenDialogCreateRole()"
+        >
+          Añadir rol
+        </button>
 
         <div class="ms-auto">
           <am-table-filter

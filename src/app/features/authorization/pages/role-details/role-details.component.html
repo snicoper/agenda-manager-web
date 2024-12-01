@@ -4,31 +4,44 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>
-        <h3>{{ roleInfo?.roleName }}</h3>
-        <h4>{{ roleInfo?.roleDescription }}</h4>
+        <h3>{{ role?.roleName }}</h3>
+        <h4>{{ role?.roleDescription }}</h4>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      @if (roleNotFound) {
+        <am-alert type="error" message="El rol al que intenta acceder no existe" [show]="true" />
+      }
+
+      @if (role?.roleIsEditable) {
+        <am-alert
+          type="warning"
+          message="ATENCIÓN: asigne los permisos con precaución"
+          [show]="true"
+          [dismissible]="false"
+        />
+      }
+
       <div class="custom-table-container">
         <table class="table table-striped table-border-bottom">
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Leer</th>
-              <th>Editar</th>
-              <th>Crear</th>
-              <th>Eliminar</th>
+              <th><mat-icon class="icon">visibility</mat-icon> Leer</th>
+              <th><mat-icon class="icon">add</mat-icon> Editar</th>
+              <th><mat-icon class="icon">edit</mat-icon> Crear</th>
+              <th><mat-icon class="icon">delete</mat-icon> Eliminar</th>
             </tr>
           </thead>
           <tbody>
-            @for (permission of roleInfo?.permissions; track $index) {
+            @for (permission of role?.permissions; track $index) {
               <tr>
                 <th>{{ getModuleRoleDisplayName(permission.moduleName) }}</th>
                 @for (item of sortPermissionsByActionOrder(permission.permissions); track $index) {
                   <td>
                     <mat-slide-toggle
                       [checked]="item.isAssigned"
-                      [disabled]="isUpdating"
+                      [disabled]="isUpdating || !role?.roleIsEditable"
                       (change)="handleUpdatePermissionForRole(item.permissionId, !item.isAssigned)"
                     ></mat-slide-toggle>
                   </td>

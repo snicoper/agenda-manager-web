@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -8,6 +9,7 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { logDebug } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { ModuleRoleDisplayName } from '../../../../core/types/system-permissions';
+import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/pages/page-base/page-base.component';
@@ -21,7 +23,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
 
 @Component({
   selector: 'am-role-details',
-  imports: [MatCardModule, MatSlideToggleModule, PageBaseComponent, PageHeaderComponent],
+  imports: [MatCardModule, MatSlideToggleModule, MatIconModule, PageBaseComponent, PageHeaderComponent, AlertComponent],
   templateUrl: './role-details.component.html',
   styleUrl: './role-details.component.scss',
 })
@@ -35,11 +37,13 @@ export class RoleDetailsComponent {
   readonly breadcrumb = new BreadcrumbCollection();
   readonly roleId = this.route.snapshot.paramMap.get('id') ?? '';
 
-  roleInfo: RoleWithPermissionAvailabilityByIdResponse | null = null;
+  role: RoleWithPermissionAvailabilityByIdResponse | null = null;
   isUpdating = false;
+  roleNotFound = false;
 
   constructor() {
     if (!this.roleId) {
+      this.roleNotFound = true;
       throw new Error('Role id is required.');
     }
 
@@ -58,7 +62,7 @@ export class RoleDetailsComponent {
   }
 
   handleUpdatePermissionForRole(permissionId: string, isAssigned: boolean): void {
-    if (!this.roleInfo) {
+    if (!this.role) {
       return;
     }
 
@@ -69,7 +73,7 @@ export class RoleDetailsComponent {
     } as UpdatePermissionForRoleRequest;
 
     this.authorizationApiService
-      .updatePermissionForRole(this.roleInfo.roleId, permissionId, request)
+      .updatePermissionForRole(this.role.roleId, permissionId, request)
       .pipe(finalize(() => (this.isUpdating = false)))
       .subscribe({
         next: () => {
@@ -89,8 +93,16 @@ export class RoleDetailsComponent {
   }
 
   private loadRole(): void {
-    this.authorizationApiService
-      .getRoleWithPermissionAvailabilityById(this.roleId)
-      .subscribe((response) => (this.roleInfo = response));
+    this.authorizationApiService.getRoleWithPermissionAvailabilityById(this.roleId).subscribe({
+      next: (response) => {
+        this.role = response;
+      },
+      error: (error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          this.roleNotFound = true;
+          throw new Error('Role not found.');
+        }
+      },
+    });
   }
 }
