@@ -14,7 +14,7 @@ export const SystemRoles = Object.freeze({
    * This role is independent of Employee, allowing both internal employees
    * and external collaborators to be assigned as resources.
    */
-  AssignableStaff: 'AssignableStaff' as const,
+  AssignableResource: 'AssignableResource' as const,
 });
 
 export type SystemRole = (typeof SystemRoles)[keyof typeof SystemRoles];

@@ -10,9 +10,9 @@ import { SystemRole } from '../types/system-roles';
 //     component: AppointmentsComponent,
 //     data: {
 //       auth: {
-//         roles: [SystemRoles.AssignableStaff, SystemRoles.Employee],
+//         roles: [SystemRoles.AssignableResource, SystemRoles.Employee],
 //         permissions: [SystemPermissions.Appointments.Read],
-//         requiresAll: false // necesita ser staff O employee Y tener el permiso
+//         requiresAll: false // necesita ser resource O employee Y tener el permiso
 //       }
 //     },
 //     canActivate: [AuthGuard]

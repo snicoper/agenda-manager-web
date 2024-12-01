@@ -3,7 +3,7 @@ import { AuthService } from '../../core/auth/services/auth.service';
 import { SystemRole } from '../../core/types/system-roles';
 
 // <button
-//   [amRequiredRole]="[SystemRoles.Employee, SystemRoles.AssignableStaff]"
+//   [amRequiredRole]="[SystemRoles.Employee, SystemRoles.AssignableResource]"
 //   [requiresAll]="true">
 //   Gestión de Personal
 // </button>
