@@ -20,7 +20,6 @@ export interface SystemPermissionsType {
   ResourceTypes: Permission;
   Services: Permission;
   Users: Permission;
-  UserTokens: Permission;
 }
 
 export const SystemPermissions: SystemPermissionsType = {
@@ -113,13 +112,6 @@ export const SystemPermissions: SystemPermissionsType = {
     Read: 'user:read',
     Update: 'user:update',
     Delete: 'user:delete',
-  },
-
-  UserTokens: {
-    Create: 'user-token:create',
-    Read: 'user-token:read',
-    Update: 'user-token:update',
-    Delete: 'user-token:delete',
   },
 };
 

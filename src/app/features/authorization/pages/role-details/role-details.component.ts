@@ -57,8 +57,21 @@ export class RoleDetailsComponent {
     return displayName;
   }
 
-  sortPermissionsByActionOrder(permissions: Permission[]): Permission[] {
-    return this.actionOrder.map((action) => permissions.find((p) => p.action.toLowerCase() === action.toLowerCase())!);
+  sortPermissionsByActionOrder(permissions: Permission[]): (Permission | null)[] {
+    return this.actionOrder.map(
+      (action) => permissions.find((p) => p.action.toLowerCase() === action.toLowerCase()) || null,
+    );
+  }
+
+  getToggleState(item: Permission | null): { show: boolean; disabled: boolean } {
+    if (!item) {
+      return { show: false, disabled: true };
+    }
+
+    return {
+      show: true,
+      disabled: this.isUpdating || !this.role?.roleIsEditable,
+    };
   }
 
   handleUpdatePermissionForRole(permissionId: string, isAssigned: boolean): void {

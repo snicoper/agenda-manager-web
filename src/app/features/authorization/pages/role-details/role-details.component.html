@@ -39,11 +39,15 @@
                 <th>{{ getModuleRoleDisplayName(permission.moduleName) }}</th>
                 @for (item of sortPermissionsByActionOrder(permission.permissions); track $index) {
                   <td>
-                    <mat-slide-toggle
-                      [checked]="item.isAssigned"
-                      [disabled]="isUpdating || !role?.roleIsEditable"
-                      (change)="handleUpdatePermissionForRole(item.permissionId, !item.isAssigned)"
-                    ></mat-slide-toggle>
+                    @if (getToggleState(item).show) {
+                      <mat-slide-toggle
+                        [checked]="item?.isAssigned"
+                        [disabled]="getToggleState(item).disabled"
+                        (change)="handleUpdatePermissionForRole(item!.permissionId, !item?.isAssigned)"
+                      />
+                    } @else {
+                      <mat-slide-toggle disabled />
+                    }
                   </td>
                 }
               </tr>
