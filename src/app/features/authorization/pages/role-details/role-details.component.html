@@ -4,8 +4,10 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>
-        <h3>{{ role?.roleName }}</h3>
-        <h4>{{ role?.roleDescription }}</h4>
+        <h1 class="app-title">
+          Permisos en <span class="text-primary">{{ role?.roleName }}</span>
+        </h1>
+        <h2 class="app-subtitle">{{ role?.roleDescription }}</h2>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -55,12 +57,6 @@
           </tbody>
         </table>
       </div>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card class="mt-2">
-    <mat-card-content>
-      <h3>Usuarios</h3>
     </mat-card-content>
   </mat-card>
 </am-page-base>

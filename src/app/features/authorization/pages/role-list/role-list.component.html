@@ -82,7 +82,7 @@
 
         <!-- paginator -->
         @if (dataSource) {
-          <am-paginator [apiResult]="apiResult" />
+          <am-paginator (pageEvent)="handlePageEvent($event)" [apiResult]="apiResult" />
         }
 
         @if (loading) {

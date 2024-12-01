@@ -12,9 +12,9 @@ export class PaginatorComponent<T> {
   readonly apiResult = input.required<ApiResult<T>>();
   readonly show = input(true);
 
-  pageEventEmitter = output<PageEvent>();
+  pageEvent = output<PageEvent>();
 
   handlePageEvent(pageEvent: PageEvent): void {
-    this.pageEventEmitter.emit(pageEvent);
+    this.pageEvent.emit(pageEvent);
   }
 }
