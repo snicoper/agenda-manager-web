@@ -10,8 +10,8 @@ export const ApiUrls = {
     confirmEmailVerify: '/accounts/confirm-email-verify',
   },
   roles: {
-    getPaginated: '/roles/paginated',
-    getById: '/roles/{roleId}',
+    getRolesPaginated: '/roles/paginated',
+    getRoleById: '/roles/{roleId}',
     getRolePermissionsById: '/roles/{roleId}/permissions',
     createRole: '/roles',
     updatePermissionForRole: '/roles/{roleId}/permissions/{permissionId}',

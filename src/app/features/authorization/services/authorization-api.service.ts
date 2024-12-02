@@ -15,22 +15,24 @@ export class AuthorizationApiService extends ApiBaseService {
   getRolesPaginated(apiResult: ApiResult<RoleResponse>): Observable<ApiResult<RoleResponse>> {
     return this.getPaginated(
       apiResult,
-      ApiUrls.roles.getPaginated,
+      ApiUrls.roles.getRolesPaginated,
       (response) => response.value as ApiResult<RoleResponse>,
     );
   }
 
   /** Get role by id. */
-  getRoleById(): Observable<RoleResponse> {
-    return this.get<RoleResponse>(ApiUrls.roles.getById, (response) => response.value as RoleResponse);
+  getRoleById(roleId: string): Observable<RoleResponse> {
+    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.getRoleById, { roleId: roleId });
+
+    return this.get<RoleResponse>(endpoint, (response) => response.value as RoleResponse);
   }
 
   /** Get role with permissions by id. */
   getRolePermissionsById(roleId: string): Observable<GetRolePermissionsByIdResponse> {
-    const url = CommonUtils.buildUrl(ApiUrls.roles.getRolePermissionsById, { roleId: roleId });
+    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.getRolePermissionsById, { roleId: roleId });
 
     return this.get<GetRolePermissionsByIdResponse>(
-      url,
+      endpoint,
       (response) => response.value as GetRolePermissionsByIdResponse,
     );
   }
@@ -50,18 +52,22 @@ export class AuthorizationApiService extends ApiBaseService {
     permissionId: string,
     request: UpdatePermissionForRoleRequest,
   ): Observable<boolean> {
-    const url = CommonUtils.buildUrl(ApiUrls.roles.updatePermissionForRole, {
+    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.updatePermissionForRole, {
       roleId: roleId,
       permissionId: permissionId,
     });
 
-    return this.put<UpdatePermissionForRoleRequest, boolean>(request, url, (response) => response.value as boolean);
+    return this.put<UpdatePermissionForRoleRequest, boolean>(
+      request,
+      endpoint,
+      (response) => response.value as boolean,
+    );
   }
 
   /** Delete role. */
   deleteRole(roleId: string): Observable<boolean> {
-    const url = CommonUtils.buildUrl(ApiUrls.roles.deleteRole, { roleId: roleId });
+    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.deleteRole, { roleId: roleId });
 
-    return this.delete<boolean>(url, (response) => response.value as boolean);
+    return this.delete<boolean>(endpoint, (response) => response.value as boolean);
   }
 }

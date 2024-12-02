@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logWarning } from '../../../../core/errors/debug-logger';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
@@ -11,6 +12,8 @@ import { PageBaseComponent } from '../../../../shared/components/layout/page-bas
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { RoleAssignedUsersComponent } from '../../components/role-assigned-users/role-assigned-users.component';
 import { RoleAvailableUsersComponent } from '../../components/role-available-users/role-available-users.component';
+import { RoleResponse } from '../../models/role.response';
+import { AuthorizationApiService } from '../../services/authorization-api.service';
 
 @Component({
   selector: 'am-role-user-assignments',
@@ -27,10 +30,14 @@ import { RoleAvailableUsersComponent } from '../../components/role-available-use
   styleUrl: './role-user-assignments.component.scss',
 })
 export class RoleUserAssignmentsComponent {
+  private readonly authorizationApiService = inject(AuthorizationApiService);
   private readonly route = inject(ActivatedRoute);
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly roleId = this.route.snapshot.paramMap.get('id') ?? '';
+
+  role: RoleResponse | null = null;
+  loading = true;
 
   constructor() {
     if (!this.roleId) {
@@ -40,6 +47,7 @@ export class RoleUserAssignmentsComponent {
     }
 
     this.setBreadcrumb();
+    this.loadRole();
   }
 
   private setBreadcrumb(): void {
@@ -49,6 +57,18 @@ export class RoleUserAssignmentsComponent {
   }
 
   private loadRole(): void {
-    // TODO: Implementar carga de datos del rol
+    this.loading = true;
+
+    this.authorizationApiService
+      .getRoleById(this.roleId)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (role) => {
+          this.role = role;
+        },
+        error: () => {
+          logWarning('No se ha podido cargar el rol.');
+        },
+      });
   }
 }

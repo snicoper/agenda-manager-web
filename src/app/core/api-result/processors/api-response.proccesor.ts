@@ -11,8 +11,23 @@ interface ResultValue<T> {
 
 // Clase auxiliar para procesar las respuestas.
 export class ApiResponseProcessor {
+  private static isApiResult(value: any): value is ApiResult<unknown> {
+    return (
+      typeof value === 'object' &&
+      value !== null &&
+      'pageNumber' in value &&
+      'pageSize' in value &&
+      'totalItems' in value
+    );
+  }
+
   private static isResultValue(body: any): body is ResultValue<ApiResult<unknown>> {
-    return Object.hasOwn(body, 'value') && typeof body.value === 'object' && body.value !== null;
+    return (
+      Object.hasOwn(body, 'value') &&
+      typeof body.value === 'object' &&
+      body.value !== null &&
+      this.isApiResult(body.value)
+    );
   }
 
   private static parseJsonSafely<T>(jsonString: string, defaultValue: T | undefined): T | undefined {
