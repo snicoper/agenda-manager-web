@@ -17,10 +17,7 @@ import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/b
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
-import {
-  Permission,
-  RoleWithPermissionAvailabilityByIdResponse,
-} from '../../models/role-with-permission-availability-by-id.response';
+import { GetRolePermissionsByIdResponse, Permission } from '../../models/get-role-permissions-by-id.response';
 import { UpdatePermissionForRoleRequest } from '../../models/update-permission-for-role.request';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
@@ -36,10 +33,10 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
     PageHeaderComponent,
     AlertComponent,
   ],
-  templateUrl: './role-details.component.html',
-  styleUrl: './role-details.component.scss',
+  templateUrl: './role-permissions.component.html',
+  styleUrl: './role-permissions.component.scss',
 })
-export class RoleDetailsComponent {
+export class RolePermissionsComponent {
   private readonly authorizationApiService = inject(AuthorizationApiService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -50,7 +47,7 @@ export class RoleDetailsComponent {
   readonly breadcrumb = new BreadcrumbCollection();
   readonly roleId = this.route.snapshot.paramMap.get('id') ?? '';
 
-  role: RoleWithPermissionAvailabilityByIdResponse | null = null;
+  role: GetRolePermissionsByIdResponse | null = null;
   isUpdating = false;
   roleNotFound = false;
 
@@ -120,11 +117,11 @@ export class RoleDetailsComponent {
   private setBreadcrumb(): void {
     this.breadcrumb
       .push(new BreadcrumbItem('Roles', SiteUrls.roles.list))
-      .push(new BreadcrumbItem('Detalles', SiteUrls.roles.details, '', false));
+      .push(new BreadcrumbItem('Permisos', SiteUrls.roles.permissions, '', false));
   }
 
   private loadRole(): void {
-    this.authorizationApiService.getRoleWithPermissionAvailabilityById(this.roleId).subscribe({
+    this.authorizationApiService.getRolePermissionsById(this.roleId).subscribe({
       next: (response) => {
         this.role = response;
       },

@@ -9,7 +9,7 @@ export interface ModulePermission {
   permissions: Permission[];
 }
 
-export interface RoleWithPermissionAvailabilityByIdResponse {
+export interface GetRolePermissionsByIdResponse {
   roleId: string;
   roleName: string;
   roleDescription: string;

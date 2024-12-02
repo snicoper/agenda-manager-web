@@ -90,7 +90,7 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   handleSelectRow(role: RoleResponse): void {
-    const url = CommonUtils.buildUrl(SiteUrls.roles.details, { id: role.id });
+    const url = CommonUtils.buildUrl(SiteUrls.roles.permissions, { id: role.id });
     this.router.navigateByUrl(url);
   }
 

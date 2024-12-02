@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { SystemPermissions } from '../../core/types/system-permissions';
-import { RoleDetailsComponent } from './pages/role-details/role-details.component';
 import { RoleListComponent } from './pages/role-list/role-list.component';
+import { RolePermissionsComponent } from './pages/role-permissions/role-permissions.component';
 import { RoleUserAssignmentsComponent } from './pages/role-user-assignments/role-user-assignments.component';
 
 export const routes: Routes = [
@@ -12,8 +12,8 @@ export const routes: Routes = [
     data: { permissions: [SystemPermissions.Roles.Read] },
   },
   {
-    path: 'roles/:id',
-    component: RoleDetailsComponent,
+    path: 'roles/:id/permissions',
+    component: RolePermissionsComponent,
     title: 'Detalles del rol',
     data: { permissions: [SystemPermissions.Roles.Read] },
   },

@@ -5,7 +5,7 @@ import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api.base.service';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CreateRoleRequest } from '../models/create-role.request';
-import { RoleWithPermissionAvailabilityByIdResponse } from '../models/role-with-permission-availability-by-id.response';
+import { GetRolePermissionsByIdResponse } from '../models/get-role-permissions-by-id.response';
 import { RoleResponse } from '../models/role.response';
 import { UpdatePermissionForRoleRequest } from '../models/update-permission-for-role.request';
 
@@ -25,13 +25,13 @@ export class AuthorizationApiService extends ApiBaseService {
     return this.get<RoleResponse>(ApiUrls.roles.getById, (response) => response.value as RoleResponse);
   }
 
-  /** Get role with permission availability by id. */
-  getRoleWithPermissionAvailabilityById(roleId: string): Observable<RoleWithPermissionAvailabilityByIdResponse> {
-    const url = CommonUtils.buildUrl(ApiUrls.roles.getRoleWithPermissionAvailabilityById, { roleId: roleId });
+  /** Get role with permissions by id. */
+  getRolePermissionsById(roleId: string): Observable<GetRolePermissionsByIdResponse> {
+    const url = CommonUtils.buildUrl(ApiUrls.roles.getRolePermissionsById, { roleId: roleId });
 
-    return this.get<RoleWithPermissionAvailabilityByIdResponse>(
+    return this.get<GetRolePermissionsByIdResponse>(
       url,
-      (response) => response.value as RoleWithPermissionAvailabilityByIdResponse,
+      (response) => response.value as GetRolePermissionsByIdResponse,
     );
   }
 
