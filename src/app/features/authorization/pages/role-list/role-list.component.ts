@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -38,7 +38,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatProgressSpinner,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,

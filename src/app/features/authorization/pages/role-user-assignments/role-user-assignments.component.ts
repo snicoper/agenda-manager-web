@@ -63,9 +63,7 @@ export class RoleUserAssignmentsComponent {
       .getRoleById(this.roleId)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (role) => {
-          this.role = role;
-        },
+        next: (role) => (this.role = role),
         error: () => {
           logWarning('No se ha podido cargar el rol.');
         },

@@ -1,4 +1,4 @@
-export interface Permission {
+export interface PermissionDetail {
   permissionId: string;
   action: string;
   isAssigned: boolean;
@@ -6,7 +6,7 @@ export interface Permission {
 
 export interface ModulePermission {
   moduleName: string;
-  permissions: Permission[];
+  permissions: PermissionDetail[];
 }
 
 export interface GetRolePermissionsByIdResponse {

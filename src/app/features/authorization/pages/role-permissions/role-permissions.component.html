@@ -36,22 +36,32 @@
             </tr>
           </thead>
           <tbody>
-            @for (permission of role?.permissions; track $index) {
+            @if (!loading) {
+              @for (permission of role?.permissions; track $index) {
+                <tr>
+                  <th>{{ getModuleRoleDisplayName(permission.moduleName) }}</th>
+                  @for (item of sortPermissionsByActionOrder(permission.permissions); track $index) {
+                    <td>
+                      @if (getToggleState(item).show) {
+                        <mat-slide-toggle
+                          [checked]="item?.isAssigned"
+                          [disabled]="getToggleState(item).disabled"
+                          (change)="handleUpdatePermissionForRole(item!.permissionId, !item?.isAssigned)"
+                        />
+                      } @else {
+                        <mat-slide-toggle disabled />
+                      }
+                    </td>
+                  }
+                </tr>
+              }
+            } @else {
               <tr>
-                <th>{{ getModuleRoleDisplayName(permission.moduleName) }}</th>
-                @for (item of sortPermissionsByActionOrder(permission.permissions); track $index) {
-                  <td>
-                    @if (getToggleState(item).show) {
-                      <mat-slide-toggle
-                        [checked]="item?.isAssigned"
-                        [disabled]="getToggleState(item).disabled"
-                        (change)="handleUpdatePermissionForRole(item!.permissionId, !item?.isAssigned)"
-                      />
-                    } @else {
-                      <mat-slide-toggle disabled />
-                    }
-                  </td>
-                }
+                <td colspan="100%">
+                  <div class="d-flex justify-content-center my-5">
+                    <mat-progress-spinner mode="indeterminate" />
+                  </div>
+                </td>
               </tr>
             }
           </tbody>

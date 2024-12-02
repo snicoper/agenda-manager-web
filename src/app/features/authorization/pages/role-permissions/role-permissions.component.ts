@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -17,7 +18,7 @@ import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/b
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
-import { GetRolePermissionsByIdResponse, Permission } from '../../models/get-role-permissions-by-id.response';
+import { GetRolePermissionsByIdResponse, PermissionDetail } from '../../models/get-role-permissions-by-id.response';
 import { UpdatePermissionForRoleRequest } from '../../models/update-permission-for-role.request';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
@@ -29,6 +30,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
     PageBaseComponent,
     PageHeaderComponent,
     AlertComponent,
@@ -48,6 +50,7 @@ export class RolePermissionsComponent {
   readonly roleId = this.route.snapshot.paramMap.get('id') ?? '';
 
   role: GetRolePermissionsByIdResponse | null = null;
+  loading = false;
   isUpdating = false;
   roleNotFound = false;
 
@@ -58,7 +61,7 @@ export class RolePermissionsComponent {
     }
 
     this.setBreadcrumb();
-    this.loadRole();
+    this.loadRolePermissions();
   }
 
   handleNavigateToRoleUserAssignments(): void {
@@ -72,13 +75,13 @@ export class RolePermissionsComponent {
     return displayName;
   }
 
-  sortPermissionsByActionOrder(permissions: Permission[]): (Permission | null)[] {
+  sortPermissionsByActionOrder(permissions: PermissionDetail[]): (PermissionDetail | null)[] {
     return this.actionOrder.map(
       (action) => permissions.find((p) => p.action.toLowerCase() === action.toLowerCase()) || null,
     );
   }
 
-  getToggleState(item: Permission | null): { show: boolean; disabled: boolean } {
+  getToggleState(item: PermissionDetail | null): { show: boolean; disabled: boolean } {
     if (!item) {
       return { show: false, disabled: true };
     }
@@ -106,7 +109,7 @@ export class RolePermissionsComponent {
       .subscribe({
         next: () => {
           this.snackBarService.success('Permiso actualizado con éxito.');
-          this.loadRole();
+          this.loadRolePermissions();
         },
         error: (error: HttpErrorResponse) => {
           logDebug(error);
@@ -120,17 +123,22 @@ export class RolePermissionsComponent {
       .push(new BreadcrumbItem('Permisos', SiteUrls.roles.permissions, '', false));
   }
 
-  private loadRole(): void {
-    this.authorizationApiService.getRolePermissionsById(this.roleId).subscribe({
-      next: (response) => {
-        this.role = response;
-      },
-      error: (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          this.roleNotFound = true;
-          throw new Error('Role not found.');
-        }
-      },
-    });
+  private loadRolePermissions(): void {
+    this.loading = true;
+
+    this.authorizationApiService
+      .getRolePermissionsById(this.roleId)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (response) => {
+          this.role = response;
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            this.roleNotFound = true;
+            throw new Error('Role not found.');
+          }
+        },
+      });
   }
 }
