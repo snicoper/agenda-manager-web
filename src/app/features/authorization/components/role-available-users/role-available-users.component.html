@@ -1,1 +1,60 @@
-<p>role-available-users works!</p>,
+<!-- toolbar -->
+<div class="d-flex flex-row">
+  <div class="ms-auto">
+    <am-table-filter
+      (filterChange)="handleFilterChange($event)"
+      [apiResult]="apiResult"
+      [fieldsFilter]="fieldsFilter"
+    />
+  </div>
+</div>
+
+<!-- table -->
+<div class="table-container">
+  <table
+    mat-table
+    matSort
+    matSortActive="email"
+    matSortDirection="asc"
+    class="table-striped"
+    [dataSource]="dataSource"
+    [ngClass]="{ hidden: loading }"
+  >
+    <!-- email field -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+    </ng-container>
+
+    <!-- actions field -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <span class="d-flex justify-content-end">
+          <button mat-icon-button (click)="handleUnAssignUserToRole(row.userId)">
+            <mat-icon matTooltip="Añadir al rol" class="btn-action text-error">add</mat-icon>
+          </button>
+        </span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell p-4" [attr.colspan]="displayedColumns.length">No hay datos a mostrar</td>
+    </tr>
+  </table>
+
+  <!-- paginator -->
+  @if (dataSource) {
+    <am-paginator (pageEvent)="handlePageEvent($event)" [apiResult]="apiResult" />
+  }
+
+  <!-- spinner -->
+  @if (loading) {
+    <div class="d-flex justify-content-center p-5">
+      <mat-progress-spinner color="primary" mode="indeterminate" />
+    </div>
+  }
+</div>
