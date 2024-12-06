@@ -66,7 +66,7 @@ export class ApiResponseProcessor {
     const body = response.body;
 
     if (this.isResultValue(body)) {
-      // Procesar ResultValue<ApiResult>.
+      // Procesar Result<ApiResult>.
       body.value.filters = this.processFilters(body.value) || [];
       body.value.order = this.processOrder(body.value) || undefined;
     } else {

@@ -7,13 +7,13 @@
             @if (bread.icon) {
               <mat-icon class="icon">{{ bread.icon }}</mat-icon>
             }
-            <span class="text">{{ bread.text }}</span>
+            <span class="label">{{ bread.label }}</span>
           </a>
         } @else {
           @if (bread.icon) {
             <mat-icon class="icon">{{ bread.icon }}</mat-icon>
           }
-          <span class="text text-muted">{{ bread.text }}</span>
+          <span class="label text-muted">{{ bread.label }}</span>
         }
 
         @if ($index !== breadcrumb().getItems().length - 1) {

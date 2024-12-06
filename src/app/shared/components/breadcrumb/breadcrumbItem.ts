@@ -1,11 +1,11 @@
 export class BreadcrumbItem {
-  text: string;
+  label: string;
   link: string;
   icon: string;
   active: boolean;
 
-  constructor(text: string, link: string, icon = '', activate = true) {
-    this.text = text;
+  constructor(label: string, link: string, icon = '', activate = true) {
+    this.label = label;
     this.link = link;
     this.icon = icon;
     this.active = activate;

@@ -15,7 +15,7 @@ export class BreadcrumbComponent implements OnInit {
 
   ngOnInit(): void {
     this.breadcrumb().unshift({
-      text: '',
+      label: '',
       link: SiteUrls.home,
       icon: 'home',
       active: true,
