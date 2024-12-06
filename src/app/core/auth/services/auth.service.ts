@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { SiteUrls } from '../../config/site-urls';
-import { logDebug } from '../../errors/debug-logger';
+import { logError } from '../../errors/debug-logger';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
 import { AuthState } from '../models/auth-state';
@@ -57,7 +57,7 @@ export class AuthService implements OnDestroy {
 
   tryRefreshToken(): Observable<string> {
     if (!this.refreshToken) {
-      logDebug('No refresh token available');
+      logError('No refresh token available');
 
       return of('No refresh token available');
     }

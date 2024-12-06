@@ -7,7 +7,7 @@ import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-pa
 
 export const routes: Routes = [
   {
-    path: 'accounts',
+    path: '',
     component: AccountListComponent,
     title: 'Listado de cuentas',
     data: {

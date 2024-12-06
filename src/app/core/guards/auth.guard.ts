@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../auth/services/auth.service';
 import { SiteUrls } from '../config/site-urls';
-import { logDebug } from '../errors/debug-logger';
+import { logError } from '../errors/debug-logger';
 import { SystemRole } from '../types/system-roles';
 
 //   {
@@ -74,7 +74,7 @@ export class AuthGuard {
       : permissions.some((permission) => this.authService.hasPermission(permission));
 
     if (!hasPermissions) {
-      logDebug(`Permisos requeridos para acceder: ${permissions.join(', ')}`);
+      logError(`Permisos requeridos para acceder: ${permissions.join(', ')}`);
     }
 
     return hasPermissions;
@@ -90,7 +90,7 @@ export class AuthGuard {
       : roles.some((role) => this.authService.hasRole(role));
 
     if (!hasRoles) {
-      logDebug(`Roles requeridos para acceder: ${roles.join(', ')}`);
+      logError(`Roles requeridos para acceder: ${roles.join(', ')}`);
     }
 
     return hasRoles;

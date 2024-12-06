@@ -15,6 +15,7 @@ import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
+import { logWarning } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { CommonUtils } from '../../../../core/utils/common-utils';
@@ -72,6 +73,7 @@ export class RoleListComponent implements AfterViewInit {
   loading = true;
 
   constructor() {
+    logWarning('RoleListComponent', 'constructor');
     this.setBreadcrumb();
   }
 

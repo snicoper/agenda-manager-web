@@ -9,7 +9,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logDebug } from '../../../../core/errors/debug-logger';
+import { logError } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { ModuleRoleDisplayName } from '../../../../core/types/system-permissions';
 import { CommonUtils } from '../../../../core/utils/common-utils';
@@ -112,7 +112,7 @@ export class RolePermissionsComponent {
           this.loadRolePermissions();
         },
         error: (error: HttpErrorResponse) => {
-          logDebug(error);
+          logError(error);
         },
       });
   }
