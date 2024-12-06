@@ -34,7 +34,7 @@ export const sidebarMenuItems: SidebarMenuItem[] = [
         permission: [SystemPermissions.Roles.Read],
         route: SiteUrls.roles.list,
       },
-      { icon: 'group', text: 'Usuarios', route: 'SiteUrls.users' },
+      { icon: 'group', text: 'Usuarios', route: SiteUrls.accounts.accounts },
       { icon: 'history', text: 'Auditoría', route: 'SiteUrls.audit' },
     ],
   },

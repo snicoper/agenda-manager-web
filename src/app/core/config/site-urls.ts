@@ -3,6 +3,7 @@ export const SiteUrls = {
   home: '/',
 
   accounts: {
+    accounts: '/accounts',
     recoveryPassword: '/accounts/recovery-password',
     confirmEmailResent: '/accounts/confirm-email-resent',
     confirmEmailVerify: '/accounts/confirm-email-verify',
