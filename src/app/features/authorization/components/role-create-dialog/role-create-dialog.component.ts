@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { finalize } from 'rxjs';
 import { FormState } from '../../../../core/models/form-state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { CreateRoleRequest } from '../../models/create-role.request';
+import { RoleFormConfig, RoleFormContract } from '../../models/role-form.contract';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
 @Component({
@@ -57,28 +57,31 @@ export class RoleCreateDialogComponent {
   }
 
   private buildForm(): void {
+    const formContract = {
+      name: { ...RoleFormConfig.name },
+      description: { ...RoleFormConfig.description },
+    } as RoleFormContract;
+
     this.formState.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(100)]],
-      description: ['', [Validators.required, Validators.maxLength(500)]],
+      name: [formContract.name.initialValue, formContract.name.validators],
+      description: [formContract.description.initialValue, formContract.description.validators],
     });
   }
 
   private create(request: CreateRoleRequest): void {
     this.formState.isLoading = true;
 
-    this.apiService
-      .createRole(request)
-      .pipe(finalize(() => (this.formState.isLoading = false)))
-      .subscribe({
-        next: (response) => {
-          if (response) {
-            this.dialogRef.close(true);
-            this.snackBarService.success('Rol creado correctamente.');
-          }
-        },
-        error: (error) => {
-          this.formState.badRequest = error.error;
-        },
-      });
+    this.apiService.createRole(request).subscribe({
+      next: (response) => {
+        if (response) {
+          this.dialogRef.close(true);
+          this.snackBarService.success('Rol creado correctamente.');
+        }
+      },
+      error: (error) => {
+        this.formState.badRequest = error.error;
+      },
+      complete: () => (this.formState.isSubmitted = false),
+    });
   }
 }

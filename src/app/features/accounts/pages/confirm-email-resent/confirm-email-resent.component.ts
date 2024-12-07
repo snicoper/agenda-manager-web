@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -36,17 +35,15 @@ export class ConfirmEmailResentComponent {
       email: this.email,
     } as ConfirmEmailResentRequest;
 
-    this.accountApiService
-      .confirmEmailResent(request)
-      .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe({
-        next: () => {
-          this.resultSuccess = true;
-          this.snackBarService.success('Se ha enviado un nuevo código de verificación a su correo.');
-        },
-        error: () => {
-          this.snackBarService.error('No se pudo enviar el código de verificación.');
-        },
-      });
+    this.accountApiService.confirmEmailResent(request).subscribe({
+      next: () => {
+        this.resultSuccess = true;
+        this.snackBarService.success('Se ha enviado un nuevo código de verificación a su correo.');
+      },
+      error: () => {
+        this.snackBarService.error('No se pudo enviar el código de verificación.');
+      },
+      complete: () => (this.isLoading = false),
+    });
   }
 }

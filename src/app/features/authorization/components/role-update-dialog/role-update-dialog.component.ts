@@ -1,6 +1,6 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, Inject, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -10,6 +10,7 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
+import { RoleFormConfig, RoleFormContract } from '../../models/role-form.contract';
 import { RoleResponse } from '../../models/role.response';
 import { RoleUpdateRequest } from '../../models/update-role.request';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
@@ -72,9 +73,7 @@ export class RoleUpdateDialogComponent {
 
         this.snackBarService.error('Ha ocurrido un error al actualizar el role.');
       },
-      complete: () => {
-        this.formState.isLoading = false;
-      },
+      complete: () => (this.formState.isLoading = false),
     });
   }
 
@@ -92,16 +91,25 @@ export class RoleUpdateDialogComponent {
       error: () => {
         this.snackBarService.error('Ha ocurrido un error al obtener el role.');
       },
-      complete: () => {
-        this.loadingRole = false;
-      },
+      complete: () => (this.loadingRole = false),
     });
   }
 
   private buildForm(): void {
+    const formContract = {
+      name: {
+        ...RoleFormConfig.name,
+        initialValue: this.role.name,
+      },
+      description: {
+        ...RoleFormConfig.description,
+        initialValue: this.role.description,
+      },
+    } as RoleFormContract;
+
     this.formState.form = this.formBuilder.group({
-      name: [this.role.name, [Validators.required, Validators.maxLength(100)]],
-      description: [this.role.description, [Validators.required, Validators.maxLength(500)]],
+      name: [formContract.name.initialValue, formContract.name.validators],
+      description: [formContract.description.initialValue, formContract.description.validators],
     });
   }
 }
