@@ -8,6 +8,7 @@ import { CreateRoleRequest } from '../models/create-role.request';
 import { GetRolePermissionsByIdResponse } from '../models/get-role-permissions-by-id.response';
 import { RoleResponse } from '../models/role.response';
 import { UpdatePermissionForRoleRequest } from '../models/update-permission-for-role.request';
+import { RoleUpdateRequest } from '../models/update-role.request';
 import { UserInRoleResponse } from '../models/user-in-role.response';
 import { UserNotInRoleResponse } from '../models/user-not-in-role.response';
 
@@ -119,5 +120,12 @@ export class AuthorizationApiService extends ApiBaseService {
     });
 
     return this.delete<boolean>(endpoint, (response) => response.value as boolean);
+  }
+
+  /** Update role. */
+  updateRole(roleId: string, request: RoleUpdateRequest): Observable<boolean> {
+    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.updateRol, { roleId: roleId });
+
+    return this.put<RoleUpdateRequest, boolean>(request, endpoint, (response) => response.value as boolean);
   }
 }

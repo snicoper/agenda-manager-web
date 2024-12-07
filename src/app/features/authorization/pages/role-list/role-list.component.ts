@@ -27,6 +27,7 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { RoleCreateDialogComponent } from '../../components/role-create-dialog/role-create-dialog.component';
+import { RoleUpdateDialogComponent } from '../../components/role-update-dialog/role-update-dialog.component';
 import { RoleResponse } from '../../models/role.response';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
@@ -111,11 +112,25 @@ export class RoleListComponent implements AfterViewInit {
 
   handleOpenDialogCreateRole(): void {
     const dialogRef = this.matDialog.open(RoleCreateDialogComponent, { width: '500px' });
+
     dialogRef.afterClosed().subscribe((response) => {
       if (response) {
         {
           this.loadRoles();
         }
+      }
+    });
+  }
+
+  handleOpenDialogUpdateRole(roleId: string): void {
+    const dialogRef = this.matDialog.open(RoleUpdateDialogComponent, {
+      width: '500px',
+      data: { roleId },
+    });
+
+    dialogRef.afterClosed().subscribe((response) => {
+      if (response) {
+        this.loadRoles();
       }
     });
   }

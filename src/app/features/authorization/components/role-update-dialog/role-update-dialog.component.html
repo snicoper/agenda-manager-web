@@ -1,0 +1,30 @@
+<div class="role-update-dialog">
+  @if (!loadingRole) {
+    <h2 mat-dialog-title>Actualizar rol: {{ role.name }}</h2>
+
+    <mat-dialog-content>
+      <form [formGroup]="formState.form" class="form">
+        <!-- name field -->
+        <am-form-input [formState]="formState" fieldName="name" formControlName="name" label="Nombre" />
+
+        <!-- description field -->
+        <am-form-textarea
+          [formState]="formState"
+          fieldName="description"
+          formControlName="description"
+          label="Descripción"
+        />
+      </form>
+    </mat-dialog-content>
+
+    <mat-divider />
+
+    <mat-dialog-actions>
+      <button mat-flat-button mat-dialog-close color="accent" class="me-2">
+        <mat-icon>close</mat-icon>
+        Cerrar
+      </button>
+      <am-btn-loading [loading]="formState.isLoading" icon="save" btnText="Actualizar" (eventClick)="handleSubmit()" />
+    </mat-dialog-actions>
+  }
+</div>

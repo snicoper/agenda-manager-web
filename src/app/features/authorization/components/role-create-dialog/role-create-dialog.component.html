@@ -19,7 +19,10 @@
   <mat-divider />
 
   <mat-dialog-actions>
-    <button mat-flat-button mat-dialog-close color="accent" class="me-2"><mat-icon>close</mat-icon> Cerrar</button>
+    <button mat-flat-button mat-dialog-close color="accent" class="me-2">
+      <mat-icon>close</mat-icon>
+      Cerrar
+    </button>
     <am-btn-loading [loading]="formState.isLoading" icon="save" btnText="Añadir" (eventClick)="handleSubmit()" />
   </mat-dialog-actions>
 </div>

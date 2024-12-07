@@ -10,7 +10,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { AppEnvironment } from '../../config/app-environment';
-import { logInfo } from '../../errors/debug-logger';
+import { logError } from '../../errors/debug-logger';
 import { ApiResponseProcessor } from '../processors/api-response.proccesor';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class ApiResultInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         if (AppEnvironment.IsDebug) {
-          logInfo('Error en ApiResultInterceptor:', error);
+          logError('Error en ApiResultInterceptor:', error);
         }
 
         return throwError(() => error);
