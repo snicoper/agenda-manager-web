@@ -4,10 +4,17 @@
   <div class="account-list-container">
     <mat-card>
       <mat-card-content>
-        <!-- toolbar -->
-        <button [amRequiredPermission]="systemPermissions.Users.Create" mat-raised-button>Añadir cuenta</button>
-
         <div class="d-flex flex-row">
+          <!-- toolbar -->
+          <button
+            [routerLink]="siteUrls.accounts.create"
+            [amRequiredPermission]="systemPermissions.Users.Create"
+            mat-raised-button
+          >
+            Añadir cuenta
+          </button>
+
+          <!-- filter -->
           <div class="ms-auto">
             <am-table-filter
               (filterChange)="handleFilterChange($event)"

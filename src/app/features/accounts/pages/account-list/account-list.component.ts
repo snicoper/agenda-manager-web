@@ -8,7 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -30,6 +30,7 @@ import { AccountApiService } from '../../services/account-api.service';
   selector: 'am-account-list',
   imports: [
     CommonModule,
+    RouterLink,
     MatCardModule,
     MatTableModule,
     MatSortModule,

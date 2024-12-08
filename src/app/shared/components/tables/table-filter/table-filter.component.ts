@@ -16,12 +16,12 @@ import { RelationalOperator } from '../../../../core/api-result/types/relational
 export class TableFilterComponent<T> {
   private destroyRef = inject(DestroyRef);
 
+  private filterSubject = new Subject<string>();
+
   apiResult = input.required<ApiResult<T>>();
   fieldsFilter = input.required<string[]>();
 
   filterChange = output<ApiResult<T>>();
-
-  private filterSubject = new Subject<string>();
 
   term = '';
 
