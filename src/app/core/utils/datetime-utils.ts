@@ -1,7 +1,17 @@
 import { DateTime, Interval } from 'luxon';
-import { WeekDay } from '../types/weekday-flags';
+import { WeekDaysFlags } from '../types/weekday-flags';
 
 export abstract class DateTimeUtils {
+  /**
+   * Obtener un DateTime a partir de una fecha en formato ISO.
+   *
+   * @param dateString Fecha en formato ISO.
+   * @returns DateTime o null si la fecha es null.
+   */
+  static fromApi(dateString: string | DateTime | null | undefined): DateTime | null {
+    return dateString ? DateTime.fromISO(dateString.toString()) : null;
+  }
+
   /**
    * Obtener un array con un intervalo de días desde start a end con DateTime.
    *
@@ -10,6 +20,10 @@ export abstract class DateTimeUtils {
    * @returns Un array de DateTime con el intervalo de días.
    */
   static dayDateTimeInterval(start: DateTime, end: DateTime): (DateTime | null)[] {
+    if (start > end) {
+      throw new Error('Start date cannot be after end date');
+    }
+
     return Interval.fromDateTimes(start.startOf('day'), end.endOf('day'))
       .splitBy({ day: 1 })
       .map((date: Interval) => date.start);
@@ -40,7 +54,7 @@ export abstract class DateTimeUtils {
     return result;
   }
 
-  static weekDaysFromYear(date: DateTime, weekDay: WeekDay): DateTime[] {
+  static weekDaysFromYear(date: DateTime, weekDayFlags: number): DateTime[] {
     const result: DateTime[] = [];
     const start = date.startOf('year');
     const end = date.endOf('year');
@@ -51,8 +65,12 @@ export abstract class DateTimeUtils {
     subIntervals.forEach((subInt) => {
       const d = subInt.start;
 
-      if (d?.weekday === weekDay) {
-        result.push(d!);
+      if (d) {
+        const dayFlag = WeekDaysFlags.fromLuxonWeekday(d.weekday);
+
+        if (WeekDaysFlags.hasFlag(weekDayFlags, dayFlag)) {
+          result.push(d);
+        }
       }
     });
 

@@ -5,12 +5,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
@@ -21,7 +22,9 @@ import { PaginatorComponent } from '../../../../shared/components/paginator/pagi
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
+import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountResponse } from '../../models/account.response';
+import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
   selector: 'am-account-list',
@@ -40,6 +43,7 @@ import { AccountResponse } from '../../models/account.response';
     TableFilterComponent,
     PaginatorComponent,
     BoolToIconPipe,
+    DateTimeFormatPipe,
     RequiredPermissionDirective,
   ],
   templateUrl: './account-list.component.html',
@@ -47,13 +51,24 @@ import { AccountResponse } from '../../models/account.response';
 })
 export class AccountListComponent implements AfterViewInit {
   private readonly router = inject(Router);
+  private readonly apiService = inject(AccountApiService);
+  private readonly snackBarService = inject(SnackBarService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly displayedColumns = ['name', 'description', 'isEditable', 'actions'];
-  readonly fieldsFilter = ['name', 'description'];
+  readonly displayedColumns = [
+    'email',
+    'firstName',
+    'lastName',
+    'isActive',
+    'isEmailConfirmed',
+    'isCollaborator',
+    'dateJoined',
+    'actions',
+  ];
+  readonly fieldsFilter = ['email', 'profile.firstName', 'profile.lastName'];
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
 
@@ -100,5 +115,21 @@ export class AccountListComponent implements AfterViewInit {
 
   private loadAccounts(): void {
     this.loading = true;
+
+    this.apiService.getAccountsPaginated(this.apiResult).subscribe({
+      next: (response) => {
+        this.apiResult = ApiResult.create<AccountResponse>(response);
+        this.dataSource.data = this.apiResult.items;
+
+        if (this.sort && this.apiResult.order) {
+          this.sort.active = this.apiResult.order.propertyName;
+          this.sort.direction = this.apiResult.order.orderType.toLocaleLowerCase() as SortDirection;
+        }
+      },
+      error: () => {
+        this.snackBarService.error('Ha ocurrido un error al cargar las cuentas.');
+      },
+      complete: () => (this.loading = false),
+    });
   }
 }

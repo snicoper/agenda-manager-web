@@ -1,8 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import { Component, DestroyRef, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { LogicalOperator } from '../../../../core/api-result/types/logical-operator';
 import { RelationalOperator } from '../../../../core/api-result/types/relational-operator';
@@ -13,38 +14,47 @@ import { RelationalOperator } from '../../../../core/api-result/types/relational
   templateUrl: './table-filter.component.html',
 })
 export class TableFilterComponent<T> {
+  private destroyRef = inject(DestroyRef);
+
   apiResult = input.required<ApiResult<T>>();
   fieldsFilter = input.required<string[]>();
 
   filterChange = output<ApiResult<T>>();
 
+  private filterSubject = new Subject<string>();
+
   term = '';
 
-  /**
-   * Elimina todos los filtros en base a fieldsFilter y genera unos nuevos
-   * em base al valor de term.
-   */
+  constructor() {
+    const destroy$ = new Subject<void>();
+    this.destroyRef.onDestroy(() => {
+      destroy$.next();
+      destroy$.complete();
+    });
+
+    this.filterSubject.pipe(debounceTime(300), takeUntil(destroy$)).subscribe({
+      next: (term) => this.applyFilters(term),
+    });
+  }
+
   handleFilterChange(event: Event): void {
-    this.apiResult().cleanFilters();
     this.term = String(event);
+    this.filterSubject.next(this.term);
+  }
 
-    // Si el termino es 0, no se hace nada.
-    if (this.term.length === 0) {
-      this.filterChange.emit(this.apiResult());
-    }
+  private applyFilters(term: string): void {
+    this.apiResult().cleanFilters();
 
-    // Las búsquedas siempre lo hace desde la pagina 1.
-    if (this.term.length > 0) {
-      this.apiResult().pageNumber = 1;
-    } else {
+    if (term.length === 0) {
       this.filterChange.emit(this.apiResult());
 
       return;
     }
 
-    // Agregar los filtros.
+    this.apiResult().pageNumber = 1;
+
     this.fieldsFilter().forEach((element: string) => {
-      this.apiResult().addFilter(element, RelationalOperator.Contains, this.term, LogicalOperator.Or);
+      this.apiResult().addFilter(element, RelationalOperator.Contains, term, LogicalOperator.Or);
     });
 
     this.filterChange.emit(this.apiResult());
