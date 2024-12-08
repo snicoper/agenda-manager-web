@@ -32,6 +32,7 @@
             matSortActive="email"
             matSortDirection="asc"
             class="table-striped"
+            (matSortChange)="handleSortChange($event)"
             [dataSource]="dataSource"
             [ngClass]="{ hidden: loading }"
           >
