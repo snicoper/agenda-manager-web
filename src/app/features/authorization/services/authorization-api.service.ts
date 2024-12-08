@@ -75,11 +75,11 @@ export class AuthorizationApiService extends ApiBaseService {
   }
 
   /** Get users by role id. */
-  getUsersByRoleId(
+  getUsersByRoleIdPaginated(
     roleId: string,
     apiResult: ApiResult<UserInRoleResponse>,
   ): Observable<ApiResult<UserInRoleResponse>> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.getUsersByRoleId, { roleId: roleId });
+    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.getUsersByRoleIdPaginated, { roleId: roleId });
 
     return this.getPaginated<UserInRoleResponse>(
       apiResult,
@@ -89,11 +89,11 @@ export class AuthorizationApiService extends ApiBaseService {
   }
 
   /** Get users not in role id. */
-  getUsersNotInRoleId(
+  getUsersNotInRoleIdPaginated(
     roleId: string,
     apiResult: ApiResult<UserNotInRoleResponse>,
   ): Observable<ApiResult<UserNotInRoleResponse>> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.getUsersNotInRoleId, { roleId: roleId });
+    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.getUsersNotInRoleIdPaginated, { roleId: roleId });
 
     return this.getPaginated<UserNotInRoleResponse>(
       apiResult,

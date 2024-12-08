@@ -4,6 +4,7 @@ export const ApiUrls = {
     refreshToken: '/auth/refresh-token',
   },
   accounts: {
+    getAccountsPaginated: '/accounts/paginated',
     recoveryPassword: '/accounts/recovery-password',
     confirmRecoveryPassword: '/accounts/confirm-recovery-password',
     confirmEmailResent: '/accounts/confirm-email-resent',
@@ -19,8 +20,8 @@ export const ApiUrls = {
     deleteRole: '/roles/{roleId}',
   },
   userRoles: {
-    getUsersByRoleId: '/user-roles/{roleId}/users',
-    getUsersNotInRoleId: '/user-roles/{roleId}/exclude-users',
+    getUsersByRoleIdPaginated: '/user-roles/{roleId}/users/paginated',
+    getUsersNotInRoleIdPaginated: '/user-roles/{roleId}/exclude-users/paginated',
     assignUserToRole: '/user-roles/{roleId}/assign-user/{userId}',
     unAssignedUserFromRole: '/user-roles/{roleId}/unassigned-user/{userId}',
   },

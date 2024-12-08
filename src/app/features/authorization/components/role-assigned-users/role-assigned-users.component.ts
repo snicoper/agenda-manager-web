@@ -85,7 +85,7 @@ export class RoleAssignedUsersComponent implements AfterViewInit {
   private getUsersInRole(): void {
     this.loading = true;
 
-    this.apiService.getUsersByRoleId(this.roleId(), this.apiResult).subscribe({
+    this.apiService.getUsersByRoleIdPaginated(this.roleId(), this.apiResult).subscribe({
       next: (response) => {
         this.apiResult = ApiResult.create<UserInRoleResponse>(response);
         this.dataSource.data = this.apiResult.items;

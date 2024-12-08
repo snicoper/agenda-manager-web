@@ -85,7 +85,7 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
   private getUsersNotInRole(): void {
     this.loading = true;
 
-    this.apiService.getUsersNotInRoleId(this.roleId(), this.apiResult).subscribe({
+    this.apiService.getUsersNotInRoleIdPaginated(this.roleId(), this.apiResult).subscribe({
       next: (response) => {
         this.apiResult = ApiResult.create<UserNotInRoleResponse>(response);
         this.dataSource.data = this.apiResult.items;
