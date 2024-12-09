@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AccountConfirmationComponent } from './pages/account-confirmation/account-confirmation.component';
 import { AccountCreateComponent } from './pages/account-create/account-create.component';
 import { AccountDetailsComponent } from './pages/account-details/account-details.component';
 import { AccountListComponent } from './pages/account-list/account-list.component';
@@ -23,6 +24,11 @@ export const routes: Routes = [
     data: {
       permissions: ['user:create'],
     },
+  },
+  {
+    path: 'account-confirmation',
+    component: AccountConfirmationComponent,
+    title: 'Confirmar cuenta',
   },
   {
     path: ':id',
