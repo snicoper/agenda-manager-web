@@ -1,29 +1,27 @@
-.field-error-container {
-  position: relative;
-  top: -20px;
-  left: -10px;
-  animation: slideIn 0.2s ease-out;
-}
+:host {
+  .field-error-container {
+    .mat-mdc-list-item {
+      position: relative;
+      top: -12px;
+      left: -12px;
+      height: 32px;
+      padding: 0;
 
-::ng-deep .mat-mdc-list-item {
-  height: 32px !important;
-  padding: 0 !important;
-}
+      .mat-icon {
+        font-size: 16px;
+        height: 16px;
+        width: 16px;
+        margin-right: 8px;
+        color: var(--mat-error);
+      }
 
-// Si usas el icono
-::ng-deep .mat-mdc-list-item .mat-icon {
-  font-size: 16px !important;
-  height: 16px !important;
-  width: 16px !important;
-  margin-right: 8px !important;
-  color: var(--mat-error) !important;
-}
-
-// Para el texto
-::ng-deep .mdc-list-item__primary-text {
-  font-size: 15px !important;
-  margin: 0 !important;
-  color: var(--mat-error) !important;
+      .mdc-list-item__primary-text {
+        font-size: 15px;
+        margin: 0;
+        color: var(--mat-error);
+      }
+    }
+  }
 }
 
 @keyframes slideIn {

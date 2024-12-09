@@ -5,6 +5,7 @@ export const ApiUrls = {
   },
   accounts: {
     getAccountsPaginated: '/accounts/paginated',
+    createAccount: '/accounts',
     recoveryPassword: '/accounts/recovery-password',
     confirmRecoveryPassword: '/accounts/confirm-recovery-password',
     confirmEmailResent: '/accounts/confirm-email-resent',
@@ -12,6 +13,7 @@ export const ApiUrls = {
   },
   roles: {
     getRolesPaginated: '/roles/paginated',
+    getAllRoles: '/roles',
     getRoleById: '/roles/{roleId}',
     getRolePermissionsById: '/roles/{roleId}/permissions',
     createRole: '/roles',

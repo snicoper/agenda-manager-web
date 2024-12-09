@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { AbstractControl } from '@angular/forms';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 /** Mensajes de error para validaciones */
 export const CustomValidationErrors = {
@@ -28,25 +28,28 @@ export const CustomValidationErrors = {
 } as const;
 
 // Y un helper para obtener los mensajes fácilmente.
-export const getValidationErrorMessage = (error: string, control?: AbstractControl, params?: any): string[] => {
-  const errorMessage = CustomValidationErrors[error as keyof typeof CustomValidationErrors];
+const getStrongPasswordErrors = (control: AbstractControl): string[] => {
+  const failedChecks = control.errors?.['strongPassword']?.failedChecks;
 
-  // Caso especial para strongPassword.
-  if (error === 'strongPassword' && control?.errors?.['strongPassword']) {
-    const failedChecks = control.errors['strongPassword'].failedChecks;
-
-    if (failedChecks?.length > 0) {
-      return failedChecks.map(
-        (check: string) =>
-          CustomValidationErrors.strongPassword[check as keyof typeof CustomValidationErrors.strongPassword],
-      );
-    }
-
-    return [CustomValidationErrors.strongPassword.default];
+  if (failedChecks?.length > 0) {
+    return failedChecks.map(
+      (check: string) =>
+        CustomValidationErrors.strongPassword[check as keyof typeof CustomValidationErrors.strongPassword],
+    );
   }
 
+  return [CustomValidationErrors.strongPassword.default];
+};
+
+const getMinLengthArrayError = (control: AbstractControl): string[] => {
+  const { min } = control.errors?.['minLengthArray'] || {};
+
+  return [CustomValidationErrors.minLengthArray(min)];
+};
+
+const getDefaultError = (error: string, errorMessage: any): string[] => {
   if (typeof errorMessage === 'function') {
-    return [errorMessage(params)];
+    return [errorMessage()];
   }
 
   if (typeof errorMessage === 'object') {
@@ -54,4 +57,27 @@ export const getValidationErrorMessage = (error: string, control?: AbstractContr
   }
 
   return [errorMessage || `Error de validación: ${error}`];
+};
+
+const getSpecialError = (error: string, control: AbstractControl): string[] | null => {
+  const errorMap: Record<string, (control: AbstractControl) => string[]> = {
+    strongPassword: getStrongPasswordErrors,
+    minLengthArray: getMinLengthArrayError,
+  };
+
+  return errorMap[error]?.(control) || null;
+};
+
+export const getValidationErrorMessage = (error: string, control?: AbstractControl): string[] => {
+  if (control?.errors?.[error]) {
+    const specialError = getSpecialError(error, control);
+
+    if (specialError) {
+      return specialError;
+    }
+  }
+
+  const errorMessage = CustomValidationErrors[error as keyof typeof CustomValidationErrors];
+
+  return getDefaultError(error, errorMessage);
 };

@@ -1,6 +1,6 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit, input } from '@angular/core';
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { FormState } from '../../../../../core/models/form-state';
@@ -25,11 +25,8 @@ export class FieldErrorComponent implements OnInit {
     this.control = this.formState().form?.get(this.fieldName()) as AbstractControl;
   }
 
-  formHasErrors(): boolean | ValidationErrors | null | undefined {
-    return (
-      (this.formState().isSubmitted && this.formState().form?.dirty) ||
-      (this.formState().form?.touched && this.control?.errors)
-    );
+  formHasErrors(): boolean {
+    return !!(this.formState().isSubmitted || (this.formState().form?.touched && this.control?.errors));
   }
 
   controlHasErrors(): boolean {
@@ -37,12 +34,8 @@ export class FieldErrorComponent implements OnInit {
       return false;
     }
 
-    if (this.formState().isSubmitted && this.control.errors) {
-      return true;
-    }
-
     if (this.validateOnlyOnSubmit()) {
-      return !!(this.formState().isSubmitted && this.control.dirty && this.control.errors);
+      return !!(this.formState().isSubmitted && this.control.errors);
     }
 
     return !!(this.control.dirty && this.control.errors);

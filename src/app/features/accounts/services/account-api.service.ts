@@ -4,6 +4,7 @@ import { ApiResult } from '../../../core/api-result/api-result';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api.base.service';
 import { DateTimeUtils } from '../../../core/utils/datetime-utils';
+import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountResponse } from '../models/account.response';
 import { ConfirmEmailResentRequest } from '../models/confirm-email-resent.request';
 import { ConfirmEmailVerifyRequest } from '../models/confirm-email-verify.request';
@@ -24,6 +25,15 @@ export class AccountApiService extends ApiBaseService {
 
       return result;
     });
+  }
+
+  /** Create account. */
+  createAccount(request: AccountCreateRequest): Observable<boolean> {
+    return this.post<AccountCreateRequest, boolean>(
+      request,
+      ApiUrls.accounts.createAccount,
+      (response) => response.isSuccess,
+    );
   }
 
   /** Recovery password. */

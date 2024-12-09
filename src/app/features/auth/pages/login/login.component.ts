@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 import { LoginRequest } from '../../../../core/auth/models/login.request';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { SiteUrls } from '../../../../core/config/site-urls';
@@ -66,25 +67,27 @@ export class LoginComponent {
     this.formSate.isLoading = true;
     const request = this.formSate.form.value as LoginRequest;
 
-    this.authService.login(request).subscribe({
-      next: () => {
-        this.router.navigate([this.returnUrl ?? SiteUrls.home], { replaceUrl: true });
-      },
-      error: (error: HttpErrorResponse) => {
-        this.formSate.badRequest = error.error;
+    this.authService
+      .login(request)
+      .pipe(finalize(() => (this.formSate.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.router.navigate([this.returnUrl ?? SiteUrls.home], { replaceUrl: true });
+        },
+        error: (error: HttpErrorResponse) => {
+          this.formSate.badRequest = error.error;
 
-        if (
-          error.status === HttpStatusCode.Conflict &&
-          this.formSate.badRequest?.code === ApiResultErrors.users.emailIsNotConfirmed
-        ) {
-          // Redirect to confirm email page.
-          this.router.navigate([SiteUrls.accounts.confirmEmailResent], {
-            queryParams: { email: request.email },
-          });
-        }
-      },
-      complete: () => (this.formSate.isLoading = false),
-    });
+          if (
+            error.status === HttpStatusCode.Conflict &&
+            this.formSate.badRequest?.code === ApiResultErrors.users.emailIsNotConfirmed
+          ) {
+            // Redirect to confirm email page.
+            this.router.navigate([SiteUrls.accounts.confirmEmailResent], {
+              queryParams: { email: request.email },
+            });
+          }
+        },
+      });
   }
 
   private buildForm(): void {
