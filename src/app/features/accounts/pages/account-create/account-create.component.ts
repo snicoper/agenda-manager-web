@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { FormState } from '../../../../core/models/form-state';
@@ -49,6 +50,7 @@ export class AccountCreateComponent {
   private readonly apiService = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly router = inject(Router);
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly formState = {
@@ -91,17 +93,14 @@ export class AccountCreateComponent {
   }
 
   private buildForm(): void {
+    // TODO: Eliminar campos de contraseña y confirmar contraseña.
     this.formState.form = this.formBuilder.group(
       {
         email: ['', [Validators.required, CustomValidators.email]],
         firstName: ['', [Validators.required, Validators.maxLength(100)]],
         lastName: ['', [Validators.required, Validators.maxLength(100)]],
-        password: ['', [Validators.required, CustomValidators.strongPassword()]],
-        passwordConfirmation: ['', [Validators.required]],
-        roles: [[], [CustomValidators.minLengthArray(1)]],
-        isActive: [true],
-        isEmailConfirmed: [false],
         isCollaborator: [false],
+        roles: [[], [CustomValidators.minLengthArray(1)]],
       },
       {
         validators: [CustomValidators.passwordMustMatch('password', 'passwordConfirmation')],
@@ -116,7 +115,10 @@ export class AccountCreateComponent {
       .createAccount(request)
       .pipe(finalize(() => (this.formState.isLoading = false)))
       .subscribe({
-        next: () => this.snackBarService.success('Usuario creado correctamente'),
+        next: (response) => {
+          this.snackBarService.success('Usuario creado correctamente');
+          this.router.navigate([SiteUrls.accounts.accounts, response.userId]);
+        },
         error: (error: HttpErrorResponse) => (this.formState.badRequest = error.error),
       });
   }

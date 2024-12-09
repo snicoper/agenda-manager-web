@@ -31,30 +31,6 @@
         </div>
 
         <div class="row">
-          <!-- password field -->
-          <div class="col-12 col-md-6">
-            <am-form-input
-              [formState]="formState"
-              [formInputType]="formInputTypes.Password"
-              fieldName="password"
-              formControlName="password"
-              label="Contraseña"
-            />
-          </div>
-
-          <!-- password confirmation field -->
-          <div class="col-12 col-md-6">
-            <am-form-input
-              [formState]="formState"
-              [formInputType]="formInputTypes.Password"
-              fieldName="passwordConfirmation"
-              formControlName="passwordConfirmation"
-              label="Repetir contraseña"
-            />
-          </div>
-        </div>
-
-        <div class="row">
           <!-- roles field -->
           <div class="col-12">
             <am-form-role-selector [formState]="formState" fieldName="roles" formControlName="roles" label="Roles" />
@@ -62,26 +38,6 @@
         </div>
 
         <div class="row">
-          <!-- isActive field -->
-          <div class="col-12">
-            <am-form-checkbox
-              [formState]="formState"
-              fieldName="isActive"
-              formControlName="isActive"
-              label="¿Usuario activo?"
-            />
-          </div>
-
-          <!-- isEmailConfirmed field -->
-          <div class="col-12">
-            <am-form-checkbox
-              [formState]="formState"
-              fieldName="isEmailConfirmed"
-              formControlName="isEmailConfirmed"
-              label="¿Correo electrónico confirmado?"
-            />
-          </div>
-
           <!-- isCollaborator field -->
           <div class="col-12">
             <am-form-checkbox
