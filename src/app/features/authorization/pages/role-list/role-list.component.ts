@@ -11,6 +11,7 @@ import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/s
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
@@ -163,20 +164,20 @@ export class RoleListComponent implements AfterViewInit {
   private loadRoles(): void {
     this.loading = true;
 
-    this.apiService.getRolesPaginated(this.apiResult).subscribe({
-      next: (response) => {
-        this.apiResult = ApiResult.create<RoleResponse>(response);
-        this.dataSource.data = this.apiResult.items;
+    this.apiService
+      .getRolesPaginated(this.apiResult)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (response) => {
+          this.apiResult = ApiResult.create<RoleResponse>(response);
+          this.dataSource.data = this.apiResult.items;
 
-        if (this.sort && this.apiResult.order) {
-          this.sort.active = this.apiResult.order.propertyName;
-          this.sort.direction = this.apiResult.order.orderType.toLowerCase() as SortDirection;
-        }
-      },
-      error: () => {
-        this.snackBarService.error('Ha ocurrido un error al obtener los roles.');
-      },
-      complete: () => (this.loading = false),
-    });
+          if (this.sort && this.apiResult.order) {
+            this.sort.active = this.apiResult.order.propertyName;
+            this.sort.direction = this.apiResult.order.orderType.toLowerCase() as SortDirection;
+          }
+        },
+        error: () => this.snackBarService.error('Ha ocurrido un error al obtener los roles.'),
+      });
   }
 }

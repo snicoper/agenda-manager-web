@@ -78,9 +78,7 @@ export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
       .getAllRoles()
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
-        next: (roles) => {
-          this.availableRoles = roles;
-        },
+        next: (roles) => (this.availableRoles = roles),
         error: () => this.snackBarService.error('Error al cargar los roles'),
       });
   }

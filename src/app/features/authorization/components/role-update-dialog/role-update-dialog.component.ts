@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { finalize } from 'rxjs';
 import { FormState } from '../../../../core/models/form-state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -59,22 +60,24 @@ export class RoleUpdateDialogComponent {
 
     const request = this.formState.form.value as RoleUpdateRequest;
 
-    this.apiService.updateRole(this.role.id, request).subscribe({
-      next: () => {
-        this.snackBarService.success('Role actualizado correctamente.');
-        this.dialogRef.close(true);
-      },
-      error: (error) => {
-        if (error.status === HttpStatusCode.BadRequest || error.status === HttpStatusCode.Conflict) {
-          this.formState.badRequest = error.error;
+    this.apiService
+      .updateRole(this.role.id, request)
+      .pipe(finalize(() => (this.formState.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Role actualizado correctamente.');
+          this.dialogRef.close(true);
+        },
+        error: (error) => {
+          if (error.status === HttpStatusCode.BadRequest || error.status === HttpStatusCode.Conflict) {
+            this.formState.badRequest = error.error;
 
-          return;
-        }
+            return;
+          }
 
-        this.snackBarService.error('Ha ocurrido un error al actualizar el role.');
-      },
-      complete: () => (this.formState.isLoading = false),
-    });
+          this.snackBarService.error('Ha ocurrido un error al actualizar el role.');
+        },
+      });
   }
 
   handleCloseDialog(response: boolean): void {
@@ -83,16 +86,16 @@ export class RoleUpdateDialogComponent {
 
   private loadRole(): void {
     this.loadingRole = true;
-    this.apiService.getRoleById(this.data.roleId).subscribe({
-      next: (response) => {
-        this.role = response;
-        this.buildForm();
-      },
-      error: () => {
-        this.snackBarService.error('Ha ocurrido un error al obtener el role.');
-      },
-      complete: () => (this.loadingRole = false),
-    });
+    this.apiService
+      .getRoleById(this.data.roleId)
+      .pipe(finalize(() => (this.loadingRole = false)))
+      .subscribe({
+        next: (response) => {
+          this.role = response;
+          this.buildForm();
+        },
+        error: () => this.snackBarService.error('Ha ocurrido un error al obtener el role.'),
+      });
   }
 
   private buildForm(): void {

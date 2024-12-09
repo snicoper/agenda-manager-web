@@ -9,6 +9,7 @@ import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/s
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -117,20 +118,20 @@ export class AccountListComponent implements AfterViewInit {
   private loadAccounts(): void {
     this.loading = true;
 
-    this.apiService.getAccountsPaginated(this.apiResult).subscribe({
-      next: (response) => {
-        this.apiResult = ApiResult.create<AccountResponse>(response);
-        this.dataSource.data = this.apiResult.items;
+    this.apiService
+      .getAccountsPaginated(this.apiResult)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (response) => {
+          this.apiResult = ApiResult.create<AccountResponse>(response);
+          this.dataSource.data = this.apiResult.items;
 
-        if (this.sort && this.apiResult.order) {
-          this.sort.active = this.apiResult.order.propertyName;
-          this.sort.direction = this.apiResult.order.orderType.toLocaleLowerCase() as SortDirection;
-        }
-      },
-      error: () => {
-        this.snackBarService.error('Ha ocurrido un error al cargar las cuentas.');
-      },
-      complete: () => (this.loading = false),
-    });
+          if (this.sort && this.apiResult.order) {
+            this.sort.active = this.apiResult.order.propertyName;
+            this.sort.direction = this.apiResult.order.orderType.toLocaleLowerCase() as SortDirection;
+          }
+        },
+        error: () => this.snackBarService.error('Ha ocurrido un error al cargar las cuentas.'),
+      });
   }
 }

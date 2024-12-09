@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { FormState } from '../../../../core/models/form-state';
@@ -107,15 +108,17 @@ export class RecoveryPasswordComponent {
     this.formState.isLoading = true;
     const request = this.formState.form.value as RecoveryPasswordRequest;
 
-    this.accountApiService.recoveryPassword(request).subscribe({
-      next: (response) => {
-        if (response) {
-          this.setAlertSuccessState('Se ha enviado un correo electrónico con un enlace para recuperar la contraseña');
-        }
-      },
-      error: (error: HttpErrorResponse) => this.handleError(error),
-      complete: () => (this.formState.isSubmitted = false),
-    });
+    this.accountApiService
+      .recoveryPassword(request)
+      .pipe(finalize(() => (this.formState.isSubmitted = false)))
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            this.setAlertSuccessState('Se ha enviado un correo electrónico con un enlace para recuperar la contraseña');
+          }
+        },
+        error: (error: HttpErrorResponse) => this.handleError(error),
+      });
   }
 
   private handleError(error: HttpErrorResponse): void {

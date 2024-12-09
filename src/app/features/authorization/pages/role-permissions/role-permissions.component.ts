@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -102,16 +103,16 @@ export class RolePermissionsComponent {
       isAssigned,
     } as UpdatePermissionForRoleRequest;
 
-    this.authorizationApiService.updatePermissionForRole(this.role.roleId, permissionId, request).subscribe({
-      next: () => {
-        this.snackBarService.success('Permiso actualizado con éxito.');
-        this.loadRolePermissions();
-      },
-      error: (error: HttpErrorResponse) => {
-        logError(error);
-      },
-      complete: () => (this.isUpdating = false),
-    });
+    this.authorizationApiService
+      .updatePermissionForRole(this.role.roleId, permissionId, request)
+      .pipe(finalize(() => (this.isUpdating = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Permiso actualizado con éxito.');
+          this.loadRolePermissions();
+        },
+        error: (error: HttpErrorResponse) => logError(error),
+      });
   }
 
   private setBreadcrumb(): void {
@@ -123,17 +124,17 @@ export class RolePermissionsComponent {
   private loadRolePermissions(): void {
     this.loading = true;
 
-    this.authorizationApiService.getRolePermissionsById(this.roleId).subscribe({
-      next: (response) => {
-        this.role = response;
-      },
-      error: (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          this.roleNotFound = true;
-          throw new Error('Role not found.');
-        }
-      },
-      complete: () => (this.loading = false),
-    });
+    this.authorizationApiService
+      .getRolePermissionsById(this.roleId)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (response) => (this.role = response),
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            this.roleNotFound = true;
+            throw new Error('Role not found.');
+          }
+        },
+      });
   }
 }

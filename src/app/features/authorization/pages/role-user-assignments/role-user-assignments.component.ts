@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logWarning } from '../../../../core/errors/debug-logger';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
@@ -58,12 +59,12 @@ export class RoleUserAssignmentsComponent {
   private loadRole(): void {
     this.loading = true;
 
-    this.authorizationApiService.getRoleById(this.roleId).subscribe({
-      next: (role) => (this.role = role),
-      error: () => {
-        logWarning('No se ha podido cargar el rol.');
-      },
-      complete: () => (this.loading = false),
-    });
+    this.authorizationApiService
+      .getRoleById(this.roleId)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (role) => (this.role = role),
+        error: () => logWarning('No se ha podido cargar el rol.'),
+      });
   }
 }

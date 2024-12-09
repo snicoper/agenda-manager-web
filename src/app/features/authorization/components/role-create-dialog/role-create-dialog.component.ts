@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { finalize } from 'rxjs';
 import { FormState } from '../../../../core/models/form-state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -71,17 +72,17 @@ export class RoleCreateDialogComponent {
   private create(request: CreateRoleRequest): void {
     this.formState.isLoading = true;
 
-    this.apiService.createRole(request).subscribe({
-      next: (response) => {
-        if (response) {
-          this.dialogRef.close(true);
-          this.snackBarService.success('Rol creado correctamente.');
-        }
-      },
-      error: (error) => {
-        this.formState.badRequest = error.error;
-      },
-      complete: () => (this.formState.isSubmitted = false),
-    });
+    this.apiService
+      .createRole(request)
+      .pipe(finalize(() => (this.formState.isSubmitted = false)))
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            this.dialogRef.close(true);
+            this.snackBarService.success('Rol creado correctamente.');
+          }
+        },
+        error: (error) => (this.formState.badRequest = error.error),
+      });
   }
 }

@@ -116,12 +116,8 @@ export class AccountCreateComponent {
       .createAccount(request)
       .pipe(finalize(() => (this.formState.isLoading = false)))
       .subscribe({
-        next: () => {
-          this.snackBarService.success('Usuario creado correctamente');
-        },
-        error: (error: HttpErrorResponse) => {
-          this.formState.badRequest = error.error;
-        },
+        next: () => this.snackBarService.success('Usuario creado correctamente'),
+        error: (error: HttpErrorResponse) => (this.formState.badRequest = error.error),
       });
   }
 }

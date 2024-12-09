@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
@@ -73,29 +74,35 @@ export class RoleAssignedUsersComponent implements AfterViewInit {
 
   handleUnAssignUserToRole(userId: string): void {
     this.loading = true;
-    this.apiService.unAssignedUserFromRole(this.roleId(), userId).subscribe({
-      next: () => {
-        this.snackBarService.success('Usuario excluido con éxito.');
-        this.getUsersInRole();
-      },
-      complete: () => (this.loading = false),
-    });
+    this.apiService
+      .unAssignedUserFromRole(this.roleId(), userId)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Usuario excluido con éxito.');
+          this.getUsersInRole();
+        },
+        error: () => this.snackBarService.error('Error al eliminar el usuario.'),
+      });
   }
 
   private getUsersInRole(): void {
     this.loading = true;
 
-    this.apiService.getUsersByRoleIdPaginated(this.roleId(), this.apiResult).subscribe({
-      next: (response) => {
-        this.apiResult = ApiResult.create<UserInRoleResponse>(response);
-        this.dataSource.data = this.apiResult.items;
+    this.apiService
+      .getUsersByRoleIdPaginated(this.roleId(), this.apiResult)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (response) => {
+          this.apiResult = ApiResult.create<UserInRoleResponse>(response);
+          this.dataSource.data = this.apiResult.items;
 
-        if (this.sort && this.apiResult.order) {
-          this.sort.active = this.apiResult.order.propertyName;
-          this.sort.direction = this.apiResult.order.orderType.toLowerCase() as SortDirection;
-        }
-      },
-      complete: () => (this.loading = false),
-    });
+          if (this.sort && this.apiResult.order) {
+            this.sort.active = this.apiResult.order.propertyName;
+            this.sort.direction = this.apiResult.order.orderType.toLowerCase() as SortDirection;
+          }
+        },
+        error: () => this.snackBarService.error('Error al obtener los usuarios.'),
+      });
   }
 }

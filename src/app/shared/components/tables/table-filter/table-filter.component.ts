@@ -7,6 +7,7 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { LogicalOperator } from '../../../../core/api-result/types/logical-operator';
 import { RelationalOperator } from '../../../../core/api-result/types/relational-operator';
+import { logError } from '../../../../core/errors/debug-logger';
 
 @Component({
   selector: 'am-table-filter',
@@ -34,6 +35,7 @@ export class TableFilterComponent<T> {
 
     this.filterSubject.pipe(debounceTime(300), takeUntil(destroy$)).subscribe({
       next: (term) => this.applyFilters(term),
+      error: (error) => logError(error),
     });
   }
 
