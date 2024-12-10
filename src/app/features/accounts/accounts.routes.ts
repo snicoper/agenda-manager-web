@@ -31,14 +31,6 @@ export const routes: Routes = [
     title: 'Confirmar cuenta',
   },
   {
-    path: ':id',
-    component: AccountDetailsComponent,
-    title: 'Detalles de cuenta',
-    data: {
-      permissions: ['user:read'],
-    },
-  },
-  {
     path: 'recovery-password',
     component: RecoveryPasswordComponent,
     title: 'Recuperar contraseña',
@@ -57,5 +49,13 @@ export const routes: Routes = [
     path: 'confirm-email-verify',
     component: ConfirmEmailVerifyComponent,
     title: 'Confirmar correo electrónico',
+  },
+  {
+    path: ':id',
+    component: AccountDetailsComponent,
+    title: 'Detalles de cuenta',
+    data: {
+      permissions: ['user:read'],
+    },
   },
 ];

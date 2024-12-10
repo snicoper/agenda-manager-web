@@ -46,7 +46,7 @@ interface AlertState {
   styleUrl: './recovery-password.component.scss',
 })
 export class RecoveryPasswordComponent {
-  private readonly accountApiService = inject(AccountApiService);
+  private readonly apiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
 
   private readonly ERROR_MESSAGES = {
@@ -66,8 +66,7 @@ export class RecoveryPasswordComponent {
 
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
-
-  formState: FormState = {
+  readonly formState: FormState = {
     form: this.formBuilder.group({}),
     badRequest: undefined,
     isLoading: false,
@@ -75,12 +74,12 @@ export class RecoveryPasswordComponent {
   };
 
   // Alert.
-  alertState: AlertState = {
+  alertState = {
     isSuccess: false,
     show: false,
     type: undefined,
     message: undefined,
-  };
+  } as AlertState;
 
   constructor() {
     this.buildForm();
@@ -108,7 +107,7 @@ export class RecoveryPasswordComponent {
     this.formState.isLoading = true;
     const request = this.formState.form.value as RecoveryPasswordRequest;
 
-    this.accountApiService
+    this.apiService
       .recoveryPassword(request)
       .pipe(finalize(() => (this.formState.isSubmitted = false)))
       .subscribe({

@@ -43,8 +43,6 @@ export class ConfirmRecoveryPasswordComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
 
-  private token = this.route.snapshot.queryParams['token'];
-
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
   readonly formState: FormState = {
@@ -53,6 +51,8 @@ export class ConfirmRecoveryPasswordComponent {
     isSubmitted: false,
     isLoading: false,
   };
+
+  private token = this.route.snapshot.queryParams['token'];
 
   constructor() {
     this.buildForm();
@@ -69,16 +69,7 @@ export class ConfirmRecoveryPasswordComponent {
     const request = this.formState.form.value as RecoveryConfirmPasswordRequest;
     request.token = this.token;
 
-    this.accountApiService
-      .confirmRecoveryPassword(request)
-      .pipe(finalize(() => (this.formState.isLoading = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('La contraseña se ha actualizado correctamente.');
-          this.router.navigate([SiteUrls.auth.login]);
-        },
-        error: (error: HttpErrorResponse) => (this.formState.badRequest = error.error),
-      });
+    this.confirmRecoveryPassword(request);
   }
 
   private buildForm(): void {
@@ -91,5 +82,18 @@ export class ConfirmRecoveryPasswordComponent {
         validators: CustomValidators.passwordMustMatch('newPassword', 'confirmNewPassword'),
       },
     );
+  }
+
+  private confirmRecoveryPassword(request: RecoveryConfirmPasswordRequest): void {
+    this.accountApiService
+      .confirmRecoveryPassword(request)
+      .pipe(finalize(() => (this.formState.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('La contraseña se ha actualizado correctamente.');
+          this.router.navigate([SiteUrls.auth.login]);
+        },
+        error: (error: HttpErrorResponse) => (this.formState.badRequest = error.error),
+      });
   }
 }

@@ -1,9 +1,111 @@
-import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
+import { SiteUrls } from '../../../../core/config/site-urls';
+import { FormState } from '../../../../core/models/form-state';
+import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { AlertComponent } from '../../../../shared/components/alert/alert.component';
+import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
+import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
+import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
+import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
+import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
+import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
+import { AccountConfirmationRequest } from '../../models/account-confirmation.request';
+import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
   selector: 'am-account-confirmation',
-  imports: [],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDividerModule,
+    PageSimpleComponent,
+    FormInputComponent,
+    BtnLoadingComponent,
+    NonFieldErrorsComponent,
+    AlertComponent,
+  ],
   templateUrl: './account-confirmation.component.html',
   styleUrl: './account-confirmation.component.scss',
 })
-export class AccountConfirmationComponent { }
+export class AccountConfirmationComponent {
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly apiService = inject(AccountApiService);
+  private readonly snackBarService = inject(SnackBarService);
+
+  readonly siteUrls = SiteUrls;
+  readonly formInputType = FormInputType;
+  readonly formState = {
+    form: this.formBuilder.group({}),
+    badRequest: undefined,
+    isLoading: false,
+    isSubmitted: false,
+  } as FormState;
+
+  validToken = false;
+
+  private token = this.route.snapshot.queryParams['token'];
+
+  constructor() {
+    if (this.token) {
+      this.validToken = true;
+    }
+
+    this.buildForm();
+  }
+
+  handleSubmit(): void {
+    this.formState.isSubmitted = true;
+
+    if (this.formState.form.invalid) {
+      return;
+    }
+
+    this.formState.isLoading = true;
+    const request = this.formState.form.value as AccountConfirmationRequest;
+    request.token = this.token;
+
+    this.confirmAccount(request);
+  }
+
+  private buildForm(): void {
+    this.formState.form = this.formBuilder.group(
+      {
+        newPassword: ['', [Validators.required, CustomValidators.strongPassword()]],
+        confirmNewPassword: ['', [Validators.required]],
+      },
+      {
+        validators: CustomValidators.passwordMustMatch('newPassword', 'confirmNewPassword'),
+      },
+    );
+  }
+
+  private confirmAccount(request: AccountConfirmationRequest): void {
+    this.formState.isLoading = true;
+
+    this.apiService
+      .accountConfirmation(request)
+      .pipe(finalize(() => (this.formState.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Your account has been confirmed');
+          this.router.navigateByUrl(SiteUrls.auth.login);
+          this.validToken = true;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.formState.badRequest = error.error;
+          this.validToken = false;
+        },
+      });
+  }
+}

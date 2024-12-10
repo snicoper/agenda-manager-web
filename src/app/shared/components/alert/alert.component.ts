@@ -10,7 +10,6 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class AlertComponent {
   type = input.required<'success' | 'error' | 'warning' | 'info' | undefined>();
-  message = input.required<string | undefined>();
   dismissible = input(true);
   showIcon = input(true);
 
