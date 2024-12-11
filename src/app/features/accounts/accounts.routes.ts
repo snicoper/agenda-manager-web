@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { AccountConfirmationComponent } from './pages/account-confirmation/account-confirmation.component';
 import { AccountCreateComponent } from './pages/account-create/account-create.component';
 import { AccountDetailsComponent } from './pages/account-details/account-details.component';
 import { AccountListComponent } from './pages/account-list/account-list.component';
+import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
 import { ConfirmEmailResentComponent } from './pages/confirm-email-resent/confirm-email-resent.component';
 import { ConfirmEmailVerifyComponent } from './pages/confirm-email-verify/confirm-email-verify.component';
 import { ConfirmRecoveryPasswordComponent } from './pages/confirm-recovery-password/confirm-recovery-password.component';
@@ -26,8 +26,8 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'account-confirmation',
-    component: AccountConfirmationComponent,
+    path: 'confirm-account',
+    component: ConfirmAccountComponent,
     title: 'Confirmar cuenta',
   },
   {

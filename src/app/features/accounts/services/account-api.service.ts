@@ -4,10 +4,10 @@ import { ApiResult } from '../../../core/api-result/api-result';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api.base.service';
 import { DateTimeUtils } from '../../../core/utils/datetime-utils';
-import { AccountConfirmationRequest } from '../models/account-confirmation.request';
 import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountCreateResponse } from '../models/account-create.response';
 import { AccountResponse } from '../models/account.response';
+import { ConfirmAccountRequest } from '../models/confirm-account.request';
 import { ConfirmEmailResentRequest } from '../models/confirm-email-resent.request';
 import { ConfirmEmailVerifyRequest } from '../models/confirm-email-verify.request';
 import { RecoveryConfirmPasswordRequest } from '../models/recovery-confirm-password.request';
@@ -39,10 +39,10 @@ export class AccountApiService extends ApiBaseService {
   }
 
   /** Account confirmation. */
-  accountConfirmation(request: AccountConfirmationRequest): Observable<boolean> {
-    return this.post<AccountConfirmationRequest, boolean>(
+  confirmAccount(request: ConfirmAccountRequest): Observable<boolean> {
+    return this.post<ConfirmAccountRequest, boolean>(
       request,
-      ApiUrls.accounts.accountConfirmation,
+      ApiUrls.accounts.confirmAccount,
       (response) => response.isSuccess,
     );
   }

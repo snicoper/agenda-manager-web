@@ -16,11 +16,11 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { AccountConfirmationRequest } from '../../models/account-confirmation.request';
+import { ConfirmAccountRequest } from '../../models/confirm-account.request';
 import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
-  selector: 'am-account-confirmation',
+  selector: 'am-confirm-account',
   imports: [
     RouterLink,
     ReactiveFormsModule,
@@ -33,10 +33,10 @@ import { AccountApiService } from '../../services/account-api.service';
     NonFieldErrorsComponent,
     AlertComponent,
   ],
-  templateUrl: './account-confirmation.component.html',
-  styleUrl: './account-confirmation.component.scss',
+  templateUrl: './confirm-account.component.html',
+  styleUrl: './confirm-account.component.scss',
 })
-export class AccountConfirmationComponent {
+export class ConfirmAccountComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -72,7 +72,7 @@ export class AccountConfirmationComponent {
     }
 
     this.formState.isLoading = true;
-    const request = this.formState.form.value as AccountConfirmationRequest;
+    const request = { ...this.formState.form.value } as ConfirmAccountRequest;
     request.token = this.token;
 
     this.confirmAccount(request);
@@ -90,15 +90,15 @@ export class AccountConfirmationComponent {
     );
   }
 
-  private confirmAccount(request: AccountConfirmationRequest): void {
+  private confirmAccount(request: ConfirmAccountRequest): void {
     this.formState.isLoading = true;
 
     this.apiService
-      .accountConfirmation(request)
+      .confirmAccount(request)
       .pipe(finalize(() => (this.formState.isLoading = false)))
       .subscribe({
         next: () => {
-          this.snackBarService.success('Your account has been confirmed');
+          this.snackBarService.success('Ha confirmado su cuenta correctamente.');
           this.router.navigateByUrl(SiteUrls.auth.login);
           this.validToken = true;
         },
