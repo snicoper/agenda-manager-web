@@ -8,9 +8,9 @@ import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountCreateResponse } from '../models/account-create.response';
 import { AccountResponse } from '../models/account.response';
 import { ConfirmAccountRequest } from '../models/confirm-account.request';
-import { ConfirmEmailResentRequest } from '../models/confirm-email-resent.request';
 import { ConfirmEmailVerifyRequest } from '../models/confirm-email-verify.request';
 import { RequestPasswordResetRequest } from '../models/request-password-reset.request';
+import { ResendEmailConfirmation } from '../models/resend-email-confirmation.request';
 import { ResetPasswordRequest } from '../models/reset-password.request';
 
 @Injectable({ providedIn: 'root' })
@@ -66,10 +66,10 @@ export class AccountApiService extends ApiBaseService {
   }
 
   /** Resend email code. */
-  confirmEmailResent(request: ConfirmEmailResentRequest): Observable<boolean> {
-    return this.post<ConfirmEmailResentRequest, boolean>(
+  confirmEmailResent(request: ResendEmailConfirmation): Observable<boolean> {
+    return this.post<ResendEmailConfirmation, boolean>(
       request,
-      ApiUrls.accounts.confirmEmailResent,
+      ApiUrls.accounts.resendEmailConfirmation,
       (response) => response.isSuccess,
     );
   }

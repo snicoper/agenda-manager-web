@@ -9,7 +9,7 @@ export const ApiUrls = {
     confirmAccount: '/accounts/confirm-account',
     requestPasswordReset: '/accounts/request-password-reset',
     resetPassword: '/accounts/reset-password',
-    confirmEmailResent: '/accounts/confirm-email-resent',
+    resendEmailConfirmation: '/accounts/resend-email-confirmation',
     confirmEmailVerify: '/accounts/confirm-email-verify',
   },
   roles: {

@@ -8,16 +8,16 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { ConfirmEmailResentRequest } from '../../models/confirm-email-resent.request';
+import { ResendEmailConfirmation } from '../../models/resend-email-confirmation.request';
 import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
-  selector: 'am-confirm-email-resent',
+  selector: 'am-resend-email-confirmation',
   imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, PageSimpleComponent, BtnLoadingComponent],
-  templateUrl: './confirm-email-resent.component.html',
-  styleUrl: './confirm-email-resent.component.scss',
+  templateUrl: './resend-email-confirmation.component.html',
+  styleUrl: './resend-email-confirmation.component.scss',
 })
-export class ConfirmEmailResentComponent {
+export class ResendEmailConfirmationComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly accountApiService = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
@@ -34,7 +34,7 @@ export class ConfirmEmailResentComponent {
 
     const request = {
       email: this.email,
-    } as ConfirmEmailResentRequest;
+    } as ResendEmailConfirmation;
 
     this.accountApiService
       .confirmEmailResent(request)

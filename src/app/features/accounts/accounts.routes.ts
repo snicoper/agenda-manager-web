@@ -3,9 +3,9 @@ import { AccountCreateComponent } from './pages/account-create/account-create.co
 import { AccountDetailsComponent } from './pages/account-details/account-details.component';
 import { AccountListComponent } from './pages/account-list/account-list.component';
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
-import { ConfirmEmailResentComponent } from './pages/confirm-email-resent/confirm-email-resent.component';
 import { ConfirmEmailVerifyComponent } from './pages/confirm-email-verify/confirm-email-verify.component';
 import { RequestPasswordResetComponent } from './pages/request-password-reset/request-password-reset.component';
+import { ResendEmailConfirmationComponent } from './pages/resend-email-confirmation/resend-email-confirmation.component';
 import { ResetPasswordComponent } from './pages/reset-password/confirmreset-password.component';
 
 export const routes: Routes = [
@@ -41,8 +41,8 @@ export const routes: Routes = [
     title: 'Cambiar contraseña',
   },
   {
-    path: 'confirm-email-resent',
-    component: ConfirmEmailResentComponent,
+    path: 'resend-email-confirmation',
+    component: ResendEmailConfirmationComponent,
     title: 'Enviar código de verificación',
   },
   {
