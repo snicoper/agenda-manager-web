@@ -17,7 +17,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { RecoveryPasswordRequest } from '../../models/recovery-password.request';
+import { RequestPasswordResetRequest } from '../../models/request-password-reset.request';
 import { AccountApiService } from '../../services/account-api.service';
 
 interface AlertState {
@@ -28,7 +28,7 @@ interface AlertState {
 }
 
 @Component({
-  selector: 'am-recovery-password',
+  selector: 'am-request-password-reset',
   imports: [
     ReactiveFormsModule,
     RouterLink,
@@ -42,10 +42,10 @@ interface AlertState {
     NonFieldErrorsComponent,
     AlertComponent,
   ],
-  templateUrl: './recovery-password.component.html',
-  styleUrl: './recovery-password.component.scss',
+  templateUrl: './request-password-reset.component.html',
+  styleUrl: './request-password-reset.component.scss',
 })
-export class RecoveryPasswordComponent {
+export class RequestPasswordResetComponent {
   private readonly apiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
 
@@ -105,10 +105,10 @@ export class RecoveryPasswordComponent {
     }
 
     this.formState.isLoading = true;
-    const request = this.formState.form.value as RecoveryPasswordRequest;
+    const request = this.formState.form.value as RequestPasswordResetRequest;
 
     this.apiService
-      .recoveryPassword(request)
+      .requestPasswordReset(request)
       .pipe(finalize(() => (this.formState.isSubmitted = false)))
       .subscribe({
         next: (response) => {

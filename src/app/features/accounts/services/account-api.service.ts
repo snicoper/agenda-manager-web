@@ -11,7 +11,7 @@ import { ConfirmAccountRequest } from '../models/confirm-account.request';
 import { ConfirmEmailResentRequest } from '../models/confirm-email-resent.request';
 import { ConfirmEmailVerifyRequest } from '../models/confirm-email-verify.request';
 import { RecoveryConfirmPasswordRequest } from '../models/recovery-confirm-password.request';
-import { RecoveryPasswordRequest } from '../models/recovery-password.request';
+import { RequestPasswordResetRequest } from '../models/request-password-reset.request';
 
 @Injectable({ providedIn: 'root' })
 export class AccountApiService extends ApiBaseService {
@@ -48,10 +48,10 @@ export class AccountApiService extends ApiBaseService {
   }
 
   /** Recovery password. */
-  recoveryPassword(request: RecoveryPasswordRequest): Observable<boolean> {
-    return this.post<RecoveryPasswordRequest, boolean>(
+  requestPasswordReset(request: RequestPasswordResetRequest): Observable<boolean> {
+    return this.post<RequestPasswordResetRequest, boolean>(
       request,
-      ApiUrls.accounts.recoveryPassword,
+      ApiUrls.accounts.requestPasswordReset,
       (response) => response.isSuccess,
     );
   }

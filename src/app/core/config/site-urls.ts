@@ -7,7 +7,7 @@ export const SiteUrls = {
     create: '/accounts/create',
     details: '/accounts/{id}',
     confirmAccount: '/accounts/confirm-account',
-    recoveryPassword: '/accounts/recovery-password',
+    requestPasswordReset: '/accounts/request-password-reset',
     confirmEmailResent: '/accounts/confirm-email-resent',
     confirmEmailVerify: '/accounts/confirm-email-verify',
   },

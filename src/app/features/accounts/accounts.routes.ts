@@ -6,7 +6,7 @@ import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account
 import { ConfirmEmailResentComponent } from './pages/confirm-email-resent/confirm-email-resent.component';
 import { ConfirmEmailVerifyComponent } from './pages/confirm-email-verify/confirm-email-verify.component';
 import { ConfirmRecoveryPasswordComponent } from './pages/confirm-recovery-password/confirm-recovery-password.component';
-import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
+import { RequestPasswordResetComponent } from './pages/request-password-reset/request-password-reset.component';
 
 export const routes: Routes = [
   {
@@ -31,8 +31,8 @@ export const routes: Routes = [
     title: 'Confirmar cuenta',
   },
   {
-    path: 'recovery-password',
-    component: RecoveryPasswordComponent,
+    path: 'request-password-reset',
+    component: RequestPasswordResetComponent,
     title: 'Recuperar contraseña',
   },
   {
