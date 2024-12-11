@@ -1,4 +1,4 @@
-export interface RecoveryConfirmPasswordRequest {
+export interface ResetPasswordRequest {
   token: string;
   newPassword: string;
   confirmNewPassword: string;

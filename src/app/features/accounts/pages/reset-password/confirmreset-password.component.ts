@@ -16,11 +16,11 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { RecoveryConfirmPasswordRequest } from '../../models/recovery-confirm-password.request';
+import { ResetPasswordRequest } from '../../models/reset-password.request';
 import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
-  selector: 'am-confirm-recovery-password',
+  selector: 'am-reset-password',
   imports: [
     CommonModule,
     RouterLink,
@@ -33,10 +33,10 @@ import { AccountApiService } from '../../services/account-api.service';
     BtnLoadingComponent,
     NonFieldErrorsComponent,
   ],
-  templateUrl: './confirm-recovery-password.component.html',
-  styleUrl: './confirm-recovery-password.component.scss',
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.scss',
 })
-export class ConfirmRecoveryPasswordComponent {
+export class ResetPasswordComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly accountApiService = inject(AccountApiService);
@@ -66,7 +66,7 @@ export class ConfirmRecoveryPasswordComponent {
     }
 
     this.formState.isLoading = true;
-    const request = this.formState.form.value as RecoveryConfirmPasswordRequest;
+    const request = this.formState.form.value as ResetPasswordRequest;
     request.token = this.token;
 
     this.confirmRecoveryPassword(request);
@@ -84,7 +84,7 @@ export class ConfirmRecoveryPasswordComponent {
     );
   }
 
-  private confirmRecoveryPassword(request: RecoveryConfirmPasswordRequest): void {
+  private confirmRecoveryPassword(request: ResetPasswordRequest): void {
     this.accountApiService
       .confirmRecoveryPassword(request)
       .pipe(finalize(() => (this.formState.isLoading = false)))

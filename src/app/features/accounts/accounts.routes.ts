@@ -5,8 +5,8 @@ import { AccountListComponent } from './pages/account-list/account-list.componen
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
 import { ConfirmEmailResentComponent } from './pages/confirm-email-resent/confirm-email-resent.component';
 import { ConfirmEmailVerifyComponent } from './pages/confirm-email-verify/confirm-email-verify.component';
-import { ConfirmRecoveryPasswordComponent } from './pages/confirm-recovery-password/confirm-recovery-password.component';
 import { RequestPasswordResetComponent } from './pages/request-password-reset/request-password-reset.component';
+import { ResetPasswordComponent } from './pages/reset-password/confirmreset-password.component';
 
 export const routes: Routes = [
   {
@@ -36,8 +36,8 @@ export const routes: Routes = [
     title: 'Recuperar contraseña',
   },
   {
-    path: 'confirm-recovery-password',
-    component: ConfirmRecoveryPasswordComponent,
+    path: 'reset-password',
+    component: ResetPasswordComponent,
     title: 'Cambiar contraseña',
   },
   {

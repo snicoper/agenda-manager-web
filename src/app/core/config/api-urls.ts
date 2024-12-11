@@ -8,7 +8,7 @@ export const ApiUrls = {
     createAccount: '/accounts',
     confirmAccount: '/accounts/confirm-account',
     requestPasswordReset: '/accounts/request-password-reset',
-    confirmRecoveryPassword: '/accounts/confirm-recovery-password',
+    resetPassword: '/accounts/reset-password',
     confirmEmailResent: '/accounts/confirm-email-resent',
     confirmEmailVerify: '/accounts/confirm-email-verify',
   },

@@ -8,6 +8,7 @@ export const SiteUrls = {
     details: '/accounts/{id}',
     confirmAccount: '/accounts/confirm-account',
     requestPasswordReset: '/accounts/request-password-reset',
+    resetPassword: '/accounts/reset-password',
     confirmEmailResent: '/accounts/confirm-email-resent',
     confirmEmailVerify: '/accounts/confirm-email-verify',
   },

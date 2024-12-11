@@ -10,8 +10,8 @@ import { AccountResponse } from '../models/account.response';
 import { ConfirmAccountRequest } from '../models/confirm-account.request';
 import { ConfirmEmailResentRequest } from '../models/confirm-email-resent.request';
 import { ConfirmEmailVerifyRequest } from '../models/confirm-email-verify.request';
-import { RecoveryConfirmPasswordRequest } from '../models/recovery-confirm-password.request';
 import { RequestPasswordResetRequest } from '../models/request-password-reset.request';
+import { ResetPasswordRequest } from '../models/reset-password.request';
 
 @Injectable({ providedIn: 'root' })
 export class AccountApiService extends ApiBaseService {
@@ -57,10 +57,10 @@ export class AccountApiService extends ApiBaseService {
   }
 
   /** Confirm recovery password. */
-  confirmRecoveryPassword(request: RecoveryConfirmPasswordRequest): Observable<boolean> {
-    return this.post<RecoveryConfirmPasswordRequest, boolean>(
+  confirmRecoveryPassword(request: ResetPasswordRequest): Observable<boolean> {
+    return this.post<ResetPasswordRequest, boolean>(
       request,
-      ApiUrls.accounts.confirmRecoveryPassword,
+      ApiUrls.accounts.resetPassword,
       (response) => response.isSuccess,
     );
   }
