@@ -42,12 +42,14 @@ export class VerifyEmailComponent {
       token: this.token,
     } as VerifyEmailRequest;
 
-    this.accountApiService.confirmEmailVerify(request).subscribe({
+    this.accountApiService.verifyEmail(request).subscribe({
       next: (isSuccess) => {
         this.isSuccess = isSuccess;
+
         this.message = isSuccess
           ? 'Correo electrónico verificado con éxito.'
           : 'La confirmación de correo electrónico ha fallado o expiro.';
+
         this.alertType = isSuccess ? 'success' : 'error';
       },
       error: () => {

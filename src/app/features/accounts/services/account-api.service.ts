@@ -75,7 +75,7 @@ export class AccountApiService extends ApiBaseService {
   }
 
   /** Verify email. */
-  confirmEmailVerify(request: VerifyEmailRequest): Observable<boolean> {
+  verifyEmail(request: VerifyEmailRequest): Observable<boolean> {
     return this.post<VerifyEmailRequest, boolean>(
       request,
       ApiUrls.accounts.verifyEmail,
