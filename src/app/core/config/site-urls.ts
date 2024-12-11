@@ -10,7 +10,7 @@ export const SiteUrls = {
     requestPasswordReset: '/accounts/request-password-reset',
     resetPassword: '/accounts/reset-password',
     resendEmailConfirmation: '/accounts/resend-email-confirmation',
-    confirmEmailVerify: '/accounts/confirm-email-verify',
+    verifyEmail: '/accounts/verify-email',
   },
 
   auth: {

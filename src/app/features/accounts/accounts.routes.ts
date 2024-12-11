@@ -3,10 +3,10 @@ import { AccountCreateComponent } from './pages/account-create/account-create.co
 import { AccountDetailsComponent } from './pages/account-details/account-details.component';
 import { AccountListComponent } from './pages/account-list/account-list.component';
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
-import { ConfirmEmailVerifyComponent } from './pages/confirm-email-verify/confirm-email-verify.component';
 import { RequestPasswordResetComponent } from './pages/request-password-reset/request-password-reset.component';
 import { ResendEmailConfirmationComponent } from './pages/resend-email-confirmation/resend-email-confirmation.component';
 import { ResetPasswordComponent } from './pages/reset-password/confirmreset-password.component';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 
 export const routes: Routes = [
   {
@@ -33,7 +33,7 @@ export const routes: Routes = [
   {
     path: 'request-password-reset',
     component: RequestPasswordResetComponent,
-    title: 'Recuperar contraseña',
+    title: 'Solicitar cambio de contraseña',
   },
   {
     path: 'reset-password',
@@ -43,12 +43,12 @@ export const routes: Routes = [
   {
     path: 'resend-email-confirmation',
     component: ResendEmailConfirmationComponent,
-    title: 'Enviar código de verificación',
+    title: 'Reenviar correo electrónico de confirmación',
   },
   {
-    path: 'confirm-email-verify',
-    component: ConfirmEmailVerifyComponent,
-    title: 'Confirmar correo electrónico',
+    path: 'verify-email',
+    component: VerifyEmailComponent,
+    title: 'Verificar correo electrónico',
   },
   {
     path: ':id',

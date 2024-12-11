@@ -8,10 +8,10 @@ import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountCreateResponse } from '../models/account-create.response';
 import { AccountResponse } from '../models/account.response';
 import { ConfirmAccountRequest } from '../models/confirm-account.request';
-import { ConfirmEmailVerifyRequest } from '../models/confirm-email-verify.request';
 import { RequestPasswordResetRequest } from '../models/request-password-reset.request';
 import { ResendEmailConfirmation } from '../models/resend-email-confirmation.request';
 import { ResetPasswordRequest } from '../models/reset-password.request';
+import { VerifyEmailRequest } from '../models/verify-email.request';
 
 @Injectable({ providedIn: 'root' })
 export class AccountApiService extends ApiBaseService {
@@ -75,10 +75,10 @@ export class AccountApiService extends ApiBaseService {
   }
 
   /** Verify email. */
-  confirmEmailVerify(request: ConfirmEmailVerifyRequest): Observable<boolean> {
-    return this.post<ConfirmEmailVerifyRequest, boolean>(
+  confirmEmailVerify(request: VerifyEmailRequest): Observable<boolean> {
+    return this.post<VerifyEmailRequest, boolean>(
       request,
-      ApiUrls.accounts.confirmEmailVerify,
+      ApiUrls.accounts.verifyEmail,
       (response) => response.isSuccess,
     );
   }

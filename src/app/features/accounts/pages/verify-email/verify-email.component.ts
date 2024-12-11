@@ -7,16 +7,16 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { ConfirmEmailVerifyRequest } from '../../models/confirm-email-verify.request';
+import { VerifyEmailRequest } from '../../models/verify-email.request';
 import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
-  selector: 'am-confirm-email-verify',
+  selector: 'am-verify-email',
   imports: [CommonModule, RouterLink, MatButtonModule, MatDivider, MatCardModule, PageSimpleComponent, AlertComponent],
-  templateUrl: './confirm-email-verify.component.html',
-  styleUrl: './confirm-email-verify.component.scss',
+  templateUrl: './verify-email.component.html',
+  styleUrl: './verify-email.component.scss',
 })
-export class ConfirmEmailVerifyComponent {
+export class VerifyEmailComponent {
   private readonly accountApiService = inject(AccountApiService);
   private readonly router = inject(ActivatedRoute);
 
@@ -40,7 +40,7 @@ export class ConfirmEmailVerifyComponent {
   private verifyToken(): void {
     const request = {
       token: this.token,
-    } as ConfirmEmailVerifyRequest;
+    } as VerifyEmailRequest;
 
     this.accountApiService.confirmEmailVerify(request).subscribe({
       next: (isSuccess) => {
