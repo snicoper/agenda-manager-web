@@ -26,7 +26,7 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
-import { AccountCreateComponent } from '../../components/account-create/account-create.component';
+import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
 import { AccountResponse } from '../../models/account.response';
 import { AccountApiService } from '../../services/account-api.service';
 
@@ -104,7 +104,7 @@ export class AccountListComponent implements AfterViewInit {
   }
 
   handleCreateAccount(): void {
-    this.bladeService.show(AccountCreateComponent);
+    this.bladeService.show(AccountCreateBladeComponent);
   }
 
   handleClickDetails(userId: string): void {

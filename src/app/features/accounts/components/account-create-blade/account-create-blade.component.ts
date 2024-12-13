@@ -25,7 +25,7 @@ import { AccountCreateRequest } from '../../models/account-create.request';
 import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
-  selector: 'am-account-create',
+  selector: 'am-account-create-blade',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -39,10 +39,10 @@ import { AccountApiService } from '../../services/account-api.service';
     NonFieldErrorsComponent,
     BtnLoadingComponent,
   ],
-  templateUrl: './account-create.component.html',
-  styleUrl: './account-create.component.scss',
+  templateUrl: './account-create-blade.component.html',
+  styleUrl: './account-create-blade.component.scss',
 })
-export class AccountCreateComponent {
+export class AccountCreateBladeComponent {
   private readonly apiService = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
