@@ -27,6 +27,6 @@ export class HomeComponent {
   }
 
   openBlade(): void {
-    this.bladeService.show(PruebasComponent, { width: '100px' });
+    this.bladeService.show(PruebasComponent);
   }
 }

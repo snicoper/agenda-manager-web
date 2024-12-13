@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { logInfo } from '../../core/errors/debug-logger';
 
 @Component({
   selector: 'am-pruebas',
@@ -8,6 +9,6 @@ import { Component } from '@angular/core';
 })
 export class PruebasComponent {
   constructor() {
-    console.log('PruebasComponent constructor');
+    logInfo('PruebasComponent constructor');
   }
 }

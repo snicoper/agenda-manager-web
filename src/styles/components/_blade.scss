@@ -1,28 +1,25 @@
-# Agenda Manager Web
-
-Mira, he puesto el fondo como color de las tablas
-
-```scss
 // Clases base para contenido dentro de blades.
 .blade-content-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: var(--mat-table-background-color);
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  min-height: 100%;
 
   // Título del blade
   .blade-title {
     font-size: 1.25rem;
     font-weight: 500;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--mat-divider);
   }
 
   // Contenedor del formulario o contenido principal.
   .blade-body {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
   // Acciones (botones, etc)
@@ -31,9 +28,6 @@ Mira, he puesto el fondo como color de las tablas
     justify-content: flex-end;
     gap: 0.5rem;
     margin-top: auto;
-    padding-top: 1rem;
+    gap: 0.75rem;
   }
 }
-```
-
-Me gusta el cambio de color, pero mehh, como que hay mucho padding en la pagina (blade), no se como lo ves tu

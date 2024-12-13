@@ -12,7 +12,6 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { FormState } from '../../../../core/models/form-state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
-import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormCheckboxComponent } from '../../../../shared/components/forms/inputs/form-checkbox/form-checkbox.component';
@@ -20,8 +19,6 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormRoleSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-role-selector/form-role-selector.component';
 import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
-import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
-import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { RoleResponse } from '../../../authorization/models/role.response';
 import { AccountCreateRequest } from '../../models/account-create.request';
 import { AccountApiService } from '../../services/account-api.service';
@@ -35,8 +32,6 @@ import { AccountApiService } from '../../services/account-api.service';
     MatDividerModule,
     MatButtonModule,
     MatIconModule,
-    PageBaseComponent,
-    PageHeaderComponent,
     FormInputComponent,
     FormRoleSelectorComponent,
     FormCheckboxComponent,
@@ -65,7 +60,6 @@ export class AccountCreateComponent {
   loadingRoles = false;
 
   constructor() {
-    this.setBreadcrumb();
     this.loadRoles();
   }
 
@@ -78,12 +72,6 @@ export class AccountCreateComponent {
 
     const request = this.formState.form.value as AccountCreateRequest;
     this.create(request);
-  }
-
-  private setBreadcrumb(): void {
-    this.breadcrumb
-      .push(new BreadcrumbItem('Usuarios', SiteUrls.accounts.accounts))
-      .push(new BreadcrumbItem('Crear usuario', SiteUrls.accounts.create, '', false));
   }
 
   private loadRoles(): void {

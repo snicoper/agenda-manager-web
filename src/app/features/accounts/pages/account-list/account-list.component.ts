@@ -8,13 +8,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { CommonUtils } from '../../../../core/utils/common-utils';
+import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
@@ -24,6 +25,7 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
+import { AccountCreateComponent } from '../../components/account-create/account-create.component';
 import { AccountResponse } from '../../models/account.response';
 import { AccountApiService } from '../../services/account-api.service';
 
@@ -31,7 +33,6 @@ import { AccountApiService } from '../../services/account-api.service';
   selector: 'am-account-list',
   imports: [
     CommonModule,
-    RouterLink,
     MatCardModule,
     MatTableModule,
     MatSortModule,
@@ -55,6 +56,7 @@ export class AccountListComponent implements AfterViewInit {
   private readonly router = inject(Router);
   private readonly apiService = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
+  private readonly bladeService = inject(BladeService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -89,6 +91,10 @@ export class AccountListComponent implements AfterViewInit {
 
       this.loadAccounts();
     });
+  }
+
+  handleCreateAccount(): void {
+    this.bladeService.show(AccountCreateComponent);
   }
 
   handleClickDetails(userId: string): void {

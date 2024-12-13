@@ -1,0 +1,51 @@
+<section class="blade-content-container">
+  <h3 class="blade-title">Crear cuenta</h3>
+
+  <mat-divider class="mb-3" />
+
+  <div class="blade-body">
+    <form [formGroup]="formState.form">
+      <am-non-field-errors [badRequest]="formState.badRequest" />
+
+      <div class="row">
+        <!-- email field -->
+        <div class="col-12">
+          <am-form-input [formState]="formState" fieldName="email" formControlName="email" label="Correo electrónico" />
+        </div>
+
+        <!-- first name field -->
+        <div class="col-12">
+          <am-form-input [formState]="formState" fieldName="firstName" formControlName="firstName" label="Nombre" />
+        </div>
+
+        <!-- last name field -->
+        <div class="col-12">
+          <am-form-input [formState]="formState" fieldName="lastName" formControlName="lastName" label="Apellidos" />
+        </div>
+
+        <!-- roles field -->
+        <div class="col-12">
+          <am-form-role-selector [formState]="formState" fieldName="roles" formControlName="roles" label="Roles" />
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- isCollaborator field -->
+        <div class="col-12">
+          <am-form-checkbox
+            [formState]="formState"
+            fieldName="isCollaborator"
+            formControlName="isCollaborator"
+            label="¿Colaborador?"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="blade-actions">
+    <div class="d-flex justify-content-end mt-3">
+      <am-btn-loading (eventClick)="handleSubmit()" [loading]="formState.isLoading" btnText="Crear cuenta" />
+    </div>
+  </div>
+</section>
