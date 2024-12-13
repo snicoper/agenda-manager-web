@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -82,6 +83,15 @@ export class AccountListComponent implements AfterViewInit {
 
   constructor() {
     this.setBreadcrumb();
+
+    this.bladeService.result.pipe(takeUntilDestroyed()).subscribe({
+      next: (result) => {
+        if (result) {
+          this.bladeService.hide();
+          this.loadAccounts();
+        }
+      },
+    });
   }
 
   ngAfterViewInit(): void {

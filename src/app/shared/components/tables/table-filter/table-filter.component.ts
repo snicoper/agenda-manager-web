@@ -1,9 +1,10 @@
-import { Component, DestroyRef, inject, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { LogicalOperator } from '../../../../core/api-result/types/logical-operator';
 import { RelationalOperator } from '../../../../core/api-result/types/relational-operator';
@@ -15,10 +16,6 @@ import { logError } from '../../../../core/errors/debug-logger';
   templateUrl: './table-filter.component.html',
 })
 export class TableFilterComponent<T> {
-  private destroyRef = inject(DestroyRef);
-
-  private filterSubject = new Subject<string>();
-
   apiResult = input.required<ApiResult<T>>();
   fieldsFilter = input.required<string[]>();
 
@@ -26,14 +23,11 @@ export class TableFilterComponent<T> {
 
   term = '';
 
-  constructor() {
-    const destroy$ = new Subject<void>();
-    this.destroyRef.onDestroy(() => {
-      destroy$.next();
-      destroy$.complete();
-    });
+  private filterSubject = new Subject<string>();
+  private destroy$ = new Subject<void>();
 
-    this.filterSubject.pipe(debounceTime(300), takeUntil(destroy$)).subscribe({
+  constructor() {
+    this.filterSubject.pipe(debounceTime(300), takeUntilDestroyed()).subscribe({
       next: (term) => this.applyFilters(term),
       error: (error) => logError(error),
     });

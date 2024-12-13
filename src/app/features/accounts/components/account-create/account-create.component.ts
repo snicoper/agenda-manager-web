@@ -11,6 +11,7 @@ import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { FormState } from '../../../../core/models/form-state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -46,6 +47,7 @@ export class AccountCreateComponent {
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
+  private readonly bladeService = inject(BladeService);
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly formState = {
@@ -106,6 +108,7 @@ export class AccountCreateComponent {
         next: (response) => {
           this.snackBarService.success('Usuario creado correctamente');
           this.router.navigate([SiteUrls.accounts.accounts, response.userId]);
+          this.bladeService.emitResult(true);
         },
         error: (error: HttpErrorResponse) => (this.formState.badRequest = error.error),
       });
