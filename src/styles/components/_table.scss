@@ -191,8 +191,8 @@ table {
   tr {
     td,
     th {
-      .material-icons {
-        &.btn-action {
+      .btn-actions {
+        .material-icons {
           display: none !important;
         }
       }
@@ -200,8 +200,8 @@ table {
 
     &:hover {
       td {
-        .material-icons {
-          &.btn-action {
+        .btn-actions {
+          .material-icons {
             display: inline-block !important;
           }
         }

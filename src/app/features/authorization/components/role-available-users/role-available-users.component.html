@@ -31,9 +31,9 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
-        <span class="d-flex justify-content-end">
+        <span class="d-flex justify-content-end btn-actions">
           <button mat-icon-button (click)="handleUnAssignUserToRole(row.userId)">
-            <mat-icon matTooltip="Añadir al rol" class="btn-action text-error">add</mat-icon>
+            <mat-icon matTooltip="Añadir al rol" class="text-error">add</mat-icon>
           </button>
         </span>
       </td>

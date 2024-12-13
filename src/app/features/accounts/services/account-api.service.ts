@@ -3,9 +3,11 @@ import { Observable } from 'rxjs';
 import { ApiResult } from '../../../core/api-result/api-result';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api.base.service';
+import { CommonUtils } from '../../../core/utils/common-utils';
 import { DateTimeUtils } from '../../../core/utils/datetime-utils';
 import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountCreateResponse } from '../models/account-create.response';
+import { AccountDetailsResponse } from '../models/account-details.response';
 import { AccountResponse } from '../models/account.response';
 import { ConfirmAccountRequest } from '../models/confirm-account.request';
 import { RequestPasswordResetRequest } from '../models/request-password-reset.request';
@@ -26,6 +28,18 @@ export class AccountApiService extends ApiBaseService {
       }));
 
       return result;
+    });
+  }
+
+  /** Get account details. */
+  getAccountDetails(userId: string): Observable<AccountDetailsResponse> {
+    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.getAccountDetails, { userId: userId });
+
+    return this.get<AccountDetailsResponse>(endpoint, (response) => {
+      return {
+        ...response.value,
+        createAt: DateTimeUtils.fromApi(response.value.createdAt),
+      };
     });
   }
 

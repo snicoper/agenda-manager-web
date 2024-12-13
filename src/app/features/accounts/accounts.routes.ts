@@ -51,7 +51,7 @@ export const routes: Routes = [
     title: 'Verificar correo electrónico',
   },
   {
-    path: ':id',
+    path: ':userId',
     component: AccountDetailsComponent,
     title: 'Detalles de cuenta',
     data: {

@@ -91,8 +91,8 @@ export class AccountListComponent implements AfterViewInit {
     });
   }
 
-  handleSelectRow(role: AccountResponse): void {
-    const url = CommonUtils.buildUrl(SiteUrls.roles.permissions, { id: role.id });
+  handleClickDetails(userId: string): void {
+    const url = CommonUtils.buildUrl(SiteUrls.accounts.details, { id: userId });
     this.router.navigateByUrl(url);
   }
 
