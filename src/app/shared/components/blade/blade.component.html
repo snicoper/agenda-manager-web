@@ -1,0 +1,13 @@
+<div class="blade-container" [class.visible]="bladeService.bladeState().isVisible">
+  <div class="blade" [style.width]="bladeService.bladeState().options.width">
+    <div class="blade-header">
+      <button mat-icon-button (click)="bladeService.hide()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="blade-content">
+      <ng-container *ngComponentOutlet="bladeService.bladeState().component" />
+    </div>
+  </div>
+</div>

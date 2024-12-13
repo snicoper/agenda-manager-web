@@ -3,7 +3,9 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { SiteUrls } from '../../../core/config/site-urls';
+import { BladeService } from '../../../shared/components/blade/services/blade.service';
 import { PageBaseComponent } from '../../../shared/components/layout/page-base/page-base.component';
+import { PruebasComponent } from '../../pruebas/pruebas.component';
 
 @Component({
   selector: 'am-home',
@@ -14,6 +16,7 @@ import { PageBaseComponent } from '../../../shared/components/layout/page-base/p
 export class HomeComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly bladeService = inject(BladeService);
 
   email = this.authService.getEmail();
 
@@ -21,5 +24,9 @@ export class HomeComponent {
     this.authService.logout();
 
     this.router.navigate([SiteUrls.auth.login], { queryParams: { returnUrl: this.router.url } });
+  }
+
+  openBlade(): void {
+    this.bladeService.show(PruebasComponent, { width: '100px' });
   }
 }
