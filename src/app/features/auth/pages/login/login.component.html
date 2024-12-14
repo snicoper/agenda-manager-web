@@ -1,6 +1,6 @@
 <am-page-simple>
   <section class="login-container">
-    <form (ngSubmit)="handleSubmit()" [formGroup]="formSate.form" class="form">
+    <form (ngSubmit)="handleSubmit()" [formGroup]="formLogin.form" class="form">
       <mat-card class="mat-elevation-z10 p-4">
         <mat-card-header>
           <mat-card-title class="title">
@@ -9,33 +9,37 @@
         </mat-card-header>
 
         <mat-card-content>
-          <am-non-field-errors [badRequest]="formSate.badRequest" />
+          <am-non-field-errors [badRequest]="formLogin.state().badRequest" />
 
           <!-- email -->
           <am-form-input
-            [formState]="formSate"
+            [formState]="formLogin.state()"
             [formInputType]="formInputType.Email"
             fieldName="email"
             formControlName="email"
-            label="Correo electrónico"
-            icon="mail"
+            [label]="formLogin.getFieldConfig('email')?.label"
+            [icon]="formLogin.getFieldConfig('email')?.icon"
           />
 
           <!-- password -->
           <am-form-input
-            [formState]="formSate"
+            [formState]="formLogin.state()"
             [formInputType]="formInputType.Password"
             fieldName="password"
             formControlName="password"
-            label="Contraseña"
-            icon="lock"
+            [label]="formLogin.getFieldConfig('password')?.label"
+            [icon]="formLogin.getFieldConfig('password')?.icon"
           />
 
           <mat-divider />
         </mat-card-content>
 
         <mat-card-footer class="mt-4 ms-2">
-          <am-btn-loading [loading]="formSate.isLoading" btnText="Iniciar sesión" />
+          <am-btn-loading
+            [loading]="formLogin.state().isLoading"
+            btnText="Iniciar sesión"
+            [disabled]="!formLogin.isValid()"
+          />
           <button mat-flat-button class="ms-2" type="button" [routerLink]="[siteUrls.accounts.requestPasswordReset]">
             ¿Olvidaste contraseña?
           </button>

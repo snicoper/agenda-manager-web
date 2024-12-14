@@ -29,12 +29,12 @@ export class FormInputComponent implements ControlValueAccessor {
   formState = input.required<FormState>();
 
   fieldName = input.required<string>();
-  label = input.required<string>();
+  label = input.required<string | undefined>();
   id = input(Math.random().toString());
   readonly = input(false);
   formInputType = input(FormInputType.Text);
   placeholder = input('');
-  icon = input('');
+  icon = input<string | undefined>('');
   formIconPosition = input(FormIconPosition.prefix);
 
   iconPositions = FormIconPosition;

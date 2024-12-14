@@ -1,22 +1,22 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { finalize } from 'rxjs';
 import { LoginRequest } from '../../../../core/auth/models/login.request';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
-import { FormState } from '../../../../core/models/form-state';
+import { FormFacade } from '../../../../core/form-facade/facade/form.facade';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/models/form-input-type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
+import { LoginFormFields } from './models/login-form.-fields-interface';
 
 @Component({
   selector: 'am-login',
@@ -35,7 +35,7 @@ import { PageSimpleComponent } from '../../../../shared/components/layout/page-s
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private readonly formBuilder = inject(FormBuilder);
+  private readonly formFacade = inject(FormFacade);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
@@ -45,55 +45,42 @@ export class LoginComponent {
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
 
-  readonly formSate: FormState = {
-    form: this.formBuilder.group({}),
-    badRequest: undefined,
-    isSubmitted: false,
-    isLoading: false,
-  };
-
-  constructor() {
-    this.buildForm();
-  }
+  readonly formLogin = this.formFacade.createForm<LoginFormFields>({
+    fields: {
+      email: {
+        value: '',
+        validators: [Validators.required, CustomValidators.email],
+        component: {
+          type: 'email',
+          label: 'Email',
+          icon: 'email',
+        },
+      },
+      password: {
+        value: '',
+        validators: [Validators.required],
+        component: {
+          type: 'password',
+          label: 'Contraseña',
+          icon: 'lock',
+        },
+      },
+    },
+    onSuccess: () => {
+      this.router.navigate([this.returnUrl ?? SiteUrls.home], { replaceUrl: true });
+    },
+    onError: (error: HttpErrorResponse) => {
+      if (error.status === HttpStatusCode.Conflict && error.error?.code === ApiResultErrors.users.emailIsNotConfirmed) {
+        const email = this.formLogin.getFieldValue('email') as string;
+        this.router.navigate([SiteUrls.accounts.resendEmailConfirmation], {
+          queryParams: { email },
+        });
+      }
+    },
+  });
 
   handleSubmit(): void {
     this.authService.logout();
-    this.formSate.isSubmitted = true;
-
-    if (this.formSate.form.invalid) {
-      return;
-    }
-
-    this.formSate.isLoading = true;
-    const request = this.formSate.form.value as LoginRequest;
-
-    this.authService
-      .login(request)
-      .pipe(finalize(() => (this.formSate.isLoading = false)))
-      .subscribe({
-        next: () => {
-          this.router.navigate([this.returnUrl ?? SiteUrls.home], { replaceUrl: true });
-        },
-        error: (error: HttpErrorResponse) => {
-          this.formSate.badRequest = error.error;
-
-          if (
-            error.status === HttpStatusCode.Conflict &&
-            this.formSate.badRequest?.code === ApiResultErrors.users.emailIsNotConfirmed
-          ) {
-            // Redirect to confirm email page.
-            this.router.navigate([SiteUrls.accounts.resendEmailConfirmation], {
-              queryParams: { email: request.email },
-            });
-          }
-        },
-      });
-  }
-
-  private buildForm(): void {
-    this.formSate.form = this.formBuilder.group({
-      email: ['', [Validators.required, CustomValidators.email]],
-      password: ['', [Validators.required]],
-    });
+    this.formLogin.submit(() => this.authService.login(this.formLogin.form.value as LoginRequest));
   }
 }
