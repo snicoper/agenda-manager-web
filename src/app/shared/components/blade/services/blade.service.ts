@@ -24,6 +24,10 @@ export class BladeService {
       this.options$.set({ ...this.options$(), ...options });
     }
 
+    if (options?.data) {
+      this.options$.set({ ...this.options$(), ...options.data });
+    }
+
     this.isVisible$.set(true);
   }
 
@@ -35,5 +39,6 @@ export class BladeService {
 
   emitResult(result: unknown): void {
     this.resultSubject$.next(result);
+    this.hide();
   }
 }

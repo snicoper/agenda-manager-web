@@ -27,6 +27,7 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { RoleCreateBladeComponent } from '../../components/role-create-blade/role-create-blade.component';
+import { RoleUpdateBladeComponent } from '../../components/role-update-blade/role-update-blade.component';
 import { RoleResponse } from '../../models/role.response';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
@@ -121,7 +122,19 @@ export class RoleListComponent implements AfterViewInit {
     });
   }
 
-  handleOpenDialogUpdateRole(roleId: string): void {}
+  handleOpenDialogUpdateRole(roleId: string): void {
+    this.bladeService.show<string>(RoleUpdateBladeComponent, {
+      data: roleId,
+    });
+
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: (result) => {
+        if (result) {
+          this.loadRoles();
+        }
+      },
+    });
+  }
 
   handleDeleteRole(roleId: string): void {
     this.apiService.deleteRole(roleId).subscribe({

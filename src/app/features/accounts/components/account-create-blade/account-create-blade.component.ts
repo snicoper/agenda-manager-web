@@ -67,7 +67,6 @@ export class AccountCreateBladeComponent {
 
   handleCloseBlade(): void {
     this.bladeService.emitResult(false);
-    this.bladeService.hide();
   }
 
   handleSubmit(): void {
@@ -113,7 +112,6 @@ export class AccountCreateBladeComponent {
         next: (response) => {
           this.snackBarService.success('Usuario creado correctamente');
           this.router.navigate([SiteUrls.accounts.accounts, response.userId]);
-          this.bladeService.hide();
           this.bladeService.emitResult(true);
         },
         error: (error: HttpErrorResponse) => (this.formState.badRequest = error.error),

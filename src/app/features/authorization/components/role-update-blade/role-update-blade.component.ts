@@ -1,13 +1,14 @@
 import { HttpStatusCode } from '@angular/common/http';
-import { Component, Inject, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
 import { FormState } from '../../../../core/models/form-state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
@@ -17,25 +18,25 @@ import { RoleUpdateRequest } from '../../models/update-role.request';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
 @Component({
-  selector: 'am-role-update-dialog',
+  selector: 'am-role-update-blade',
   imports: [
     ReactiveFormsModule,
-    MatDialogModule,
     MatDividerModule,
     MatIconModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     FormInputComponent,
     FormTextareaComponent,
     BtnLoadingComponent,
   ],
-  templateUrl: './role-update-dialog.component.html',
-  styleUrl: './role-update-dialog.component.scss',
+  templateUrl: './role-update-blade.component.html',
+  styleUrl: './role-update-blade.component.scss',
 })
-export class RoleUpdateDialogComponent {
+export class RoleUpdateBladeComponent {
   private readonly apiService = inject(AuthorizationApiService);
-  private readonly dialogRef = inject(MatDialogRef<RoleUpdateDialogComponent>);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
+  private readonly bladeService = inject(BladeService);
 
   readonly formState = {
     form: this.formBuilder.group({}),
@@ -47,7 +48,7 @@ export class RoleUpdateDialogComponent {
   role = {} as RoleResponse;
   loadingRole = true;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: { roleId: string }) {
+  constructor() {
     this.loadRole();
   }
 
@@ -66,7 +67,7 @@ export class RoleUpdateDialogComponent {
       .subscribe({
         next: () => {
           this.snackBarService.success('Role actualizado correctamente.');
-          this.dialogRef.close(true);
+          this.bladeService.emitResult(true);
         },
         error: (error) => {
           if (error.status === HttpStatusCode.BadRequest || error.status === HttpStatusCode.Conflict) {
@@ -80,14 +81,15 @@ export class RoleUpdateDialogComponent {
       });
   }
 
-  handleCloseDialog(response: boolean): void {
-    this.dialogRef.close(response);
+  handleCloseBlade(): void {
+    this.bladeService.hide();
   }
 
   private loadRole(): void {
     this.loadingRole = true;
+
     this.apiService
-      .getRoleById(this.data.roleId)
+      .getRoleById(this.bladeService.bladeState().options.data?.toString() ?? '')
       .pipe(finalize(() => (this.loadingRole = false)))
       .subscribe({
         next: (response) => {

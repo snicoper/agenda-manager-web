@@ -46,7 +46,6 @@ export class RoleCreateBladeComponent {
   }
 
   handleCloseBlade(): void {
-    this.bladeService.emitResult(false);
     this.bladeService.hide();
   }
 
@@ -83,7 +82,6 @@ export class RoleCreateBladeComponent {
         next: (result) => {
           if (result) {
             this.bladeService.emitResult(result);
-            this.bladeService.hide();
             this.snackBarService.success('Rol creado correctamente.');
           }
         },
