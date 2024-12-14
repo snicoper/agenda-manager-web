@@ -14,7 +14,6 @@ import { finalize, take } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
-import { logInfo } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { CommonUtils } from '../../../../core/utils/common-utils';
@@ -111,17 +110,32 @@ export class RoleListComponent implements AfterViewInit {
     this.loadRoles();
   }
 
-  handleOpenDialogCreateRole(): void {
+  handleOpenCreateRoleBlade(): void {
     this.bladeService.show(RoleCreateBladeComponent);
-    this.loadBladeResultListeners();
+
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: (result) => {
+        const data = result as { roleId: string };
+
+        if (data) {
+          const url = CommonUtils.buildUrl(SiteUrls.roles.permissions, { id: data.roleId });
+          this.router.navigateByUrl(url);
+        }
+      },
+    });
   }
 
-  handleOpenDialogUpdateRole(roleId: string): void {
+  handleOpenUpdateRoleBlade(roleId: string): void {
     this.bladeService.show<string>(RoleUpdateBladeComponent, {
       data: roleId,
     });
 
-    this.loadBladeResultListeners();
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: () => {
+        const url = CommonUtils.buildUrl(SiteUrls.roles.permissions, { id: roleId });
+        this.router.navigateByUrl(url);
+      },
+    });
   }
 
   handleDeleteRole(roleId: string): void {
@@ -148,19 +162,6 @@ export class RoleListComponent implements AfterViewInit {
 
   private setBreadcrumb(): void {
     this.breadcrumb.push(new BreadcrumbItem('Roles', SiteUrls.roles.list));
-  }
-
-  private loadBladeResultListeners(): void {
-    // This is a custom method that listens to the result of the blade dialog.
-    this.bladeService.result.pipe(take(1)).subscribe({
-      next: (result) => {
-        if (result) {
-          logInfo('Blade result:', result);
-          const url = CommonUtils.buildUrl(SiteUrls.roles.permissions, { id: result.toString() });
-          this.router.navigateByUrl(url);
-        }
-      },
-    });
   }
 
   private loadRoles(): void {
