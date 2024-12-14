@@ -12,6 +12,8 @@ export const ApiUrls = {
     resetPassword: '/accounts/reset-password',
     resendEmailConfirmation: '/accounts/resend-email-confirmation',
     verifyEmail: '/accounts/verify-email',
+    toggleIsActive: '/accounts/{userId}/toggle-is-active',
+    confirmEmail: '/accounts/{userId}/confirm-email',
   },
   roles: {
     getRolesPaginated: '/roles/paginated',

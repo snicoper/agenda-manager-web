@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -17,7 +18,14 @@ import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
   selector: 'am-account-details',
-  imports: [MatCardModule, MatSlideToggleModule, PageBaseComponent, PageHeaderComponent, DateTimeFormatPipe],
+  imports: [
+    MatCardModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
+    PageBaseComponent,
+    PageHeaderComponent,
+    DateTimeFormatPipe,
+  ],
   templateUrl: './account-details.component.html',
   styleUrl: './account-details.component.scss',
 })
@@ -31,7 +39,7 @@ export class AccountDetailsComponent {
   readonly breadcrumb = new BreadcrumbCollection();
   readonly siteUrls = SiteUrls;
 
-  account: AccountDetailsResponse | undefined;
+  account!: AccountDetailsResponse | null;
   loading = false;
 
   constructor() {
@@ -44,6 +52,55 @@ export class AccountDetailsComponent {
     this.setBreadcrumb();
     this.loadUserDetails();
   }
+
+  handleChangeStateIsActive(): void {
+    if (!this.account) {
+      return;
+    }
+
+    this.loading = true;
+    const newState = !this.account.isActive;
+
+    this.accountApi
+      .toggleIsActive(this.account.userId)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => {
+          this.account!.isActive = newState;
+          this.snackBarService.success('Estado de la cuenta actualizado correctamente');
+        },
+        error: (error: HttpErrorResponse) => {
+          logError(error);
+
+          this.snackBarService.error('Error al actualizar el estado de la cuenta');
+        },
+      });
+  }
+
+  handleConfirmEmail(): void {
+    if (!this.account || this.account.isEmailConfirmed) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.accountApi
+      .confirmEmail(this.account.userId)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Correo electrónico confirmado correctamente');
+          this.loadUserDetails();
+        },
+        error: (error: HttpErrorResponse) => {
+          logError(error);
+
+          this.snackBarService.error('Error al confirmar el correo electrónico');
+        },
+      });
+  }
+
+  handleChangeStateIsCollaborator(): void {}
 
   private setBreadcrumb(): void {
     this.breadcrumb

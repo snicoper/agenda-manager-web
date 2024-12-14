@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResult } from '../../../core/api-result/api-result';
+import { EmptyRequest } from '../../../core/api-result/models/empty.request';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api.base.service';
 import { CommonUtils } from '../../../core/utils/common-utils';
@@ -95,5 +96,19 @@ export class AccountApiService extends ApiBaseService {
       ApiUrls.accounts.verifyEmail,
       (response) => response.isSuccess,
     );
+  }
+
+  /** Toggle account is active. */
+  toggleIsActive(userId: string): Observable<boolean> {
+    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.toggleIsActive, { userId: userId });
+
+    return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
+  }
+
+  /** Confirm email. */
+  confirmEmail(userId: string): Observable<boolean> {
+    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.confirmEmail, { userId: userId });
+
+    return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
   }
 }
