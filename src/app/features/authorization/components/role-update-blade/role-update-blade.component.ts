@@ -60,25 +60,7 @@ export class RoleUpdateBladeComponent {
     }
 
     const request = this.formState.form.value as RoleUpdateRequest;
-
-    this.apiService
-      .updateRole(this.role.id, request)
-      .pipe(finalize(() => (this.formState.isLoading = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Role actualizado correctamente.');
-          this.bladeService.emitResult(true);
-        },
-        error: (error) => {
-          if (error.status === HttpStatusCode.BadRequest || error.status === HttpStatusCode.Conflict) {
-            this.formState.badRequest = error.error;
-
-            return;
-          }
-
-          this.snackBarService.error('Ha ocurrido un error al actualizar el role.');
-        },
-      });
+    this.updateRole(request);
   }
 
   handleCloseBlade(): void {
@@ -97,6 +79,27 @@ export class RoleUpdateBladeComponent {
           this.buildForm();
         },
         error: () => this.snackBarService.error('Ha ocurrido un error al obtener el role.'),
+      });
+  }
+
+  private updateRole(request: RoleUpdateRequest): void {
+    this.apiService
+      .updateRole(this.role.id, request)
+      .pipe(finalize(() => (this.formState.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Role actualizado correctamente.');
+          this.bladeService.emitResult<string>(this.role.id);
+        },
+        error: (error) => {
+          if (error.status === HttpStatusCode.BadRequest || error.status === HttpStatusCode.Conflict) {
+            this.formState.badRequest = error.error;
+
+            return;
+          }
+
+          this.snackBarService.error('Ha ocurrido un error al actualizar el role.');
+        },
       });
   }
 

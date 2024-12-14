@@ -30,7 +30,9 @@
       </div>
     }
 
-    <ng-content class="alert-content" />
+    <div class="alert-content">
+      <ng-content />
+    </div>
 
     @if (dismissible()) {
       <mat-icon class="alert-close" (click)="handleClose()">close</mat-icon>

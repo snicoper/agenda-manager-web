@@ -17,7 +17,7 @@ export class BladeService {
     options: this.options$(),
   }));
 
-  show<TData = unknown>(component: Type<unknown>, options?: BladeOptions<TData>): void {
+  show<TData>(component: Type<unknown>, options?: BladeOptions<TData>): void {
     this.component$.set(component);
 
     if (options) {
@@ -37,7 +37,7 @@ export class BladeService {
     this.options$.set({ width: '480px' });
   }
 
-  emitResult(result: unknown): void {
+  emitResult<TResult>(result: TResult): void {
     this.resultSubject$.next(result);
     this.hide();
   }

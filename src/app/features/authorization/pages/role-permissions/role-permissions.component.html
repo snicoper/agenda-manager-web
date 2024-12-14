@@ -16,12 +16,10 @@
       }
 
       @if (role?.roleIsEditable) {
-        <am-alert
-          type="warning"
-          message="ATENCIÓN: asigne los permisos con precaución"
-          [show]="true"
-          [dismissible]="false"
-        />
+        <am-alert type="warning" [show]="true" [dismissible]="false">
+          <strong>ATENCIÓN</strong> asigne los permisos con precaución, ya que estos pueden afectar la seguridad de la
+          aplicación.
+        </am-alert>
       }
 
       <div class="custom-table-container">
