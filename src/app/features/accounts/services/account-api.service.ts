@@ -111,4 +111,11 @@ export class AccountApiService extends ApiBaseService {
 
     return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
   }
+
+  /** Toggle account is collaborator. */
+  toggleIsCollaborator(userId: string): Observable<boolean> {
+    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.toggleIsCollaborator, { userId: userId });
+
+    return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
+  }
 }

@@ -83,6 +83,7 @@ export class AccountDetailsComponent {
     }
 
     this.loading = true;
+    const newState = !this.account.isEmailConfirmed;
 
     this.accountApi
       .confirmEmail(this.account.userId)
@@ -90,7 +91,7 @@ export class AccountDetailsComponent {
       .subscribe({
         next: () => {
           this.snackBarService.success('Correo electrónico confirmado correctamente');
-          this.loadUserDetails();
+          this.account!.isEmailConfirmed = newState;
         },
         error: (error: HttpErrorResponse) => {
           logError(error);
@@ -100,7 +101,29 @@ export class AccountDetailsComponent {
       });
   }
 
-  handleChangeStateIsCollaborator(): void {}
+  handleChangeStateIsCollaborator(): void {
+    if (!this.account) {
+      return;
+    }
+
+    this.loading = true;
+    const newState = !this.account.isCollaborator;
+
+    this.accountApi
+      .toggleIsCollaborator(this.account.userId)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => {
+          this.account!.isCollaborator = newState;
+          this.snackBarService.success('Usuario colaborador actualizado correctamente');
+        },
+        error: (error: HttpErrorResponse) => {
+          logError(error);
+
+          this.snackBarService.error('Error al actualizar el usuario colaborador');
+        },
+      });
+  }
 
   private setBreadcrumb(): void {
     this.breadcrumb
