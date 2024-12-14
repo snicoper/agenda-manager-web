@@ -1,7 +1,7 @@
-<div class="role-create-dialog">
-  <h2 mat-dialog-title>Crear nuevo rol</h2>
+<div class="blade-content-container">
+  <h2 class="blade-title">Crear nuevo rol</h2>
 
-  <mat-dialog-content>
+  <div class="blade-body">
     <form [formGroup]="formState.form" class="form">
       <!-- name field -->
       <am-form-input [formState]="formState" fieldName="name" formControlName="name" label="Nombre" />
@@ -14,15 +14,13 @@
         label="Descripción"
       />
     </form>
-  </mat-dialog-content>
+  </div>
 
-  <mat-divider />
-
-  <mat-dialog-actions>
-    <button mat-flat-button mat-dialog-close color="accent" class="me-2">
+  <div class="blade-actions">
+    <button (click)="handleCloseBlade()" mat-flat-button class="me-2">
       <mat-icon>close</mat-icon>
       Cerrar
     </button>
     <am-btn-loading [loading]="formState.isLoading" icon="save" btnText="Añadir" (eventClick)="handleSubmit()" />
-  </mat-dialog-actions>
+  </div>
 </div>

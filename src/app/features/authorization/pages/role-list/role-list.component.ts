@@ -3,7 +3,6 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -11,13 +10,14 @@ import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/s
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { CommonUtils } from '../../../../core/utils/common-utils';
+import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
@@ -26,8 +26,7 @@ import { PaginatorComponent } from '../../../../shared/components/paginator/pagi
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
-import { RoleCreateDialogComponent } from '../../components/role-create-dialog/role-create-dialog.component';
-import { RoleUpdateDialogComponent } from '../../components/role-update-dialog/role-update-dialog.component';
+import { RoleCreateBladeComponent } from '../../components/role-create-blade/role-create-blade.component';
 import { RoleResponse } from '../../models/role.response';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
@@ -56,8 +55,8 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
 export class RoleListComponent implements AfterViewInit {
   private readonly apiService = inject(AuthorizationApiService);
   private readonly router = inject(Router);
-  private readonly matDialog = inject(MatDialog);
   private readonly snackBarService = inject(SnackBarService);
+  private readonly bladeService = inject(BladeService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -111,29 +110,18 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   handleOpenDialogCreateRole(): void {
-    const dialogRef = this.matDialog.open(RoleCreateDialogComponent, { width: '500px' });
+    this.bladeService.show(RoleCreateBladeComponent);
 
-    dialogRef.afterClosed().subscribe((response) => {
-      if (response) {
-        {
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: (result) => {
+        if (result) {
           this.loadRoles();
         }
-      }
+      },
     });
   }
 
-  handleOpenDialogUpdateRole(roleId: string): void {
-    const dialogRef = this.matDialog.open(RoleUpdateDialogComponent, {
-      width: '500px',
-      data: { roleId },
-    });
-
-    dialogRef.afterClosed().subscribe((response) => {
-      if (response) {
-        this.loadRoles();
-      }
-    });
-  }
+  handleOpenDialogUpdateRole(roleId: string): void {}
 
   handleDeleteRole(roleId: string): void {
     this.apiService.deleteRole(roleId).subscribe({

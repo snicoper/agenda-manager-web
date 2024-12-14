@@ -1,8 +1,6 @@
 <section class="blade-content-container">
   <h3 class="blade-title">Crear cuenta</h3>
 
-  <mat-divider class="mb-3" />
-
   <div class="blade-body">
     <form [formGroup]="formState.form">
       <am-non-field-errors [badRequest]="formState.badRequest" />
@@ -36,16 +34,18 @@
             [formState]="formState"
             fieldName="isCollaborator"
             formControlName="isCollaborator"
-            label="¿Colaborador?"
+            label="Colaborador"
           />
         </div>
       </div>
     </form>
   </div>
 
-  <div class="blade-actions">
-    <div class="d-flex justify-content-end mt-3">
-      <am-btn-loading (eventClick)="handleSubmit()" [loading]="formState.isLoading" btnText="Crear cuenta" />
-    </div>
+  <div class="d-flex justify-content-end mt-3 blade-actions">
+    <button (click)="handleCloseBlade()" mat-flat-button class="me-2">
+      <mat-icon>close</mat-icon>
+      Cerrar
+    </button>
+    <am-btn-loading (eventClick)="handleSubmit()" [loading]="formState.isLoading" btnText="Crear cuenta" icon="add" />
   </div>
 </section>

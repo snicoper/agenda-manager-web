@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,7 +9,7 @@ import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/s
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -83,15 +82,6 @@ export class AccountListComponent implements AfterViewInit {
 
   constructor() {
     this.setBreadcrumb();
-
-    this.bladeService.result.pipe(takeUntilDestroyed()).subscribe({
-      next: (result) => {
-        if (result) {
-          this.bladeService.hide();
-          this.loadAccounts();
-        }
-      },
-    });
   }
 
   ngAfterViewInit(): void {
@@ -105,6 +95,14 @@ export class AccountListComponent implements AfterViewInit {
 
   handleCreateAccount(): void {
     this.bladeService.show(AccountCreateBladeComponent);
+
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: (result) => {
+        if (result) {
+          this.loadAccounts();
+        }
+      },
+    });
   }
 
   handleClickDetails(userId: string): void {

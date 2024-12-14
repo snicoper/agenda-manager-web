@@ -12,7 +12,7 @@
     font-weight: 500;
     margin-bottom: 0.75rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--mat-divider);
+    border-bottom: 1px solid var(--mat-outline);
   }
 
   // Contenedor del formulario o contenido principal.
@@ -22,12 +22,14 @@
     gap: 0.75rem;
   }
 
-  // Acciones (botones, etc)
+  // Acciones (botones, etc).
   .blade-actions {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
     margin-top: auto;
+    padding-top: 1rem;
     gap: 0.75rem;
+    border-top: 1px solid var(--mat-outline);
   }
 }
