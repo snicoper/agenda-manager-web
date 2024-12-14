@@ -6,7 +6,7 @@ import { SiteUrls } from '../../config/site-urls';
 import { logError } from '../../errors/debug-logger';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
-import { AuthState } from '../models/auth-state';
+import { AuthState } from '../models/auth.state';
 import { LoginRequest } from '../models/login.request';
 import { LoginResponse } from '../models/login.response';
 import { RefreshTokenRequest } from '../models/refresh-token.request';

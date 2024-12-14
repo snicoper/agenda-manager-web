@@ -9,6 +9,7 @@ import { RefreshTokenRequest } from '../models/refresh-token.request';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService extends ApiBaseService {
+  /** Login user. */
   login(request: LoginRequest): Observable<LoginResponse> {
     return this.post<LoginRequest, LoginResponse>(request, ApiUrls.auth.login, (response) => ({
       ...response.value,
@@ -16,6 +17,7 @@ export class AuthApiService extends ApiBaseService {
     }));
   }
 
+  /** Refresh the token. */
   refreshToken(refreshToken: RefreshTokenRequest): Observable<LoginResponse> {
     return this.post<RefreshTokenRequest, LoginResponse>(refreshToken, ApiUrls.auth.refreshToken, (response) => ({
       ...response.value,

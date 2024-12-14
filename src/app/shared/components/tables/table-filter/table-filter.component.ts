@@ -24,7 +24,6 @@ export class TableFilterComponent<T> {
   term = '';
 
   private filterSubject = new Subject<string>();
-  private destroy$ = new Subject<void>();
 
   constructor() {
     this.filterSubject.pipe(debounceTime(300), takeUntilDestroyed()).subscribe({
