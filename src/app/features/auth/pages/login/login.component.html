@@ -13,20 +13,20 @@
 
           <!-- email -->
           <am-form-input
-            [formState]="formLogin.state()"
-            [formInputType]="formInputType.Email"
             fieldName="email"
             formControlName="email"
+            [formState]="formLogin.state()"
+            [formInputType]="formInputType.Email"
             [label]="formLogin.getFieldConfig('email')?.label"
             [icon]="formLogin.getFieldConfig('email')?.icon"
           />
 
           <!-- password -->
           <am-form-input
-            [formState]="formLogin.state()"
-            [formInputType]="formInputType.Password"
             fieldName="password"
             formControlName="password"
+            [formState]="formLogin.state()"
+            [formInputType]="formInputType.Password"
             [label]="formLogin.getFieldConfig('password')?.label"
             [icon]="formLogin.getFieldConfig('password')?.icon"
           />
@@ -36,8 +36,8 @@
 
         <mat-card-footer class="mt-4 ms-2">
           <am-btn-loading
-            [loading]="formLogin.state().isLoading"
             btnText="Iniciar sesión"
+            [loading]="formLogin.state().isLoading"
             [disabled]="!formLogin.isValid()"
           />
           <button mat-flat-button class="ms-2" type="button" [routerLink]="[siteUrls.accounts.requestPasswordReset]">

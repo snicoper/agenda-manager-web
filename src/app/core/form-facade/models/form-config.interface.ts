@@ -8,5 +8,6 @@ export interface FormConfig<T extends Record<string, unknown>> {
   };
   validators?: ValidatorFn[];
   onSuccess?: () => void;
+  reset?: () => void;
   onError?: (error: HttpErrorResponse) => void;
 }
