@@ -10,6 +10,7 @@ import { AuthService } from '../../../../core/auth/services/auth.service';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { FormFacade } from '../../../../core/form-facade/facade/form.facade';
+import { FormFacadeResult } from '../../../../core/form-facade/models/form-facade-result.interface';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
@@ -45,42 +46,51 @@ export class LoginComponent {
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
 
-  readonly formLogin = this.formFacade.createForm<LoginFormFields>({
-    fields: {
-      email: {
-        value: '',
-        validators: [Validators.required, CustomValidators.email],
-        component: {
-          type: 'email',
-          label: 'Email',
-          icon: 'email',
-        },
-      },
-      password: {
-        value: '',
-        validators: [Validators.required],
-        component: {
-          type: 'password',
-          label: 'Contraseña',
-          icon: 'lock',
-        },
-      },
-    },
-    onSuccess: () => {
-      this.router.navigate([this.returnUrl ?? SiteUrls.home], { replaceUrl: true });
-    },
-    onError: (error: HttpErrorResponse) => {
-      if (error.status === HttpStatusCode.Conflict && error.error?.code === ApiResultErrors.users.emailIsNotConfirmed) {
-        const email = this.formLogin.getFieldValue('email') as string;
-        this.router.navigate([SiteUrls.accounts.resendEmailConfirmation], {
-          queryParams: { email },
-        });
-      }
-    },
-  });
+  readonly formLogin = this.buildFormFacade();
 
   handleSubmit(): void {
     this.authService.logout();
     this.formLogin.submit(() => this.authService.login(this.formLogin.form.value as LoginRequest));
+  }
+
+  private buildFormFacade(): FormFacadeResult<LoginFormFields> {
+    const formFacade = this.formFacade.createForm<LoginFormFields>({
+      fields: {
+        email: {
+          value: '',
+          validators: [Validators.required, CustomValidators.email],
+          component: {
+            type: 'email',
+            label: 'Email',
+            icon: 'email',
+          },
+        },
+        password: {
+          value: '',
+          validators: [Validators.required],
+          component: {
+            type: 'password',
+            label: 'Contraseña',
+            icon: 'lock',
+          },
+        },
+      },
+      onSuccess: () => {
+        this.router.navigate([this.returnUrl ?? SiteUrls.home], { replaceUrl: true });
+      },
+      onError: (error: HttpErrorResponse) => {
+        if (
+          error.status === HttpStatusCode.Conflict &&
+          error.error?.code === ApiResultErrors.users.emailIsNotConfirmed
+        ) {
+          const email = this.formLogin.getFieldValue('email') as string;
+          this.router.navigate([SiteUrls.accounts.resendEmailConfirmation], {
+            queryParams: { email },
+          });
+        }
+      },
+    });
+
+    return formFacade;
   }
 }
