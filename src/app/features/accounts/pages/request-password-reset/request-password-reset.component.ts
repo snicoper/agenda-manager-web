@@ -49,7 +49,7 @@ export class RequestPasswordResetComponent {
   private readonly apiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
 
-  private readonly ERROR_MESSAGES = {
+  private readonly ErrorMessages = {
     [ApiResultErrors.users.userIsNotActive]: {
       message: 'Su cuenta no está activa. Contacte con el administrador',
       expectedStatus: HttpStatusCode.Conflict,
@@ -121,7 +121,7 @@ export class RequestPasswordResetComponent {
   }
 
   private handleError(error: HttpErrorResponse): void {
-    const errorConfig = this.ERROR_MESSAGES[error.error.code];
+    const errorConfig = this.ErrorMessages[error.error.code];
 
     if (errorConfig && error.status === errorConfig.expectedStatus) {
       this.setAlertErrorState(errorConfig.message);
