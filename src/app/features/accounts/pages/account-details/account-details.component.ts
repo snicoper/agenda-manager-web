@@ -31,7 +31,7 @@ import { AccountApiService } from '../../services/account-api.service';
 })
 export class AccountDetailsComponent {
   private readonly route = inject(ActivatedRoute);
-  protected readonly router = inject(Router);
+  private readonly router = inject(Router);
   private readonly accountApi = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
 
