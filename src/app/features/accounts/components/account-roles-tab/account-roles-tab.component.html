@@ -1,1 +1,35 @@
-<p>account-roles-tab works!</p>,
+@if (!accountState.loading() && !loading) {
+  <div class="custom-table-container">
+    <table class="table table-striped table-border-bottom">
+      <tbody>
+        @for (role of roles; track $index) {
+          <tr>
+            <th>
+              <span
+                role="button"
+                tabindex="0"
+                class="cursor-pointer"
+                matTooltip="Ver permisos"
+                (keydown.enter)="handleNavigateToRolePermissions(role.roleId)"
+                (click)="handleNavigateToRolePermissions(role.roleId)"
+              >
+                {{ role.name }}
+              </span>
+            </th>
+            <td>
+              <mat-slide-toggle
+                (click)="handleRoleChange(role.roleId, !role.isAssigned)"
+                [checked]="role.isAssigned"
+                [matTooltip]="!role.isAssigned ? 'Asignar rol' : 'Desasignar role'"
+              ></mat-slide-toggle>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+} @else {
+  <div class="d-flex justify-content-center">
+    <mat-spinner diameter="100" />
+  </div>
+}

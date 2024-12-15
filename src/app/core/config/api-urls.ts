@@ -29,6 +29,8 @@ export const ApiUrls = {
   userRoles: {
     getUsersByRoleIdPaginated: '/user-roles/{roleId}/users/paginated',
     getUsersNotInRoleIdPaginated: '/user-roles/{roleId}/exclude-users/paginated',
+    getRolesByUserId: '/user-roles/{userId}/roles',
+    getAvailableRolesByUserId: '/user-roles/{userId}/available-roles',
     assignUserToRole: '/user-roles/{roleId}/assign-user/{userId}',
     unAssignedUserFromRole: '/user-roles/{roleId}/unassigned-user/{userId}',
   },
