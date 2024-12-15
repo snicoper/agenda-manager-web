@@ -10,10 +10,12 @@
         @if (tab.icon) {
           <mat-icon
             class="tab-icon"
+            aria-hidden="false"
+            [amRequiredRole]="tab.role"
+            [amRequiredPermission]="tab.permission"
             [matBadge]="tab.badge?.value"
             [matBadgeColor]="tab.badge?.color || 'accent'"
             [matBadgeHidden]="!tab.badge"
-            aria-hidden="false"
           >
             {{ tab.icon }}
           </mat-icon>

@@ -1,48 +1,42 @@
-import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ActivatedRoute, Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
-import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
+import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar/models/nav-toolbar-data.interface';
+import { NavToolbarComponent } from '../../../../shared/components/layout/nav-toolbar/nav-toolbar.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
-import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
-import { AccountDetailsResponse } from '../../models/account-details.response';
-import { AccountApiService } from '../../services/account-api.service';
+import { AccountInfoTabComponent } from '../../components/account-info-tab/account-info-tab.component';
+import { AccountDetailsService } from '../../services/account-details.service';
 
 @Component({
   selector: 'am-account-details',
-  imports: [
-    MatCardModule,
-    MatSlideToggleModule,
-    MatProgressSpinnerModule,
-    PageBaseComponent,
-    PageHeaderComponent,
-    DateTimeFormatPipe,
-  ],
+  imports: [MatCardModule, PageBaseComponent, PageHeaderComponent, NavToolbarComponent],
   templateUrl: './account-details.component.html',
   styleUrl: './account-details.component.scss',
 })
-export class AccountDetailsComponent {
+export class AccountDetailsComponent implements OnInit, OnDestroy {
+  private readonly accountDetailsService = inject(AccountDetailsService);
   private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-  private readonly accountApi = inject(AccountApiService);
-  private readonly snackBarService = inject(SnackBarService);
 
   readonly userId = this.route.snapshot.params['userId'];
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly siteUrls = SiteUrls;
+  readonly navData = {
+    tabs: [
+      {
+        label: 'Información',
+        icon: 'person',
+        component: AccountInfoTabComponent,
+      },
+    ],
+  } as NavToolbarData;
 
-  account!: AccountDetailsResponse | null;
-  loading = false;
+  account = this.accountDetailsService.state.account;
 
-  constructor() {
+  ngOnInit(): void {
     if (!this.userId) {
       logError('User id is not defined');
 
@@ -50,108 +44,17 @@ export class AccountDetailsComponent {
     }
 
     this.setBreadcrumb();
-    this.loadUserDetails();
+
+    this.accountDetailsService.load(this.userId);
   }
 
-  handleChangeStateIsActive(): void {
-    if (!this.account) {
-      return;
-    }
-
-    this.loading = true;
-    const newState = !this.account.isActive;
-
-    this.accountApi
-      .toggleIsActive(this.account.userId)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: () => {
-          this.account!.isActive = newState;
-          this.snackBarService.success('Estado de la cuenta actualizado correctamente');
-        },
-        error: (error: HttpErrorResponse) => {
-          logError(error);
-
-          this.snackBarService.error('Error al actualizar el estado de la cuenta');
-        },
-      });
-  }
-
-  handleConfirmEmail(): void {
-    if (!this.account || this.account.isEmailConfirmed) {
-      return;
-    }
-
-    this.loading = true;
-    const newState = !this.account.isEmailConfirmed;
-
-    this.accountApi
-      .confirmEmail(this.account.userId)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Correo electrónico confirmado correctamente');
-          this.account!.isEmailConfirmed = newState;
-        },
-        error: (error: HttpErrorResponse) => {
-          logError(error);
-
-          this.snackBarService.error('Error al confirmar el correo electrónico');
-        },
-      });
-  }
-
-  handleChangeStateIsCollaborator(): void {
-    if (!this.account) {
-      return;
-    }
-
-    this.loading = true;
-    const newState = !this.account.isCollaborator;
-
-    this.accountApi
-      .toggleIsCollaborator(this.account.userId)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: () => {
-          this.account!.isCollaborator = newState;
-          this.snackBarService.success('Usuario colaborador actualizado correctamente');
-        },
-        error: (error: HttpErrorResponse) => {
-          logError(error);
-
-          this.snackBarService.error('Error al actualizar el usuario colaborador');
-        },
-      });
+  ngOnDestroy(): void {
+    this.accountDetailsService.clean();
   }
 
   private setBreadcrumb(): void {
     this.breadcrumb
       .push(new BreadcrumbItem('Accounts', SiteUrls.accounts.accounts))
       .push(new BreadcrumbItem('Account Details', SiteUrls.accounts.details, '', false));
-  }
-
-  private loadUserDetails(): void {
-    this.loading = true;
-
-    this.accountApi
-      .getAccountDetails(this.userId)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (response) => {
-          this.account = response;
-        },
-        error: (error: HttpErrorResponse) => {
-          logError(error);
-
-          if (error.status === HttpStatusCode.NotFound) {
-            this.snackBarService.error('No se encontró la cuenta');
-          } else {
-            this.snackBarService.error('Error al cargar los detalles de la cuenta');
-          }
-
-          this.router.navigateByUrl(SiteUrls.accounts.accounts);
-        },
-      });
   }
 }
