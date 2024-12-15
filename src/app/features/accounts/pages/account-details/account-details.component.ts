@@ -10,6 +10,7 @@ import { NavToolbarComponent } from '../../../../shared/components/layout/nav-to
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { AccountInfoTabComponent } from '../../components/account-info-tab/account-info-tab.component';
+import { AccountRolesTabComponent } from '../../components/account-roles-tab/account-roles-tab.component';
 import { AccountDetailsService } from '../../services/account-details.service';
 
 @Component({
@@ -30,6 +31,11 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
         label: 'Información',
         icon: 'person',
         component: AccountInfoTabComponent,
+      },
+      {
+        label: 'Roles',
+        icon: 'assignment_ind',
+        component: AccountRolesTabComponent,
       },
     ],
   } as NavToolbarData;

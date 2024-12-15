@@ -22,6 +22,7 @@ import { NavToolbarData } from './models/nav-toolbar-data.interface';
 })
 export class NavToolbarComponent {
   data = input.required<NavToolbarData>();
+  animationDuration = model<string>('225ms');
   selectedIndex = model<number>(0);
 
   readonly themePalette = 'primary';

@@ -1,8 +1,9 @@
 <mat-tab-group
   mat-stretch-tabs="false"
   mat-align-tabs="start"
-  [selectedIndex]="selectedIndex()"
   (selectedIndexChange)="selectedIndex.set($event)"
+  [selectedIndex]="selectedIndex()"
+  [animationDuration]="animationDuration()"
 >
   @for (tab of data().tabs; track tab.label) {
     <mat-tab [disabled]="tab.disabled">
