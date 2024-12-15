@@ -4,12 +4,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../../core/auth/services/auth.service';
-import { AppEnvironment } from '../../../core/config/app-environment';
-import { SiteUrls } from '../../../core/config/site-urls';
-import { LayoutService } from '../../../core/services/layout.service';
-import { ThemeState } from '../../../core/states/theme.state';
-import { ThemeColor } from '../../../core/types/theme-color.enum';
+import { AuthService } from '../../../../core/auth/services/auth.service';
+import { AppEnvironment } from '../../../../core/config/app-environment';
+import { SiteUrls } from '../../../../core/config/site-urls';
+import { LayoutService } from '../../../../core/services/layout.service';
+import { ThemeState } from '../../../../core/states/theme.state';
+import { ThemeColor } from '../../../../core/types/theme-color.enum';
 
 @Component({
   selector: 'am-navbar',

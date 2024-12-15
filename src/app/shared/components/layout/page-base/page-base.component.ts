@@ -3,8 +3,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { BladeComponent } from '../../blade/blade.component';
-import { NavbarComponent } from '../../navbar/navbar.component';
-import { SidebarComponent } from '../../sidebar/sidebar.component';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'am-page-base',

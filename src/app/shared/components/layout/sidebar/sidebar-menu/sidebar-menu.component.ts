@@ -4,10 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { BrowserStorageService } from '../../../../core/services/browser-storage.service';
-import { BrowserStorageKey } from '../../../../core/types/browser-storage-key.enum';
-import { RequiredPermissionDirective } from '../../../directives/required-permission.directive';
-import { RequiredRoleDirective } from '../../../directives/required-role.directive';
+import { BrowserStorageService } from '../../../../../core/services/browser-storage.service';
+import { BrowserStorageKey } from '../../../../../core/types/browser-storage-key.enum';
+import { RequiredPermissionDirective } from '../../../../directives/required-permission.directive';
+import { RequiredRoleDirective } from '../../../../directives/required-role.directive';
 import { sidebarMenuItems } from './sidebar.menu-item';
 import { SidenavMenuItem, SidenavMenus, SidenavMenuState } from './sidenav-menu-state';
 

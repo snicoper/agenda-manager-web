@@ -1,7 +1,7 @@
-import { SiteUrls } from '../../../../core/config/site-urls';
-import { SystemPermissions } from '../../../../core/types/system-permissions';
-import { SystemRole, SystemRoles } from '../../../../core/types/system-roles';
-import { AllPermissions } from '../../../directives/required-permission.directive';
+import { SiteUrls } from '../../../../../core/config/site-urls';
+import { SystemPermissions } from '../../../../../core/types/system-permissions';
+import { SystemRole, SystemRoles } from '../../../../../core/types/system-roles';
+import { AllPermissions } from '../../../../directives/required-permission.directive';
 
 interface SidebarMenuItem {
   id: string;
