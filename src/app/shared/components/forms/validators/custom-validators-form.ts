@@ -1,6 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateTime } from 'luxon';
-import { FormPhoneNumber } from '../inputs/form-phone-number/models/form-phone-number.interface';
+import { FormAddressField } from '../inputs/form-address/models/form-address-field.interface';
+import { FormPhoneNumberField } from '../inputs/form-phone-number/models/form-phone-number-field.interface';
 
 export abstract class CustomValidators {
   /** Comprobar que un campo sea un email. */
@@ -121,7 +122,7 @@ export abstract class CustomValidators {
         return null;
       }
 
-      const value = control.value as FormPhoneNumber;
+      const value = control.value as FormPhoneNumberField;
 
       // Validar que si hay un campo, el otro también debe existir
       if ((value.countryCode && !value.number) || (!value.countryCode && value.number)) {
@@ -136,6 +137,23 @@ export abstract class CustomValidators {
         if (!isCodeValid || !isNumberValid) {
           return { phoneInvalid: true };
         }
+      }
+
+      return null;
+    };
+  };
+
+  static readonly addressComplete = (): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+
+      const value = control.value as FormAddressField;
+
+      // Por ahora validación básica - que si hay un campo, los demás sean requeridos
+      if (Object.values(value).some((v) => v) && !Object.values(value).every((v) => v)) {
+        return { addressIncomplete: true };
       }
 
       return null;

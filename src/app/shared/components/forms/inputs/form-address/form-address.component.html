@@ -1,0 +1,102 @@
+<div class="address-container">
+  <div class="address-fields">
+    <!-- street field -->
+    <mat-form-field class="street">
+      <mat-label>Calle</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value.street"
+        (ngModelChange)="onChangeValue(value)"
+        [type]="formInputTypes.Text"
+        [disabled]="isDisabled"
+        [id]="id + '-street'"
+        [readonly]="readonly()"
+        [placeholder]="placeholders()?.street ?? ''"
+      />
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>streetview</mat-icon>
+      }
+    </mat-form-field>
+
+    <!-- city field -->
+    <mat-form-field class="city">
+      <mat-label>Ciudad</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value.city"
+        (ngModelChange)="onChangeValue(value)"
+        [type]="formInputTypes.Text"
+        [disabled]="isDisabled"
+        [id]="id + '-city'"
+        [readonly]="readonly()"
+        [placeholder]="placeholders()?.city ?? ''"
+      />
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>location_city</mat-icon>
+      }
+    </mat-form-field>
+
+    <!-- country field -->
+    <mat-form-field class="country">
+      <mat-label>País</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value.country"
+        (ngModelChange)="onChangeValue(value)"
+        [type]="formInputTypes.Text"
+        [disabled]="isDisabled"
+        [id]="id + '-country'"
+        [readonly]="readonly()"
+        [placeholder]="placeholders()?.country ?? ''"
+      />
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>public</mat-icon>
+      }
+    </mat-form-field>
+
+    <!-- state field -->
+    <mat-form-field class="state">
+      <mat-label>Provincia</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value.state"
+        (ngModelChange)="onChangeValue(value)"
+        [type]="formInputTypes.Text"
+        [disabled]="isDisabled"
+        [id]="id + '-state'"
+        [readonly]="readonly()"
+        [placeholder]="placeholders()?.state ?? ''"
+      />
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>location_on</mat-icon>
+      }
+    </mat-form-field>
+
+    <!-- postal code field -->
+    <mat-form-field class="postal-code">
+      <mat-label>Código Postal</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value.postalCode"
+        (ngModelChange)="onChangeValue(value)"
+        [type]="formInputTypes.Integer"
+        [disabled]="isDisabled"
+        [id]="id + '-postal-code'"
+        [readonly]="readonly()"
+        [placeholder]="placeholders()?.postalCode ?? ''"
+      />
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>local_post_office</mat-icon>
+      }
+    </mat-form-field>
+  </div>
+
+  @if (formState().form) {
+    <am-field-error [formState]="formState()" [fieldName]="fieldName()" [fieldText]="label()" />
+  }
+</div>

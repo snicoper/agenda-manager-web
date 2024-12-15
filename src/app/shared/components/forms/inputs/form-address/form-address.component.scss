@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+.address-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .address-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    .street {
+      grid-column: 1 / -1; // ocupa toda la fila
+    }
+
+    // ciudad y provincia en la misma fila
+    .city,
+    .state {
+      // heredan el ancho por defecto
+    }
+
+    // país y código postal en la misma fila
+    .country,
+    .postal-code {
+      // heredan el ancho por defecto
+    }
+  }
+}

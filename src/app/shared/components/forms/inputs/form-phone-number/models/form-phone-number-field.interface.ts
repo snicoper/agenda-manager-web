@@ -1,4 +1,4 @@
-export interface FormPhoneNumber {
+export interface FormPhoneNumberField {
   countryCode: string;
   number: string;
 }

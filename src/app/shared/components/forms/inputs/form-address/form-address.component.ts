@@ -6,49 +6,50 @@ import { MatInputModule } from '@angular/material/input';
 import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormInputType } from '../form-input/models/form-input.type';
-import { FormPhoneNumberField } from './models/form-phone-number-field.interface';
+import { FormAddressField } from './models/form-address-field.interface';
+import { FormAddressPlaceholders } from './models/form-address-placeholders.interface';
 
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
-  selector: 'am-form-phone-number',
+  selector: 'am-form-address',
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIcon, FieldErrorComponent],
-  templateUrl: './form-phone-number.component.html',
-  styleUrl: './form-phone-number.component.scss',
+  templateUrl: './form-address.component.html',
+  styleUrl: './form-address.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormPhoneNumberComponent),
+      useExisting: forwardRef(() => FormAddressComponent),
       multi: true,
     },
   ],
 })
-export class FormPhoneNumberComponent implements ControlValueAccessor {
+export class FormAddressComponent implements ControlValueAccessor {
   formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
   readonly = input(false);
   showIcons = input(false);
-  placeholder = input('');
+  placeholders = input<FormAddressPlaceholders>();
 
   readonly formInputTypes = FormInputType;
 
-  value = {} as FormPhoneNumberField;
+  value = {} as FormAddressField;
   isDisabled = false;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
-  id = `phone-field-${(FormPhoneNumberComponent.nextId += 1)}`;
+  id = `address-field-${(FormAddressComponent.nextId += 1)}`;
 
-  onChange = (_: FormPhoneNumberField): void => {};
+  onChange = (_: FormAddressField): void => {};
   onTouch = (): void => {};
 
-  writeValue(value: FormPhoneNumberField): void {
-    this.value = value || ({} as FormPhoneNumberField);
+  writeValue(value: FormAddressField): void {
+    this.value = value || ({} as FormAddressField);
   }
 
-  registerOnChange(fn: (value: FormPhoneNumberField) => void): void {
+  registerOnChange(fn: (value: FormAddressField) => void): void {
     this.onChange = fn;
   }
 
@@ -60,7 +61,7 @@ export class FormPhoneNumberComponent implements ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  onChangeValue(value: FormPhoneNumberField): void {
+  onChangeValue(value: FormAddressField): void {
     this.onChange(value);
   }
 }
