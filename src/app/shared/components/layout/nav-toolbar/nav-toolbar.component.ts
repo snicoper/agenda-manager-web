@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, model } from '@angular/core';
+import { Component, inject, input, model } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import { RequiredPermissionDirective } from '../../../directives/required-permission.directive';
+import { AuthService } from '../../../../core/auth/services/auth.service';
+import { AllPermissions, RequiredPermissionDirective } from '../../../directives/required-permission.directive';
 import { RequiredRoleDirective } from '../../../directives/required-role.directive';
 import { NavToolbarData } from './models/nav-toolbar-data.interface';
 
@@ -21,6 +22,8 @@ import { NavToolbarData } from './models/nav-toolbar-data.interface';
   styleUrl: './nav-toolbar.component.scss',
 })
 export class NavToolbarComponent {
+  private readonly authService = inject(AuthService);
+
   data = input.required<NavToolbarData>();
   animationDuration = model<string>('225ms');
   selectedIndex = model<number>(0);
@@ -29,5 +32,16 @@ export class NavToolbarComponent {
 
   onSelectedIndexChange(index: number): void {
     this.selectedIndex.set(index);
+  }
+
+  hasPermission(permissions: AllPermissions | AllPermissions[] | undefined): boolean {
+    if (!permissions) {
+      return true;
+    }
+
+    const permissionsArray = Array.isArray(permissions) ? permissions : [permissions];
+
+    // Usando every para verificar que todos los permisos se cumplen.
+    return permissionsArray.every((permission) => this.authService.hasPermission(permission));
   }
 }

@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
+import { SystemPermissions } from '../../../../core/types/system-permissions';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar/models/nav-toolbar-data.interface';
@@ -30,11 +31,13 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
       {
         label: 'Información',
         icon: 'person',
+        permissions: [SystemPermissions.Users.Read],
         component: AccountInfoTabComponent,
       },
       {
         label: 'Roles',
         icon: 'assignment_ind',
+        permissions: [SystemPermissions.Roles.Read],
         component: AccountRolesTabComponent,
       },
     ],
@@ -49,9 +52,8 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.setBreadcrumb();
-
     this.accountDetailsService.load(this.userId);
+    this.setBreadcrumb();
   }
 
   ngOnDestroy(): void {

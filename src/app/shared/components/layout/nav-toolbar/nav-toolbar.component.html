@@ -6,27 +6,31 @@
   [animationDuration]="animationDuration()"
 >
   @for (tab of data().tabs; track tab.label) {
-    <mat-tab [disabled]="tab.disabled">
-      <ng-template mat-tab-label>
-        @if (tab.icon) {
-          <mat-icon
-            class="tab-icon"
-            aria-hidden="false"
-            [amRequiredRole]="tab.role"
-            [amRequiredPermission]="tab.permission"
-            [matBadge]="tab.badge?.value"
-            [matBadgeColor]="tab.badge?.color || 'accent'"
-            [matBadgeHidden]="!tab.badge"
-          >
-            {{ tab.icon }}
-          </mat-icon>
-        }
-        <span>{{ tab.label }}</span>
-      </ng-template>
+    <span class="hidden">
+      <mat-tab
+        [disabled]="tab.disabled || !hasPermission(tab.permissions)"
+        [amRequiredRole]="tab.roles"
+        [amRequiredPermission]="tab.permissions"
+      >
+        <ng-template mat-tab-label>
+          @if (tab.icon) {
+            <mat-icon
+              class="tab-icon"
+              aria-hidden="false"
+              [matBadge]="tab.badge?.value"
+              [matBadgeColor]="tab.badge?.color || 'accent'"
+              [matBadgeHidden]="!tab.badge"
+            >
+              {{ tab.icon }}
+            </mat-icon>
+          }
+          <span>{{ tab.label }}</span>
+        </ng-template>
 
-      <ng-template matTabContent>
-        <ng-container *ngComponentOutlet="tab.component; inputs: tab.inputs" />
-      </ng-template>
-    </mat-tab>
+        <ng-template matTabContent>
+          <ng-container *ngComponentOutlet="tab.component; inputs: tab.inputs" />
+        </ng-template>
+      </mat-tab>
+    </span>
   }
 </mat-tab-group>

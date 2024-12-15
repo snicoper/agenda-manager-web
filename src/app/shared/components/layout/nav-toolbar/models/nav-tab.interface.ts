@@ -9,8 +9,8 @@ export interface NavTab {
   component: Type<unknown>;
   inputs?: Record<string, unknown>;
   disabled?: boolean;
-  role?: SystemRole | SystemRole[];
-  permission?: AllPermissions | AllPermissions[];
+  roles?: SystemRole | SystemRole[] | undefined;
+  permissions?: AllPermissions | AllPermissions[] | undefined;
   badge?: {
     value: string | number;
     color?: ThemePalette;
