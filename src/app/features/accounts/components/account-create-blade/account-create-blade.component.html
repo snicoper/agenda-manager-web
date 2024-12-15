@@ -8,12 +8,12 @@
       <div class="row">
         <!-- email field -->
         <div class="col-12">
-          <am-form-input [formState]="formState" fieldName="email" formControlName="email" label="Correo electrónico" />
+          <am-form-input fieldName="email" formControlName="email" label="Correo electrónico" [formState]="formState" />
         </div>
 
         <!-- first name field -->
         <div class="col-12">
-          <am-form-input [formState]="formState" fieldName="firstName" formControlName="firstName" label="Nombre" />
+          <am-form-input fieldName="firstName" formControlName="firstName" label="Nombre" [formState]="formState" />
         </div>
 
         <!-- last name field -->
@@ -23,7 +23,7 @@
 
         <!-- roles field -->
         <div class="col-12">
-          <am-form-role-selector [formState]="formState" fieldName="roles" formControlName="roles" label="Roles" />
+          <am-form-role-selector fieldName="roles" formControlName="roles" label="Roles" [formState]="formState" />
         </div>
       </div>
 
@@ -31,10 +31,10 @@
         <!-- isCollaborator field -->
         <div class="col-12">
           <am-form-checkbox
-            [formState]="formState"
             fieldName="isCollaborator"
             formControlName="isCollaborator"
             label="Colaborador"
+            [formState]="formState"
           />
         </div>
       </div>
@@ -42,10 +42,10 @@
   </div>
 
   <div class="d-flex justify-content-end mt-3 blade-actions">
-    <button (click)="handleCloseBlade()" mat-flat-button class="me-2">
+    <button mat-flat-button class="me-2" (click)="handleCloseBlade()">
       <mat-icon>close</mat-icon>
       Cerrar
     </button>
-    <am-btn-loading (eventClick)="handleSubmit()" [loading]="formState.isLoading" btnText="Crear cuenta" icon="add" />
+    <am-btn-loading btnText="Crear cuenta" icon="add" (eventClick)="handleSubmit()" [loading]="formState.isLoading" />
   </div>
 </section>

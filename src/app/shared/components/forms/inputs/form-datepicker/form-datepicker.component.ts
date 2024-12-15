@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { DateTime } from 'luxon';
 import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
-import { FormInputType } from '../../models/form-input-type';
+import { FormInputType } from '../../models/form-input.type';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */

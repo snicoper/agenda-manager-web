@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.phone-container {
+  display: flex;
+  flex-direction: column;
+
+  .phone-fields {
+    display: flex;
+    gap: 1rem;
+
+    .country-code {
+      width: 150px;
+    }
+
+    .phone-number {
+      flex: 1;
+    }
+  }
+}

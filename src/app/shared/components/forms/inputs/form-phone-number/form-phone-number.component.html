@@ -1,0 +1,45 @@
+<div class="phone-container">
+  <div class="phone-fields">
+    <!-- Country Code Field -->
+    <mat-form-field class="country-code">
+      <mat-label>Código</mat-label>
+      <input
+        matInput
+        placeholder="+34"
+        [(ngModel)]="value.countryCode"
+        (ngModelChange)="onChangeValue(value)"
+        [type]="formInputTypes.Text"
+        [disabled]="isDisabled"
+        [id]="id + '-country-code'"
+        [readonly]="readonly()"
+      />
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>flag</mat-icon>
+      }
+    </mat-form-field>
+
+    <!-- Phone Number Field -->
+    <mat-form-field class="phone-number">
+      <mat-label>Teléfono</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value.number"
+        (ngModelChange)="onChangeValue(value)"
+        [type]="formInputTypes.Tel"
+        [disabled]="isDisabled"
+        [id]="id + '-number'"
+        [placeholder]="placeholder()"
+        [readonly]="readonly()"
+      />
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>phone</mat-icon>
+      }
+    </mat-form-field>
+  </div>
+
+  @if (formState().form) {
+    <am-field-error [formState]="formState()" [fieldName]="fieldName()" [fieldText]="label()" />
+  }
+</div>

@@ -28,7 +28,9 @@
         </ng-template>
 
         <ng-template matTabContent>
-          <ng-container *ngComponentOutlet="tab.component; inputs: tab.inputs" />
+          @defer {
+            <ng-container *ngComponentOutlet="tab.component; inputs: tab.inputs" />
+          }
         </ng-template>
       </mat-tab>
     </span>

@@ -12,6 +12,7 @@ export const ApiUrls = {
     resetPassword: '/accounts/reset-password',
     resendEmailConfirmation: '/accounts/resend-email-confirmation',
     verifyEmail: '/accounts/verify-email',
+    accountUpdate: '/accounts/{userId}',
     toggleIsActive: '/accounts/{userId}/toggle-is-active',
     confirmEmail: '/accounts/{userId}/confirm-email',
     toggleIsCollaborator: '/accounts/{userId}/toggle-is-collaborator',

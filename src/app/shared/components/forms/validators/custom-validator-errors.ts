@@ -25,6 +25,7 @@ export const CustomValidationErrors = {
   noFutureDate: 'La fecha no puede ser futura',
   noWhitespace: 'No se permiten espacios en blanco',
   minLengthArray: (min: number) => `Debe seleccionar al menos ${min} elementos`,
+  phoneIncomplete: 'Debe completar tanto el código de país como el número de teléfono',
 } as const;
 
 // Y un helper para obtener los mensajes fácilmente.

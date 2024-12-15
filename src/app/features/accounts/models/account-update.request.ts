@@ -1,4 +1,3 @@
-import { DateTimeProvider } from '../../../core/types/datetime-provider.type';
 import { IdentityDocumentType } from '../types/identity-document.type';
 
 export interface PhoneNumber {
@@ -20,16 +19,11 @@ export interface IdentityDocument {
   type: IdentityDocumentType;
 }
 
-export interface AccountDetailsResponse {
+export interface AccountUpdateRequest {
   userId: string;
-  email: string;
   firstName: string;
   lastName: string;
   phone: PhoneNumber;
   address: Address;
   identityDocument: IdentityDocument;
-  isEmailConfirmed: boolean;
-  isActive: boolean;
-  isCollaborator: boolean;
-  createdAt: DateTimeProvider;
 }
