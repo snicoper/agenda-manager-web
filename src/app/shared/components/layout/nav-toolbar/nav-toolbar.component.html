@@ -1,0 +1,28 @@
+<mat-tab-group
+  mat-stretch-tabs="false"
+  mat-align-tabs="start"
+  [selectedIndex]="selectedIndex()"
+  (selectedIndexChange)="onSelectedIndexChange($event)"
+>
+  @for (tab of data().tabs; track tab.label) {
+    <mat-tab [disabled]="tab.disabled">
+      <ng-template mat-tab-label>
+        @if (tab.icon) {
+          <mat-icon
+            class="tab-icon"
+            [matBadge]="tab.badge?.value"
+            [matBadgeColor]="tab.badge?.color || 'accent'"
+            [matBadgeHidden]="!tab.badge"
+          >
+            {{ tab.icon }}
+          </mat-icon>
+        }
+        <span>{{ tab.label }}</span>
+      </ng-template>
+
+      @defer {
+        <ng-container *ngComponentOutlet="tab.component; inputs: tab.inputs" />
+      }
+    </mat-tab>
+  }
+</mat-tab-group>
