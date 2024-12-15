@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, input, model } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,7 +7,7 @@ import { NavToolbarData } from './models/nav-toolbar-data.interface';
 
 @Component({
   selector: 'am-nav-toolbar',
-  imports: [MatTabsModule, MatIconModule, MatBadgeModule],
+  imports: [CommonModule, MatTabsModule, MatIconModule, MatBadgeModule],
   templateUrl: './nav-toolbar.component.html',
   styleUrl: './nav-toolbar.component.scss',
 })
