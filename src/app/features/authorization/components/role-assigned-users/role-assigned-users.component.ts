@@ -7,9 +7,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ApiResult } from '../../../../core/api-result/api-result';
+import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { CommonUtils } from '../../../../core/utils/common-utils';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { UserInRoleResponse } from '../../models/user-in-role.response';
@@ -35,6 +38,7 @@ import { AuthorizationApiService } from '../../services/authorization-api.servic
 export class RoleAssignedUsersComponent implements AfterViewInit {
   private readonly apiService = inject(AuthorizationApiService);
   private readonly snackBarService = inject(SnackBarService);
+  private readonly router = inject(Router);
 
   roleId = input.required<string>();
 
@@ -55,6 +59,12 @@ export class RoleAssignedUsersComponent implements AfterViewInit {
 
       this.getUsersInRole();
     });
+  }
+
+  handleClickEmailField(userId: string): void {
+    const url = CommonUtils.buildUrl(SiteUrls.accounts.details, { id: userId });
+
+    this.router.navigateByUrl(url);
   }
 
   handlePageEvent(pageEvent: PageEvent): void {

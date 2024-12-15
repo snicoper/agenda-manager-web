@@ -24,7 +24,17 @@
     <!-- email field -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-      <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+      <td mat-cell *matCellDef="let row">
+        <span
+          class="cursor-pointer"
+          role="button"
+          tabindex="0"
+          (keydown.enter)="handleClickEmailField(row.userId)"
+          (click)="handleClickEmailField(row.userId)"
+        >
+          {{ row.email }}
+        </span>
+      </td>
     </ng-container>
 
     <!-- actions field -->
