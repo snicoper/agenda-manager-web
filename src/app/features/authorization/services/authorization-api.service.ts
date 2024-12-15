@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResult } from '../../../core/api-result/api-result';
 import { ApiUrls } from '../../../core/config/api-urls';
-import { ApiBaseService } from '../../../core/services/api.base.service';
+import { BaseRoleManagementApiService } from '../../../core/services/api/base-role-management-api.service';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CreateRoleRequest } from '../models/create-role.request';
 import { GetRolePermissionsByIdResponse } from '../models/get-role-permissions-by-id.response';
@@ -13,7 +13,7 @@ import { UserInRoleResponse } from '../models/user-in-role.response';
 import { UserNotInRoleResponse } from '../models/user-not-in-role.response';
 
 @Injectable({ providedIn: 'root' })
-export class AuthorizationApiService extends ApiBaseService {
+export class AuthorizationApiService extends BaseRoleManagementApiService {
   /** Get roles paginated. */
   getRolesPaginated(apiResult: ApiResult<RoleResponse>): Observable<ApiResult<RoleResponse>> {
     return this.getPaginated(
@@ -100,26 +100,6 @@ export class AuthorizationApiService extends ApiBaseService {
       endpoint,
       (response) => response.value as ApiResult<UserNotInRoleResponse>,
     );
-  }
-
-  /** Assign user to role. */
-  assignUserToRole(roleId: string, userId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.assignUserToRole, {
-      roleId: roleId,
-      userId: userId,
-    });
-
-    return this.post<boolean, boolean>(true, endpoint, (response) => response.value as boolean);
-  }
-
-  /** Unassigned user from role. */
-  unAssignedUserFromRole(roleId: string, userId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.unAssignedUserFromRole, {
-      roleId: roleId,
-      userId: userId,
-    });
-
-    return this.delete<boolean>(endpoint, (response) => response.value as boolean);
   }
 
   /** Update role. */

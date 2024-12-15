@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiResult } from '../../../core/api-result/api-result';
 import { EmptyRequest } from '../../../core/api-result/models/empty.request';
 import { ApiUrls } from '../../../core/config/api-urls';
-import { ApiBaseService } from '../../../core/services/api.base.service';
+import { ApiBaseService } from '../../../core/services/api/api.base.service';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { DateTimeUtils } from '../../../core/utils/datetime-utils';
 import { AccountCreateRequest } from '../models/account-create.request';

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../core/config/api-urls';
-import { ApiBaseService } from '../../../core/services/api.base.service';
+import { BaseRoleManagementApiService } from '../../../core/services/api/base-role-management-api.service';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { AccountRoleByUserIdResponse } from '../models/account-role-by-user-id.response';
 import { AvailableRolesByUserIdResponse } from '../models/available-roles-by-user-id.response';
 
 @Injectable({ providedIn: 'root' })
-export class AccountRoleApiService extends ApiBaseService {
+export class AccountRoleApiService extends BaseRoleManagementApiService {
   /** Get user roles by userId. */
   getUserRolesByUserId(userId: string): Observable<AccountRoleByUserIdResponse[]> {
     const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.getRolesByUserId, { userId: userId });
@@ -26,25 +26,5 @@ export class AccountRoleApiService extends ApiBaseService {
       endpoint,
       (response) => response.value as AvailableRolesByUserIdResponse[],
     );
-  }
-
-  /** Assign user to role. */
-  assignUserToRole(roleId: string, userId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.assignUserToRole, {
-      roleId: roleId,
-      userId: userId,
-    });
-
-    return this.post<boolean, boolean>(true, endpoint, (response) => response.value as boolean);
-  }
-
-  /** Unassigned user from role. */
-  unAssignedUserFromRole(roleId: string, userId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.unAssignedUserFromRole, {
-      roleId: roleId,
-      userId: userId,
-    });
-
-    return this.delete<boolean>(endpoint, (response) => response.value as boolean);
   }
 }

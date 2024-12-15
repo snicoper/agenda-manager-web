@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../../../../core/config/api-urls';
-import { ApiBaseService } from '../../../../../../../core/services/api.base.service';
+import { ApiBaseService } from '../../../../../../../core/services/api/api.base.service';
 import { SelectableRole } from '../models/selectable-role';
 
 @Injectable()
