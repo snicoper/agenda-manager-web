@@ -7,9 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { getTimeZones } from '@vvo/tzdb';
 import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
-import { FormTimeZoneItem } from './form-time-zone.item.model';
+import { FormTimeZoneItem } from './models/form-time-zone.item.model';
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -30,13 +29,16 @@ export class FormTimezoneComponent implements ControlValueAccessor {
   formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
-  id = input(Math.random().toString());
   placeholder = input('');
 
   value = '';
   items: FormTimeZoneItem[];
   itemsFiltered: FormTimeZoneItem[];
   isDisabled = false;
+
+  // Generate unique id for each instance of the component.
+  private static nextId = 0;
+  id = `time-zone-field-${(FormTimezoneComponent.nextId += 1)}`;
 
   constructor() {
     this.items = getTimeZones().map((tz) => {
@@ -51,19 +53,14 @@ export class FormTimezoneComponent implements ControlValueAccessor {
   onTouch = (): void => {};
 
   writeValue(value: string): void {
-    if (value !== undefined && value !== this.value) {
-      this.value = value || '';
-      this.onChange(this.value);
-    } else {
-      this.value = '';
-    }
+    this.value = value || '';
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
 

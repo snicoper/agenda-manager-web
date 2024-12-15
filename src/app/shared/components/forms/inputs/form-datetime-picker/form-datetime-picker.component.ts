@@ -42,7 +42,6 @@ export class FormDatetimePickerComponent implements ControlValueAccessor, Valida
   formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
-  id = input(Math.random().toString());
   readonly = input(false);
   placeholder = input('');
 
@@ -54,6 +53,10 @@ export class FormDatetimePickerComponent implements ControlValueAccessor, Valida
 
   patternFieldHour = /^([0-1]?\d|2[0-3])$/;
   patternFieldMinutes = /^([0-5]\d)$/;
+
+  // Generate unique id for each instance of the component.
+  private static nextId = 0;
+  id = `date-time-field-${(FormDatetimePickerComponent.nextId += 1)}`;
 
   onChange = (_: DateTime): void => {};
 
@@ -75,11 +78,11 @@ export class FormDatetimePickerComponent implements ControlValueAccessor, Valida
     }
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: DateTime) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
 

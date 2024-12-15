@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormIconPosition } from '../../models/form-icon-position.enum';
-import { FormInputType } from '../../models/form-input.type';
+import { FormInputType } from './models/form-input.type';
 
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
@@ -40,7 +40,7 @@ export class FormInputComponent implements ControlValueAccessor {
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
-  id = `phone-field-${(FormInputComponent.nextId += 1)}`;
+  id = `input-field-${(FormInputComponent.nextId += 1)}`;
 
   onChange = (_: string): void => {};
 

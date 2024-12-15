@@ -47,11 +47,7 @@ export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
   onTouch: () => void = () => {};
 
   writeValue(value: string[]): void {
-    if (value !== undefined) {
-      this.value = value;
-    } else {
-      this.value = [];
-    }
+    this.value = value || [];
   }
 
   registerOnChange(fn: (value: string[]) => void): void {

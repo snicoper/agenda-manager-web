@@ -4,7 +4,6 @@ import ColorPicker, { ColorPickerOptions } from '@thednp/color-picker';
 import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -25,7 +24,6 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
   formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
-  id = input(Math.random().toString());
   readonly = input(true);
   options = input<Partial<ColorPickerOptions>>();
   dataFormat = input<'hex' | 'rgb' | 'hsl' | 'hsv'>('hex');
@@ -33,6 +31,10 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
   @ViewChild('colorPicker') elementRef!: ElementRef;
 
   private colorPicker!: ColorPicker;
+
+  // Generate unique id for each instance of the component.
+  private static nextId = 0;
+  id = `color-picker-field-${(FormColorPickerComponent.nextId += 1)}`;
 
   value!: string;
   isDisabled = false;
@@ -57,19 +59,14 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
   onTouch = (): void => {};
 
   writeValue(value: string): void {
-    if (value !== this.value) {
-      this.value = value || '';
-      this.onChange(this.value);
-    } else {
-      this.value = '';
-    }
+    this.value = value || '';
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
 
@@ -77,7 +74,7 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
     this.isDisabled = isDisabled;
   }
 
-  onChangeValue(value: any): void {
+  onChangeValue(value: string): void {
     this.onChange(value);
   }
 

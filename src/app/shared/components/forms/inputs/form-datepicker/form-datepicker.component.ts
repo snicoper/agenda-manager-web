@@ -6,9 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { DateTime } from 'luxon';
 import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
-import { FormInputType } from '../../models/form-input.type';
+import { FormInputType } from '../form-input/models/form-input.type';
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -28,13 +27,16 @@ export class FormDatepickerComponent implements ControlValueAccessor {
   formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
-  id = input(Math.random().toString());
   formInputType = input(FormInputType.Text);
   readonly = input(false);
   placeholder = input('');
 
   value?: DateTime;
   isDisabled = false;
+
+  // Generate unique id for each instance of the component.
+  private static nextId = 0;
+  id = `date-picker-field-${(FormDatepickerComponent.nextId += 1)}`;
 
   onChange = (_: DateTime): void => {};
 
@@ -49,11 +51,11 @@ export class FormDatepickerComponent implements ControlValueAccessor {
     }
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: DateTime) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
 

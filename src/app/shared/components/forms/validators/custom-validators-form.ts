@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateTime } from 'luxon';
-import { FormPhoneNumber } from '../models/form-phone-number.interface';
+import { FormPhoneNumber } from '../inputs/form-phone-number/models/form-phone-number.interface';
 
 export abstract class CustomValidators {
   /** Comprobar que un campo sea un email. */

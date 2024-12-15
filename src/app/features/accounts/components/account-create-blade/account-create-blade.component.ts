@@ -14,8 +14,8 @@ import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-l
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormCheckboxComponent } from '../../../../shared/components/forms/inputs/form-checkbox/form-checkbox.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
+import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
 import { FormRoleSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-role-selector/form-role-selector.component';
-import { FormInputType } from '../../../../shared/components/forms/models/form-input.type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
 import { RoleResponse } from '../../../authorization/models/role.response';
 import { AccountCreateRequest } from '../../models/account-create.request';

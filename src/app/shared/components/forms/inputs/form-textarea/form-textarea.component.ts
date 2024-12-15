@@ -6,7 +6,6 @@ import { MatInputModule } from '@angular/material/input';
 import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -27,7 +26,6 @@ export class FormTextareaComponent implements ControlValueAccessor {
   formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
-  id = input(Math.random().toString());
   readonly = input(false);
   placeholder = input('');
   rows = input(10);
@@ -35,24 +33,23 @@ export class FormTextareaComponent implements ControlValueAccessor {
   value = '';
   isDisabled = false;
 
+  // Generate unique id for each instance of the component.
+  private static nextId = 0;
+  id = `textarea-field-${(FormTextareaComponent.nextId += 1)}`;
+
   onChange = (_: string): void => {};
 
   onTouch = (): void => {};
 
   writeValue(value: string): void {
-    if (value !== this.value) {
-      this.value = value || '';
-      this.onChange(this.value);
-    } else {
-      this.value = '';
-    }
+    this.value = value || '';
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
 

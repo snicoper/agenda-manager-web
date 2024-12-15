@@ -14,7 +14,7 @@ import { FormState } from '../../../../core/models/form-state';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
-import { FormInputType } from '../../../../shared/components/forms/models/form-input.type';
+import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 
