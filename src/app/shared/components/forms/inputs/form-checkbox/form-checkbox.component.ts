@@ -5,7 +5,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -23,32 +22,29 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
 })
 export class FormCheckboxComponent implements ControlValueAccessor {
   formState = input.required<FormState>();
-
   fieldName = input.required<string>();
   label = input.required<string>();
-  id = input(Math.random().toString());
 
   value = false;
   isDisabled = false;
+
+  // Generate unique id for each instance of the component.
+  private static nextId = 0;
+  id = `address-field-${(FormCheckboxComponent.nextId += 1)}`;
 
   onChange = (_: boolean): void => {};
 
   onTouch = (): void => {};
 
   writeValue(value: boolean): void {
-    if (value !== this.value) {
-      this.value = value || false;
-      this.onChange(this.value);
-    } else {
-      this.value = false;
-    }
+    this.value = value || false;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: boolean) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
 

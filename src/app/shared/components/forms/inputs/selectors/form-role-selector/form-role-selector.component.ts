@@ -40,6 +40,10 @@ export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
   value: string[] = [];
   isDisabled = false;
 
+  // Generate unique id for each instance of the component.
+  private static nextId = 0;
+  id = `address-field-${(FormRoleSelectorComponent.nextId += 1)}`;
+
   ngOnInit(): void {
     this.loadRoles();
   }
