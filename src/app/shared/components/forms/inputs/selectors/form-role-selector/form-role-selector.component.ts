@@ -1,6 +1,7 @@
 import { Component, forwardRef, inject, input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { finalize } from 'rxjs';
 import { FormState } from '../../../../../../core/models/form-state';
@@ -23,7 +24,7 @@ import { RoleSelectorApiService } from './services/role-selector-api.service';
     },
     RoleSelectorApiService,
   ],
-  imports: [FormsModule, MatFormFieldModule, MatSelectModule, FieldErrorComponent],
+  imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, FieldErrorComponent],
 })
 export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
   private readonly roleSelectorApiService = inject(RoleSelectorApiService);

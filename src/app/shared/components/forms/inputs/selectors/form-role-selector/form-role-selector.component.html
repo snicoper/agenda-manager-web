@@ -1,8 +1,15 @@
 <mat-form-field style="width: 100%; display: block">
   <mat-label>{{ label() }}</mat-label>
   <mat-select [(ngModel)]="value" (ngModelChange)="onSelectionChange($event)" [disabled]="isDisabled" multiple>
-    @for (role of availableRoles; track role.id) {
-      <mat-option [value]="role.id">{{ role.name }}</mat-option>
+    @if (isLoading) {
+      <mat-option disabled>
+        <mat-progress-spinner mode="indeterminate" diameter="20"></mat-progress-spinner>
+        Cargando roles...
+      </mat-option>
+    } @else {
+      @for (role of availableRoles; track role.id) {
+        <mat-option [value]="role.id">{{ role.name }}</mat-option>
+      }
     }
   </mat-select>
 </mat-form-field>
