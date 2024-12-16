@@ -6,7 +6,7 @@ import { SiteUrls } from '../../config/site-urls';
 import { logError } from '../../errors/debug-logger';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
-import { AuthState } from '../models/auth.state';
+import { AuthState } from '../models/auth-state.interface';
 import { LoginRequest } from '../models/login.request';
 import { LoginResponse } from '../models/login.response';
 import { RefreshTokenRequest } from '../models/refresh-token.request';
@@ -18,13 +18,13 @@ export class AuthService implements OnDestroy {
   private readonly authApiService = inject(AuthApiService);
   private readonly router = inject(Router);
 
-  private state = signal<AuthState>({
-    isLoading: false,
-    isLoggedIn: false,
-  });
+  private readonly isLoading$ = signal<boolean>(false);
+  private readonly isLoggedIn$ = signal<boolean>(false);
 
-  isLoggedIn = computed(() => this.state().isLoggedIn);
-  isLoading = computed(() => this.state().isLoading);
+  readonly authState = {
+    isLoading: computed(() => this.isLoading$()),
+    isLoggedIn: computed(() => this.isLoggedIn$()),
+  } as AuthState;
 
   private tokenDecode: Record<string, unknown> = {};
   private accessToken = '';
@@ -43,11 +43,11 @@ export class AuthService implements OnDestroy {
   }
 
   login(loginRequest: LoginRequest): Observable<boolean> {
-    this.updateAuthState({ isLoading: true, isLoggedIn: false });
+    this.updateAuthState(true, false);
 
     return this.authApiService.login(loginRequest).pipe(
       map((response) => {
-        this.updateAuthState({ isLoading: false, isLoggedIn: true });
+        this.updateAuthState(false, true);
         this.setTokenFromLoginResponse(response);
 
         return true;
@@ -62,20 +62,20 @@ export class AuthService implements OnDestroy {
       return of('No refresh token available');
     }
 
-    this.updateAuthState({ isLoading: true, isLoggedIn: false });
+    this.updateAuthState(true, false);
     const refreshTokenRequest: RefreshTokenRequest = {
       refreshToken: this.refreshToken,
     };
 
     return this.authApiService.refreshToken(refreshTokenRequest).pipe(
       map((response) => {
-        this.updateAuthState({ isLoading: false, isLoggedIn: true });
+        this.updateAuthState(false, true);
         this.setTokenFromLoginResponse(response);
 
         return this.getToken();
       }),
       catchError((error) => {
-        this.updateAuthState({ isLoading: false, isLoggedIn: false });
+        this.updateAuthState(false, false);
 
         return throwError(() => error);
       }),
@@ -83,7 +83,7 @@ export class AuthService implements OnDestroy {
   }
 
   logout(): void {
-    this.updateAuthState({ isLoading: true, isLoggedIn: false });
+    this.updateAuthState(true, false);
     this.browserStorageService.remove(BrowserStorageKey.AccessToken);
     this.browserStorageService.remove(BrowserStorageKey.RefreshToken);
     this.tokenDecode = {};
@@ -133,11 +133,9 @@ export class AuthService implements OnDestroy {
     return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 
-  private updateAuthState(newState: AuthState): void {
-    this.state.update((currentState) => ({
-      ...currentState,
-      ...newState,
-    }));
+  private updateAuthState(isLoading: boolean, isLoggedIn: boolean): void {
+    this.isLoading$.update(() => isLoading);
+    this.isLoggedIn$.update(() => isLoggedIn);
   }
 
   private setTokenFromLoginResponse(response: LoginResponse): void {
@@ -162,7 +160,7 @@ export class AuthService implements OnDestroy {
       this.refreshToken = this.browserStorageService.get(BrowserStorageKey.RefreshToken) ?? '';
 
       if (!this.isExpired()) {
-        this.updateAuthState({ isLoading: this.state().isLoading, isLoggedIn: true });
+        this.updateAuthState(this.isLoading$(), true);
       } else {
         this.logout();
       }

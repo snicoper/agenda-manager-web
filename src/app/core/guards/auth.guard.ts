@@ -36,7 +36,7 @@ export class AuthGuard {
       return false;
     }
 
-    if (!this.authService.isLoggedIn()) {
+    if (!this.authService.authState.isLoggedIn()) {
       await this.handleUnauthorized(state.url);
 
       return false;
