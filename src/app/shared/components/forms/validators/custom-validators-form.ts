@@ -66,7 +66,7 @@ export abstract class CustomValidators {
     return null;
   };
 
-  /** Validación de longitud mínima de array */
+  /** Validación de longitud mínima de array. */
   static readonly minLengthArray = (min: number): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!Array.isArray(control?.value)) {
@@ -81,7 +81,7 @@ export abstract class CustomValidators {
     };
   };
 
-  /** Validación de contraseña fuerte que coincide con el backend */
+  /** Validación de contraseña fuerte que coincide con el backend. */
   static readonly strongPassword = (): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) {
@@ -124,12 +124,12 @@ export abstract class CustomValidators {
 
       const value = control.value as FormPhoneNumberField;
 
-      // Validar que si hay un campo, el otro también debe existir
+      // Validar que si hay un campo, el otro también debe existir.
       if ((value.countryCode && !value.number) || (!value.countryCode && value.number)) {
         return { phoneIncomplete: true };
       }
 
-      // Si ambos existen, validar cada uno
+      // Si ambos existen, validar cada uno.
       if (value.countryCode && value.number) {
         const isCodeValid = /^\+[0-9]{2,3}$/.test(value.countryCode);
         const isNumberValid = /^[0-9]{6,12}$/.test(value.number);
@@ -151,7 +151,7 @@ export abstract class CustomValidators {
 
       const value = control.value as FormAddressField;
 
-      // Por ahora validación básica - que si hay un campo, los demás sean requeridos
+      // Por ahora validación básica - que si hay un campo, los demás sean requeridos.
       if (Object.values(value).some((v) => v) && !Object.values(value).every((v) => v)) {
         return { addressIncomplete: true };
       }

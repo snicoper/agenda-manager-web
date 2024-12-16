@@ -2,7 +2,7 @@ import { AbstractControl } from '@angular/forms';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-/** Mensajes de error para validaciones */
+/** Mensajes de error para validaciones. */
 export const CustomValidationErrors = {
   /** Errores genéricos */
   required: 'Este campo es obligatorio',
@@ -10,7 +10,7 @@ export const CustomValidationErrors = {
   minlength: (min: number) => `Debe tener al menos ${min} caracteres`,
   maxlength: (max: number) => `No puede tener más de ${max} caracteres`,
 
-  /** Errores personalizados */
+  /** Errores personalizados. */
   startGreaterThanFinish: 'La fecha de inicio no puede ser mayor que la de fin',
   noPasswordMatch: 'Las contraseñas no coinciden',
   strongPassword: {
