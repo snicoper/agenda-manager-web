@@ -1,4 +1,11 @@
-<div class="blade-container" [class.visible]="bladeService.bladeState().isVisible">
+<div
+  class="blade-container"
+  role="dialog"
+  aria-modal="true"
+  [class.visible]="bladeService.bladeState().isVisible"
+  (click)="handleContainerClick($event)"
+  (keydown)="handleKeyDown()"
+>
   <div class="blade" [style.width]="bladeService.bladeState().options.width">
     <div class="blade-header">
       <button mat-icon-button (click)="bladeService.hide()">

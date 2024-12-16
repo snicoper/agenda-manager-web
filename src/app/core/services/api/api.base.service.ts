@@ -68,16 +68,16 @@ export abstract class ApiBaseService {
   private buildPaginatedUrl<T>(endpoint: string, apiResult: ApiResult<T>): string {
     const params = new URLSearchParams();
 
-    // Parámetros de paginación
+    // Parámetros de paginación.
     params.append('pageNumber', apiResult.pageNumber.toString());
     params.append('pageSize', apiResult.pageSize.toString());
 
-    // Ordenación
+    // Ordenación.
     if (apiResult.order) {
       params.append('order', JSON.stringify(apiResult.order));
     }
 
-    // Filtros
+    // Filtros.
     if (apiResult.filters.length > 0) {
       params.append('filters', JSON.stringify(apiResult.filters));
     }
