@@ -8,8 +8,7 @@ import {
 } from '@angular/core';
 import { MAT_LUXON_DATE_ADAPTER_OPTIONS, provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter, TitleStrategy } from '@angular/router';
-import { routes } from './app.routes';
+import { TitleStrategy } from '@angular/router';
 import { ApiResultInterceptor } from './core/api-result/interceptors/api-result.interceptor';
 import { AppInitializer } from './core/config/app-initializer';
 import { CustomErrorHandler } from './core/errors/custom-error-handler';
@@ -41,7 +40,6 @@ export const appConfig: ApplicationConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
 
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
   ],
