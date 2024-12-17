@@ -1,16 +1,19 @@
-# docker-compose down && docker-compose build --no-cache && docker-compose up -d
+# docker compose down && docker compose build --no-cache && docker compose up -d
+# docker compose down agenda-manager-web-dev; docker compose build --no-cache agenda-manager-web-dev; docker compose up -d agenda-manager-web-dev
 services:
-  agenda-manager-web:
+  agenda-manager-web-dev:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/dev/Dockerfile
     container_name: agenda-manager-web
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      - NODE_ENV=production
     volumes:
-      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./docker/ssl:/etc/nginx/ssl
+      - ./docker/dev/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/dev/ssl:/etc/nginx/ssl
     restart: unless-stopped
     networks:
       - agenda-manager-api_agenda-net
