@@ -1,5 +1,4 @@
-version: "3.8"
-
+# docker-compose down && docker-compose build --no-cache && docker-compose up -d
 services:
   agenda-manager-web:
     build:
@@ -7,13 +6,15 @@ services:
       dockerfile: docker/Dockerfile
     container_name: agenda-manager-web
     ports:
-      - "8080:80"
+      - "80:80"
+      - "443:443"
     volumes:
       - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/ssl:/etc/nginx/ssl
     restart: unless-stopped
     networks:
-      - agenda-network
+      - agenda-manager-api_agenda-net
 
 networks:
-  agenda-network:
-    driver: bridge
+  agenda-manager-api_agenda-net:
+    external: true
