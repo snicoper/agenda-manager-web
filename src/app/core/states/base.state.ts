@@ -21,21 +21,23 @@ import { StateService } from './state.service';
 // }
 
 export abstract class BaseState<T> implements StateService<T> {
-  protected state = signal<T | null>(null);
+  protected state$ = signal<T | null>(null);
 
-  readonly value: Signal<T | null> = computed(() => this.state());
+  readonly value: Signal<T | null> = computed(() => this.state$());
 
   abstract refresh(): void;
 
   get(): T | null {
-    return this.state();
+    return this.state$();
   }
 
   clean(): void {
-    this.state.set(null);
+    this.state$.set(null);
   }
 
   protected set(newState: T): void {
-    this.state.set(newState);
+    if (newState !== this.state$()) {
+      this.state$.set(newState);
+    }
   }
 }

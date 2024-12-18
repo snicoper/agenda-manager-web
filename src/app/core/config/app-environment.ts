@@ -8,4 +8,5 @@ export const AppEnvironment = {
   BaseApiUrl: `${environment.apiUrl}/${environment.apiSegment}`,
   SiteUrl: environment.siteUrl,
   IsDebug: !environment.production,
+  DefaultLocale: environment.defaultLocale,
 };

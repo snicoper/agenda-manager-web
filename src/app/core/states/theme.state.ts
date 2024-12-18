@@ -9,7 +9,7 @@ import { BaseState } from './base.state';
 export class ThemeState extends BaseState<ThemeColor> {
   private readonly browserStorage = inject(BrowserStorageService);
 
-  readonly theme = computed(() => this.state());
+  readonly theme = computed(() => this.state$());
 
   override refresh(): void {
     const storedTheme = this.browserStorage.get(BrowserStorageKey.Theme) as ThemeColor;

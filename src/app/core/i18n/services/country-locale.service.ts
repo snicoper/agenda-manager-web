@@ -4,7 +4,9 @@ import * as en from 'i18n-iso-countries/langs/en.json';
 import * as es from 'i18n-iso-countries/langs/es.json';
 import { CountryLocale } from '../models/country-locale.interface';
 import { LocaleState } from '../states/locale.state';
+import { LocalizationUtils } from '../utils/localization.utils';
 
+/** Countries from library i18n-iso-countries. */
 @Injectable({ providedIn: 'root' })
 export class CountryLocaleService {
   private readonly localeState = inject(LocaleState);
@@ -22,7 +24,7 @@ export class CountryLocaleService {
       const locale = this.localeState.value();
 
       if (locale) {
-        this.updateCountriesList(this.localeState.mapLocaleToLibraryFormat(locale));
+        this.updateCountriesList(LocalizationUtils.mapLocaleToLibraryFormat(locale));
       }
     });
   }

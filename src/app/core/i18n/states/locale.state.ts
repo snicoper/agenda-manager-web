@@ -1,35 +1,28 @@
 import { Injectable, inject } from '@angular/core';
-import { DateTime, Settings } from 'luxon';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { BaseState } from '../../states/base.state';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
 import { LocalesSupported } from '../models/locales-supported';
+import { LocalizationUtils } from '../utils/localization.utils';
 
+/** State for the current locale. */
 @Injectable({ providedIn: 'root' })
 export class LocaleState extends BaseState<LocalesSupported> {
   private readonly browserStorage = inject(BrowserStorageService);
 
   override refresh(): void {
-    const storedLocale = this.browserStorage.get(BrowserStorageKey.Locale) as LocalesSupported;
-    const defaultLocale = DateTime.now().resolvedLocaleOptions().locale;
+    const storedLocale = LocalizationUtils.fromString(this.browserStorage.get(BrowserStorageKey.Locale));
+    const localeSupported = storedLocale ?? LocalizationUtils.defaultLocale;
 
-    this.set(storedLocale ?? defaultLocale);
-    Settings.defaultLocale = this.get()!;
+    this.set(localeSupported);
   }
 
   override set(locale: LocalesSupported): void {
     super.set(locale);
-    Settings.defaultLocale = locale;
+    this.saveLocaleToStorage(locale);
   }
 
-  mapLocaleToLibraryFormat(locale: LocalesSupported): string {
-    const localeMap: Record<LocalesSupported, string> = {
-      [LocalesSupported.es]: 'es',
-      [LocalesSupported.esES]: 'es',
-      [LocalesSupported.en]: 'en',
-      [LocalesSupported.enUS]: 'en',
-    };
-
-    return localeMap[locale];
+  private saveLocaleToStorage(locale: LocalesSupported): void {
+    this.browserStorage.set(BrowserStorageKey.Locale, locale);
   }
 }
