@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject, input } from '@angular/core';
+import { Component, HostListener, inject, input, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BladeService } from './services/blade.service';
@@ -11,7 +11,7 @@ import { BladeService } from './services/blade.service';
   templateUrl: './blade.component.html',
   styleUrl: './blade.component.scss',
 })
-export class BladeComponent {
+export class BladeComponent implements OnDestroy {
   bladeService = inject(BladeService);
 
   closeOnContainerClick = input(true);
@@ -28,6 +28,10 @@ export class BladeComponent {
     if (event.target === event.currentTarget && this.closeOnContainerClick()) {
       this.bladeService.hide();
     }
+  }
+
+  ngOnDestroy(): void {
+    document.body.style.overflow = '';
   }
 
   handleKeyDown(): void {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -49,7 +49,7 @@ import { AccountDetailsService } from '../../services/account-details.service';
   templateUrl: './account-update-blade.component.html',
   styleUrl: './account-update-blade.component.scss',
 })
-export class AccountUpdateBladeComponent implements OnInit {
+export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly apiService = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
@@ -73,6 +73,10 @@ export class AccountUpdateBladeComponent implements OnInit {
 
     // Continue with normal initialization
     this.loadAccount();
+  }
+
+  ngOnDestroy(): void {
+    this.bladeService.hide();
   }
 
   handleCloseBlade(): void {

@@ -1,4 +1,4 @@
-import { computed, Injectable, signal, Type } from '@angular/core';
+import { computed, effect, Injectable, signal, Type } from '@angular/core';
 import { Subject } from 'rxjs';
 import { BladeOptions } from '../interfaces/blade-options.interface';
 
@@ -6,7 +6,7 @@ import { BladeOptions } from '../interfaces/blade-options.interface';
 export class BladeService {
   private readonly isVisible$ = signal(false);
   private readonly component$ = signal<Type<unknown> | null>(null);
-  private readonly options$ = signal<BladeOptions>({ width: '480px' });
+  private readonly options$ = signal<BladeOptions>({ width: '700px' });
 
   private readonly resultSubject$ = new Subject<unknown>();
   readonly result = this.resultSubject$.asObservable();
@@ -16,6 +16,13 @@ export class BladeService {
     component: this.component$(),
     options: this.options$(),
   }));
+
+  constructor() {
+    // Manejar el scroll basado en el estado de visibilidad.
+    effect(() => {
+      document.body.style.overflow = this.isVisible$() ? 'hidden' : '';
+    });
+  }
 
   show<TData>(component: Type<unknown>, options?: BladeOptions<TData>): void {
     this.component$.set(component);
@@ -34,7 +41,6 @@ export class BladeService {
   hide(): void {
     this.isVisible$.set(false);
     this.component$.set(null);
-    this.options$.set({ width: '480px' });
   }
 
   emitResult<TResult>(result: TResult): void {
