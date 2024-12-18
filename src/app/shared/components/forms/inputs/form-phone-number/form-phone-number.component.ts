@@ -62,5 +62,6 @@ export class FormPhoneNumberComponent implements ControlValueAccessor {
 
   onChangeValue(value: FormPhoneNumberField): void {
     this.onChange(value);
+    this.onTouch();
   }
 }

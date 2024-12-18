@@ -76,6 +76,7 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
 
   onChangeValue(value: string): void {
     this.onChange(value);
+    this.onTouch();
   }
 
   private updateColorPicker(value: string): void {

@@ -65,5 +65,6 @@ export class FormDatepickerComponent implements ControlValueAccessor {
 
   onChangeValue(value: DateTime): void {
     this.onChange(value);
+    this.onTouch();
   }
 }

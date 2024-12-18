@@ -1,1 +1,74 @@
-<p>form-identity-document works!</p>,
+<div class="identity-document-container">
+  <div class="identity-document-fields">
+    <!-- Document Type Field -->
+    <mat-form-field class="document-type">
+      <mat-label>Tipo de Documento</mat-label>
+      <mat-select
+        matInput
+        [(ngModel)]="value.type"
+        (ngModelChange)="onChangeValue(value)"
+        [placeholder]="placeholder()"
+        [disabled]="isDisabled"
+        [id]="id + '-type'"
+      >
+        @for (item of identityDocumentOptions; track item.value) {
+          <mat-option [value]="item.value">
+            {{ item.code }}
+          </mat-option>
+        }
+      </mat-select>
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>badge</mat-icon>
+      }
+    </mat-form-field>
+
+    <!-- Country Code Field -->
+    <mat-form-field class="country-code">
+      <mat-label>País</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value.countryCode"
+        [matAutocomplete]="auto"
+        (input)="handleCountryInput($event)"
+        [disabled]="isDisabled"
+        [id]="id + '-country'"
+        [placeholder]="placeholder()"
+      />
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCountry">
+        @for (country of filteredCountries(); track country.code) {
+          <mat-option [value]="country.code">
+            {{ country.name }}
+          </mat-option>
+        }
+      </mat-autocomplete>
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>flag</mat-icon>
+      }
+    </mat-form-field>
+
+    <!-- Document Number Field -->
+    <mat-form-field class="document-number">
+      <mat-label>{{ getDocumentLabel() }}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value.number"
+        (ngModelChange)="onChangeValue(value)"
+        [type]="formInputTypes.Text"
+        [disabled]="isDisabled"
+        [id]="id + '-number'"
+        [placeholder]="placeholder()"
+        [readonly]="readonly()"
+      />
+
+      @if (showIcons()) {
+        <mat-icon matPrefix>credit_card</mat-icon>
+      }
+    </mat-form-field>
+  </div>
+
+  @if (formState().form) {
+    <am-field-error [formState]="formState()" [fieldName]="fieldName()" [fieldText]="label()" />
+  }
+</div>

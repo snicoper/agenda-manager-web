@@ -1,3 +1,26 @@
 :host {
   display: block;
 }
+
+.identity-document-container {
+  display: flex;
+  flex-direction: column;
+
+  .identity-document-fields {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr; // type, country, number
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    .document-type {
+      width: 150px;
+    }
+
+    .document-number {
+      flex: 1;
+    }
+  }
+}

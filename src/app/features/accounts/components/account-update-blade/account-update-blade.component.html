@@ -25,6 +25,16 @@
         <div class="col-12">
           <am-form-address fieldName="address" formControlName="address" label="Dirección" [formState]="formState" />
         </div>
+
+        <!-- identity document field -->
+        <div class="col-12">
+          <am-form-identity-document
+            fieldName="identityDocument"
+            formControlName="identityDocument"
+            label="Documento de identidad"
+            [formState]="formState"
+          />
+        </div>
       </div>
     </form>
   </div>

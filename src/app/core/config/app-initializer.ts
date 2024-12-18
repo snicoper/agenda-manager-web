@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { AuthService } from '../auth/services/auth.service';
-import { LocaleState } from '../i18n/locale.state';
+import { LocaleState } from '../i18n/states/locale.state';
 import { ThemeState } from '../states/theme.state';
 
 /** Configuración inicial de la aplicación. */

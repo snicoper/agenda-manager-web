@@ -63,5 +63,6 @@ export class FormAddressComponent implements ControlValueAccessor {
 
   onChangeValue(value: FormAddressField): void {
     this.onChange(value);
+    this.onTouch();
   }
 }

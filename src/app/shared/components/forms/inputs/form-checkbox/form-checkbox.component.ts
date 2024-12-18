@@ -54,5 +54,6 @@ export class FormCheckboxComponent implements ControlValueAccessor {
 
   onChangeValue(value: boolean): void {
     this.onChange(value);
+    this.onTouch();
   }
 }

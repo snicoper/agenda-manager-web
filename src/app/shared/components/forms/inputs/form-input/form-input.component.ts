@@ -64,5 +64,6 @@ export class FormInputComponent implements ControlValueAccessor {
 
   onChangeValue(value: string): void {
     this.onChange(value);
+    this.onTouch();
   }
 }

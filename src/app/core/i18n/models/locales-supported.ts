@@ -3,5 +3,5 @@ export enum LocalesSupported {
   es = 'es',
   esES = 'es-ES',
   en = 'en',
-  enUS = 'en-US'
+  enUS = 'en-US',
 }

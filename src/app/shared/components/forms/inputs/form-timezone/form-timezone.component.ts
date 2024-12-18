@@ -72,6 +72,7 @@ export class FormTimezoneComponent implements ControlValueAccessor {
     this.itemsFiltered = this.filter(value) ?? Array<string>;
 
     this.onChange(value);
+    this.onTouch();
   }
 
   isInvalid(): boolean {

@@ -92,6 +92,7 @@ export class FormDatetimePickerComponent implements ControlValueAccessor, Valida
 
   onChangeValue(value: DateTime): void {
     this.value = value;
+    this.onTouch();
     this.handleChangeDateTime();
   }
 

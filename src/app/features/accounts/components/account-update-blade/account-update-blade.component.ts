@@ -9,6 +9,7 @@ import { BladeService } from '../../../../shared/components/blade/services/blade
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormAddressComponent } from '../../../../shared/components/forms/inputs/form-address/form-address.component';
+import { FormIdentityDocumentComponent } from '../../../../shared/components/forms/inputs/form-identity-document/form-identity-document.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
 import { FormPhoneNumberComponent } from '../../../../shared/components/forms/inputs/form-phone-number/form-phone-number.component';
@@ -41,6 +42,7 @@ import { AccountDetailsService } from '../../services/account-details.service';
     FormInputComponent,
     FormPhoneNumberComponent,
     FormAddressComponent,
+    FormIdentityDocumentComponent,
     NonFieldErrorsComponent,
     BtnLoadingComponent,
   ],
@@ -100,6 +102,7 @@ export class AccountUpdateBladeComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.maxLength(100)]],
       phone: ['', [Validators.required, CustomValidators.phoneComplete()]],
       address: ['', [Validators.required, CustomValidators.addressComplete()]],
+      identityDocument: ['', [Validators.required]],
     });
   }
 
