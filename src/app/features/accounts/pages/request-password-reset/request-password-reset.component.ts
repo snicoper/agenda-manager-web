@@ -74,12 +74,12 @@ export class RequestPasswordResetComponent {
   };
 
   // Alert.
-  alertState = {
+  alertState: AlertState = {
     isSuccess: false,
     show: false,
     type: undefined,
     message: undefined,
-  } as AlertState;
+  };
 
   constructor() {
     this.buildForm();

@@ -21,9 +21,13 @@ export interface IdentityDocument {
 
 export interface AccountUpdateRequest {
   userId: string;
+  email: string;
   firstName: string;
   lastName: string;
-  phone: PhoneNumber;
+  phoneNumber: PhoneNumber;
   address: Address;
   identityDocument: IdentityDocument;
+  isEmailConfirmed: boolean;
+  isActive: boolean;
+  isCollaborator: boolean;
 }

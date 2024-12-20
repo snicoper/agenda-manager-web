@@ -2,8 +2,8 @@ import { DateTimeProvider } from '../../../core/types/datetime-provider.type';
 import { IdentityDocumentType } from '../types/identity-document.type';
 
 export interface PhoneNumber {
-  number: string;
   countryCode: string;
+  number: string;
 }
 
 export interface Address {
@@ -25,7 +25,7 @@ export interface AccountDetailsResponse {
   email: string;
   firstName: string;
   lastName: string;
-  phone: PhoneNumber;
+  phoneNumber: PhoneNumber;
   address: Address;
   identityDocument: IdentityDocument;
   isEmailConfirmed: boolean;

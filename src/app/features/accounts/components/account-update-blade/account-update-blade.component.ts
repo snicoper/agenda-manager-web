@@ -3,17 +3,22 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { logInfo } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormAddressComponent } from '../../../../shared/components/forms/inputs/form-address/form-address.component';
+import { FormAddressField } from '../../../../shared/components/forms/inputs/form-address/models/form-address-field.interface';
 import { FormIdentityDocumentComponent } from '../../../../shared/components/forms/inputs/form-identity-document/form-identity-document.component';
+import { FormIdentityDocumentField } from '../../../../shared/components/forms/inputs/form-identity-document/models/form-identity-document-field.interface';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
 import { FormPhoneNumberComponent } from '../../../../shared/components/forms/inputs/form-phone-number/form-phone-number.component';
+import { FormPhoneNumberField } from '../../../../shared/components/forms/inputs/form-phone-number/models/form-phone-number-field.interface';
 import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
+import { AccountUpdateRequest } from '../../models/account-update.request';
 import { AccountApiService } from '../../services/account-api.service';
 import { AccountDetailsService } from '../../services/account-details.service';
 
@@ -56,12 +61,12 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly bladeService = inject(BladeService);
   private readonly accountDetailsService = inject(AccountDetailsService);
 
-  readonly formState = {
+  readonly formState: FormState = {
     form: this.formBuilder.group({}),
     badRequest: undefined,
     isSubmitted: false,
     isLoading: false,
-  } as FormState;
+  };
   readonly formInputTypes = FormInputType;
 
   accountState = this.accountDetailsService.state;
@@ -71,7 +76,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
       // Force an extra change detection cycle for Material initialization.
     }, 0);
 
-    // Continue with normal initialization
+    // Continue with normal initialization.
     this.loadAccount();
   }
 
@@ -90,8 +95,8 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // const request = this.formState.form.value as AccountUpdateRequest;
-    // this.update(request);
+    const request = this.formState.form.value as AccountUpdateRequest;
+    this.update(request);
   }
 
   private loadAccount(): void {
@@ -101,16 +106,25 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private buildForm(): void {
+    logInfo('AccountUpdateBladeComponent', this.accountState.account());
+    const firstNameValue: string = this.accountState.account()?.firstName as string;
+    const lastNameValue: string = this.accountState.account()?.lastName as string;
+    const phoneNumberValue: FormPhoneNumberField = this.accountState.account()?.phoneNumber as FormPhoneNumberField;
+    const addressValue: FormAddressField = this.accountState.account()?.address as FormAddressField;
+    const identityDocumentValue: FormIdentityDocumentField = this.accountState.account()
+      ?.identityDocument as FormIdentityDocumentField;
+
+    // TODO: Crear validación para identityDocument.
     this.formState.form = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.maxLength(100)]],
-      lastName: ['', [Validators.required, Validators.maxLength(100)]],
-      phone: ['', [Validators.required, CustomValidators.phoneComplete()]],
-      address: ['', [Validators.required, CustomValidators.addressComplete()]],
-      identityDocument: ['', [Validators.required]],
+      firstName: [firstNameValue, [Validators.required, Validators.maxLength(100)]],
+      lastName: [lastNameValue, [Validators.required, Validators.maxLength(100)]],
+      phoneNumber: [phoneNumberValue, [Validators.required, CustomValidators.phoneComplete()]],
+      address: [addressValue, [Validators.required, CustomValidators.addressComplete()]],
+      identityDocument: [identityDocumentValue, [Validators.required]],
     });
   }
 
-  // private update(request: AccountUpdateRequest): void {
-  //   this.buildForm();
-  // }
+  private update(request: AccountUpdateRequest): void {
+    logInfo('AccountUpdateBladeComponent', request);
+  }
 }

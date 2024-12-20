@@ -45,12 +45,12 @@ export class ConfirmAccountComponent {
 
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
-  readonly formState = {
+  readonly formState: FormState = {
     form: this.formBuilder.group({}),
     badRequest: undefined,
     isLoading: false,
     isSubmitted: false,
-  } as FormState;
+  };
 
   validToken = false;
 

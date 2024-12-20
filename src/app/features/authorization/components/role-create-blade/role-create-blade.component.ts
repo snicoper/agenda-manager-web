@@ -34,12 +34,12 @@ export class RoleCreateBladeComponent {
   private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
 
-  readonly formState = {
+  readonly formState: FormState = {
     form: this.formBuilder.group({}),
     badRequest: undefined,
     isSubmitted: false,
     isLoading: false,
-  } as FormState;
+  };
 
   constructor() {
     this.buildForm();
@@ -61,10 +61,10 @@ export class RoleCreateBladeComponent {
   }
 
   private buildForm(): void {
-    const formContract = {
+    const formContract: RoleFormContract = {
       name: { ...RoleFormConfig.name },
       description: { ...RoleFormConfig.description },
-    } as RoleFormContract;
+    } as const;
 
     this.formState.form = this.formBuilder.group({
       name: [formContract.name.initialValue, formContract.name.validators],

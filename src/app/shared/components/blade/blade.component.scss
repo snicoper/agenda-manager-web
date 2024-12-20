@@ -67,14 +67,14 @@
   flex: 1;
   overflow-y: auto;
   padding: 0;
-  scrollbar-gutter: stable; // Evita saltos por la scrollbar
+  scrollbar-gutter: stable; // Evita saltos por la scrollbar.
 
   @media (max-width: 599px) {
-    height: calc(100% - 49px); // Ajustar según el nuevo header height
+    height: calc(100% - 49px); // Ajustar según el nuevo header height.
   }
 }
 
-// Opcional: Estilizar la scrollbar
+// Opcional: Estilizar la scrollbar.
 .blade-content::-webkit-scrollbar {
   width: 8px;
 }

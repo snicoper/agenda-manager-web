@@ -26,7 +26,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
   readonly userId = this.route.snapshot.params['userId'];
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly navData = {
+  readonly navData: NavToolbarData = {
     tabs: [
       {
         label: 'Información',
@@ -41,7 +41,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
         component: AccountRolesTabComponent,
       },
     ],
-  } as NavToolbarData;
+  };
 
   account = this.accountDetailsService.state.account;
 

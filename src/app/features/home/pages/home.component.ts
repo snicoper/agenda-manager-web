@@ -12,7 +12,7 @@ import { PruebasComponent } from '../../pruebas/pruebas.component';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  navData = {
+  navData: NavToolbarData = {
     tabs: [
       {
         label: 'Información',
@@ -24,5 +24,5 @@ export class HomeComponent {
         },
       },
     ],
-  } as NavToolbarData;
+  };
 }

@@ -44,12 +44,12 @@ export class AccountCreateBladeComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly bladeService = inject(BladeService);
 
-  readonly formState = {
+  readonly formState: FormState = {
     form: this.formBuilder.group({}),
     badRequest: undefined,
     isSubmitted: false,
     isLoading: false,
-  } as FormState;
+  };
   readonly formInputTypes = FormInputType;
 
   roles: RoleResponse[] = [];

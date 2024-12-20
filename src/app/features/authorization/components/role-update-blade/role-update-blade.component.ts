@@ -38,12 +38,12 @@ export class RoleUpdateBladeComponent {
   private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
 
-  readonly formState = {
+  readonly formState: FormState = {
     form: this.formBuilder.group({}),
     badRequest: undefined,
     isSubmitted: false,
     isLoading: false,
-  } as FormState;
+  };
 
   role = {} as RoleResponse;
   loadingRole = true;

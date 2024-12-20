@@ -42,7 +42,7 @@ export class AuthGuard {
       return false;
     }
 
-    const config = route.data['auth'] as RouteAuthConfig;
+    const config: RouteAuthConfig = route.data['auth'];
 
     return this.checkAuthorization(config);
   }

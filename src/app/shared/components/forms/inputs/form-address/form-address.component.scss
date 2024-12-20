@@ -16,16 +16,16 @@
       grid-column: 1 / -1; // ocupa toda la fila
     }
 
-    // ciudad y provincia en la misma fila
+    // ciudad y provincia en la misma fila.
     .city,
     .state {
-      // heredan el ancho por defecto
+      margin: 0;
     }
 
-    // país y código postal en la misma fila
+    // país y código postal en la misma fila.
     .country,
     .postal-code {
-      // heredan el ancho por defecto
+      margin: 0;
     }
   }
 }

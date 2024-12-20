@@ -13,6 +13,16 @@ export abstract class DateTimeUtils {
   }
 
   /**
+   * Convertir un DateTime a un formato ISO.
+   *
+   * @param dateTime Fecha DateTime a convertir.
+   * @returns Un string con la fecha en formato ISO.
+   */
+  static toApiIsoString(dateTime: DateTime | null): string {
+    return dateTime ? dateTime.toUTC().toString() : '';
+  }
+
+  /**
    * Obtener un array con un intervalo de días desde start a end con DateTime.
    *
    * @param start Fecha de inicio.
@@ -40,18 +50,6 @@ export abstract class DateTimeUtils {
     const result = end.diff(start, ['minutes']).minutes;
 
     return Math.abs(Math.round(result));
-  }
-
-  /**
-   * Obtener un DateTime como string UTC.
-   *
-   * @param dateTime DateTime a obtener como UTC.
-   * @returns Un string con la hora pasada en UTC.
-   */
-  static toISOString(dateTime: DateTime): string {
-    const result = dateTime.toUTC().toString();
-
-    return result;
   }
 
   static weekDaysFromYear(date: DateTime, weekDayFlags: number): DateTime[] {

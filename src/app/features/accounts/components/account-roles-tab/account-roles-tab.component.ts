@@ -25,7 +25,7 @@ export class AccountRolesTabComponent implements OnInit {
   private readonly router = inject(Router);
 
   accountState = this.accountDetailsService.state;
-  roles = [] as AvailableRolesByUserIdResponse[];
+  roles: AvailableRolesByUserIdResponse[] = [];
   loading = false;
 
   ngOnInit(): void {

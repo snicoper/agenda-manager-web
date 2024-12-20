@@ -99,9 +99,9 @@ export class RolePermissionsComponent {
 
     this.isUpdating = true;
 
-    const request = {
+    const request: UpdatePermissionForRoleRequest = {
       isAssigned,
-    } as UpdatePermissionForRoleRequest;
+    } as const;
 
     this.authorizationApiService
       .updatePermissionForRole(this.role.roleId, permissionId, request)

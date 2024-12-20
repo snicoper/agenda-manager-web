@@ -22,7 +22,9 @@
         </tr>
         <tr>
           <th>Teléfono</th>
-          <td>{{ accountState.account()?.phone?.countryCode }} {{ accountState.account()?.phone?.number }}</td>
+          <td>
+            {{ accountState.account()?.phoneNumber?.countryCode }} {{ accountState.account()?.phoneNumber?.number }}
+          </td>
         </tr>
         <tr>
           <th>Dirección</th>

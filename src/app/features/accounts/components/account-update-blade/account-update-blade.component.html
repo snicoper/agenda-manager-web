@@ -16,17 +16,25 @@
           <am-form-input fieldName="lastName" formControlName="lastName" label="Apellidos" [formState]="formState" />
         </div>
 
-        <!-- phone field -->
+        <!-- phoneNumber field -->
+        <div>Phone number</div>
         <div class="col-12">
-          <am-form-phone-number fieldName="phone" formControlName="phone" label="Teléfono" [formState]="formState" />
+          <am-form-phone-number
+            fieldName="phoneNumber"
+            formControlName="phoneNumber"
+            label="Teléfono"
+            [formState]="formState"
+          />
         </div>
 
         <!-- address field -->
+        <div class="header-1">Dirección</div>
         <div class="col-12">
           <am-form-address fieldName="address" formControlName="address" label="Dirección" [formState]="formState" />
         </div>
 
         <!-- identity document field -->
+        <div>Identificación</div>
         <div class="col-12">
           <am-form-identity-document
             fieldName="identityDocument"

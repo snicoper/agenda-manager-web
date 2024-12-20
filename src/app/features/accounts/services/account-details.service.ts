@@ -19,11 +19,11 @@ export class AccountDetailsService {
   private readonly account$ = signal<AccountDetailsResponse | null>(null);
   private readonly loading$ = signal<boolean>(false);
 
-  readonly state = {
+  readonly state: AccountDetailsState = {
     userId: computed(() => this.userId$()),
     account: computed(() => this.account$()),
     loading: computed(() => this.loading$()),
-  } as AccountDetailsState;
+  };
 
   load(userId: string): void {
     this.userId$.set(userId);

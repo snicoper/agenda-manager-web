@@ -8,7 +8,7 @@
 
   .identity-document-fields {
     display: grid;
-    grid-template-columns: 2fr 1fr 2fr; // type, country, number
+    grid-template-columns: 1fr 3fr 2fr; // type, country, number
     gap: 1rem;
 
     @media (max-width: 768px) {

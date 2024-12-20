@@ -32,9 +32,9 @@ export class ResendEmailConfirmationComponent {
     this.isLoading = true;
     this.resultSuccess = false;
 
-    const request = {
+    const request: ResendEmailConfirmation = {
       email: this.email,
-    } as ResendEmailConfirmation;
+    } as const;
 
     this.accountApiService
       .confirmEmailResent(request)

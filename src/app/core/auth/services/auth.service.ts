@@ -21,10 +21,10 @@ export class AuthService implements OnDestroy {
   private readonly isLoading$ = signal<boolean>(false);
   private readonly isLoggedIn$ = signal<boolean>(false);
 
-  readonly authState = {
+  readonly authState: AuthState = {
     isLoading: computed(() => this.isLoading$()),
     isLoggedIn: computed(() => this.isLoggedIn$()),
-  } as AuthState;
+  };
 
   private tokenDecode: Record<string, unknown> = {};
   private accessToken = '';

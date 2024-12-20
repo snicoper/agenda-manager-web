@@ -38,9 +38,9 @@ export class VerifyEmailComponent {
   }
 
   private verifyToken(): void {
-    const request = {
+    const request: VerifyEmailRequest = {
       token: this.token,
-    } as VerifyEmailRequest;
+    } as const;
 
     this.accountApiService.verifyEmail(request).subscribe({
       next: (isSuccess) => {

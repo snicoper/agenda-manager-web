@@ -14,13 +14,15 @@ export class LuxonDateTimeService extends BaseState<string> {
   private readonly localeState = inject(LocaleState);
   private readonly timeZoneState = inject(TimeZoneState);
 
-  private readonly locale = computed(() => this.localeState.value());
-  private readonly timeZone = computed(() => this.timeZoneState.value());
+  private readonly luxonDateTimeState = {
+    locale: computed(() => this.localeState.value()),
+    timeZone: computed(() => this.timeZoneState.value()),
+  };
 
   override refresh(): void {
     effect(() => {
-      const currentLocale = this.locale();
-      const currentTimeZone = this.timeZone();
+      const currentLocale = this.luxonDateTimeState.locale();
+      const currentTimeZone = this.luxonDateTimeState.timeZone();
 
       if (currentLocale && currentTimeZone) {
         this.updateLuxonSettings(currentLocale, currentTimeZone);

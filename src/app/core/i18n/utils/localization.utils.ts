@@ -5,13 +5,6 @@ export abstract class LocalizationUtils {
   static readonly defaultLocale = this.getDefaultLocale();
   static readonly defaultTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  private static getDefaultLocale(): LocalesSupported {
-    const browserLocale = Intl.DateTimeFormat().resolvedOptions().locale;
-    const supported = this.fromString(browserLocale);
-
-    return supported ?? AppEnvironment.DefaultLocale;
-  }
-
   static mapLocaleToLibraryFormat(locale: LocalesSupported): string {
     const localeMap: Record<LocalesSupported, string> = {
       [LocalesSupported.es]: 'es',
@@ -40,5 +33,12 @@ export abstract class LocalizationUtils {
   // Método útil para verificar si un locale es soportado.
   static isSupported(locale: string): boolean {
     return this.fromString(locale) !== null;
+  }
+
+  private static getDefaultLocale(): LocalesSupported {
+    const browserLocale = Intl.DateTimeFormat().resolvedOptions().locale;
+    const supported = this.fromString(browserLocale);
+
+    return supported ?? AppEnvironment.DefaultLocale;
   }
 }
