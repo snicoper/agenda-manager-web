@@ -3,7 +3,8 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { logInfo } from '../../../../core/errors/debug-logger';
+import { finalize, take } from 'rxjs';
+import { logError, logInfo } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -118,13 +119,33 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
     this.formState.form = this.formBuilder.group({
       firstName: [firstNameValue, [Validators.required, Validators.maxLength(100)]],
       lastName: [lastNameValue, [Validators.required, Validators.maxLength(100)]],
-      phoneNumber: [phoneNumberValue, [Validators.required, CustomValidators.phoneComplete()]],
+      phone: [phoneNumberValue, [Validators.required, CustomValidators.phoneComplete()]],
       address: [addressValue, [Validators.required, CustomValidators.addressComplete()]],
       identityDocument: [identityDocumentValue, [Validators.required]],
     });
   }
 
   private update(request: AccountUpdateRequest): void {
-    logInfo('AccountUpdateBladeComponent', request);
+    if (!this.accountState.userId()) {
+      return;
+    }
+
+    this.apiService
+      .updateAccount(this.accountState.userId()!, request)
+      .pipe(
+        take(1),
+        finalize(() => (this.formState.isLoading = false)),
+      )
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Cuenta actualizada correctamente');
+          this.accountDetailsService.load(this.accountState.userId()!);
+          this.bladeService.emitResult(true);
+        },
+        error: (error) => {
+          logError(error);
+          this.formState.badRequest = error;
+        },
+      });
   }
 }

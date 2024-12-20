@@ -24,7 +24,7 @@ export interface AccountUpdateRequest {
   email: string;
   firstName: string;
   lastName: string;
-  phoneNumber: PhoneNumber;
+  phone: PhoneNumber;
   address: Address;
   identityDocument: IdentityDocument;
   isEmailConfirmed: boolean;

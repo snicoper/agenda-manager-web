@@ -9,6 +9,7 @@ import { DateTimeUtils } from '../../../core/utils/datetime-utils';
 import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountCreateResponse } from '../models/account-create.response';
 import { AccountDetailsResponse } from '../models/account-details.response';
+import { AccountUpdateRequest } from '../models/account-update.request';
 import { AccountResponse } from '../models/account.response';
 import { ConfirmAccountRequest } from '../models/confirm-account.request';
 import { RequestPasswordResetRequest } from '../models/request-password-reset.request';
@@ -96,6 +97,13 @@ export class AccountApiService extends ApiBaseService {
       ApiUrls.accounts.verifyEmail,
       (response) => response.isSuccess,
     );
+  }
+
+  /** Update account. */
+  updateAccount(userId: string, request: AccountUpdateRequest): Observable<boolean> {
+    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.updateAccount, { userId: userId });
+
+    return this.put<AccountUpdateRequest, boolean>(request, endpoint, (response) => response.isSuccess);
   }
 
   /** Toggle account is active. */
