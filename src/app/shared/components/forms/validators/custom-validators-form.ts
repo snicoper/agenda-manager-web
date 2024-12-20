@@ -13,13 +13,13 @@ export abstract class CustomValidators {
   };
 
   /** Comprobar que una fecha sea menor a otra. */
-  static readonly dateStartGreaterThanFinish = (controlDateStart: string, controlDateFinish: string): ValidatorFn => {
+  static readonly dateStartGreaterThanEnd = (controlDateStart: string, controlDateEnd: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
       const start = DateTime.fromJSDate(new Date(controls.get(controlDateStart)?.value));
-      const finish = DateTime.fromJSDate(new Date(controls.get(controlDateFinish)?.value));
+      const end = DateTime.fromJSDate(new Date(controls.get(controlDateEnd)?.value));
 
-      if (start > finish) {
-        controls.get(controlDateFinish)?.setErrors({ startGreaterThanFinish: true });
+      if (start > end) {
+        controls.get(controlDateEnd)?.setErrors({ startGreaterThanFinish: true });
 
         return { startGreaterThanFinish: true };
       }

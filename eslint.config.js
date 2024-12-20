@@ -102,6 +102,14 @@ module.exports = tseslint.config(
       "no-constructor-return": "error",
       "no-self-compare": "error",
       "no-unused-private-class-members": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+        },
+      ],
       camelcase: "error",
       curly: "error",
       "lines-between-class-members": [

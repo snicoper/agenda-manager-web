@@ -16,7 +16,8 @@ import { FormCheckboxComponent } from '../../../../shared/components/forms/input
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
 import { FormRoleSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-role-selector/form-role-selector.component';
-import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
+import { customEmailValidator } from '../../../../shared/components/forms/validators/email.validator';
+import { customMinLengthArrayValidator } from '../../../../shared/components/forms/validators/min-length-array.validator';
 import { RoleResponse } from '../../../authorization/models/role.response';
 import { AccountCreateRequest } from '../../models/account-create.request';
 import { AccountApiService } from '../../services/account-api.service';
@@ -81,18 +82,13 @@ export class AccountCreateBladeComponent implements OnInit {
   }
 
   private buildForm(): void {
-    this.formState.form = this.formBuilder.group(
-      {
-        email: ['', [Validators.required, CustomValidators.email]],
-        firstName: ['', [Validators.required, Validators.maxLength(100)]],
-        lastName: ['', [Validators.required, Validators.maxLength(100)]],
-        isCollaborator: [false],
-        roles: [[], [CustomValidators.minLengthArray(1)]],
-      },
-      {
-        validators: [CustomValidators.passwordMustMatch('password', 'passwordConfirmation')],
-      },
-    );
+    this.formState.form = this.formBuilder.group({
+      email: ['', [Validators.required, customEmailValidator]],
+      firstName: ['', [Validators.required, Validators.maxLength(100)]],
+      lastName: ['', [Validators.required, Validators.maxLength(100)]],
+      isCollaborator: [false],
+      roles: [[], [customMinLengthArrayValidator(1)]],
+    });
   }
 
   private create(request: AccountCreateRequest): void {
