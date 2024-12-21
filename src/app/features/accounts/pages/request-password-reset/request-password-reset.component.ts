@@ -152,7 +152,7 @@ export class RequestPasswordResetComponent {
 
   private buildForm(): void {
     this.formState.form = this.formBuilder.group({
-      email: ['', [Validators.required, customEmailValidator]],
+      email: ['', [Validators.required, customEmailValidator()]],
     });
   }
 }

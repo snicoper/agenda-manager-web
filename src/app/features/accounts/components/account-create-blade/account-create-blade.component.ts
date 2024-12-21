@@ -83,7 +83,7 @@ export class AccountCreateBladeComponent implements OnInit {
 
   private buildForm(): void {
     this.formState.form = this.formBuilder.group({
-      email: ['', [Validators.required, customEmailValidator]],
+      email: ['', [Validators.required, customEmailValidator()]],
       firstName: ['', [Validators.required, Validators.maxLength(100)]],
       lastName: ['', [Validators.required, Validators.maxLength(100)]],
       isCollaborator: [false],

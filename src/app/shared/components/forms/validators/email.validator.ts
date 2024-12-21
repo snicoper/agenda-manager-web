@@ -1,8 +1,10 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export const customEmailValidator = (control: AbstractControl): ValidationErrors | null => {
-  const emailRegex = /^([\w.-]+)@([\w-]+)((\.(\w){2,3})+)$/;
-  const isValid = emailRegex.test(control.value);
+export const customEmailValidator = (): ValidatorFn => {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const emailRegex = /^([\w.-]+)@([\w-]+)((\.(\w){2,3})+)$/;
+    const isValid = emailRegex.test(control.value);
 
-  return isValid ? null : { email: true };
+    return isValid ? null : { email: true };
+  };
 };

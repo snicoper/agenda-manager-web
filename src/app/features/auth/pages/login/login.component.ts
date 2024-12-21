@@ -92,7 +92,7 @@ export class LoginComponent {
 
   private buildForm(): void {
     this.formSate.form = this.formBuilder.group({
-      email: ['', [Validators.required, customEmailValidator]],
+      email: ['', [Validators.required, customEmailValidator()]],
       password: ['', [Validators.required]],
     });
   }
