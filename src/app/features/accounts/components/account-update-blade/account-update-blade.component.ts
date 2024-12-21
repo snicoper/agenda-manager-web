@@ -99,7 +99,8 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const request = this.formState.form.value as AccountUpdateRequest;
+    const request: AccountUpdateRequest = this.formState.form.value;
+
     this.update(request);
   }
 
@@ -117,13 +118,12 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
     const identityDocumentValue: FormIdentityDocumentField = this.accountState.account()
       ?.identityDocument as FormIdentityDocumentField;
 
-    // TODO: Crear validación para identityDocument.
     this.formState.form = this.formBuilder.group({
       firstName: [firstNameValue, [Validators.required, Validators.maxLength(100)]],
       lastName: [lastNameValue, [Validators.required, Validators.maxLength(100)]],
-      phone: [phoneNumberValue, [Validators.required, phoneCompleteValidator()]],
-      address: [addressValue, [Validators.required, addressCompleteValidator()]],
-      identityDocument: [identityDocumentValue, [Validators.required, identityDocumentValidator()]],
+      phone: [phoneNumberValue, [phoneCompleteValidator()]],
+      address: [addressValue, [addressCompleteValidator()]],
+      identityDocument: [identityDocumentValue, [identityDocumentValidator()]],
     });
   }
 
