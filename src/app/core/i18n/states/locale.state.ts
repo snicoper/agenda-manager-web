@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { BaseState } from '../../states/base.state';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
-import { LocalesSupported } from '../models/locales-supported';
+import { LocalesSupported } from '../types/locales-supported.enum';
 import { LocalizationUtils } from '../utils/localization.utils';
 
 /** State for the current locale. */

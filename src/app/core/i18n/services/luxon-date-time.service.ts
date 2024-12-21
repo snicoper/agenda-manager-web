@@ -3,9 +3,9 @@ import { Settings } from 'luxon';
 import { AppEnvironment } from '../../config/app-environment';
 import { logInfo, logWarning } from '../../errors/debug-logger';
 import { BaseState } from '../../states/base.state';
-import { LocalesSupported } from '../models/locales-supported';
 import { LocaleState } from '../states/locale.state';
 import { TimeZoneState } from '../states/time-zone.state';
+import { LocalesSupported } from '../types/locales-supported.enum';
 import { LocalizationUtils } from '../utils/localization.utils';
 
 /** State for the current locale in Luxon. */

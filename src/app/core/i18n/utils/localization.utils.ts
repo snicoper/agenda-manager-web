@@ -1,5 +1,5 @@
 import { AppEnvironment } from '../../config/app-environment';
-import { LocalesSupported } from '../models/locales-supported';
+import { LocalesSupported } from '../types/locales-supported.enum';
 
 export abstract class LocalizationUtils {
   static readonly defaultLocale = this.getDefaultLocale();
