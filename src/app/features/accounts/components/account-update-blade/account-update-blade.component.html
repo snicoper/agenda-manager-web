@@ -1,5 +1,5 @@
 <section class="blade-content-container">
-  @if (accountState.loading()) {
+  @if (accountState.loading() || formState.isLoading) {
     <div class="d-flex justify-content-center">
       <mat-spinner />
     </div>

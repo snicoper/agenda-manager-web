@@ -1,7 +1,43 @@
 .breadcrumb-container {
-  .label,
-  .slash {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin: 0;
+
+  .breadcrumb-items {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumb-link {
+    color: var(--mat-primary);
+    text-transform: capitalize;
+    text-decoration: none;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--mat-primary-fixed);
+    }
+  }
+
+  .breadcrumb-label {
+    margin: 0 4px;
+  }
+
+  .breadcrumb-disabled {
+    color: var(--mat-on-surface-variant);
+  }
+
+  .breadcrumb-icon {
+    font-size: 18px;
+    margin-right: 4px;
+  }
+
+  .breadcrumb-separator {
     position: relative;
     top: 3px;
+    font-size: 16px;
+    color: var(--mat-outline-variant);
+    margin: 0 4px;
   }
 }

@@ -1,23 +1,28 @@
 @if (breadcrumb().hasItems()) {
   <nav aria-label="breadcrumb" class="breadcrumb-container">
-    <div class="d-flex flex-row">
+    <div class="breadcrumb-items">
       @for (bread of breadcrumb().getItems(); track $index) {
+        <!-- enlace activo -->
         @if (bread.active) {
-          <a [routerLink]="bread.link">
+          <a mat-button [routerLink]="bread.link" class="breadcrumb-link">
             @if (bread.icon) {
-              <mat-icon class="icon">{{ bread.icon }}</mat-icon>
+              <mat-icon class="breadcrumb-icon">{{ bread.icon }}</mat-icon>
             }
-            <span class="label">{{ bread.label }}</span>
+            <span class="breadcrumb-label">{{ bread.label }}</span>
           </a>
         } @else {
+          <!-- elemento deshabilitado -->
           @if (bread.icon) {
-            <mat-icon class="icon">{{ bread.icon }}</mat-icon>
+            <a mat-button disabled>
+              <mat-icon class="breadcrumb-icon">{{ bread.icon }}</mat-icon>
+            </a>
           }
-          <span class="label text-muted">{{ bread.label }}</span>
+          <span class="breadcrumb-label breadcrumb-disabled">{{ bread.label }}</span>
         }
 
+        <!-- Separador (excepto el último elemento) -->
         @if ($index !== breadcrumb().getItems().length - 1) {
-          <span class="slash text-muted-secondary">&nbsp; / &nbsp;</span>
+          <mat-icon class="breadcrumb-separator">keyboard_arrow_right</mat-icon>
         }
       }
     </div>

@@ -1,4 +1,5 @@
 import { Component, model, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { SiteUrls } from '../../../core/config/site-urls';
@@ -6,7 +7,7 @@ import { BreadcrumbCollection } from './breadcrumb-collection';
 
 @Component({
   selector: 'am-breadcrumb',
-  imports: [RouterLink, MatIcon],
+  imports: [RouterLink, MatButtonModule, MatIcon],
   styleUrl: './breadcrumb.component.scss',
   templateUrl: './breadcrumb.component.html',
 })
