@@ -4,6 +4,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
 import { FormState } from '../../../../core/models/form-state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -48,6 +49,7 @@ import { AccountDetailsService } from '../../services/account-details.service';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     FormInputComponent,
     FormPhoneNumberComponent,
     FormAddressComponent,
@@ -105,8 +107,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private loadAccount(): void {
-    this.formState.isLoading = false;
-
+    this.accountDetailsService.refresh();
     this.buildForm();
   }
 

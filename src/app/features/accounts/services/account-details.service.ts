@@ -30,6 +30,16 @@ export class AccountDetailsService {
     this.loadUserDetails();
   }
 
+  refresh(): void {
+    if (!this.userId$()) {
+      logError('User id is not defined');
+
+      return;
+    }
+
+    this.loadUserDetails();
+  }
+
   setLoadingState(isLoading: boolean): void {
     this.loading$.set(isLoading);
   }

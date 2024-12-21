@@ -4,14 +4,24 @@ import { FormIdentityDocumentField } from '../inputs/form-identity-document/mode
 /** Validación del conjunto de identity document. */
 export const identityDocumentValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
-    if (!control.value) {
+    const value: FormIdentityDocumentField = control.value;
+
+    if (!value) {
       return null;
     }
 
-    const value: FormIdentityDocumentField = control.value;
+    const valuesArray = Object.values(value);
+    const allFieldsEmpty = valuesArray.every((v) => v === '' || v === null || v === undefined);
+    const allFieldsFilled = valuesArray.every((v) => v !== '' && v !== null && v !== undefined);
 
-    // Validar que si hay un campo, los otros también deben existir.
-    if (Object.values(value).some((v) => v) && !Object.values(value).every((v) => v)) {
+    if (allFieldsEmpty || allFieldsFilled) {
+      return null;
+    }
+
+    const someFieldsFilled = valuesArray.some((v) => v !== '' && v !== null && v !== undefined);
+    const someFieldsEmpty = valuesArray.some((v) => v === '' || v === null || v === undefined);
+
+    if (someFieldsFilled && someFieldsEmpty) {
       return { identityDocumentIncomplete: true };
     }
 

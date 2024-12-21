@@ -28,6 +28,7 @@ export const CustomValidationErrors = {
   phoneIncomplete: 'Debe completar tanto el código de país como el número de teléfono',
   addressIncomplete: 'Debe completar todos los campos de la dirección',
   identityDocumentIncomplete: 'Debe completar todos los campos del documento de identidad',
+  phoneInvalid: 'El teléfono no es válido',
 } as const;
 
 // Y un helper para obtener los mensajes fácilmente.
