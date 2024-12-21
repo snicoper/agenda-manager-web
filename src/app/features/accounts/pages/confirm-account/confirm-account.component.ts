@@ -8,8 +8,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { FormState } from '../../../../core/models/form-state';
-import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -44,7 +44,6 @@ export class ConfirmAccountComponent {
   private readonly router = inject(Router);
   private readonly apiService = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
-  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
@@ -106,7 +105,7 @@ export class ConfirmAccountComponent {
           this.validToken = true;
         },
         error: (error: HttpErrorResponse) => {
-          const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+          const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
           this.formState.badRequest = badRequest;
         },
       });

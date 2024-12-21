@@ -9,8 +9,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { FormState } from '../../../../core/models/form-state';
-import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
@@ -44,7 +44,6 @@ export class ResetPasswordComponent {
   private readonly accountApiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
-  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
@@ -97,7 +96,7 @@ export class ResetPasswordComponent {
           this.router.navigate([SiteUrls.auth.login]);
         },
         error: (error: HttpErrorResponse) => {
-          const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+          const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
           this.formState.badRequest = badRequest;
         },
       });

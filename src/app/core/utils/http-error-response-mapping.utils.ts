@@ -1,11 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { BadRequest } from '../models/bad.request';
 
 /** Mapea un HttpErrorResponse a BadRequest. */
-@Injectable({ providedIn: 'root' })
-export class HttpErrorResponseMappingService {
-  mapToBadRequest(httpError: HttpErrorResponse): BadRequest | undefined {
+export abstract class HttpErrorResponseMappingUtils {
+  static mapToBadRequest(httpError: HttpErrorResponse): BadRequest | undefined {
     const error = httpError.error;
 
     if (!this.isValidBadRequestStructure(error)) {
@@ -15,7 +13,7 @@ export class HttpErrorResponseMappingService {
     return error;
   }
 
-  private isValidBadRequestStructure(error: unknown): error is BadRequest {
+  private static isValidBadRequestStructure(error: unknown): error is BadRequest {
     const potentialError = error as Partial<BadRequest>;
 
     return Boolean(

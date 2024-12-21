@@ -7,8 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
 import { FormState } from '../../../../core/models/form-state';
-import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
@@ -38,7 +38,6 @@ export class RoleUpdateBladeComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
-  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -95,7 +94,7 @@ export class RoleUpdateBladeComponent {
         },
         error: (error) => {
           if (error.status === HttpStatusCode.BadRequest || error.status === HttpStatusCode.Conflict) {
-            const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+            const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
             this.formState.badRequest = badRequest;
 
             return;

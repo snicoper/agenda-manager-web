@@ -5,8 +5,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize } from 'rxjs';
 import { FormState } from '../../../../core/models/form-state';
-import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
@@ -34,7 +34,6 @@ export class RoleCreateBladeComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
-  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -88,7 +87,7 @@ export class RoleCreateBladeComponent {
           }
         },
         error: (error) => {
-          const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+          const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
           this.formState.badRequest = badRequest;
         },
       });

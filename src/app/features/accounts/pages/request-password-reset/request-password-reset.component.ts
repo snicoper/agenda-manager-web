@@ -10,7 +10,7 @@ import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { FormState } from '../../../../core/models/form-state';
-import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
+import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -49,7 +49,6 @@ interface AlertState {
 export class RequestPasswordResetComponent {
   private readonly apiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
-  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   private readonly ErrorMessages = {
     [ApiResultErrors.users.userIsNotActive]: {
@@ -131,7 +130,7 @@ export class RequestPasswordResetComponent {
       return;
     }
 
-    const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+    const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
     this.formState.badRequest = badRequest;
   }
 
