@@ -4,14 +4,24 @@ import { FormAddressField } from '../inputs/form-address/models/form-address-fie
 /** Validación del conjunto de una dirección. */
 export const addressCompleteValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
-    if (!control.value) {
+    const value: FormAddressField = control.value;
+
+    if (!value) {
       return null;
     }
 
-    const value: FormAddressField = control.value;
+    const valuesArray = Object.values(value);
+    const allFieldsEmpty = valuesArray.every((v) => v === '' || v === null || v === undefined);
+    const allFieldsFilled = valuesArray.every((v) => v !== '' && v !== null && v !== undefined);
 
-    // Por ahora validación básica - que si hay un campo, los demás sean requeridos.
-    if (Object.values(value).some((v) => v) && !Object.values(value).every((v) => v)) {
+    if (allFieldsEmpty || allFieldsFilled) {
+      return null;
+    }
+
+    const someFieldsFilled = valuesArray.some((v) => v !== '' && v !== null && v !== undefined);
+    const someFieldsEmpty = valuesArray.some((v) => v === '' || v === null || v === undefined);
+
+    if (someFieldsFilled && someFieldsEmpty) {
       return { addressIncomplete: true };
     }
 

@@ -111,23 +111,12 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private buildForm(): void {
-    const firstNameValue: string = this.accountState.account()?.firstName as string;
-    const lastNameValue: string = this.accountState.account()?.lastName as string;
-
-    const phoneNumberValue: FormPhoneNumberField | null =
-      (this.accountState.account()?.phoneNumber as FormPhoneNumberField) ?? null;
-
-    const addressValue: FormAddressField | null = (this.accountState.account()?.address as FormAddressField) ?? null;
-
-    const identityDocumentValue: FormIdentityDocumentField | null =
-      (this.accountState.account()?.identityDocument as FormIdentityDocumentField) ?? null;
-
     this.formState.form = this.formBuilder.group({
-      firstName: [firstNameValue, [Validators.required, Validators.maxLength(100)]],
-      lastName: [lastNameValue, [Validators.required, Validators.maxLength(100)]],
-      phone: [phoneNumberValue, [phoneCompleteValidator()]],
-      address: [addressValue, [addressCompleteValidator()]],
-      identityDocument: [identityDocumentValue, [identityDocumentValidator()]],
+      firstName: [this.getNameValue('firstName'), [Validators.required, Validators.maxLength(100)]],
+      lastName: [this.getNameValue('lastName'), [Validators.required, Validators.maxLength(100)]],
+      phone: [this.getPhoneNumberValue(), [phoneCompleteValidator()]],
+      address: [this.getAddressValue(), [addressCompleteValidator()]],
+      identityDocument: [this.getIdentityDocumentValue(), [identityDocumentValidator()]],
     });
   }
 
@@ -153,5 +142,48 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
           this.formState.badRequest = badRequest;
         },
       });
+  }
+
+  private getNameValue(field: keyof Pick<AccountUpdateRequest, 'firstName' | 'lastName'>): string {
+    return (this.accountState.account()?.[field] as string) ?? '';
+  }
+
+  private getPhoneNumberValue(): FormPhoneNumberField {
+    const defaultPhoneNumber: FormPhoneNumberField = {
+      countryCode: '',
+      number: '',
+    };
+
+    const phoneNumberValue: FormPhoneNumberField =
+      (this.accountState.account()?.phoneNumber as FormPhoneNumberField) ?? defaultPhoneNumber;
+
+    return phoneNumberValue;
+  }
+
+  private getAddressValue(): FormAddressField {
+    const defaultAddress: FormAddressField = {
+      street: '',
+      city: '',
+      country: '',
+      state: '',
+      postalCode: '',
+    };
+
+    const addressValue: FormAddressField = (this.accountState.account()?.address as FormAddressField) ?? defaultAddress;
+
+    return addressValue;
+  }
+
+  private getIdentityDocumentValue(): FormIdentityDocumentField {
+    const defaultIdentityDocument: FormIdentityDocumentField = {
+      number: '',
+      countryCode: '',
+      type: null,
+    };
+
+    const identityDocumentValue: FormIdentityDocumentField =
+      (this.accountState.account()?.identityDocument as FormIdentityDocumentField) ?? defaultIdentityDocument;
+
+    return identityDocumentValue;
   }
 }

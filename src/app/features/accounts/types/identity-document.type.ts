@@ -8,6 +8,12 @@ export enum IdentityDocumentType {
   SocialSecurityNumber = 7,
 }
 
+/**
+ * Tipo que permite valores nulos en el tipo de documento de identidad.
+ * Se usa principalmente en formularios para representar un estado no seleccionado.
+ */
+export type IdentityDocumentTypeNullable = IdentityDocumentType | null;
+
 export const IdentityDocumentDisplayInfo: Record<IdentityDocumentType, { code: string; description: string }> = {
   [IdentityDocumentType.NationalId]: {
     code: 'DNI',
