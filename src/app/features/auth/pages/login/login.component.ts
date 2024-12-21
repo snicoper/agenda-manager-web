@@ -15,7 +15,7 @@ import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-l
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
-import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
+import { customEmailValidator } from '../../../../shared/components/forms/validators/email.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 
 @Component({
@@ -92,7 +92,7 @@ export class LoginComponent {
 
   private buildForm(): void {
     this.formSate.form = this.formBuilder.group({
-      email: ['', [Validators.required, CustomValidators.email]],
+      email: ['', [Validators.required, customEmailValidator]],
       password: ['', [Validators.required]],
     });
   }

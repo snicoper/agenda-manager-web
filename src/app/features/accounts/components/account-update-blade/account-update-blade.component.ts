@@ -18,7 +18,8 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
 import { FormPhoneNumberComponent } from '../../../../shared/components/forms/inputs/form-phone-number/form-phone-number.component';
 import { FormPhoneNumberField } from '../../../../shared/components/forms/inputs/form-phone-number/models/form-phone-number-field.interface';
-import { CustomValidators } from '../../../../shared/components/forms/validators/custom-validators-form';
+import { customAddressCompleteValidator } from '../../../../shared/components/forms/validators/address-complete.validator';
+import { customPhoneCompleteValidator } from '../../../../shared/components/forms/validators/phone-complete.validator';
 import { AccountUpdateRequest } from '../../models/account-update.request';
 import { AccountApiService } from '../../services/account-api.service';
 import { AccountDetailsService } from '../../services/account-details.service';
@@ -119,8 +120,8 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
     this.formState.form = this.formBuilder.group({
       firstName: [firstNameValue, [Validators.required, Validators.maxLength(100)]],
       lastName: [lastNameValue, [Validators.required, Validators.maxLength(100)]],
-      phone: [phoneNumberValue, [Validators.required, CustomValidators.phoneComplete()]],
-      address: [addressValue, [Validators.required, CustomValidators.addressComplete()]],
+      phone: [phoneNumberValue, [Validators.required, customPhoneCompleteValidator()]],
+      address: [addressValue, [Validators.required, customAddressCompleteValidator()]],
       identityDocument: [identityDocumentValue, [Validators.required]],
     });
   }
