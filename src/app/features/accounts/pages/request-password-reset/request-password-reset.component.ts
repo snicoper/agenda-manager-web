@@ -9,7 +9,9 @@ import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
+import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
+import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -48,6 +50,7 @@ interface AlertState {
 export class RequestPasswordResetComponent {
   private readonly apiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   private readonly ErrorMessages = {
     [ApiResultErrors.users.userIsNotActive]: {
@@ -121,6 +124,7 @@ export class RequestPasswordResetComponent {
   }
 
   private handleError(error: HttpErrorResponse): void {
+    logError(error);
     const errorConfig = this.ErrorMessages[error.error.code];
 
     if (errorConfig && error.status === errorConfig.expectedStatus) {
@@ -129,7 +133,8 @@ export class RequestPasswordResetComponent {
       return;
     }
 
-    this.formState.badRequest = error.error;
+    const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+    this.formState.badRequest = badRequest;
   }
 
   private setAlertErrorState(message: string): void {

@@ -7,7 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
+import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -44,6 +46,7 @@ export class AccountCreateBladeComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly bladeService = inject(BladeService);
+  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -103,7 +106,12 @@ export class AccountCreateBladeComponent implements OnInit {
           this.router.navigate([SiteUrls.accounts.accounts, response.userId]);
           this.bladeService.emitResult(true);
         },
-        error: (error: HttpErrorResponse) => (this.formState.badRequest = error.error),
+        error: (error: HttpErrorResponse) => {
+          logError(error);
+
+          const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+          this.formState.badRequest = badRequest;
+        },
       });
   }
 }

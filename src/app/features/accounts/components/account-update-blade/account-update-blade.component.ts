@@ -5,8 +5,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize, take } from 'rxjs';
-import { logError, logInfo } from '../../../../core/errors/debug-logger';
+import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
+import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -64,6 +65,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly formBuilder = inject(FormBuilder);
   private readonly bladeService = inject(BladeService);
   private readonly accountDetailsService = inject(AccountDetailsService);
+  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -110,7 +112,6 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private buildForm(): void {
-    logInfo('AccountUpdateBladeComponent', this.accountState.account());
     const firstNameValue: string = this.accountState.account()?.firstName as string;
     const lastNameValue: string = this.accountState.account()?.lastName as string;
     const phoneNumberValue: FormPhoneNumberField = this.accountState.account()?.phoneNumber as FormPhoneNumberField;
@@ -148,7 +149,8 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           logError(error);
 
-          this.formState.badRequest = error.error;
+          const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+          this.formState.badRequest = badRequest;
         },
       });
   }

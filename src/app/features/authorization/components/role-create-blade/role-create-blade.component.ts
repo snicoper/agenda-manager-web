@@ -4,7 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize } from 'rxjs';
+import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
+import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -33,6 +35,7 @@ export class RoleCreateBladeComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
+  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -77,7 +80,7 @@ export class RoleCreateBladeComponent {
 
     this.apiService
       .createRole(request)
-      .pipe(finalize(() => (this.formState.isSubmitted = false)))
+      .pipe(finalize(() => (this.formState.isLoading = false)))
       .subscribe({
         next: (result) => {
           if (result) {
@@ -85,7 +88,12 @@ export class RoleCreateBladeComponent {
             this.snackBarService.success('Rol creado correctamente.');
           }
         },
-        error: (error) => (this.formState.badRequest = error.error),
+        error: (error) => {
+          logError(error);
+
+          const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+          this.formState.badRequest = badRequest;
+        },
       });
   }
 }

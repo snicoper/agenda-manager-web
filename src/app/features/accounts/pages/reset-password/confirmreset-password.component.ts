@@ -8,7 +8,9 @@ import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
+import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -43,6 +45,7 @@ export class ResetPasswordComponent {
   private readonly accountApiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
+  private readonly httpErrorResponseMappingService = inject(HttpErrorResponseMappingService);
 
   readonly siteUrls = SiteUrls;
   readonly formInputType = FormInputType;
@@ -94,7 +97,12 @@ export class ResetPasswordComponent {
           this.snackBarService.success('La contraseña se ha actualizado correctamente.');
           this.router.navigate([SiteUrls.auth.login]);
         },
-        error: (error: HttpErrorResponse) => (this.formState.badRequest = error.error),
+        error: (error: HttpErrorResponse) => {
+          logError(error);
+
+          const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
+          this.formState.badRequest = badRequest;
+        },
       });
   }
 }

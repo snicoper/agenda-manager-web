@@ -14,18 +14,14 @@ export class NonFieldErrorsComponent {
   badRequest = input.required<BadRequest | undefined>();
 
   get hasError(): boolean {
-    if (this.badRequest()?.status === HttpStatusCode.Conflict) {
-      return [this.badRequest()?.detail].flat().length > 0;
+    if (!this.badRequest()) {
+      return false;
     }
 
-    return false;
+    return this.badRequest()?.status === HttpStatusCode.Conflict && Boolean(this.badRequest()?.detail);
   }
 
   get getError(): string | undefined {
-    if (this.badRequest()?.status === HttpStatusCode.Conflict) {
-      return this.badRequest()?.detail;
-    }
-
-    return undefined;
+    return this.badRequest()?.status === HttpStatusCode.Conflict ? this.badRequest()?.detail : undefined;
   }
 }
