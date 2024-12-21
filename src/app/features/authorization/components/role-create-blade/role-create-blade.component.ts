@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize } from 'rxjs';
-import { FormState } from '../../../../core/models/form-state';
+import { FormState } from '../../../../core/models/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';

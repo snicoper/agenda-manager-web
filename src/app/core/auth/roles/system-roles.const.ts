@@ -9,5 +9,3 @@ export const SystemRoles = Object.freeze({
   /** User who receives the services. */
   Customer: 'Customer' as const,
 });
-
-export type SystemRole = (typeof SystemRoles)[keyof typeof SystemRoles];

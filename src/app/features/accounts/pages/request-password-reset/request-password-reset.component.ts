@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
-import { FormState } from '../../../../core/models/form-state';
+import { FormState } from '../../../../core/models/form-state.interface';
 import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';

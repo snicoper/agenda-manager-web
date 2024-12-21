@@ -16,6 +16,8 @@ export const SiteUrls = {
     login: '/auth/login',
   },
 
+  calendars: {},
+
   roles: {
     list: '/authorization/roles',
     permissions: '/authorization/roles/{id}/permissions',

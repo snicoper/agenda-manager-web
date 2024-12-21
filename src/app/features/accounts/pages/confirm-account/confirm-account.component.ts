@@ -7,7 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { FormState } from '../../../../core/models/form-state';
+import { FormState } from '../../../../core/models/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';

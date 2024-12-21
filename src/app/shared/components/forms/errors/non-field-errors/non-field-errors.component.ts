@@ -2,7 +2,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-import { BadRequest } from '../../../../../core/models/bad.request';
+import { BadRequest } from '../../../../../core/models/bad-request.interface';
 import { AlertComponent } from '../../../alert/alert.component';
 
 @Component({

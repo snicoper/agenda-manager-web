@@ -10,7 +10,7 @@ import { LoginRequest } from '../../../../core/auth/models/login.request';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
-import { FormState } from '../../../../core/models/form-state';
+import { FormState } from '../../../../core/models/form-state.interface';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';

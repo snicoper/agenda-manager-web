@@ -1,26 +1,4 @@
-/** Permisos del sistema. */
-export interface Permission {
-  Create: string;
-  Read: string;
-  Update: string;
-  Delete: string;
-}
-
-export interface SystemPermissionsType {
-  Appointments: Permission;
-  AppointmentStatuses: Permission;
-  AuditRecords: Permission;
-  Roles: Permission;
-  Permissions: Permission;
-  Calendars: Permission;
-  CalendarHolidays: Permission;
-  CalendarConfigurations: Permission;
-  Resources: Permission;
-  ResourceSchedules: Permission;
-  ResourceTypes: Permission;
-  Services: Permission;
-  Users: Permission;
-}
+import { SystemPermissionsType } from './system-permissions.interface';
 
 export const SystemPermissions: SystemPermissionsType = {
   Appointments: {
@@ -112,53 +90,5 @@ export const SystemPermissions: SystemPermissionsType = {
     Read: 'user:read',
     Update: 'user:update',
     Delete: 'user:delete',
-  },
-};
-
-/** Mapea los permisos a nombres de human readable. */
-export interface ModuleRoleDisplayNameType {
-  appointment: string;
-  'appointment-status': string;
-  'audit-record': string;
-  role: string;
-  permission: string;
-  calendar: string;
-  'calendar-holiday': string;
-  'calendar-configuration': string;
-  resource: string;
-  'resource-schedule': string;
-  'resource-type': string;
-  service: string;
-  user: string;
-  'user-token': string;
-
-  get(key: string): string;
-  fromPermission(permissionName: string): string;
-}
-
-export const ModuleRoleDisplayName: ModuleRoleDisplayNameType = {
-  appointment: 'Citas',
-  'appointment-status': 'Estados de la cita',
-  'audit-record': 'Registros de auditoría',
-  role: 'Roles',
-  permission: 'Permisos',
-  calendar: 'Calendarios',
-  'calendar-holiday': 'Días festivos del calendario',
-  'calendar-configuration': 'Configuraciones del calendario',
-  resource: 'Recursos',
-  'resource-schedule': 'Horarios de los recursos',
-  'resource-type': 'Tipos de recursos',
-  service: 'Servicios',
-  user: 'Usuarios',
-  'user-token': 'Tokens de usuario',
-
-  get(key: string): string {
-    return this[key as keyof Omit<ModuleRoleDisplayNameType, 'get' | 'fromPermission'>];
-  },
-
-  fromPermission(permissionName: string): string {
-    const moduleName = permissionName.split(':')[0];
-
-    return ModuleRoleDisplayName.get(moduleName);
   },
 };

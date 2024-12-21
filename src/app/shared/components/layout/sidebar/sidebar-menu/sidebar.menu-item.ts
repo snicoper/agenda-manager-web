@@ -1,6 +1,7 @@
+import { SystemPermissions } from '../../../../../core/auth/permissions/system-permissions.const';
+import { SystemRoles } from '../../../../../core/auth/roles/system-roles.const';
+import { SystemRole } from '../../../../../core/auth/roles/system-roles.type';
 import { SiteUrls } from '../../../../../core/config/site-urls';
-import { SystemPermissions } from '../../../../../core/types/system-permissions';
-import { SystemRole, SystemRoles } from '../../../../../core/types/system-roles';
 import { AllPermissions } from '../../../../directives/required-permission.directive';
 
 interface SidebarMenuItem {

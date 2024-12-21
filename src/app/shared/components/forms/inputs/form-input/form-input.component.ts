@@ -3,7 +3,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormState } from '../../../../../core/models/form-state';
+import { FormState } from '../../../../../core/models/form-state.interface';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormIconPosition } from '../../models/form-icon-position.enum';
 import { FormInputType } from './models/form-input.type';

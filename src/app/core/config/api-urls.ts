@@ -17,6 +17,7 @@ export const ApiUrls = {
     confirmEmail: '/accounts/{userId}/confirm-email',
     toggleIsCollaborator: '/accounts/{userId}/toggle-is-collaborator',
   },
+  calendars: {},
   roles: {
     getRolesPaginated: '/roles/paginated',
     getAllRoles: '/roles',

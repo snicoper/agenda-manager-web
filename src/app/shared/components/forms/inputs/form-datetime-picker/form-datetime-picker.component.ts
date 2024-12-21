@@ -13,7 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DateTime } from 'luxon';
-import { FormState } from '../../../../../core/models/form-state';
+import { FormState } from '../../../../../core/models/form-state.interface';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */

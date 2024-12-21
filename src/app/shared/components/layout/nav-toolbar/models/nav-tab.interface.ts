@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { SystemRole } from '../../../../../core/types/system-roles';
+import { SystemRole } from '../../../../../core/auth/roles/system-roles.type';
 import { AllPermissions } from '../../../../directives/required-permission.directive';
 
 export interface NavTab {

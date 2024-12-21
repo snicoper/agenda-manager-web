@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResult } from '../../../core/api-result/api-result';
-import { EmptyRequest } from '../../../core/api-result/models/empty.request';
+import { EmptyRequest } from '../../../core/api-result/models/empty-request.type';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api/api.base.service';
 import { CommonUtils } from '../../../core/utils/common-utils';

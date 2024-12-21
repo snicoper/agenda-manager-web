@@ -5,7 +5,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { getTimeZones } from '@vvo/tzdb';
-import { FormState } from '../../../../../core/models/form-state';
+import { FormState } from '../../../../../core/models/form-state.interface';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormTimeZoneItem } from './models/form-time-zone.item.model';
 

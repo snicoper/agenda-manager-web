@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { SystemRole } from '../auth/roles/system-roles.type';
 import { AuthService } from '../auth/services/auth.service';
 import { SiteUrls } from '../config/site-urls';
 import { logError } from '../errors/debug-logger';
-import { SystemRole } from '../types/system-roles';
 
 //   {
 //     path: 'appointments',

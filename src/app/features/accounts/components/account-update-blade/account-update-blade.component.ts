@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
-import { FormState } from '../../../../core/models/form-state';
+import { FormState } from '../../../../core/models/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';

@@ -3,7 +3,7 @@ import { Component, OnInit, input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { FormState } from '../../../../../core/models/form-state';
+import { FormState } from '../../../../../core/models/form-state.interface';
 import { getValidationErrorMessage } from '../../models/custom-validator-errors';
 
 @Component({
