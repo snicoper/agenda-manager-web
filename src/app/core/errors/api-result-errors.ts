@@ -9,6 +9,11 @@ export const ApiResultErrors = {
     userTokenNotFoundOrExpired: 'UserTokenErrors.UserTokenNotFoundOrExpired',
   },
 
+  userProfiles: {
+    identityDocumentAlreadyExists: 'UserProfileErrors.IdentityDocumentAlreadyExists',
+    phoneNumberAlreadyExists: 'UserProfileErrors.PhoneNumberAlreadyExists',
+  },
+
   roles: {
     roleHasUsersAssigned: 'RoleErrors.RoleHasUsersAssigned',
   },

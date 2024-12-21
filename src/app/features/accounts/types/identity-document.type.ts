@@ -44,3 +44,11 @@ export const IdentityDocumentOptions = Object.entries(IdentityDocumentDisplayInf
   code: info.code,
   description: info.description,
 }));
+
+export const IdentityDocumentUtils = {
+  getCodeByType: (type: IdentityDocumentType): string => IdentityDocumentDisplayInfo[type]?.code ?? '',
+
+  getDescriptionByType: (type: IdentityDocumentType): string => IdentityDocumentDisplayInfo[type]?.description ?? '',
+
+  isValidType: (type: IdentityDocumentType): boolean => type in IdentityDocumentType,
+} as const;

@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -144,9 +145,10 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
           this.accountDetailsService.load(this.accountState.userId()!);
           this.bladeService.emitResult(true);
         },
-        error: (error) => {
+        error: (error: HttpErrorResponse) => {
           logError(error);
-          this.formState.badRequest = error;
+
+          this.formState.badRequest = error.error;
         },
       });
   }

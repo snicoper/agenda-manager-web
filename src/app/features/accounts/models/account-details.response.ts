@@ -25,11 +25,11 @@ export interface AccountDetailsResponse {
   email: string;
   firstName: string;
   lastName: string;
-  phoneNumber: PhoneNumber;
-  address: Address;
-  identityDocument: IdentityDocument;
   isEmailConfirmed: boolean;
   isActive: boolean;
   isCollaborator: boolean;
   createdAt: DateTimeProvider;
+  phoneNumber?: PhoneNumber;
+  address?: Address;
+  identityDocument?: IdentityDocument;
 }

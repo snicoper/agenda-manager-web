@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -14,6 +14,7 @@ import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcr
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountApiService } from '../../services/account-api.service';
 import { AccountDetailsService } from '../../services/account-details.service';
+import { IdentityDocumentUtils } from '../../types/identity-document.type';
 import { AccountUpdateBladeComponent } from '../account-update-blade/account-update-blade.component';
 
 @Component({
@@ -106,14 +107,24 @@ export class AccountInfoTabComponent implements OnInit {
       });
   }
 
+  getIdentityDocumentDescriptionByType(): string {
+    const type = this.accountState.account()?.identityDocument?.type;
+
+    if (!this.accountState.account()?.identityDocument?.type) {
+      return '';
+    }
+
+    return IdentityDocumentUtils.getDescriptionByType(type!);
+  }
+
   handleOpenUpdateAccountBlade(): void {
     this.bladeService.show(AccountUpdateBladeComponent);
 
-    // this.bladeService.result.pipe(take(1)).subscribe({
-    //   next: () => {
-    //     this.accountDetailsService.load(this.accountState.userId()!);
-    //   },
-    // });
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: () => {
+        this.accountDetailsService.load(this.accountState.userId()!);
+      },
+    });
   }
 
   private setBreadcrumb(): void {

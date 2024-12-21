@@ -1,4 +1,4 @@
-@if (!accountState.loading() && accountState.account()) {
+@if (!accountState.loading() && accountState.account(); as account) {
   <div class="d-flex justify-content-start">
     <button mat-raised-button color="primary" (click)="handleOpenUpdateAccountBlade()">
       <mat-icon>edit</mat-icon>
@@ -10,51 +10,55 @@
       <tbody>
         <tr>
           <th>Correo electrónico</th>
-          <td>{{ accountState.account()?.email }}</td>
+          <td>{{ account.email }}</td>
         </tr>
         <tr>
           <th>Nombre</th>
-          <td>{{ accountState.account()?.firstName }}</td>
+          <td>{{ account.firstName }}</td>
         </tr>
         <tr>
           <th>Apellidos</th>
-          <td>{{ accountState.account()?.lastName }}</td>
+          <td>{{ account.lastName }}</td>
         </tr>
         <tr>
           <th>Teléfono</th>
-          <td>
-            {{ accountState.account()?.phoneNumber?.countryCode }} {{ accountState.account()?.phoneNumber?.number }}
+          <td class="text-paragraph">
+            @if (account.phoneNumber) {
+              <span>
+                {{ account.phoneNumber.countryCode }}
+                {{ account.phoneNumber.number }}
+              </span>
+            } @else {
+              <span>Numero de teléfono no disponible</span>
+            }
           </td>
         </tr>
         <tr>
           <th>Dirección</th>
-          <td>
-            @if (
-              accountState.account()?.address?.street ||
-              accountState.account()?.address?.city ||
-              accountState.account()?.address?.state ||
-              accountState.account()?.address?.country ||
-              accountState.account()?.address?.postalCode
-            ) {
-              {{ accountState.account()?.address?.street }}<br />
-              {{ accountState.account()?.address?.city }}<br />
-              {{ accountState.account()?.address?.state }}<br />
-              {{ accountState.account()?.address?.country }}<br />
-              {{ accountState.account()?.address?.postalCode }}
+          <td class="text-paragraph">
+            @if (account.address) {
+              <address class="address-details">
+                {{ account.address.street }}<br />
+                {{ account.address.city }}<br />
+                {{ account.address.state }}<br />
+                {{ account.address.country }}<br />
+                {{ account.address.postalCode }}
+              </address>
             } @else {
-              <span>&nbsp;</span>
+              <span>Dirección no disponible</span>
             }
           </td>
         </tr>
         <tr>
           <th>Identificación</th>
-          <td>
-            <!-- TODO: Crear pipe para el identityDocumentType -->
-            @if (accountState.account()?.identityDocument && accountState.account()?.identityDocument?.type) {
-              {{ accountState.account()?.identityDocument?.type }}:
-              {{ accountState.account()?.identityDocument?.number }}
+          <td class="text-paragraph">
+            @if (account.identityDocument) {
+              <div>
+                {{ getIdentityDocumentDescriptionByType() }}<br />
+                {{ account.identityDocument.number }}
+              </div>
             } @else {
-              <span>&nbsp;</span>
+              <span>Identificación no disponible</span>
             }
           </td>
         </tr>
@@ -63,18 +67,15 @@
           <td>
             <mat-slide-toggle
               (click)="handleConfirmEmail()"
-              [checked]="accountState.account()?.isEmailConfirmed"
-              [disabled]="accountState.account()?.isEmailConfirmed"
+              [checked]="account.isEmailConfirmed"
+              [disabled]="account.isEmailConfirmed"
             ></mat-slide-toggle>
           </td>
         </tr>
         <tr>
           <th>Activo</th>
           <td>
-            <mat-slide-toggle
-              (change)="handleChangeStateIsActive()"
-              [checked]="accountState.account()?.isActive"
-            ></mat-slide-toggle>
+            <mat-slide-toggle (change)="handleChangeStateIsActive()" [checked]="account.isActive"></mat-slide-toggle>
           </td>
         </tr>
         <tr>
@@ -82,13 +83,13 @@
           <td>
             <mat-slide-toggle
               (change)="handleChangeStateIsCollaborator()"
-              [checked]="accountState.account()?.isCollaborator"
+              [checked]="account.isCollaborator"
             ></mat-slide-toggle>
           </td>
         </tr>
         <tr>
           <th>Fecha de creación</th>
-          <td>{{ accountState.account()?.createdAt | dateTimeFormat }}</td>
+          <td>{{ account.createdAt | dateTimeFormat }}</td>
         </tr>
       </tbody>
     </table>
