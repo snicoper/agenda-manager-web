@@ -8,7 +8,7 @@ export const addressCompleteValidator = (): ValidatorFn => {
       return null;
     }
 
-    const value = control.value as FormAddressField;
+    const value: FormAddressField = control.value;
 
     // Por ahora validación básica - que si hay un campo, los demás sean requeridos.
     if (Object.values(value).some((v) => v) && !Object.values(value).every((v) => v)) {

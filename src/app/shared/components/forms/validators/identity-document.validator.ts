@@ -8,7 +8,7 @@ export const identityDocumentValidator = (): ValidatorFn => {
       return null;
     }
 
-    const value = control.value as FormIdentityDocumentField;
+    const value: FormIdentityDocumentField = control.value;
 
     // Validar que si hay un campo, los otros también deben existir.
     if (Object.values(value).some((v) => v) && !Object.values(value).every((v) => v)) {

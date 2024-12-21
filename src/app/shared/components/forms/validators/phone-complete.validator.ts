@@ -8,7 +8,7 @@ export const phoneCompleteValidator = (): ValidatorFn => {
       return null;
     }
 
-    const value = control.value as FormPhoneNumberField;
+    const value: FormPhoneNumberField = control.value;
 
     // Validar que si hay un campo, el otro también debe existir.
     if ((value.countryCode && !value.number) || (!value.countryCode && value.number)) {
