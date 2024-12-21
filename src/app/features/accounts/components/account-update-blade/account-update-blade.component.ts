@@ -102,9 +102,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
     }
 
     this.formState.isLoading = true;
-
     const request: AccountUpdateRequest = this.formState.form.value;
-
     this.update(request);
   }
 

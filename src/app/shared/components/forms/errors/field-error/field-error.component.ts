@@ -43,7 +43,13 @@ export class FieldErrorComponent implements OnInit {
 
   getBadRequestErrors(): string[] | undefined {
     if (this.formState().badRequest?.status === HttpStatusCode.BadRequest) {
-      return this.formState().badRequest?.errors[this.fieldName()];
+      const errors = this.formState().badRequest?.errors;
+
+      if (errors) {
+        return errors[this.fieldName()];
+      } else {
+        return undefined;
+      }
     }
 
     return undefined;

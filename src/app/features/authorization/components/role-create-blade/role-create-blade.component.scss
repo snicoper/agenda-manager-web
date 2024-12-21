@@ -1,18 +1,3 @@
 :host {
   display: block;
 }
-
-.blade-content-container {
-  .form {
-    width: 100%;
-    max-width: 600px;
-
-    .title {
-      text-align: center;
-    }
-
-    mat-form-field {
-      width: 100%;
-    }
-  }
-}

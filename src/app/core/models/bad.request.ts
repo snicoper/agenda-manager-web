@@ -4,7 +4,5 @@ export interface BadRequest {
   title: string;
   type: string;
   code?: string;
-  errors: Record<string, string[]>;
+  errors?: Record<string, string[]>;
 }
-
-// TODO: Add nullability to errors.
