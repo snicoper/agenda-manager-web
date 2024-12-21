@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateTime } from 'luxon';
 
-/** Comprobar que una fecha sea menor a otra. */
+/** Comprobar que la fecha de start no sea mayor a la de end. */
 export const dateStartGreaterThanEndValidator = (controlDateStart: string, controlDateEnd: string): ValidatorFn => {
   return (controls: AbstractControl): ValidationErrors | null => {
     const start = DateTime.fromJSDate(new Date(controls.get(controlDateStart)?.value));
