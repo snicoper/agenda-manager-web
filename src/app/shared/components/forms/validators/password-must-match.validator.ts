@@ -1,10 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 /** Contraseñas iguales. */
-export const customPasswordMustMatchValidator = (
-  controlPassword: string,
-  controlConfirmPassword: string,
-): ValidatorFn => {
+export const passwordMustMatchValidator = (controlPassword: string, controlConfirmPassword: string): ValidatorFn => {
   return (controls: AbstractControl): ValidationErrors | null => {
     const control = controls.get(controlPassword);
     const checkControl = controls.get(controlConfirmPassword);

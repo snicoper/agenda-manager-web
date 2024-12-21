@@ -15,7 +15,7 @@ import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-l
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
-import { customEmailValidator } from '../../../../shared/components/forms/validators/email.validator';
+import { emailValidator } from '../../../../shared/components/forms/validators/email.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 import { RequestPasswordResetRequest } from '../../models/request-password-reset.request';
 import { AccountApiService } from '../../services/account-api.service';
@@ -152,7 +152,7 @@ export class RequestPasswordResetComponent {
 
   private buildForm(): void {
     this.formState.form = this.formBuilder.group({
-      email: ['', [Validators.required, customEmailValidator()]],
+      email: ['', [Validators.required, emailValidator()]],
     });
   }
 }

@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 /** Validación de contraseña fuerte que coincide con el backend. */
-export const customStrongPasswordValidator = (): ValidatorFn => {
+export const strongPasswordValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) {
       return null;

@@ -2,7 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { FormPhoneNumberField } from '../inputs/form-phone-number/models/form-phone-number-field.interface';
 
 /** Validación del conjunto de teléfono (código + número). */
-export const customPhoneCompleteValidator = (): ValidatorFn => {
+export const phoneCompleteValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) {
       return null;

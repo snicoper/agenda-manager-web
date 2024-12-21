@@ -2,7 +2,7 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { DateTime } from 'luxon';
 
 /** No permite fechas futuras. */
-export const customNoFutureDateValidator = (): ValidationErrors | null => {
+export const noFutureDateValidator = (): ValidationErrors | null => {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = DateTime.fromJSDate(new Date(control?.value));
 

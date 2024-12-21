@@ -14,8 +14,8 @@ import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-l
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
-import { customPasswordMustMatchValidator } from '../../../../shared/components/forms/validators/password-must-match.validator';
-import { customStrongPasswordValidator } from '../../../../shared/components/forms/validators/strong-password.validator';
+import { passwordMustMatchValidator } from '../../../../shared/components/forms/validators/password-must-match.validator';
+import { strongPasswordValidator } from '../../../../shared/components/forms/validators/strong-password.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 import { ConfirmAccountRequest } from '../../models/confirm-account.request';
 import { AccountApiService } from '../../services/account-api.service';
@@ -82,11 +82,11 @@ export class ConfirmAccountComponent {
   private buildForm(): void {
     this.formState.form = this.formBuilder.group(
       {
-        newPassword: ['', [Validators.required, customStrongPasswordValidator()]],
+        newPassword: ['', [Validators.required, strongPasswordValidator()]],
         confirmNewPassword: ['', [Validators.required]],
       },
       {
-        validators: customPasswordMustMatchValidator('newPassword', 'confirmNewPassword'),
+        validators: passwordMustMatchValidator('newPassword', 'confirmNewPassword'),
       },
     );
   }

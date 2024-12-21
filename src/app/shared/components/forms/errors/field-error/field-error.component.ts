@@ -4,7 +4,7 @@ import { AbstractControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { FormState } from '../../../../../core/models/form-state';
-import { getValidationErrorMessage } from '../../validators/custom-validator-errors';
+import { getValidationErrorMessage } from '../../models/custom-validator-errors';
 
 @Component({
   selector: 'am-field-error',

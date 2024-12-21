@@ -4,7 +4,7 @@ import { AbstractControl } from '@angular/forms';
 
 /** Mensajes de error para validaciones. */
 export const CustomValidationErrors = {
-  /** Errores genéricos */
+  /** Errores genéricos. */
   required: 'Este campo es obligatorio',
   email: 'El formato del email no es válido',
   minlength: (min: number) => `Debe tener al menos ${min} caracteres`,
@@ -27,6 +27,7 @@ export const CustomValidationErrors = {
   minLengthArray: (min: number) => `Debe seleccionar al menos ${min} elementos`,
   phoneIncomplete: 'Debe completar tanto el código de país como el número de teléfono',
   addressIncomplete: 'Debe completar todos los campos de la dirección',
+  identityDocumentIncomplete: 'Debe completar todos los campos del documento de identidad',
 } as const;
 
 // Y un helper para obtener los mensajes fácilmente.
