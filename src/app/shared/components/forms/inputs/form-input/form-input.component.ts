@@ -8,7 +8,6 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
 import { FormIconPosition } from '../../models/form-icon-position.enum';
 import { FormInputType } from './models/form-input.type';
 
-/* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({

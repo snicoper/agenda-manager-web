@@ -4,7 +4,6 @@ import ColorPicker, { ColorPickerOptions } from '@thednp/color-picker';
 import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
-/* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({

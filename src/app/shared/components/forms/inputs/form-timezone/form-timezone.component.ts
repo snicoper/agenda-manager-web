@@ -9,7 +9,6 @@ import { FormState } from '../../../../../core/models/form-state';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormTimeZoneItem } from './models/form-time-zone.item.model';
 
-/* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({

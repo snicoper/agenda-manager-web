@@ -113,10 +113,14 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   private buildForm(): void {
     const firstNameValue: string = this.accountState.account()?.firstName as string;
     const lastNameValue: string = this.accountState.account()?.lastName as string;
-    const phoneNumberValue: FormPhoneNumberField = this.accountState.account()?.phoneNumber as FormPhoneNumberField;
-    const addressValue: FormAddressField = this.accountState.account()?.address as FormAddressField;
-    const identityDocumentValue: FormIdentityDocumentField = this.accountState.account()
-      ?.identityDocument as FormIdentityDocumentField;
+
+    const phoneNumberValue: FormPhoneNumberField | null =
+      (this.accountState.account()?.phoneNumber as FormPhoneNumberField) ?? null;
+
+    const addressValue: FormAddressField | null = (this.accountState.account()?.address as FormAddressField) ?? null;
+
+    const identityDocumentValue: FormIdentityDocumentField | null =
+      (this.accountState.account()?.identityDocument as FormIdentityDocumentField) ?? null;
 
     this.formState.form = this.formBuilder.group({
       firstName: [firstNameValue, [Validators.required, Validators.maxLength(100)]],

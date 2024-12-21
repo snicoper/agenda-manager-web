@@ -10,7 +10,6 @@ import { FieldErrorComponent } from '../../../errors/field-error/field-error.com
 import { SelectableRole } from './models/selectable-role';
 import { RoleSelectorApiService } from './services/role-selector-api.service';
 
-/* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({

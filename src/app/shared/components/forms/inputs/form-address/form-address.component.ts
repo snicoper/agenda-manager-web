@@ -9,7 +9,6 @@ import { FormInputType } from '../form-input/models/form-input.type';
 import { FormAddressField } from './models/form-address-field.interface';
 import { FormAddressPlaceholders } from './models/form-address-placeholders.interface';
 
-/* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({

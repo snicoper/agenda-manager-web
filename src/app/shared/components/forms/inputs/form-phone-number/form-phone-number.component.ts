@@ -8,7 +8,6 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
 import { FormInputType } from '../form-input/models/form-input.type';
 import { FormPhoneNumberField } from './models/form-phone-number-field.interface';
 
-/* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({

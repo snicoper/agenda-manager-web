@@ -15,7 +15,6 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
 import { FormInputType } from '../form-input/models/form-input.type';
 import { FormIdentityDocumentField } from './models/form-identity-document-field.interface';
 
-/* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
