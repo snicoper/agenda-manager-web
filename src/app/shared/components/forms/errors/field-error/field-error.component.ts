@@ -19,7 +19,7 @@ export class FieldErrorComponent implements OnInit {
   fieldName = input<string>('');
   validateOnlyOnSubmit = input(false);
 
-  control: AbstractControl | undefined;
+  control!: AbstractControl;
 
   ngOnInit(): void {
     this.control = this.formState().form?.get(this.fieldName()) as AbstractControl;
