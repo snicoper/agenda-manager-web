@@ -5,7 +5,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize, take } from 'rxjs';
-import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
 import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -147,8 +146,6 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
           this.bladeService.emitResult(true);
         },
         error: (error: HttpErrorResponse) => {
-          logError(error);
-
           const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
           this.formState.badRequest = badRequest;
         },

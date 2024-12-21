@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
 import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -107,8 +106,6 @@ export class AccountCreateBladeComponent implements OnInit {
           this.bladeService.emitResult(true);
         },
         error: (error: HttpErrorResponse) => {
-          logError(error);
-
           const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
           this.formState.badRequest = badRequest;
         },

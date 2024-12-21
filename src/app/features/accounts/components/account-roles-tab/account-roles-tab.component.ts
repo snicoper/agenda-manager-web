@@ -5,7 +5,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logError } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { AvailableRolesByUserIdResponse } from '../../models/available-roles-by-user-id.response';
@@ -57,8 +56,7 @@ export class AccountRolesTabComponent implements OnInit {
           this.snackBarService.success('Rol asignado correctamente');
           this.loadAccountRoles();
         },
-        error: (error) => {
-          logError(error);
+        error: () => {
           this.snackBarService.error('Error al asignar el rol');
         },
       });
@@ -73,8 +71,7 @@ export class AccountRolesTabComponent implements OnInit {
           this.snackBarService.success('Rol desasignado correctamente');
           this.loadAccountRoles();
         },
-        error: (error) => {
-          logError(error);
+        error: () => {
           this.snackBarService.error('Error al desasignar el rol');
         },
       });
@@ -95,9 +92,6 @@ export class AccountRolesTabComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.roles = response;
-        },
-        error: (error) => {
-          logError(error);
         },
       });
   }

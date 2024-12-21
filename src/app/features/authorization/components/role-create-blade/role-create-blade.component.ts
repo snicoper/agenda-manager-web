@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize } from 'rxjs';
-import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
 import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -89,8 +88,6 @@ export class RoleCreateBladeComponent {
           }
         },
         error: (error) => {
-          logError(error);
-
           const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
           this.formState.badRequest = badRequest;
         },

@@ -8,7 +8,6 @@ import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
 import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -98,8 +97,6 @@ export class ResetPasswordComponent {
           this.router.navigate([SiteUrls.auth.login]);
         },
         error: (error: HttpErrorResponse) => {
-          logError(error);
-
           const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
           this.formState.badRequest = badRequest;
         },

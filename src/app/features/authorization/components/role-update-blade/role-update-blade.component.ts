@@ -6,7 +6,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
-import { logError } from '../../../../core/errors/debug-logger';
 import { FormState } from '../../../../core/models/form-state';
 import { HttpErrorResponseMappingService } from '../../../../core/services/http-error-response-mapping.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -95,8 +94,6 @@ export class RoleUpdateBladeComponent {
           this.bladeService.emitResult<string>(this.role.id);
         },
         error: (error) => {
-          logError(error);
-
           if (error.status === HttpStatusCode.BadRequest || error.status === HttpStatusCode.Conflict) {
             const badRequest = this.httpErrorResponseMappingService.mapToBadRequest(error);
             this.formState.badRequest = badRequest;

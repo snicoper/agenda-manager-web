@@ -56,8 +56,6 @@ export class AccountDetailsService {
           this.account$.set(response);
         },
         error: (error: HttpErrorResponse) => {
-          logError(error);
-
           if (error.status === HttpStatusCode.NotFound) {
             this.snackBarService.error('No se encontró la cuenta');
           } else {

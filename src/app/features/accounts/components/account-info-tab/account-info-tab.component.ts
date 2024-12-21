@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,7 +5,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logError } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
@@ -53,9 +51,7 @@ export class AccountInfoTabComponent implements OnInit {
           this.snackBarService.success('Estado de la cuenta actualizado correctamente');
           this.accountDetailsService.load(this.accountState.userId()!);
         },
-        error: (error: HttpErrorResponse) => {
-          logError(error);
-
+        error: () => {
           this.snackBarService.error('Error al actualizar el estado de la cuenta');
         },
       });
@@ -76,9 +72,7 @@ export class AccountInfoTabComponent implements OnInit {
           this.snackBarService.success('Correo electrónico confirmado correctamente');
           this.accountDetailsService.load(this.accountState.userId()!);
         },
-        error: (error: HttpErrorResponse) => {
-          logError(error);
-
+        error: () => {
           this.snackBarService.error('Error al confirmar el correo electrónico');
         },
       });
@@ -99,9 +93,7 @@ export class AccountInfoTabComponent implements OnInit {
           this.snackBarService.success('Usuario colaborador actualizado correctamente');
           this.accountDetailsService.load(this.accountState.userId()!);
         },
-        error: (error: HttpErrorResponse) => {
-          logError(error);
-
+        error: () => {
           this.snackBarService.error('Error al actualizar el usuario colaborador');
         },
       });
