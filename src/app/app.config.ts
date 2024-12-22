@@ -14,7 +14,7 @@ import { AppInitializer } from './core/config/app-initializer';
 import { CustomErrorHandler } from './core/errors/custom-error-handler';
 import { ApiErrorInterceptor } from './core/interceptors/api-error.interceptor';
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
-import { PaginatedResultInterceptor } from './core/paginated-result/interceptors/paginated-result.interceptor';
+import { PaginatedResultInterceptor } from './core/interceptors/paginated-result.interceptor';
 import { TitleStrategyService } from './core/services/title-strategy.service';
 
 export const appConfig: ApplicationConfig = {

@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { PaginatedResponseProcessor } from '../processors/paginated-response.proccesor';
+import { PaginatedResponseProcessor } from '../paginated-result/processors/paginated-response.processor';
 
 @Injectable()
 export class PaginatedResultInterceptor implements HttpInterceptor {

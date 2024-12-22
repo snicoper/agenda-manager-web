@@ -1,6 +1,6 @@
 import { computed, effect, Injectable, signal, Type } from '@angular/core';
 import { Subject } from 'rxjs';
-import { BladeOptions } from '../interfaces/blade-options.interface';
+import { BladeOptions } from '../models/blade-options.interface';
 
 @Injectable({ providedIn: 'root' })
 export class BladeService {
