@@ -97,18 +97,7 @@ module.exports = tseslint.config(
       ],
       "no-redeclare": "error",
       "no-useless-constructor": "off",
-      bracketSpacing: "error",
-      singleQuote: "error",
-      trailingComma: "error",
-      arrowParens: "error",
-      "space-before-function-paren": [
-        "error",
-        {
-          anonymous: "never",
-          named: "never",
-          asyncArrow: "never",
-        },
-      ],
+      "space-before-function-paren": ["error", "never"],
       "no-inline-comments": "error",
       "no-constructor-return": "error",
       "no-self-compare": "error",
@@ -153,6 +142,8 @@ module.exports = tseslint.config(
     files: ["**/*.spec.ts"],
     rules: {
       "max-lines-per-function": "off",
+      "space-before-function-paren": "off",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 );
