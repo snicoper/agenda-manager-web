@@ -94,7 +94,7 @@ export class PaginatedResult<T> {
   private logicalOperatorInFirstFilter(): void {
     const [firstFilter] = this.filters;
 
-    if (firstFilter?.logicalOperator !== LogicalOperator.None) {
+    if (firstFilter && firstFilter.logicalOperator !== LogicalOperator.None) {
       firstFilter.logicalOperator = LogicalOperator.None;
     }
   }

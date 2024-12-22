@@ -71,7 +71,7 @@ module.exports = tseslint.config(
       "no-duplicate-imports": "error",
       "no-irregular-whitespace": "error",
       "no-multiple-empty-lines": "error",
-      // Evitar funciones muy largas
+      // Evitar funciones muy largas.
       "max-lines-per-function": [
         "error",
         {
@@ -81,13 +81,13 @@ module.exports = tseslint.config(
         },
       ],
 
-      // Complejidad ciclomática
+      // Complejidad ciclomática.
       complexity: ["error", { max: 10 }],
 
-      // Profundidad máxima de anidación
+      // Profundidad máxima de anidación.
       "max-depth": ["error", 3],
 
-      // Argumentos máximos en funciones
+      // Argumentos máximos en funciones.
       // "max-params": ["error", 3],
       "no-plusplus": [
         "error",
@@ -137,5 +137,11 @@ module.exports = tseslint.config(
     files: ["**/*.html"],
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {},
+  },
+  {
+    files: ["**/*.spec.ts"],
+    rules: {
+      "max-lines-per-function": "off",
+    },
   },
 );
