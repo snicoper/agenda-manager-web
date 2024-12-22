@@ -5,21 +5,21 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { getTimeZones } from '@vvo/tzdb';
-import { FormState } from '../../../../../core/models/form-state.interface';
-import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.directive';
-import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
-import { FormTimeZoneItem } from './models/form-time-zone.item.model';
+import { FormState } from '../../../../../../core/models/form-state.interface';
+import { SelectOnFocusDirective } from '../../../../../directives/select-on-focus.directive';
+import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
+import { FormTimeZoneField } from './models/form-time-zone-field.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
-  selector: 'am-form-timezone',
-  templateUrl: './form-timezone.component.html',
-  styleUrl: './form-timezone.component.scss',
+  selector: 'am-form-time-zone-selector',
+  templateUrl: './form-time-zone-selector.component.html',
+  styleUrl: './form-time-zone-selector.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormTimezoneComponent),
+      useExisting: forwardRef(() => FormTimeZoneSelectorComponent),
       multi: true,
     },
   ],
@@ -33,20 +33,20 @@ import { FormTimeZoneItem } from './models/form-time-zone.item.model';
     SelectOnFocusDirective,
   ],
 })
-export class FormTimezoneComponent implements ControlValueAccessor {
+export class FormTimeZoneSelectorComponent implements ControlValueAccessor {
   formState = input.required<FormState>();
   fieldName = input.required<string>();
   label = input.required<string>();
   placeholder = input('');
 
   value = '';
-  items: FormTimeZoneItem[];
-  itemsFiltered: FormTimeZoneItem[];
+  items: FormTimeZoneField[];
+  itemsFiltered: FormTimeZoneField[];
   isDisabled = false;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
-  id = `time-zone-field-${(FormTimezoneComponent.nextId += 1)}`;
+  id = `time-zone-field-${(FormTimeZoneSelectorComponent.nextId += 1)}`;
 
   constructor() {
     this.items = getTimeZones().map((tz) => {
@@ -92,7 +92,7 @@ export class FormTimezoneComponent implements ControlValueAccessor {
     );
   }
 
-  private filter(value: string): FormTimeZoneItem[] {
+  private filter(value: string): FormTimeZoneField[] {
     const filterValue = value.toLocaleLowerCase();
     const filterResult = this.items.filter((item) => item.name.toLocaleLowerCase().includes(filterValue));
 

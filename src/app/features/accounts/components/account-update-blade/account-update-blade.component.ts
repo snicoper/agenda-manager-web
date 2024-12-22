@@ -17,7 +17,7 @@ import { FormAddressField } from '../../../../shared/components/forms/inputs/for
 import { FormIdentityDocumentComponent } from '../../../../shared/components/forms/inputs/form-identity-document/form-identity-document.component';
 import { FormIdentityDocumentField } from '../../../../shared/components/forms/inputs/form-identity-document/models/form-identity-document-field.interface';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
-import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
+import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormPhoneNumberComponent } from '../../../../shared/components/forms/inputs/form-phone-number/form-phone-number.component';
 import { FormPhoneNumberField } from '../../../../shared/components/forms/inputs/form-phone-number/models/form-phone-number-field.interface';
 import { addressCompleteValidator } from '../../../../shared/components/forms/validators/address-complete.validator';

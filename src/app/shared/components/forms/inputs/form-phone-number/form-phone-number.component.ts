@@ -5,7 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FormState } from '../../../../../core/models/form-state.interface';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
-import { FormInputType } from '../form-input/models/form-input.type';
+import { FormInputType } from '../form-input/types/form-input.type';
 import { FormPhoneNumberField } from './models/form-phone-number-field.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */

@@ -12,8 +12,8 @@ import { BladeService } from '../../../../shared/components/blade/services/blade
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
-import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/models/form-input.type';
-import { FormTimezoneComponent } from '../../../../shared/components/forms/inputs/form-timezone/form-timezone.component';
+import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
+import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
 import { CalendarCreateRequest } from '../../models/calendar-create.request';
 import { CalendarApiService } from '../../services/calendar-api.service';
 
@@ -25,7 +25,7 @@ import { CalendarApiService } from '../../services/calendar-api.service';
     MatButtonModule,
     NonFieldErrorsComponent,
     FormInputComponent,
-    FormTimezoneComponent,
+    FormTimeZoneSelectorComponent,
     BtnLoadingComponent,
   ],
   templateUrl: './calendar-create-blade.component.html',
