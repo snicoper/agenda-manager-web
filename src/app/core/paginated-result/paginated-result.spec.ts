@@ -4,11 +4,16 @@ import { LogicalOperator } from './types/logical-operator';
 import { OrderType } from './types/order-type';
 import { RelationalOperator } from './types/relational-operator';
 
+interface TestModel {
+  id: number;
+  name: string;
+}
+
 describe('PaginatedResult', () => {
-  let result: PaginatedResult<any>;
+  let result: PaginatedResult<TestModel>;
 
   beforeEach(() => {
-    result = new PaginatedResult<any>();
+    result = new PaginatedResult<TestModel>();
   });
 
   describe('initialization', () => {
@@ -47,7 +52,7 @@ describe('PaginatedResult', () => {
 
       result.handlePageEvent(pageEvent);
 
-      expect(result.pageNumber).toBe(2); // pageIndex + 1
+      expect(result.pageNumber).toBe(2);
       expect(result.pageSize).toBe(10);
     });
   });
