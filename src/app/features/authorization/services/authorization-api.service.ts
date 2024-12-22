@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResult } from '../../../core/api-result/api-result';
 import { ApiUrls } from '../../../core/config/api-urls';
+import { PaginatedResult } from '../../../core/paginated-result/paginated-result';
 import { BaseRoleManagementApiService } from '../../../core/services/api/base-role-management-api.service';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CreateRoleRequest } from '../models/create-role.request';
@@ -15,11 +15,11 @@ import { UserNotInRoleResponse } from '../models/user-not-in-role.response';
 @Injectable({ providedIn: 'root' })
 export class AuthorizationApiService extends BaseRoleManagementApiService {
   /** Get roles paginated. */
-  getRolesPaginated(apiResult: ApiResult<RoleResponse>): Observable<ApiResult<RoleResponse>> {
+  getRolesPaginated(paginatedResult: PaginatedResult<RoleResponse>): Observable<PaginatedResult<RoleResponse>> {
     return this.getPaginated(
-      apiResult,
+      paginatedResult,
       ApiUrls.roles.getRolesPaginated,
-      (response) => response.value as ApiResult<RoleResponse>,
+      (response) => response.value as PaginatedResult<RoleResponse>,
     );
   }
 
@@ -77,28 +77,28 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
   /** Get users by role id. */
   getUsersByRoleIdPaginated(
     roleId: string,
-    apiResult: ApiResult<UserInRoleResponse>,
-  ): Observable<ApiResult<UserInRoleResponse>> {
+    paginatedResult: PaginatedResult<UserInRoleResponse>,
+  ): Observable<PaginatedResult<UserInRoleResponse>> {
     const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.getUsersByRoleIdPaginated, { roleId: roleId });
 
     return this.getPaginated<UserInRoleResponse>(
-      apiResult,
+      paginatedResult,
       endpoint,
-      (response) => response.value as ApiResult<UserInRoleResponse>,
+      (response) => response.value as PaginatedResult<UserInRoleResponse>,
     );
   }
 
   /** Get users not in role id. */
   getUsersNotInRoleIdPaginated(
     roleId: string,
-    apiResult: ApiResult<UserNotInRoleResponse>,
-  ): Observable<ApiResult<UserNotInRoleResponse>> {
+    paginatedResult: PaginatedResult<UserNotInRoleResponse>,
+  ): Observable<PaginatedResult<UserNotInRoleResponse>> {
     const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.getUsersNotInRoleIdPaginated, { roleId: roleId });
 
     return this.getPaginated<UserNotInRoleResponse>(
-      apiResult,
+      paginatedResult,
       endpoint,
-      (response) => response.value as ApiResult<UserNotInRoleResponse>,
+      (response) => response.value as PaginatedResult<UserNotInRoleResponse>,
     );
   }
 

@@ -1,31 +1,31 @@
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
-import { ApiResultFilter } from './models/api-result-filter';
-import { ApiResultOrder } from './models/api-result-order';
+import { PaginatedResultFilter } from './models/paginated-result-filter';
+import { PaginatedResultOrder } from './models/paginated-result-order';
 import { LogicalOperator } from './types/logical-operator';
 import { OrderType } from './types/order-type';
 import { RelationalOperator } from './types/relational-operator';
 
-export class ApiResult<T> {
+export class PaginatedResult<T> {
   items: T[] = [];
   pageNumber = 1;
   pageSize = 25;
   totalItems = 0;
   totalPages = 1;
-  order: ApiResultOrder | undefined;
-  filters: ApiResultFilter[] = [];
+  order: PaginatedResultOrder | undefined;
+  filters: PaginatedResultFilter[] = [];
 
   constructor() {
     this.cleanFilters();
     this.cleanOrder();
   }
 
-  static create<TModel>(apiResult: ApiResult<TModel>): ApiResult<TModel> {
-    return Object.assign(new ApiResult<TModel>(), apiResult);
+  static create<TModel>(paginatedResult: PaginatedResult<TModel>): PaginatedResult<TModel> {
+    return Object.assign(new PaginatedResult<TModel>(), paginatedResult);
   }
 
   addFilter(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.None): this {
-    const filter = new ApiResultFilter(
+    const filter = new PaginatedResultFilter(
       propertyName,
       operator,
       value,
@@ -37,7 +37,7 @@ export class ApiResult<T> {
     return this;
   }
 
-  removeFilter(filter: ApiResultFilter): this {
+  removeFilter(filter: PaginatedResultFilter): this {
     return this.removeFilterByPropertyName(filter.propertyName);
   }
 

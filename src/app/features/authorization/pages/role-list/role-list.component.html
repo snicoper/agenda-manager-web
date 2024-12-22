@@ -16,7 +16,7 @@
         <div class="ms-auto">
           <am-table-filter
             (filterChange)="handleFilterChange($event)"
-            [apiResult]="apiResult"
+            [paginatedResult]="paginatedResult"
             [fieldsFilter]="fieldsFilter"
           />
         </div>
@@ -90,7 +90,7 @@
 
         <!-- paginator -->
         @if (dataSource) {
-          <am-paginator (pageEvent)="handlePageEvent($event)" [apiResult]="apiResult" />
+          <am-paginator (pageEvent)="handlePageEvent($event)" [paginatedResult]="paginatedResult" />
         }
 
         <!-- spinner -->

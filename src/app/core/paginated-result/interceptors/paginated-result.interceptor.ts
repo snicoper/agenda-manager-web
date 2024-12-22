@@ -9,15 +9,15 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { ApiResponseProcessor } from '../processors/api-response.proccesor';
+import { PaginatedResponseProcessor } from '../processors/paginated-response.proccesor';
 
 @Injectable()
-export class ApiResultInterceptor implements HttpInterceptor {
+export class PaginatedResultInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
       map((event) => {
         if (event instanceof HttpResponse && event.status === HttpStatusCode.Ok) {
-          return ApiResponseProcessor.process(event);
+          return PaginatedResponseProcessor.process(event);
         }
 
         return event;

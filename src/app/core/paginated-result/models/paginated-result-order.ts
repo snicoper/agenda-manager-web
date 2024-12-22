@@ -1,18 +1,18 @@
 import { Sort } from '@angular/material/sort';
 import { OrderType } from '../types/order-type';
 
-export class ApiResultOrder {
+export class PaginatedResultOrder {
   constructor(
     readonly propertyName: string,
     readonly orderType: OrderType,
   ) {}
 
-  static fromSort(sort: Sort): ApiResultOrder | null {
+  static fromSort(sort: Sort): PaginatedResultOrder | null {
     if (!sort.direction) {
       return null;
     }
 
-    return new ApiResultOrder(sort.active, sort.direction.toUpperCase() as OrderType);
+    return new PaginatedResultOrder(sort.active, sort.direction.toUpperCase() as OrderType);
   }
 
   toString(): string {

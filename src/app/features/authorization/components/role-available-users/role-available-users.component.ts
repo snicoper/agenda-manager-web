@@ -9,8 +9,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { ApiResult } from '../../../../core/api-result/api-result';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
@@ -49,7 +49,7 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
   readonly fieldsFilter = ['email'];
 
   dataSource = new MatTableDataSource<UserNotInRoleResponse>();
-  apiResult = new ApiResult<UserNotInRoleResponse>();
+  paginatedResult = new PaginatedResult<UserNotInRoleResponse>();
   loading = true;
 
   ngAfterViewInit(): void {
@@ -68,17 +68,17 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
   }
 
   handlePageEvent(pageEvent: PageEvent): void {
-    this.apiResult = this.apiResult.handlePageEvent(pageEvent);
+    this.paginatedResult = this.paginatedResult.handlePageEvent(pageEvent);
     this.getUsersNotInRole();
   }
 
-  handleFilterChange(apiResult: ApiResult<UserNotInRoleResponse>): void {
-    this.apiResult = apiResult;
+  handleFilterChange(paginatedResult: PaginatedResult<UserNotInRoleResponse>): void {
+    this.paginatedResult = paginatedResult;
     this.getUsersNotInRole();
   }
 
   handleSortChange(sortState: Sort): void {
-    this.apiResult.handleSortChange(sortState);
+    this.paginatedResult.handleSortChange(sortState);
     this.getUsersNotInRole();
   }
 
@@ -100,16 +100,16 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
     this.loading = true;
 
     this.apiService
-      .getUsersNotInRoleIdPaginated(this.roleId(), this.apiResult)
+      .getUsersNotInRoleIdPaginated(this.roleId(), this.paginatedResult)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (response) => {
-          this.apiResult = ApiResult.create<UserNotInRoleResponse>(response);
-          this.dataSource.data = this.apiResult.items;
+          this.paginatedResult = PaginatedResult.create<UserNotInRoleResponse>(response);
+          this.dataSource.data = this.paginatedResult.items;
 
-          if (this.sort && this.apiResult.order) {
-            this.sort.active = this.apiResult.order.propertyName;
-            this.sort.direction = this.apiResult.order.orderType.toLowerCase() as SortDirection;
+          if (this.sort && this.paginatedResult.order) {
+            this.sort.active = this.paginatedResult.order.propertyName;
+            this.sort.direction = this.paginatedResult.order.orderType.toLowerCase() as SortDirection;
           }
         },
         error: () => this.snackBarService.error('Error al obtener los usuarios.'),

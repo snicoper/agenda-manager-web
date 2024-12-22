@@ -11,10 +11,10 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
-import { ApiResult } from '../../../../core/api-result/api-result';
 import { SystemPermissions } from '../../../../core/auth/permissions/system-permissions.const';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
+import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -69,7 +69,7 @@ export class RoleListComponent implements AfterViewInit {
   readonly systemPermissions = SystemPermissions;
 
   dataSource = new MatTableDataSource<RoleResponse>();
-  apiResult = new ApiResult<RoleResponse>();
+  paginatedResult = new PaginatedResult<RoleResponse>();
   loading = true;
 
   constructor() {
@@ -96,17 +96,17 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   handlePageEvent(pageEvent: PageEvent): void {
-    this.apiResult = this.apiResult.handlePageEvent(pageEvent);
+    this.paginatedResult = this.paginatedResult.handlePageEvent(pageEvent);
     this.loadRoles();
   }
 
-  handleFilterChange(apiResult: ApiResult<RoleResponse>): void {
-    this.apiResult = apiResult;
+  handleFilterChange(paginatedResult: PaginatedResult<RoleResponse>): void {
+    this.paginatedResult = paginatedResult;
     this.loadRoles();
   }
 
   handleSortChange(sortState: Sort): void {
-    this.apiResult.handleSortChange(sortState);
+    this.paginatedResult.handleSortChange(sortState);
     this.loadRoles();
   }
 
@@ -168,16 +168,16 @@ export class RoleListComponent implements AfterViewInit {
     this.loading = true;
 
     this.apiService
-      .getRolesPaginated(this.apiResult)
+      .getRolesPaginated(this.paginatedResult)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (response) => {
-          this.apiResult = ApiResult.create<RoleResponse>(response);
-          this.dataSource.data = this.apiResult.items;
+          this.paginatedResult = PaginatedResult.create<RoleResponse>(response);
+          this.dataSource.data = this.paginatedResult.items;
 
-          if (this.sort && this.apiResult.order) {
-            this.sort.active = this.apiResult.order.propertyName;
-            this.sort.direction = this.apiResult.order.orderType.toLowerCase() as SortDirection;
+          if (this.sort && this.paginatedResult.order) {
+            this.sort.active = this.paginatedResult.order.propertyName;
+            this.sort.direction = this.paginatedResult.order.orderType.toLowerCase() as SortDirection;
           }
         },
         error: () => this.snackBarService.error('Ha ocurrido un error al obtener los roles.'),

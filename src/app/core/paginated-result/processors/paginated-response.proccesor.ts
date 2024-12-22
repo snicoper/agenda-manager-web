@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
-import { ApiResult } from '../api-result';
-import { ApiResultFilter } from '../models/api-result-filter';
-import { ApiResultOrder } from '../models/api-result-order';
+import { PaginatedResultFilter } from '../models/paginated-result-filter';
+import { PaginatedResultOrder } from '../models/paginated-result-order';
+import { PaginatedResult } from '../paginated-result';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
@@ -10,8 +10,8 @@ interface ResultValue<T> {
 }
 
 // Clase auxiliar para procesar las respuestas.
-export class ApiResponseProcessor {
-  private static isApiResult(value: any): value is ApiResult<unknown> {
+export class PaginatedResponseProcessor {
+  private static isPaginatedResult(value: any): value is PaginatedResult<unknown> {
     return (
       typeof value === 'object' &&
       value !== null &&
@@ -21,12 +21,12 @@ export class ApiResponseProcessor {
     );
   }
 
-  private static isResultValue(body: any): body is ResultValue<ApiResult<unknown>> {
+  private static isResultValue(body: any): body is ResultValue<PaginatedResult<unknown>> {
     return (
       Object.hasOwn(body, 'value') &&
       typeof body.value === 'object' &&
       body.value !== null &&
-      this.isApiResult(body.value)
+      this.isPaginatedResult(body.value)
     );
   }
 
@@ -38,23 +38,23 @@ export class ApiResponseProcessor {
     }
   }
 
-  private static processFilters(data: any): ApiResultFilter[] | undefined {
+  private static processFilters(data: any): PaginatedResultFilter[] | undefined {
     if (!Object.hasOwn(data, 'filters')) {
       return [];
     }
 
     return typeof data.filters === 'string' && data.filters.length > 0
-      ? this.parseJsonSafely<ApiResultFilter[]>(data.filters, [])
+      ? this.parseJsonSafely<PaginatedResultFilter[]>(data.filters, [])
       : [];
   }
 
-  private static processOrder(data: any): ApiResultOrder | undefined {
+  private static processOrder(data: any): PaginatedResultOrder | undefined {
     if (!Object.hasOwn(data, 'order')) {
       return undefined;
     }
 
     return typeof data.order === 'string' && data.order.length > 0
-      ? this.parseJsonSafely<ApiResultOrder>(data.order, undefined)
+      ? this.parseJsonSafely<PaginatedResultOrder>(data.order, undefined)
       : undefined;
   }
 
@@ -66,11 +66,11 @@ export class ApiResponseProcessor {
     const body = response.body;
 
     if (this.isResultValue(body)) {
-      // Procesar Result<ApiResult>.
+      // Procesar Result<PaginatedResult>.
       body.value.filters = this.processFilters(body.value) || [];
       body.value.order = this.processOrder(body.value) || undefined;
     } else {
-      // Procesar ApiResult directamente.
+      // Procesar PaginatedResult directamente.
       body.filters = this.processFilters(body) || [];
       body.order = this.processOrder(body) || undefined;
     }

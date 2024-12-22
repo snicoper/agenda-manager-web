@@ -2,9 +2,9 @@
   <mat-paginator
     showFirstLastButtons
     (page)="handlePageEvent($event)"
-    [length]="apiResult().totalItems"
-    [pageSize]="apiResult().pageSize"
-    [pageIndex]="apiResult().pageNumber - 1"
+    [length]="paginatedResult().totalItems"
+    [pageSize]="paginatedResult().pageSize"
+    [pageIndex]="paginatedResult().pageNumber - 1"
     [pageSizeOptions]="[25, 50, 100]"
     aria-label="Selección de pagina"
   />

@@ -10,11 +10,11 @@ import { MAT_LUXON_DATE_ADAPTER_OPTIONS, provideLuxonDateAdapter } from '@angula
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, TitleStrategy } from '@angular/router';
 import { routes } from './app.routes';
-import { ApiResultInterceptor } from './core/api-result/interceptors/api-result.interceptor';
 import { AppInitializer } from './core/config/app-initializer';
 import { CustomErrorHandler } from './core/errors/custom-error-handler';
 import { ApiErrorInterceptor } from './core/interceptors/api-error.interceptor';
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
+import { PaginatedResultInterceptor } from './core/paginated-result/interceptors/paginated-result.interceptor';
 import { TitleStrategyService } from './core/services/title-strategy.service';
 
 export const appConfig: ApplicationConfig = {
@@ -37,7 +37,7 @@ export const appConfig: ApplicationConfig = {
     },
 
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ApiResultInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: PaginatedResultInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
 
     provideZoneChangeDetection({ eventCoalescing: true }),

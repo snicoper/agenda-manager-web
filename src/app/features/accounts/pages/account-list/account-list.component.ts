@@ -10,9 +10,9 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
-import { ApiResult } from '../../../../core/api-result/api-result';
 import { SystemPermissions } from '../../../../core/auth/permissions/system-permissions.const';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -77,7 +77,7 @@ export class AccountListComponent implements AfterViewInit {
   readonly systemPermissions = SystemPermissions;
 
   dataSource = new MatTableDataSource<AccountResponse>();
-  apiResult = new ApiResult<AccountResponse>();
+  paginatedResult = new PaginatedResult<AccountResponse>();
   loading = true;
 
   constructor() {
@@ -111,17 +111,17 @@ export class AccountListComponent implements AfterViewInit {
   }
 
   handlePageEvent(pageEvent: PageEvent): void {
-    this.apiResult = this.apiResult.handlePageEvent(pageEvent);
+    this.paginatedResult = this.paginatedResult.handlePageEvent(pageEvent);
     this.loadAccounts();
   }
 
-  handleFilterChange(apiResult: ApiResult<AccountResponse>): void {
-    this.apiResult = apiResult;
+  handleFilterChange(paginatedResult: PaginatedResult<AccountResponse>): void {
+    this.paginatedResult = paginatedResult;
     this.loadAccounts();
   }
 
   handleSortChange(sortState: Sort): void {
-    this.apiResult.handleSortChange(sortState);
+    this.paginatedResult.handleSortChange(sortState);
     this.loadAccounts();
   }
 
@@ -133,16 +133,16 @@ export class AccountListComponent implements AfterViewInit {
     this.loading = true;
 
     this.apiService
-      .getAccountsPaginated(this.apiResult)
+      .getAccountsPaginated(this.paginatedResult)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (response) => {
-          this.apiResult = ApiResult.create<AccountResponse>(response);
-          this.dataSource.data = this.apiResult.items;
+          this.paginatedResult = PaginatedResult.create<AccountResponse>(response);
+          this.dataSource.data = this.paginatedResult.items;
 
-          if (this.sort && this.apiResult.order) {
-            this.sort.active = this.apiResult.order.propertyName;
-            this.sort.direction = this.apiResult.order.orderType.toLocaleLowerCase() as SortDirection;
+          if (this.sort && this.paginatedResult.order) {
+            this.sort.active = this.paginatedResult.order.propertyName;
+            this.sort.direction = this.paginatedResult.order.orderType.toLocaleLowerCase() as SortDirection;
           }
         },
         error: () => this.snackBarService.error('Ha ocurrido un error al cargar las cuentas.'),

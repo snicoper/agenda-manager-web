@@ -8,7 +8,7 @@ export interface FilterOptions {
   logicalOperator?: LogicalOperator;
 }
 
-export class ApiResultFilter {
+export class PaginatedResultFilter {
   constructor(
     readonly propertyName: string,
     readonly relationalOperator: RelationalOperator,
@@ -16,7 +16,7 @@ export class ApiResultFilter {
     public logicalOperator: LogicalOperator = LogicalOperator.None,
   ) {}
 
-  static create(options: FilterOptions): ApiResultFilter {
-    return new ApiResultFilter(options.propertyName, options.operator, options.value, options.logicalOperator);
+  static create(options: FilterOptions): PaginatedResultFilter {
+    return new PaginatedResultFilter(options.propertyName, options.operator, options.value, options.logicalOperator);
   }
 }

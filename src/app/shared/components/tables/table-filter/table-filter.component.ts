@@ -5,10 +5,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime, Subject } from 'rxjs';
-import { ApiResult } from '../../../../core/api-result/api-result';
-import { LogicalOperator } from '../../../../core/api-result/types/logical-operator';
-import { RelationalOperator } from '../../../../core/api-result/types/relational-operator';
 import { logError } from '../../../../core/errors/debug-logger';
+import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
+import { LogicalOperator } from '../../../../core/paginated-result/types/logical-operator';
+import { RelationalOperator } from '../../../../core/paginated-result/types/relational-operator';
 
 @Component({
   selector: 'am-table-filter',
@@ -16,10 +16,10 @@ import { logError } from '../../../../core/errors/debug-logger';
   templateUrl: './table-filter.component.html',
 })
 export class TableFilterComponent<T> {
-  apiResult = input.required<ApiResult<T>>();
+  paginatedResult = input.required<PaginatedResult<T>>();
   fieldsFilter = input.required<string[]>();
 
-  filterChange = output<ApiResult<T>>();
+  filterChange = output<PaginatedResult<T>>();
 
   term = '';
 
@@ -38,20 +38,20 @@ export class TableFilterComponent<T> {
   }
 
   private applyFilters(term: string): void {
-    this.apiResult().cleanFilters();
+    this.paginatedResult().cleanFilters();
 
     if (term.length === 0) {
-      this.filterChange.emit(this.apiResult());
+      this.filterChange.emit(this.paginatedResult());
 
       return;
     }
 
-    this.apiResult().pageNumber = 1;
+    this.paginatedResult().pageNumber = 1;
 
     this.fieldsFilter().forEach((element: string) => {
-      this.apiResult().addFilter(element, RelationalOperator.Contains, term, LogicalOperator.Or);
+      this.paginatedResult().addFilter(element, RelationalOperator.Contains, term, LogicalOperator.Or);
     });
 
-    this.filterChange.emit(this.apiResult());
+    this.filterChange.emit(this.paginatedResult());
   }
 }

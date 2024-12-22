@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { ApiResult } from '../../../core/api-result/api-result';
+import { PaginatedResult } from '../../../core/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-paginator',
@@ -9,7 +9,7 @@ import { ApiResult } from '../../../core/api-result/api-result';
   styleUrl: './paginator.component.scss',
 })
 export class PaginatorComponent<T> {
-  readonly apiResult = input.required<ApiResult<T>>();
+  readonly paginatedResult = input.required<PaginatedResult<T>>();
   readonly show = input(true);
 
   pageEvent = output<PageEvent>();

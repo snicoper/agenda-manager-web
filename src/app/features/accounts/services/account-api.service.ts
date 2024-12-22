@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResult } from '../../../core/api-result/api-result';
-import { EmptyRequest } from '../../../core/api-result/types/empty-request.type';
 import { ApiUrls } from '../../../core/config/api-urls';
+import { PaginatedResult } from '../../../core/paginated-result/paginated-result';
+import { EmptyRequest } from '../../../core/paginated-result/types/empty-request.type';
 import { ApiBaseService } from '../../../core/services/api/api.base.service';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { DateTimeUtils } from '../../../core/utils/datetime-utils';
@@ -20,9 +20,11 @@ import { VerifyEmailRequest } from '../models/verify-email.request';
 @Injectable({ providedIn: 'root' })
 export class AccountApiService extends ApiBaseService {
   /** Get a paginated list of accounts. */
-  getAccountsPaginated(apiResult: ApiResult<AccountResponse>): Observable<ApiResult<AccountResponse>> {
-    return this.getPaginated(apiResult, ApiUrls.accounts.getAccountsPaginated, (response) => {
-      const result = ApiResult.create<AccountResponse>(response.value);
+  getAccountsPaginated(
+    paginatedResult: PaginatedResult<AccountResponse>,
+  ): Observable<PaginatedResult<AccountResponse>> {
+    return this.getPaginated(paginatedResult, ApiUrls.accounts.getAccountsPaginated, (response) => {
+      const result = PaginatedResult.create<AccountResponse>(response.value);
 
       result.items = result.items.map((account) => ({
         ...account,
