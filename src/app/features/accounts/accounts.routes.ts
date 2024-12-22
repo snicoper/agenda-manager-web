@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { SystemPermissions } from '../../core/auth/permissions/system-permissions.const';
+import { AuthGuard } from '../../core/guards/auth.guard';
 import { AccountDetailsComponent } from './pages/account-details/account-details.component';
 import { AccountListComponent } from './pages/account-list/account-list.component';
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
@@ -12,8 +14,12 @@ export const routes: Routes = [
     path: '',
     component: AccountListComponent,
     title: 'Listado de cuentas',
+    canActivate: [AuthGuard],
     data: {
-      permissions: ['user:read'],
+      auth: {
+        permissions: [SystemPermissions.Users.Read],
+        requiresAll: true,
+      },
     },
   },
   {
@@ -45,8 +51,12 @@ export const routes: Routes = [
     path: ':userId',
     component: AccountDetailsComponent,
     title: 'Detalles de cuenta',
+    canActivate: [AuthGuard],
     data: {
-      permissions: ['user:read'],
+      auth: {
+        permissions: [SystemPermissions.Users.Read],
+        requiresAll: true,
+      },
     },
   },
 ];
