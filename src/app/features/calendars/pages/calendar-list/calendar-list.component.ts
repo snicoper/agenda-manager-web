@@ -23,6 +23,7 @@ import { PaginatorComponent } from '../../../../shared/components/paginator/pagi
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
+import { CalendarCreateBladeComponent } from '../../components/calendar-create-blade/calendar-create-blade.component';
 import { CalendarPaginatedResponse } from '../../models/calendar-paginated.response';
 import { CalendarApiService } from '../../services/calendar-api.service';
 
@@ -94,7 +95,9 @@ export class CalendarListComponent implements AfterViewInit {
     this.loadCalendars();
   }
 
-  handleCreateCalendar(): void {}
+  handleCreateCalendar(): void {
+    this.bladeService.show(CalendarCreateBladeComponent);
+  }
 
   private setBreadcrumb(): void {
     this.breadcrumb.push(new BreadcrumbItem('Calendarios', SiteUrls.calendars.list, '', false));
