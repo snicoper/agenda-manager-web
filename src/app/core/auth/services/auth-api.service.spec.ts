@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { ApiUrls } from '../../config/api-urls';
 import { DateTimeUtils } from '../../utils/datetime.utils';
 import { UrlUtils } from '../../utils/url.utils';
+import { LoginRequest } from '../models/login.request';
 import { AuthApiService } from './auth-api.service';
 
 describe('AuthApiService', () => {
@@ -27,7 +28,7 @@ describe('AuthApiService', () => {
   describe('login', () => {
     it('should make POST request and transform response', () => {
       // Arrange
-      const loginRequest = {
+      const loginRequest: LoginRequest = {
         email: 'test@test.com',
         password: 'Password4!',
       };
