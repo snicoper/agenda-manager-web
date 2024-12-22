@@ -18,6 +18,7 @@ export const SiteUrls = {
 
   calendars: {
     list: '/calendars',
+    details: '/calendars/{id}',
   },
 
   roles: {

@@ -11,6 +11,7 @@ import {
   IdentityDocumentOptions,
   IdentityDocumentType,
 } from '../../../../../features/accounts/types/identity-document.type';
+import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.directive';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormInputType } from '../form-input/types/form-input.type';
 import { FormIdentityDocumentField } from './models/form-identity-document-field.interface';
@@ -27,6 +28,7 @@ import { FormIdentityDocumentField } from './models/form-identity-document-field
     MatInputModule,
     MatIconModule,
     FieldErrorComponent,
+    SelectOnFocusDirective,
   ],
   templateUrl: './form-identity-document.component.html',
   styleUrl: './form-identity-document.component.scss',

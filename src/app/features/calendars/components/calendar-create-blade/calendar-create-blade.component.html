@@ -11,22 +11,22 @@
           <am-form-input fieldName="name" formControlName="name" label="Nombre" [formState]="formState" />
         </div>
 
-        <!-- description field -->
-        <div class="col-12">
-          <am-form-input
-            fieldName="description"
-            formControlName="description"
-            label="Descripción"
-            [formState]="formState"
-          />
-        </div>
-
         <!-- ianaTimeZone field -->
         <div class="col-12">
           <am-form-time-zone-selector
             fieldName="ianaTimeZone"
             formControlName="ianaTimeZone"
             label="Zona horaria"
+            [formState]="formState"
+          />
+        </div>
+
+        <!-- description field -->
+        <div class="col-12">
+          <am-form-textarea
+            fieldName="description"
+            formControlName="description"
+            label="Descripción"
             [formState]="formState"
           />
         </div>

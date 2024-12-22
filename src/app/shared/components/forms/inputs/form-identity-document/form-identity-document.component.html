@@ -28,6 +28,7 @@
       <mat-label>País</mat-label>
       <input
         matInput
+        amSelectOnFocus
         [(ngModel)]="value.countryCode"
         [matAutocomplete]="auto"
         (input)="handleCountryInput($event)"
