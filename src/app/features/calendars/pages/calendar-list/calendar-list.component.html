@@ -1,17 +1,17 @@
 <am-page-base>
   <am-page-header [breadcrumb]="breadcrumb" />
 
-  <div class="account-list-container">
+  <div class="calendar-list-container">
     <mat-card>
       <mat-card-content>
         <div class="d-flex flex-row">
           <!-- toolbar -->
           <button
-            (click)="handleCreateAccount()"
-            [amRequiredPermission]="systemPermissions.Users.Create"
+            (click)="handleCreateCalendar()"
+            [amRequiredPermission]="systemPermissions.Calendars.Create"
             mat-raised-button
           >
-            Añadir cuenta
+            Añadir calendario
           </button>
 
           <!-- filter -->
@@ -29,29 +29,23 @@
           <table
             mat-table
             matSort
-            matSortActive="email"
+            matSortActive="name"
             matSortDirection="asc"
             class="table-striped"
             (matSortChange)="handleSortChange($event)"
             [dataSource]="dataSource"
             [ngClass]="{ hidden: loading }"
           >
-            <!-- email field -->
-            <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo electrónico</th>
-              <td mat-cell *matCellDef="let row">{{ row.email }}</td>
-            </ng-container>
-
-            <!-- firstName field -->
-            <ng-container matColumnDef="firstName">
+            <!-- name field -->
+            <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-              <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
+              <td mat-cell *matCellDef="let row">{{ row.name }}</td>
             </ng-container>
 
-            <!-- lastName field -->
-            <ng-container matColumnDef="lastName">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
-              <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
+            <!-- description field -->
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+              <td mat-cell *matCellDef="let row">{{ row.description }}</td>
             </ng-container>
 
             <!-- isActive field -->
@@ -62,38 +56,10 @@
               </td>
             </ng-container>
 
-            <!-- isEmailConfirmed field -->
-            <ng-container matColumnDef="isEmailConfirmed">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Confirmado</th>
-              <td mat-cell *matCellDef="let row">
-                <span [innerHTML]="row.isEmailConfirmed | boolToIcon"></span>
-              </td>
-            </ng-container>
-
-            <!-- isCollaborator field -->
-            <ng-container matColumnDef="isCollaborator">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Colaborador</th>
-              <td mat-cell *matCellDef="let row">
-                <span [innerHTML]="row.isCollaborator | boolToIcon"></span>
-              </td>
-            </ng-container>
-
-            <!-- dateJoined field -->
-            <ng-container matColumnDef="dateJoined">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ingreso</th>
-              <td mat-cell *matCellDef="let row">{{ row.dateJoined | dateTimeFormat }}</td>
-            </ng-container>
-
             <!-- actions field -->
             <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let row">
-                <span class="d-flex justify-content-end btn-actions">
-                  <button mat-icon-button matTooltip="Detalles" (click)="handleClickDetails(row.userId)">
-                    <mat-icon>visibility</mat-icon>
-                  </button>
-                </span>
-              </td>
+              <th mat-header-cell *matHeaderCellDef>Acciones</th>
+              <td mat-cell *matCellDef="let row"></td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

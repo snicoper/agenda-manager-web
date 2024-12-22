@@ -22,7 +22,7 @@ interface SubMenuItem {
 }
 
 export const sidebarMenuItems: SidebarMenuItem[] = [
-  // Administración del Sistema
+  // Administración del Sistema.
   {
     id: 'administration',
     icon: 'admin_panel_settings',
@@ -40,19 +40,19 @@ export const sidebarMenuItems: SidebarMenuItem[] = [
     ],
   },
 
-  // Gestión de Calendarios
+  // Gestión de Calendarios.
   {
     id: 'calendar-management',
     icon: 'calendar_month',
     title: 'Gestión de Calendarios',
-    role: [SystemRoles.Administrator, SystemRoles.Employee],
+    permission: [SystemPermissions.Calendars.Read],
     items: [
-      { icon: 'settings_applications', text: 'Configuración', route: 'SiteUrls.calendarConfig' },
+      { icon: 'event_note', text: 'Calendarios', route: SiteUrls.calendars.list },
       { icon: 'calendar_view_month', text: 'Vista Administrativa', route: 'SiteUrls.adminCalendar' },
     ],
   },
 
-  // Recursos y Servicios
+  // Recursos y Servicios.
   {
     id: 'resources',
     icon: 'inventory',
@@ -65,12 +65,12 @@ export const sidebarMenuItems: SidebarMenuItem[] = [
     ],
   },
 
-  // Configuración de Usuario
+  // Configuración de Usuario.
   {
     id: 'user-settings',
     icon: 'account_circle',
     title: 'Mi Perfil',
-    // No ponemos role ni permission para que sea accesible a todos los usuarios autenticados
+    // No ponemos role ni permission para que sea accesible a todos los usuarios autenticados.
     items: [
       { icon: 'person', text: 'Datos Personales', route: 'SiteUrls.userProfile' },
       { icon: 'notifications', text: 'Notificaciones', route: 'SiteUrls.userNotifications' },
@@ -79,7 +79,7 @@ export const sidebarMenuItems: SidebarMenuItem[] = [
     ],
   },
 
-  // Vista de Cliente
+  // Vista de Cliente.
   {
     id: 'client-view',
     icon: 'person',

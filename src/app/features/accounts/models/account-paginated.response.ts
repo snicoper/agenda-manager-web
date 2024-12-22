@@ -1,6 +1,6 @@
 import { DateTimeProvider } from '../../../core/types/datetime-provider.type';
 
-export interface AccountResponse {
+export interface AccountPaginatedResponse {
   id: string;
   email: string;
   firstName: string;

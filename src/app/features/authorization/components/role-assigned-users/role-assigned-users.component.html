@@ -53,7 +53,9 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell p-4" [attr.colspan]="displayedColumns.length">No hay datos a mostrar</td>
+      <td class="mat-cell p-4" [attr.colspan]="displayedColumns.length">
+        <div class="d-flex justify-content-center">No hay datos a mostrar</div>
+      </td>
     </tr>
   </table>
 

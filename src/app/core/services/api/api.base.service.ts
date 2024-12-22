@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { logInfo } from '../../errors/debug-logger';
 import { ApiResponse } from '../../models/api-response.interface';
 import { PaginatedResult } from '../../paginated-result/paginated-result';
 
@@ -41,8 +40,6 @@ export abstract class ApiBaseService {
    * @returns Un observable con la respuesta transformada.
    */
   protected get<TResponse>(endpoint = '', mapper?: (data: ApiResponse<TResponse>) => TResponse): Observable<TResponse> {
-    logInfo(`GET: ${endpoint}`);
-
     return this.http
       .get<ApiResponse<TResponse>>(endpoint)
       .pipe(map((response) => this.handleResponse(response, mapper)));

@@ -18,6 +18,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/authorization/authorization.routes').then((m) => m.routes),
   },
   {
+    path: 'calendars',
+    loadChildren: () => import('./features/calendars/calendars.routes').then((m) => m.routes),
+  },
+  {
     path: 'errors',
     loadChildren: () => import('./features/errors/errors.routes').then((m) => m.routes),
   },

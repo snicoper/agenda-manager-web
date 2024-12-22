@@ -9,7 +9,7 @@ import { UrlUtils } from '../../../core/utils/url.utils';
 import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountCreateResponse } from '../models/account-create.response';
 import { AccountDetailsResponse } from '../models/account-details.response';
-import { AccountResponse as AccountPaginatedResponse } from '../models/account-paginated.response';
+import { AccountPaginatedResponse } from '../models/account-paginated.response';
 import { AccountUpdateRequest } from '../models/account-update.request';
 import { ConfirmAccountRequest } from '../models/confirm-account.request';
 import { RequestPasswordResetRequest } from '../models/request-password-reset.request';

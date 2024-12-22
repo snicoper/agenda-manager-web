@@ -9,12 +9,11 @@ import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/s
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { finalize, take } from 'rxjs';
+import { finalize } from 'rxjs';
 import { SystemPermissions } from '../../../../core/auth/permissions/system-permissions.const';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { UrlUtils } from '../../../../core/utils/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
@@ -24,13 +23,11 @@ import { PaginatorComponent } from '../../../../shared/components/paginator/pagi
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
-import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
-import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
-import { AccountPaginatedResponse } from '../../models/account-paginated.response';
-import { AccountApiService } from '../../services/account-api.service';
+import { CalendarPaginatedResponse } from '../../models/calendar-paginated.response';
+import { CalendarApiService } from '../../services/calendar-api.service';
 
 @Component({
-  selector: 'am-account-list',
+  selector: 'am-calendar-list',
   imports: [
     CommonModule,
     MatCardModule,
@@ -46,15 +43,14 @@ import { AccountApiService } from '../../services/account-api.service';
     TableFilterComponent,
     PaginatorComponent,
     BoolToIconPipe,
-    DateTimeFormatPipe,
     RequiredPermissionDirective,
   ],
-  templateUrl: './account-list.component.html',
-  styleUrl: './account-list.component.scss',
+  templateUrl: './calendar-list.component.html',
+  styleUrl: './calendar-list.component.scss',
 })
-export class AccountListComponent implements AfterViewInit {
+export class CalendarListComponent implements AfterViewInit {
   private readonly router = inject(Router);
-  private readonly apiService = inject(AccountApiService);
+  private readonly apiService = inject(CalendarApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
 
@@ -62,22 +58,12 @@ export class AccountListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly displayedColumns = [
-    'email',
-    'firstName',
-    'lastName',
-    'isActive',
-    'isEmailConfirmed',
-    'isCollaborator',
-    'dateJoined',
-    'actions',
-  ];
-  readonly fieldsFilter = ['email', 'profile.firstName', 'profile.lastName'];
-  readonly siteUrls = SiteUrls;
+  readonly displayedColumns = ['name', 'description', 'isActive', 'actions'];
+  readonly fieldsFilter = ['name', 'description'];
   readonly systemPermissions = SystemPermissions;
 
-  dataSource = new MatTableDataSource<AccountPaginatedResponse>();
-  paginatedResult = new PaginatedResult<AccountPaginatedResponse>();
+  dataSource = new MatTableDataSource<CalendarPaginatedResponse>();
+  paginatedResult = new PaginatedResult<CalendarPaginatedResponse>();
   loading = true;
 
   constructor() {
@@ -89,55 +75,39 @@ export class AccountListComponent implements AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
 
-      this.loadAccounts();
+      this.loadCalendars();
     });
-  }
-
-  handleCreateAccount(): void {
-    this.bladeService.show(AccountCreateBladeComponent);
-
-    this.bladeService.result.pipe(take(1)).subscribe({
-      next: (result) => {
-        if (result) {
-          this.loadAccounts();
-        }
-      },
-    });
-  }
-
-  handleClickDetails(userId: string): void {
-    const url = UrlUtils.buildSiteUrl(SiteUrls.accounts.details, { id: userId });
-    this.router.navigateByUrl(url);
   }
 
   handlePageEvent(pageEvent: PageEvent): void {
     this.paginatedResult = this.paginatedResult.handlePageEvent(pageEvent);
-    this.loadAccounts();
+    this.loadCalendars();
   }
 
-  handleFilterChange(paginatedResult: PaginatedResult<AccountPaginatedResponse>): void {
+  handleFilterChange(paginatedResult: PaginatedResult<CalendarPaginatedResponse>): void {
     this.paginatedResult = paginatedResult;
-    this.loadAccounts();
+    this.loadCalendars();
   }
 
   handleSortChange(sortState: Sort): void {
     this.paginatedResult.handleSortChange(sortState);
-    this.loadAccounts();
+    this.loadCalendars();
   }
+
+  handleCreateCalendar(): void {}
 
   private setBreadcrumb(): void {
-    this.breadcrumb.push(new BreadcrumbItem('Accounts', SiteUrls.accounts.accounts, '', false));
+    this.breadcrumb.push(new BreadcrumbItem('Calendarios', SiteUrls.calendars.list, '', false));
   }
 
-  private loadAccounts(): void {
+  private loadCalendars(): void {
     this.loading = true;
-
     this.apiService
-      .getAccountsPaginated(this.paginatedResult)
+      .getCalendarsPaginated(this.paginatedResult)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (response) => {
-          this.paginatedResult = PaginatedResult.create<AccountPaginatedResponse>(response);
+          this.paginatedResult = PaginatedResult.create<CalendarPaginatedResponse>(response);
           this.dataSource.data = this.paginatedResult.items;
 
           if (this.sort && this.paginatedResult.order) {
@@ -145,7 +115,7 @@ export class AccountListComponent implements AfterViewInit {
             this.sort.direction = this.paginatedResult.order.orderType.toLocaleLowerCase() as SortDirection;
           }
         },
-        error: () => this.snackBarService.error('Ha ocurrido un error al cargar las cuentas.'),
+        error: () => this.snackBarService.error('Ha ocurrido un error al cargar los calendarios.'),
       });
   }
 }
