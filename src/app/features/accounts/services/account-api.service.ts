@@ -9,8 +9,8 @@ import { UrlUtils } from '../../../core/utils/url.utils';
 import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountCreateResponse } from '../models/account-create.response';
 import { AccountDetailsResponse } from '../models/account-details.response';
+import { AccountResponse as AccountPaginatedResponse } from '../models/account-paginated.response';
 import { AccountUpdateRequest } from '../models/account-update.request';
-import { AccountResponse } from '../models/account.response';
 import { ConfirmAccountRequest } from '../models/confirm-account.request';
 import { RequestPasswordResetRequest } from '../models/request-password-reset.request';
 import { ResendEmailConfirmation } from '../models/resend-email-confirmation.request';
@@ -21,12 +21,12 @@ import { VerifyEmailRequest } from '../models/verify-email.request';
 export class AccountApiService extends ApiBaseService {
   /** Get a paginated list of accounts. */
   getAccountsPaginated(
-    paginatedResult: PaginatedResult<AccountResponse>,
-  ): Observable<PaginatedResult<AccountResponse>> {
+    paginatedResult: PaginatedResult<AccountPaginatedResponse>,
+  ): Observable<PaginatedResult<AccountPaginatedResponse>> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.getAccountsPaginated);
 
     return this.getPaginated(paginatedResult, endpoint, (response) => {
-      const result = PaginatedResult.create<AccountResponse>(response.value);
+      const result = PaginatedResult.create<AccountPaginatedResponse>(response.value);
 
       result.items = result.items.map((account) => ({
         ...account,

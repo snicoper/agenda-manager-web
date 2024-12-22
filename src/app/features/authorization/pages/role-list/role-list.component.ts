@@ -28,7 +28,7 @@ import { RequiredPermissionDirective } from '../../../../shared/directives/requi
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { RoleCreateBladeComponent } from '../../components/role-create-blade/role-create-blade.component';
 import { RoleUpdateBladeComponent } from '../../components/role-update-blade/role-update-blade.component';
-import { RoleResponse } from '../../models/role.response';
+import { RolePaginatedResponse } from '../../models/role-paginated.response';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 
 @Component({
@@ -68,8 +68,8 @@ export class RoleListComponent implements AfterViewInit {
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
 
-  dataSource = new MatTableDataSource<RoleResponse>();
-  paginatedResult = new PaginatedResult<RoleResponse>();
+  dataSource = new MatTableDataSource<RolePaginatedResponse>();
+  paginatedResult = new PaginatedResult<RolePaginatedResponse>();
   loading = true;
 
   constructor() {
@@ -90,7 +90,7 @@ export class RoleListComponent implements AfterViewInit {
     this.router.navigateByUrl(url);
   }
 
-  handleSelectRow(role: RoleResponse): void {
+  handleSelectRow(role: RolePaginatedResponse): void {
     const url = UrlUtils.buildSiteUrl(SiteUrls.roles.permissions, { id: role.id });
     this.router.navigateByUrl(url);
   }
@@ -100,7 +100,7 @@ export class RoleListComponent implements AfterViewInit {
     this.loadRoles();
   }
 
-  handleFilterChange(paginatedResult: PaginatedResult<RoleResponse>): void {
+  handleFilterChange(paginatedResult: PaginatedResult<RolePaginatedResponse>): void {
     this.paginatedResult = paginatedResult;
     this.loadRoles();
   }
@@ -172,7 +172,7 @@ export class RoleListComponent implements AfterViewInit {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (response) => {
-          this.paginatedResult = PaginatedResult.create<RoleResponse>(response);
+          this.paginatedResult = PaginatedResult.create<RolePaginatedResponse>(response);
           this.dataSource.data = this.paginatedResult.items;
 
           if (this.sort && this.paginatedResult.order) {

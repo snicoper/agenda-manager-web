@@ -6,6 +6,7 @@ import { BaseRoleManagementApiService } from '../../../core/services/api/base-ro
 import { UrlUtils } from '../../../core/utils/url.utils';
 import { CreateRoleRequest } from '../models/create-role.request';
 import { GetRolePermissionsByIdResponse } from '../models/get-role-permissions-by-id.response';
+import { RolePaginatedResponse } from '../models/role-paginated.response';
 import { RoleResponse } from '../models/role.response';
 import { UpdatePermissionForRoleRequest } from '../models/update-permission-for-role.request';
 import { RoleUpdateRequest } from '../models/update-role.request';
@@ -15,10 +16,16 @@ import { UserNotInRoleResponse } from '../models/user-not-in-role.response';
 @Injectable({ providedIn: 'root' })
 export class AuthorizationApiService extends BaseRoleManagementApiService {
   /** Get roles paginated. */
-  getRolesPaginated(paginatedResult: PaginatedResult<RoleResponse>): Observable<PaginatedResult<RoleResponse>> {
+  getRolesPaginated(
+    paginatedResult: PaginatedResult<RolePaginatedResponse>,
+  ): Observable<PaginatedResult<RolePaginatedResponse>> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.getRolesPaginated);
 
-    return this.getPaginated(paginatedResult, endpoint, (response) => response.value as PaginatedResult<RoleResponse>);
+    return this.getPaginated(
+      paginatedResult,
+      endpoint,
+      (response) => response.value as PaginatedResult<RolePaginatedResponse>,
+    );
   }
 
   /** Get role by id. */

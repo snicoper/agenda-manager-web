@@ -26,7 +26,7 @@ import { RequiredPermissionDirective } from '../../../../shared/directives/requi
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
-import { AccountResponse } from '../../models/account.response';
+import { AccountResponse } from '../../models/account-paginated.response';
 import { AccountApiService } from '../../services/account-api.service';
 
 @Component({
