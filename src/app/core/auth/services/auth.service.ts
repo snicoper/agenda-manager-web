@@ -263,7 +263,8 @@ export class AuthService implements OnDestroy {
       } else {
         this.logout();
       }
-    } catch {
+    } catch (error) {
+      logError('Invalid token specified: ', error);
       this.logout();
     }
   }
