@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { logError } from '../../../../core/errors/debug-logger';
 import { BladeComponent } from '../../blade/blade.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -17,8 +18,11 @@ export class PageBaseComponent implements OnInit {
   isLeaving = false;
 
   ngOnInit(): void {
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      this.isLeaving = false;
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe({
+      next: () => {
+        this.isLeaving = false;
+      },
+      error: (error) => logError(error),
     });
   }
 
