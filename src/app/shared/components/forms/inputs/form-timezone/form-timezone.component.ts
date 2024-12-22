@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { getTimeZones } from '@vvo/tzdb';
 import { FormState } from '../../../../../core/models/form-state.interface';
+import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.directive';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormTimeZoneItem } from './models/form-time-zone.item.model';
 
@@ -22,7 +23,15 @@ import { FormTimeZoneItem } from './models/form-time-zone.item.model';
       multi: true,
     },
   ],
-  imports: [FormsModule, CommonModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, FieldErrorComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FieldErrorComponent,
+    SelectOnFocusDirective,
+  ],
 })
 export class FormTimezoneComponent implements ControlValueAccessor {
   formState = input.required<FormState>();
@@ -78,8 +87,8 @@ export class FormTimezoneComponent implements ControlValueAccessor {
     const control = this.formState().form.get(this.fieldName()) as FormGroup;
 
     return !!(
-      (this.formState().isSubmitted && control.invalid) ||
-      this.formState().badRequest?.errors[this.fieldName()]
+      ((this.formState().isSubmitted && control.invalid) || this.formState().badRequest?.errors?.[this.fieldName()]) ??
+      false
     );
   }
 

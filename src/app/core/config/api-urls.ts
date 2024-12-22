@@ -19,6 +19,8 @@ export const ApiUrls = {
   },
   calendars: {
     getCalendarsPaginated: '/calendars/paginated',
+    getCalendarById: '/calendars/{calendarId}',
+    createCalendar: '/calendars',
   },
   roles: {
     getRolesPaginated: '/roles/paginated',

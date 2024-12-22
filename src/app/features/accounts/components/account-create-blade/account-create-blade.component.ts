@@ -70,7 +70,7 @@ export class AccountCreateBladeComponent implements OnInit {
       return;
     }
 
-    const request = this.formState.form.value as AccountCreateRequest;
+    const request: AccountCreateRequest = this.formState.form.value;
     this.create(request);
   }
 
@@ -93,8 +93,8 @@ export class AccountCreateBladeComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.snackBarService.success('Usuario creado correctamente');
-          this.router.navigate([SiteUrls.accounts.accounts, response.userId]);
           this.bladeService.emitResult(true);
+          this.router.navigate([SiteUrls.accounts.accounts, response.userId]);
         },
         error: (error: HttpErrorResponse) => {
           const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);

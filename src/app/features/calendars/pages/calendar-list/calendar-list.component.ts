@@ -9,7 +9,7 @@ import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/s
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SystemPermissions } from '../../../../core/auth/permissions/system-permissions.const';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
@@ -97,6 +97,14 @@ export class CalendarListComponent implements AfterViewInit {
 
   handleCreateCalendar(): void {
     this.bladeService.show(CalendarCreateBladeComponent);
+
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: (result) => {
+        if (result) {
+          this.loadCalendars();
+        }
+      },
+    });
   }
 
   private setBreadcrumb(): void {

@@ -4,6 +4,7 @@
     <input
       aria-label="Selección de zona horaria"
       matInput
+      amSelectOnFocus
       (ngModelChange)="onChangeValue($event)"
       [(ngModel)]="value"
       [matAutocomplete]="timezones"
