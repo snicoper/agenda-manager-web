@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { AppEnvironment } from '../../config/app-environment';
+import { logInfo } from '../../errors/debug-logger';
 import { ApiResponse } from '../../models/api-response.interface';
 import { PaginatedResult } from '../../paginated-result/paginated-result';
 
@@ -22,9 +23,11 @@ export abstract class ApiBaseService {
   }
 
   protected get<TResponse>(endpoint = '', mapper?: (data: ApiResponse<TResponse>) => TResponse): Observable<TResponse> {
-    const url = `${this.baseUrl}${endpoint}`;
+    logInfo(`GET: ${endpoint}`);
 
-    return this.http.get<ApiResponse<TResponse>>(url).pipe(map((response) => this.handleResponse(response, mapper)));
+    return this.http
+      .get<ApiResponse<TResponse>>(endpoint)
+      .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
   protected post<TRequest, TResponse>(
@@ -32,10 +35,8 @@ export abstract class ApiBaseService {
     endpoint = '',
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
   ): Observable<TResponse> {
-    const url = `${this.baseUrl}${endpoint}`;
-
     return this.http
-      .post<ApiResponse<TResponse>>(url, request)
+      .post<ApiResponse<TResponse>>(endpoint, request)
       .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
@@ -44,10 +45,8 @@ export abstract class ApiBaseService {
     endpoint = '',
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
   ): Observable<TResponse> {
-    const url = `${this.baseUrl}${endpoint}`;
-
     return this.http
-      .put<ApiResponse<TResponse>>(url, request)
+      .put<ApiResponse<TResponse>>(endpoint, request)
       .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
@@ -55,9 +54,9 @@ export abstract class ApiBaseService {
     endpoint = '',
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
   ): Observable<TResponse> {
-    const url = `${this.baseUrl}${endpoint}`;
-
-    return this.http.delete<ApiResponse<TResponse>>(url).pipe(map((response) => this.handleResponse(response, mapper)));
+    return this.http
+      .delete<ApiResponse<TResponse>>(endpoint)
+      .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
   private handleResponse<TResponse>(
@@ -84,6 +83,6 @@ export abstract class ApiBaseService {
       params.append('filters', JSON.stringify(paginatedResult.filters));
     }
 
-    return `${this.baseUrl}${endpoint}?${params.toString()}`;
+    return `${endpoint}?${params.toString()}`;
   }
 }

@@ -12,7 +12,7 @@ import { ModuleRoleDisplayName } from '../../../../core/auth/permissions/module-
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { CommonUtils } from '../../../../core/utils/common-utils';
+import { UrlUtils } from '../../../../core/utils/url.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
@@ -65,7 +65,7 @@ export class RolePermissionsComponent {
   }
 
   handleNavigateToRoleUserAssignments(): void {
-    const url = CommonUtils.buildUrl(SiteUrls.roles.roleUserAssignments, { id: this.roleId });
+    const url = UrlUtils.buildSiteUrl(SiteUrls.roles.roleUserAssignments, { id: this.roleId });
     this.router.navigateByUrl(url);
   }
 

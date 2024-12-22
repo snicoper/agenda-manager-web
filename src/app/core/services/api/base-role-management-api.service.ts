@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../config/api-urls';
-import { CommonUtils } from '../../utils/common-utils';
+import { UrlUtils } from '../../utils/url.utils';
 import { ApiBaseService } from './api.base.service';
 
 /**
@@ -11,7 +11,7 @@ import { ApiBaseService } from './api.base.service';
 export class BaseRoleManagementApiService extends ApiBaseService {
   /** Assign user to role. */
   assignUserToRole(roleId: string, userId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.assignUserToRole, {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.userRoles.assignUserToRole, {
       roleId: roleId,
       userId: userId,
     });
@@ -21,7 +21,7 @@ export class BaseRoleManagementApiService extends ApiBaseService {
 
   /** Unassigned user from role. */
   unAssignedUserFromRole(roleId: string, userId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.unAssignedUserFromRole, {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.userRoles.unAssignedUserFromRole, {
       roleId: roleId,
       userId: userId,
     });

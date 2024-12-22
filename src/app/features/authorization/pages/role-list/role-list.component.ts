@@ -16,7 +16,7 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { CommonUtils } from '../../../../core/utils/common-utils';
+import { UrlUtils } from '../../../../core/utils/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
@@ -86,12 +86,12 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   handleRoleUserAssignments(roleId: string): void {
-    const url = CommonUtils.buildUrl(SiteUrls.roles.roleUserAssignments, { id: roleId });
+    const url = UrlUtils.buildSiteUrl(SiteUrls.roles.roleUserAssignments, { id: roleId });
     this.router.navigateByUrl(url);
   }
 
   handleSelectRow(role: RoleResponse): void {
-    const url = CommonUtils.buildUrl(SiteUrls.roles.permissions, { id: role.id });
+    const url = UrlUtils.buildSiteUrl(SiteUrls.roles.permissions, { id: role.id });
     this.router.navigateByUrl(url);
   }
 
@@ -118,7 +118,7 @@ export class RoleListComponent implements AfterViewInit {
         const data = result as { roleId: string };
 
         if (data) {
-          const url = CommonUtils.buildUrl(SiteUrls.roles.permissions, { id: data.roleId });
+          const url = UrlUtils.buildSiteUrl(SiteUrls.roles.permissions, { id: data.roleId });
           this.router.navigateByUrl(url);
         }
       },
@@ -132,7 +132,7 @@ export class RoleListComponent implements AfterViewInit {
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: () => {
-        const url = CommonUtils.buildUrl(SiteUrls.roles.permissions, { id: roleId });
+        const url = UrlUtils.buildSiteUrl(SiteUrls.roles.permissions, { id: roleId });
         this.router.navigateByUrl(url);
       },
     });

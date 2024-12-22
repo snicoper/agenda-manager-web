@@ -14,7 +14,7 @@ import { SystemPermissions } from '../../../../core/auth/permissions/system-perm
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { CommonUtils } from '../../../../core/utils/common-utils';
+import { UrlUtils } from '../../../../core/utils/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
@@ -106,7 +106,7 @@ export class AccountListComponent implements AfterViewInit {
   }
 
   handleClickDetails(userId: string): void {
-    const url = CommonUtils.buildUrl(SiteUrls.accounts.details, { id: userId });
+    const url = UrlUtils.buildSiteUrl(SiteUrls.accounts.details, { id: userId });
     this.router.navigateByUrl(url);
   }
 

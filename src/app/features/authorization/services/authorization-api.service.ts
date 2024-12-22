@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { PaginatedResult } from '../../../core/paginated-result/paginated-result';
 import { BaseRoleManagementApiService } from '../../../core/services/api/base-role-management-api.service';
-import { CommonUtils } from '../../../core/utils/common-utils';
+import { UrlUtils } from '../../../core/utils/url.utils';
 import { CreateRoleRequest } from '../models/create-role.request';
 import { GetRolePermissionsByIdResponse } from '../models/get-role-permissions-by-id.response';
 import { RoleResponse } from '../models/role.response';
@@ -16,23 +16,21 @@ import { UserNotInRoleResponse } from '../models/user-not-in-role.response';
 export class AuthorizationApiService extends BaseRoleManagementApiService {
   /** Get roles paginated. */
   getRolesPaginated(paginatedResult: PaginatedResult<RoleResponse>): Observable<PaginatedResult<RoleResponse>> {
-    return this.getPaginated(
-      paginatedResult,
-      ApiUrls.roles.getRolesPaginated,
-      (response) => response.value as PaginatedResult<RoleResponse>,
-    );
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.getRolesPaginated);
+
+    return this.getPaginated(paginatedResult, endpoint, (response) => response.value as PaginatedResult<RoleResponse>);
   }
 
   /** Get role by id. */
   getRoleById(roleId: string): Observable<RoleResponse> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.getRoleById, { roleId: roleId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.getRoleById, { roleId: roleId });
 
     return this.get<RoleResponse>(endpoint, (response) => response.value as RoleResponse);
   }
 
   /** Get role with permissions by id. */
   getRolePermissionsById(roleId: string): Observable<GetRolePermissionsByIdResponse> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.getRolePermissionsById, { roleId: roleId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.getRolePermissionsById, { roleId: roleId });
 
     return this.get<GetRolePermissionsByIdResponse>(
       endpoint,
@@ -42,11 +40,9 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
 
   /** Create role. */
   createRole(request: CreateRoleRequest): Observable<string> {
-    return this.post<CreateRoleRequest, string>(
-      request,
-      ApiUrls.roles.createRole,
-      (response) => response.value as string,
-    );
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.createRole);
+
+    return this.post<CreateRoleRequest, string>(request, endpoint, (response) => response.value as string);
   }
 
   /** Update permission for role. */
@@ -55,7 +51,7 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
     permissionId: string,
     request: UpdatePermissionForRoleRequest,
   ): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.updatePermissionForRole, {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.updatePermissionForRole, {
       roleId: roleId,
       permissionId: permissionId,
     });
@@ -69,7 +65,7 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
 
   /** Delete role. */
   deleteRole(roleId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.deleteRole, { roleId: roleId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.deleteRole, { roleId: roleId });
 
     return this.delete<boolean>(endpoint, (response) => response.value as boolean);
   }
@@ -79,7 +75,7 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
     roleId: string,
     paginatedResult: PaginatedResult<UserInRoleResponse>,
   ): Observable<PaginatedResult<UserInRoleResponse>> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.getUsersByRoleIdPaginated, { roleId: roleId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.userRoles.getUsersByRoleIdPaginated, { roleId: roleId });
 
     return this.getPaginated<UserInRoleResponse>(
       paginatedResult,
@@ -93,7 +89,7 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
     roleId: string,
     paginatedResult: PaginatedResult<UserNotInRoleResponse>,
   ): Observable<PaginatedResult<UserNotInRoleResponse>> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.userRoles.getUsersNotInRoleIdPaginated, { roleId: roleId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.userRoles.getUsersNotInRoleIdPaginated, { roleId: roleId });
 
     return this.getPaginated<UserNotInRoleResponse>(
       paginatedResult,
@@ -104,7 +100,7 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
 
   /** Update role. */
   updateRole(roleId: string, request: RoleUpdateRequest): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.roles.updateRol, { roleId: roleId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.updateRol, { roleId: roleId });
 
     return this.put<RoleUpdateRequest, boolean>(request, endpoint, (response) => response.value as boolean);
   }

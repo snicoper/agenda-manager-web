@@ -4,8 +4,8 @@ import { ApiUrls } from '../../../core/config/api-urls';
 import { PaginatedResult } from '../../../core/paginated-result/paginated-result';
 import { EmptyRequest } from '../../../core/paginated-result/types/empty-request.type';
 import { ApiBaseService } from '../../../core/services/api/api.base.service';
-import { CommonUtils } from '../../../core/utils/common-utils';
-import { DateTimeUtils } from '../../../core/utils/datetime-utils';
+import { DateTimeUtils } from '../../../core/utils/datetime.utils';
+import { UrlUtils } from '../../../core/utils/url.utils';
 import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountCreateResponse } from '../models/account-create.response';
 import { AccountDetailsResponse } from '../models/account-details.response';
@@ -23,7 +23,9 @@ export class AccountApiService extends ApiBaseService {
   getAccountsPaginated(
     paginatedResult: PaginatedResult<AccountResponse>,
   ): Observable<PaginatedResult<AccountResponse>> {
-    return this.getPaginated(paginatedResult, ApiUrls.accounts.getAccountsPaginated, (response) => {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.getAccountsPaginated);
+
+    return this.getPaginated(paginatedResult, endpoint, (response) => {
       const result = PaginatedResult.create<AccountResponse>(response.value);
 
       result.items = result.items.map((account) => ({
@@ -37,7 +39,7 @@ export class AccountApiService extends ApiBaseService {
 
   /** Get account details. */
   getAccountDetails(userId: string): Observable<AccountDetailsResponse> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.getAccountDetails, { userId: userId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.getAccountDetails, { userId: userId });
 
     return this.get<AccountDetailsResponse>(endpoint, (response) => {
       return {
@@ -58,73 +60,63 @@ export class AccountApiService extends ApiBaseService {
 
   /** Account confirmation. */
   confirmAccount(request: ConfirmAccountRequest): Observable<boolean> {
-    return this.post<ConfirmAccountRequest, boolean>(
-      request,
-      ApiUrls.accounts.confirmAccount,
-      (response) => response.isSuccess,
-    );
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.confirmAccount);
+
+    return this.post<ConfirmAccountRequest, boolean>(request, endpoint, (response) => response.isSuccess);
   }
 
   /** Recovery password. */
   requestPasswordReset(request: RequestPasswordResetRequest): Observable<boolean> {
-    return this.post<RequestPasswordResetRequest, boolean>(
-      request,
-      ApiUrls.accounts.requestPasswordReset,
-      (response) => response.isSuccess,
-    );
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.requestPasswordReset);
+
+    return this.post<RequestPasswordResetRequest, boolean>(request, endpoint, (response) => response.isSuccess);
   }
 
   /** Confirm recovery password. */
   confirmRecoveryPassword(request: ResetPasswordRequest): Observable<boolean> {
-    return this.post<ResetPasswordRequest, boolean>(
-      request,
-      ApiUrls.accounts.resetPassword,
-      (response) => response.isSuccess,
-    );
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.resetPassword);
+
+    return this.post<ResetPasswordRequest, boolean>(request, endpoint, (response) => response.isSuccess);
   }
 
   /** Resend email code. */
   confirmEmailResent(request: ResendEmailConfirmation): Observable<boolean> {
-    return this.post<ResendEmailConfirmation, boolean>(
-      request,
-      ApiUrls.accounts.resendEmailConfirmation,
-      (response) => response.isSuccess,
-    );
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.resendEmailConfirmation);
+
+    return this.post<ResendEmailConfirmation, boolean>(request, endpoint, (response) => response.isSuccess);
   }
 
   /** Verify email. */
   verifyEmail(request: VerifyEmailRequest): Observable<boolean> {
-    return this.post<VerifyEmailRequest, boolean>(
-      request,
-      ApiUrls.accounts.verifyEmail,
-      (response) => response.isSuccess,
-    );
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.verifyEmail);
+
+    return this.post<VerifyEmailRequest, boolean>(request, endpoint, (response) => response.isSuccess);
   }
 
   /** Update account. */
   updateAccount(userId: string, request: AccountUpdateRequest): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.updateAccount, { userId: userId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.updateAccount, { userId: userId });
 
     return this.put<AccountUpdateRequest, boolean>(request, endpoint, (response) => response.isSuccess);
   }
 
   /** Toggle account is active. */
   toggleIsActive(userId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.toggleIsActive, { userId: userId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.toggleIsActive, { userId: userId });
 
     return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
   }
 
   /** Confirm email. */
   confirmEmail(userId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.confirmEmail, { userId: userId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.confirmEmail, { userId: userId });
 
     return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
   }
 
   /** Toggle account is collaborator. */
   toggleIsCollaborator(userId: string): Observable<boolean> {
-    const endpoint = CommonUtils.buildUrl(ApiUrls.accounts.toggleIsCollaborator, { userId: userId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.toggleIsCollaborator, { userId: userId });
 
     return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
   }

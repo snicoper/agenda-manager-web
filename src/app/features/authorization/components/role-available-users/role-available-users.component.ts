@@ -12,7 +12,7 @@ import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { CommonUtils } from '../../../../core/utils/common-utils';
+import { UrlUtils } from '../../../../core/utils/url.utils';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { UserNotInRoleResponse } from '../../models/user-not-in-role.response';
@@ -62,7 +62,7 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
   }
 
   handleClickEmailField(userId: string): void {
-    const url = CommonUtils.buildUrl(SiteUrls.accounts.details, { id: userId });
+    const url = UrlUtils.buildSiteUrl(SiteUrls.accounts.details, { id: userId });
 
     this.router.navigateByUrl(url);
   }

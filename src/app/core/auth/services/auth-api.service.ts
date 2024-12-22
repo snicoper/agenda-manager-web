@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../config/api-urls';
 import { ApiBaseService } from '../../services/api/api.base.service';
-import { DateTimeUtils } from '../../utils/datetime-utils';
+import { DateTimeUtils } from '../../utils/datetime.utils';
+import { UrlUtils } from '../../utils/url.utils';
 import { LoginRequest } from '../models/login.request';
 import { LoginResponse } from '../models/login.response';
 import { RefreshTokenRequest } from '../models/refresh-token.request';
@@ -11,7 +12,9 @@ import { RefreshTokenRequest } from '../models/refresh-token.request';
 export class AuthApiService extends ApiBaseService {
   /** Login user. */
   login(request: LoginRequest): Observable<LoginResponse> {
-    return this.post<LoginRequest, LoginResponse>(request, ApiUrls.auth.login, (response) => ({
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.auth.login);
+
+    return this.post<LoginRequest, LoginResponse>(request, endpoint, (response) => ({
       ...response.value,
       expires: DateTimeUtils.fromApi(response.value.expires),
     }));
@@ -19,7 +22,9 @@ export class AuthApiService extends ApiBaseService {
 
   /** Refresh the token. */
   refreshToken(refreshToken: RefreshTokenRequest): Observable<LoginResponse> {
-    return this.post<RefreshTokenRequest, LoginResponse>(refreshToken, ApiUrls.auth.refreshToken, (response) => ({
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.auth.refreshToken);
+
+    return this.post<RefreshTokenRequest, LoginResponse>(refreshToken, endpoint, (response) => ({
       ...response.value,
       expires: DateTimeUtils.fromApi(response.value.expires),
     }));

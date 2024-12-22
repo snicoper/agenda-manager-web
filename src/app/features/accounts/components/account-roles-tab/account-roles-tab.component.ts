@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { CommonUtils } from '../../../../core/utils/common-utils';
+import { UrlUtils } from '../../../../core/utils/url.utils';
 import { AvailableRolesByUserIdResponse } from '../../models/available-roles-by-user-id.response';
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountRoleApiService } from '../../services/account-role-api.service';
@@ -42,7 +42,7 @@ export class AccountRolesTabComponent implements OnInit {
   }
 
   handleNavigateToRolePermissions(roleId: string): void {
-    const url = CommonUtils.buildUrl(SiteUrls.roles.permissions, { id: roleId });
+    const url = UrlUtils.buildSiteUrl(SiteUrls.roles.permissions, { id: roleId });
 
     this.router.navigateByUrl(url);
   }
