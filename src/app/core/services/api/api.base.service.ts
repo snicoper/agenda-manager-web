@@ -1,15 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { AppEnvironment } from '../../config/app-environment';
 import { logInfo } from '../../errors/debug-logger';
 import { ApiResponse } from '../../models/api-response.interface';
 import { PaginatedResult } from '../../paginated-result/paginated-result';
 
+/**
+ * Servicio base abstracto para la comunicación con la API.
+ * Proporciona métodos genéricos para realizar operaciones CRUD.
+ */
 export abstract class ApiBaseService {
+  // Cliente HTTP inyectado para realizar solicitudes HTTP.
   protected readonly http = inject(HttpClient);
-  protected readonly baseUrl = AppEnvironment.BaseApiUrl;
 
+  /**
+   * Realiza una solicitud GET a un endpoint paginado y transforma la respuesta.
+   *
+   * @param paginatedResult Estructura de resultados paginados.
+   * @param endpoint Endpoint al que se realizará la solicitud.
+   * @param mapper Función opcional para transformar la respuesta.
+   * @returns Un observable con los resultados paginados transformados.
+   */
   protected getPaginated<T>(
     paginatedResult: PaginatedResult<T>,
     endpoint = '',
@@ -22,6 +33,13 @@ export abstract class ApiBaseService {
       .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
+  /**
+   * Realiza una solicitud GET a un endpoint y transforma la respuesta.
+   *
+   * @param endpoint Endpoint al que se realizará la solicitud.
+   * @param mapper Función opcional para transformar la respuesta.
+   * @returns Un observable con la respuesta transformada.
+   */
   protected get<TResponse>(endpoint = '', mapper?: (data: ApiResponse<TResponse>) => TResponse): Observable<TResponse> {
     logInfo(`GET: ${endpoint}`);
 
@@ -30,6 +48,14 @@ export abstract class ApiBaseService {
       .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
+  /**
+   * Realiza una solicitud POST a un endpoint y transforma la respuesta.
+   *
+   * @param request Datos del cuerpo de la solicitud.
+   * @param endpoint Endpoint al que se realizará la solicitud.
+   * @param mapper Función opcional para transformar la respuesta.
+   * @returns Un observable con la respuesta transformada.
+   */
   protected post<TRequest, TResponse>(
     request: TRequest,
     endpoint = '',
@@ -40,6 +66,14 @@ export abstract class ApiBaseService {
       .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
+  /**
+   * Realiza una solicitud PUT a un endpoint y transforma la respuesta.
+   *
+   * @param request Datos del cuerpo de la solicitud.
+   * @param endpoint Endpoint al que se realizará la solicitud.
+   * @param mapper Función opcional para transformar la respuesta.
+   * @returns Un observable con la respuesta transformada.
+   */
   protected put<TRequest, TResponse>(
     request: TRequest,
     endpoint = '',
@@ -50,6 +84,13 @@ export abstract class ApiBaseService {
       .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
+  /**
+   * Realiza una solicitud DELETE a un endpoint y transforma la respuesta.
+   *
+   * @param endpoint Endpoint al que se realizará la solicitud.
+   * @param mapper Función opcional para transformar la respuesta.
+   * @returns Un observable con la respuesta transformada.
+   */
   protected delete<TResponse>(
     endpoint = '',
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
@@ -59,6 +100,13 @@ export abstract class ApiBaseService {
       .pipe(map((response) => this.handleResponse(response, mapper)));
   }
 
+  /**
+   * Maneja la respuesta de la API y aplica un mapeador opcional.
+   *
+   * @param response Respuesta de la API.
+   * @param mapper Función opcional para transformar la respuesta.
+   * @returns La respuesta transformada o el valor original.
+   */
   private handleResponse<TResponse>(
     response: ApiResponse<TResponse>,
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
@@ -66,6 +114,13 @@ export abstract class ApiBaseService {
     return mapper ? mapper(response) : response.value;
   }
 
+  /**
+   * Construye la URL para una solicitud paginada agregando parámetros de paginación, ordenación y filtros.
+   *
+   * @param endpoint Endpoint base.
+   * @param paginatedResult Resultados paginados con parámetros adicionales.
+   * @returns La URL completa con parámetros de consulta.
+   */
   private buildPaginatedUrl<T>(endpoint: string, paginatedResult: PaginatedResult<T>): string {
     const params = new URLSearchParams();
 
