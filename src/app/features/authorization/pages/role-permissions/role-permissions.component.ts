@@ -15,7 +15,6 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
-import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { GetRolePermissionsByIdResponse, PermissionDetail } from '../../models/get-role-permissions-by-id.response';
@@ -116,9 +115,7 @@ export class RolePermissionsComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb
-      .push(new BreadcrumbItem('Roles', SiteUrls.roles.list))
-      .push(new BreadcrumbItem('Permisos', SiteUrls.roles.permissions, '', false));
+    this.breadcrumb.add('Roles', SiteUrls.roles.list).add('Permisos', SiteUrls.roles.permissions, '', false);
   }
 
   private loadRolePermissions(): void {

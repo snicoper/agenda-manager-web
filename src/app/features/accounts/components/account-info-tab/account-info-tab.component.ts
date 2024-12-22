@@ -8,7 +8,6 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
-import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountApiService } from '../../services/account-api.service';
 import { AccountDetailsService } from '../../services/account-details.service';
@@ -121,7 +120,7 @@ export class AccountInfoTabComponent implements OnInit {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .push(new BreadcrumbItem('Accounts', SiteUrls.accounts.accounts))
-      .push(new BreadcrumbItem('Account Details', SiteUrls.accounts.details, '', false));
+      .add('Accounts', SiteUrls.accounts.accounts)
+      .add('Account Details', SiteUrls.accounts.details, '', false);
   }
 }

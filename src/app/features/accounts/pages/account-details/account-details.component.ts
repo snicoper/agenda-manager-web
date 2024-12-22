@@ -5,7 +5,6 @@ import { SystemPermissions } from '../../../../core/auth/permissions/system-perm
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
-import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar/models/nav-toolbar-data.interface';
 import { NavToolbarComponent } from '../../../../shared/components/layout/nav-toolbar/nav-toolbar.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
@@ -62,7 +61,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .push(new BreadcrumbItem('Accounts', SiteUrls.accounts.accounts))
-      .push(new BreadcrumbItem('Account Details', SiteUrls.accounts.details, '', false));
+      .add('Cuentas', SiteUrls.accounts.accounts)
+      .add('Detalles de cuenta', SiteUrls.accounts.details, '', false);
   }
 }

@@ -16,7 +16,6 @@ import { PaginatedResult } from '../../../../core/paginated-result/paginated-res
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
-import { BreadcrumbItem } from '../../../../shared/components/breadcrumb/breadcrumbItem';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
@@ -108,7 +107,7 @@ export class CalendarListComponent implements AfterViewInit {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.push(new BreadcrumbItem('Calendarios', SiteUrls.calendars.list, '', false));
+    this.breadcrumb.add('Calendarios', SiteUrls.calendars.list, '', false);
   }
 
   private loadCalendars(): void {
