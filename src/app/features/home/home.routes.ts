@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { SystemPermissions } from '../../core/auth/constants/system-permissions.const';
-import { SystemRoles } from '../../core/auth/constants/system-roles.const';
 import { AuthGuard } from '../../core/guards/auth.guard';
+import { SystemPermissions } from '../../core/modules/auth/constants/system-permissions.const';
+import { SystemRoles } from '../../core/modules/auth/constants/system-roles.const';
 import { HomeComponent } from './pages/home.component';
 
 export const routes: Routes = [

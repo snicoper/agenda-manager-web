@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ThemeState } from '../../shared/components/layout/services/states/theme.state';
-import { AuthService } from '../auth/services/auth.service';
 import { logError, logInfo } from '../errors/debug-logger';
+import { AuthService } from '../modules/auth/services/auth.service';
 import { LuxonDateTimeService } from '../modules/i18n/services/luxon-date-time.service';
 import { LocaleState } from '../modules/i18n/services/states/locale.state';
 import { TimeZoneState } from '../modules/i18n/services/states/time-zone.state';

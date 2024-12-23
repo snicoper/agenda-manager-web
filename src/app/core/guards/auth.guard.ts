@@ -1,10 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { RouteAuthConfig } from '../auth/interfaces/router-auth-config.interface';
-import { AuthService } from '../auth/services/auth.service';
-import { SystemRole } from '../auth/types/system-roles.type';
 import { SiteUrls } from '../config/site-urls';
 import { logError } from '../errors/debug-logger';
+import { RouteAuthConfig } from '../modules/auth/interfaces/router-auth-config.interface';
+import { AuthService } from '../modules/auth/services/auth.service';
+import { SystemRole } from '../modules/auth/types/system-roles.type';
 
 //   {
 //     path: 'appointments',

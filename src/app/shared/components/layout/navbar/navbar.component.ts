@@ -4,10 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../../../core/auth/services/auth.service';
 import { AppEnvironment } from '../../../../core/config/app-environment';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ThemeColor } from '../../../../core/enums/theme-color.enum';
+import { AuthService } from '../../../../core/modules/auth/services/auth.service';
 import { LayoutService } from '../services/layout.service';
 import { ThemeState } from '../services/states/theme.state';
 

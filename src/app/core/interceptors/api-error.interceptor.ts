@@ -10,9 +10,9 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
-import { AuthService } from '../auth/services/auth.service';
 import { SiteUrls } from '../config/site-urls';
 import { logError, logWarning } from '../errors/debug-logger';
+import { AuthService } from '../modules/auth/services/auth.service';
 import { SnackBarService } from '../services/snackbar.service';
 
 @Injectable()

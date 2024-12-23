@@ -1,6 +1,6 @@
 import { Directive, ElementRef, OnInit, Renderer2, inject, input } from '@angular/core';
-import { Permission, SystemPermissionsType } from '../../core/auth/interfaces/system-permissions.interface';
-import { AuthService } from '../../core/auth/services/auth.service';
+import { AuthService } from '../../core/modules/auth/services/auth.service';
+import { AllPermissions } from '../../core/modules/auth/types/all-permissions.type';
 
 // <!-- Múltiples permisos (necesita todos) -->
 // <button
@@ -8,11 +8,6 @@ import { AuthService } from '../../core/auth/services/auth.service';
 //   [requiresAll]="true">
 //   Gestionar Usuarios
 // </button>
-
-export type AllPermissions = {
-  [K in keyof SystemPermissionsType]: SystemPermissionsType[K][keyof Permission];
-}[keyof SystemPermissionsType];
-
 @Directive({ selector: '[amRequiredPermission]' })
 export class RequiredPermissionDirective implements OnInit {
   private readonly elementRef = inject(ElementRef);

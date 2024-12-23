@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { SystemPermissions } from '../../core/auth/constants/system-permissions.const';
 import { AuthGuard } from '../../core/guards/auth.guard';
+import { SystemPermissions } from '../../core/modules/auth/constants/system-permissions.const';
 import { CalendarDetailsComponent } from './pages/calendar-details/calendar-details.component';
 import { CalendarListComponent } from './pages/calendar-list/calendar-list.component';
 

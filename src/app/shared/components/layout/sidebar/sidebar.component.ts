@@ -5,7 +5,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { AuthService } from '../../../../core/auth/services/auth.service';
+import { AuthService } from '../../../../core/modules/auth/services/auth.service';
 import { LayoutService } from '../services/layout.service';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 

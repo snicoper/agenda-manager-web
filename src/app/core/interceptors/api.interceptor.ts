@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth/services/auth.service';
+import { AuthService } from '../modules/auth/services/auth.service';
 import { LocaleState } from '../modules/i18n/services/states/locale.state';
 
 @Injectable()

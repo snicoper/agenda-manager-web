@@ -1,4 +1,4 @@
-import { DateTimeProvider } from '../../../types/datetime-provider.type';
+import { DateTimeProvider } from '../../../../types/datetime-provider.type';
 
 export interface LoginResponse {
   accessToken: string;

@@ -3,8 +3,9 @@ import { Component, inject, input, model } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import { AuthService } from '../../../../core/auth/services/auth.service';
-import { AllPermissions, RequiredPermissionDirective } from '../../../directives/required-permission.directive';
+import { AuthService } from '../../../../core/modules/auth/services/auth.service';
+import { AllPermissions } from '../../../../core/modules/auth/types/all-permissions.type';
+import { RequiredPermissionDirective } from '../../../directives/required-permission.directive';
 import { RequiredRoleDirective } from '../../../directives/required-role.directive';
 import { NavToolbarData } from './models/nav-toolbar-data.interface';
 
