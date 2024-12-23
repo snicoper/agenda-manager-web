@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { SystemPermissions } from '../../core/auth/permissions/system-permissions.const';
+import { SystemPermissions } from '../../core/auth/constants/system-permissions.const';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { AccountDetailsComponent } from './pages/account-details/account-details.component';
 import { AccountListComponent } from './pages/account-list/account-list.component';

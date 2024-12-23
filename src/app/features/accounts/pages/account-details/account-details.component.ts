@@ -1,10 +1,10 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
-import { SystemPermissions } from '../../../../core/auth/permissions/system-permissions.const';
+import { SystemPermissions } from '../../../../core/auth/constants/system-permissions.const';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
-import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
+import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar/models/nav-toolbar-data.interface';
 import { NavToolbarComponent } from '../../../../shared/components/layout/nav-toolbar/nav-toolbar.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';

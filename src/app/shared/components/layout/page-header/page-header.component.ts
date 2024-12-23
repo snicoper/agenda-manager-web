@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { BreadcrumbCollection } from '../../breadcrumb/breadcrumb-collection';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { BreadcrumbCollection } from '../../breadcrumb/models/breadcrumb-collection.model';
 
 @Component({
   selector: 'am-page-header',

@@ -10,11 +10,11 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
-import { SystemPermissions } from '../../../../core/auth/permissions/system-permissions.const';
+import { SystemPermissions } from '../../../../core/auth/constants/system-permissions.const';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
+import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
@@ -25,7 +25,7 @@ import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
-import { AccountPaginatedResponse } from '../../models/account-paginated.response';
+import { AccountPaginatedResponse } from '../../interfaces/responses/account-paginated.response';
 import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({

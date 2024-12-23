@@ -7,7 +7,7 @@ import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
-import { AvailableRolesByUserIdResponse } from '../../models/available-roles-by-user-id.response';
+import { AvailableRolesByUserIdResponse } from '../../interfaces/responses/available-roles-by-user-id.response';
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountRoleApiService } from '../../services/api/account-role-api.service';
 

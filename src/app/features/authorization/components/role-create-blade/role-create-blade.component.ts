@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize } from 'rxjs';
-import { FormState } from '../../../../core/models/forms/form-state.interface';
+import { FormState } from '../../../../core/interfaces/forms/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -12,7 +12,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { RoleFormConfig, RoleFormContract } from '../../contracts/role-form.contract';
-import { CreateRoleRequest } from '../../models/create-role.request';
+import { CreateRoleRequest } from '../../interfaces/requests/create-role.request';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, Renderer2, inject, input } from '@angular/core';
-import { Permission, SystemPermissionsType } from '../../core/auth/permissions/system-permissions.interface';
+import { Permission, SystemPermissionsType } from '../../core/auth/interfaces/system-permissions.interface';
 import { AuthService } from '../../core/auth/services/auth.service';
 
 // <!-- Múltiples permisos (necesita todos) -->

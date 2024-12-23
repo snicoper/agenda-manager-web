@@ -5,8 +5,8 @@ import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../core/config/site-urls';
 import { logError } from '../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../core/services/snackbar.service';
-import { AccountDetailsResponse } from '../models/account-details.response';
-import { AccountDetailsState } from '../models/account-details.state';
+import { AccountDetailsState } from '../interfaces/account-details-state.interface';
+import { AccountDetailsResponse } from '../interfaces/responses/account-details.response';
 import { AccountApiService } from './api/account-api.service';
 
 @Injectable({ providedIn: 'root' })

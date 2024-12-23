@@ -1,6 +1,6 @@
-import { SystemPermissions } from '../../../../../core/auth/permissions/system-permissions.const';
-import { SystemRoles } from '../../../../../core/auth/roles/system-roles.const';
-import { SystemRole } from '../../../../../core/auth/roles/system-roles.type';
+import { SystemPermissions } from '../../../../../core/auth/constants/system-permissions.const';
+import { SystemRoles } from '../../../../../core/auth/constants/system-roles.const';
+import { SystemRole } from '../../../../../core/auth/types/system-roles.type';
 import { SiteUrls } from '../../../../../core/config/site-urls';
 import { AllPermissions } from '../../../../directives/required-permission.directive';
 

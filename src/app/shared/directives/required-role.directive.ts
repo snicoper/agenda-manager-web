@@ -1,6 +1,6 @@
 import { Directive, ElementRef, OnInit, Renderer2, inject, input } from '@angular/core';
-import { SystemRole } from '../../core/auth/roles/system-roles.type';
 import { AuthService } from '../../core/auth/services/auth.service';
+import { SystemRole } from '../../core/auth/types/system-roles.type';
 
 // <button
 //   [amRequiredRole]="[SystemRoles.Employee, SystemRoles.Customer]"

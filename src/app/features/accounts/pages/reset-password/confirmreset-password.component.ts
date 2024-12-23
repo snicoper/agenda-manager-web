@@ -8,7 +8,7 @@ import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { FormState } from '../../../../core/models/forms/form-state.interface';
+import { FormState } from '../../../../core/interfaces/forms/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -18,7 +18,7 @@ import { passwordMustMatchValidator } from '../../../../shared/components/forms/
 import { strongPasswordValidator } from '../../../../shared/components/forms/validators/strong-password.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
-import { ResetPasswordRequest } from '../../models/reset-password.request';
+import { ResetPasswordRequest } from '../../interfaces/requests/reset-password.request';
 import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
@@ -68,7 +68,7 @@ export class ResetPasswordComponent {
     }
 
     this.formState.isLoading = true;
-    const request = this.formState.form.value as ResetPasswordRequest;
+    const request: ResetPasswordRequest = this.formState.form.value;
     request.token = this.token;
 
     this.confirmRecoveryPassword(request);

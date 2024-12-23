@@ -1,4 +1,4 @@
-import { IdentityDocumentTypeNullable } from '../../../../../../features/accounts/types/identity-document.type';
+import { IdentityDocumentTypeNullable } from '../../../../../../core/modules/identity-document/identity-document.type';
 
 export interface FormIdentityDocumentField {
   number: string;

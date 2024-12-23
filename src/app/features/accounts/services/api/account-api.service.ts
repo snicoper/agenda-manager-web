@@ -6,16 +6,16 @@ import { PaginatedResult } from '../../../../shared/paginated-result/paginated-r
 import { EmptyRequest } from '../../../../shared/paginated-result/types/empty-request.type';
 import { DateTimeUtils } from '../../../../shared/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
-import { AccountCreateRequest } from '../../models/account-create.request';
-import { AccountCreateResponse } from '../../models/account-create.response';
-import { AccountDetailsResponse } from '../../models/account-details.response';
-import { AccountPaginatedResponse } from '../../models/account-paginated.response';
-import { AccountUpdateRequest } from '../../models/account-update.request';
-import { ConfirmAccountRequest } from '../../models/confirm-account.request';
-import { RequestPasswordResetRequest } from '../../models/request-password-reset.request';
-import { ResendEmailConfirmation } from '../../models/resend-email-confirmation.request';
-import { ResetPasswordRequest } from '../../models/reset-password.request';
-import { VerifyEmailRequest } from '../../models/verify-email.request';
+import { AccountCreateRequest } from '../../interfaces/requests/account-create.request';
+import { AccountUpdateRequest } from '../../interfaces/requests/account-update.request';
+import { ConfirmAccountRequest } from '../../interfaces/requests/confirm-account.request';
+import { RequestPasswordResetRequest } from '../../interfaces/requests/request-password-reset.request';
+import { ResendEmailConfirmation } from '../../interfaces/requests/resend-email-confirmation.request';
+import { ResetPasswordRequest } from '../../interfaces/requests/reset-password.request';
+import { VerifyEmailRequest } from '../../interfaces/requests/verify-email.request';
+import { AccountCreateResponse } from '../../interfaces/responses/account-create.response';
+import { AccountDetailsResponse } from '../../interfaces/responses/account-details.response';
+import { AccountPaginatedResponse } from '../../interfaces/responses/account-paginated.response';
 
 @Injectable({ providedIn: 'root' })
 export class AccountApiService extends ApiBaseService {

@@ -8,17 +8,20 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { ModuleRoleDisplayName } from '../../../../core/auth/permissions/module-display-names.const';
+import { ModuleRoleDisplayName } from '../../../../core/auth/constants/module-role-display-name.const';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
-import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
+import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
-import { GetRolePermissionsByIdResponse, PermissionDetail } from '../../models/get-role-permissions-by-id.response';
-import { UpdatePermissionForRoleRequest } from '../../models/update-permission-for-role.request';
+import { UpdatePermissionForRoleRequest } from '../../interfaces/requests/update-permission-for-role.request';
+import {
+  GetRolePermissionsByIdResponse,
+  PermissionDetail,
+} from '../../interfaces/responses/get-role-permissions-by-id.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({

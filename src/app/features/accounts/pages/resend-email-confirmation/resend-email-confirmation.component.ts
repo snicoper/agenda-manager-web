@@ -8,7 +8,7 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { ResendEmailConfirmation } from '../../models/resend-email-confirmation.request';
+import { ResendEmailConfirmation } from '../../interfaces/requests/resend-email-confirmation.request';
 import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({

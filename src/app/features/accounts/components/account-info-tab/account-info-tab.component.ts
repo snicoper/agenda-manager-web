@@ -5,13 +5,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { IdentityDocumentUtils } from '../../../../core/modules/identity-document/identity-document-display.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
+import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountApiService } from '../../services/api/account-api.service';
-import { IdentityDocumentUtils } from '../../types/identity-document.type';
 import { AccountUpdateBladeComponent } from '../account-update-blade/account-update-blade.component';
 
 @Component({

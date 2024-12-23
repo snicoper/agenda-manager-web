@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { SystemRoles } from '../../core/auth/roles/system-roles.const';
+import { SystemRoles } from '../../core/auth/constants/system-roles.const';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { PruebasComponent } from './pruebas.component';
 

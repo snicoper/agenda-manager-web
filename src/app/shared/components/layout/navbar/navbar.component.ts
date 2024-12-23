@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { AppEnvironment } from '../../../../core/config/app-environment';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { ThemeColor } from '../../../../core/types/theme-color.enum';
+import { ThemeColor } from '../../../../core/enums/theme-color.enum';
 import { LayoutService } from '../services/layout.service';
 import { ThemeState } from '../services/states/theme.state';
 

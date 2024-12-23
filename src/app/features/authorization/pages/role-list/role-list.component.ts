@@ -11,12 +11,12 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
-import { SystemPermissions } from '../../../../core/auth/permissions/system-permissions.const';
+import { SystemPermissions } from '../../../../core/auth/constants/system-permissions.const';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
+import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
@@ -27,7 +27,7 @@ import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { RoleCreateBladeComponent } from '../../components/role-create-blade/role-create-blade.component';
 import { RoleUpdateBladeComponent } from '../../components/role-update-blade/role-update-blade.component';
-import { RolePaginatedResponse } from '../../models/role-paginated.response';
+import { RolePaginatedResponse } from '../../interfaces/responses/role-paginated.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({

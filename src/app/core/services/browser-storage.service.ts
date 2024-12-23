@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BrowserStorageKey } from '../types/browser-storage-key.enum';
+import { BrowserStorageKey } from '../enums/browser-storage-key.enum';
 
 @Injectable({ providedIn: 'root' })
 export class BrowserStorageService {

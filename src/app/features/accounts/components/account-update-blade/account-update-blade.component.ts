@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
-import { FormState } from '../../../../core/models/forms/form-state.interface';
+import { FormState } from '../../../../core/interfaces/forms/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -23,7 +23,7 @@ import { addressCompleteValidator } from '../../../../shared/components/forms/va
 import { identityDocumentValidator } from '../../../../shared/components/forms/validators/identity-document.validator';
 import { phoneCompleteValidator } from '../../../../shared/components/forms/validators/phone-complete.validator';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
-import { AccountUpdateRequest } from '../../models/account-update.request';
+import { AccountUpdateRequest } from '../../interfaces/requests/account-update.request';
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountApiService } from '../../services/api/account-api.service';
 

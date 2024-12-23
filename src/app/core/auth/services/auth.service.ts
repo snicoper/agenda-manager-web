@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { SiteUrls } from '../../config/site-urls';
+import { BrowserStorageKey } from '../../enums/browser-storage-key.enum';
 import { logError } from '../../errors/debug-logger';
 import { BrowserStorageService } from '../../services/browser-storage.service';
-import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
-import { AuthState } from '../models/auth-state.interface';
-import { LoginRequest } from '../models/login.request';
-import { LoginResponse } from '../models/login.response';
-import { RefreshTokenRequest } from '../models/refresh-token.request';
-import { AuthApiService } from './auth-api.service';
+import { AuthState } from '../interfaces/auth-state.interface';
+import { LoginRequest } from '../interfaces/requests/login.request';
+import { RefreshTokenRequest } from '../interfaces/requests/refresh-token.request';
+import { LoginResponse } from '../interfaces/responses/login.response';
+import { AuthApiService } from './api/auth-api.service';
 
 /**
  * Servicio de autenticación para gestionar el estado de autenticación del usuario.

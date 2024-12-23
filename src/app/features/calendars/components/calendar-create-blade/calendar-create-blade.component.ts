@@ -5,8 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { TimeZoneState } from '../../../../core/i18n/states/time-zone.state';
-import { FormState } from '../../../../core/models/forms/form-state.interface';
+import { FormState } from '../../../../core/interfaces/forms/form-state.interface';
+import { TimeZoneState } from '../../../../core/modules/i18n/services/states/time-zone.state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -17,7 +17,7 @@ import { FormTextareaComponent } from '../../../../shared/components/forms/input
 import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
-import { CalendarCreateRequest } from '../../models/calendar-create.request';
+import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 
 @Component({

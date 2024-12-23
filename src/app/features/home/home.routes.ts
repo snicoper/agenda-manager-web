@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { SystemPermissions } from '../../core/auth/permissions/system-permissions.const';
-import { SystemRoles } from '../../core/auth/roles/system-roles.const';
+import { SystemPermissions } from '../../core/auth/constants/system-permissions.const';
+import { SystemRoles } from '../../core/auth/constants/system-roles.const';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { HomeComponent } from './pages/home.component';
 

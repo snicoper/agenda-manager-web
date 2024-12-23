@@ -9,7 +9,7 @@ import { of, throwError } from 'rxjs';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
-import { CalendarPaginatedResponse } from '../../models/calendar-paginated.response';
+import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarListComponent } from './calendar-list.component';
 

@@ -15,7 +15,7 @@ import { PaginatorComponent } from '../../../../shared/components/paginator/pagi
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
-import { UserNotInRoleResponse } from '../../models/user-not-in-role.response';
+import { UserNotInRoleResponse } from '../../interfaces/responses/user-not-in-role.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({

@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { SiteUrls } from '../../../core/config/site-urls';
-import { BreadcrumbCollection } from './breadcrumb-collection';
+import { BreadcrumbCollection } from './models/breadcrumb-collection.model';
 
 @Component({
   selector: 'am-breadcrumb',
