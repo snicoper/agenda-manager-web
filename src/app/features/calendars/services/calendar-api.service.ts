@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { ApiBaseService } from '../../../core/services/api/api.base.service';
 import { PaginatedResult } from '../../../shared/paginated-result/paginated-result';
-import { UrlUtils } from '../../../shared/utils/url.utils';
+import { UrlUtils } from '../../../shared/utils/url/url.utils';
 import { CalendarCreateRequest } from '../models/calendar-create.request';
 import { CalendarDetailsRequest } from '../models/calendar-details.request';
 import { CalendarPaginatedResponse } from '../models/calendar-paginated.response';

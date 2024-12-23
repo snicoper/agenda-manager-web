@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { DateTimeUtils } from '../../../shared/utils/datetime.utils';
+import { DateTimeUtils } from '../../../shared/utils/date/datetime.utils';
 import { UrlUtils } from '../../../shared/utils/url.utils';
 import { ApiUrls } from '../../config/api-urls';
 import { LoginRequest } from '../models/login.request';

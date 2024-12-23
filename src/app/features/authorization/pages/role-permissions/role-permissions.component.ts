@@ -16,7 +16,7 @@ import { AlertComponent } from '../../../../shared/components/alert/alert.compon
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
-import { UrlUtils } from '../../../../shared/utils/url.utils';
+import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { GetRolePermissionsByIdResponse, PermissionDetail } from '../../models/get-role-permissions-by-id.response';
 import { UpdatePermissionForRoleRequest } from '../../models/update-permission-for-role.request';
 import { AuthorizationApiService } from '../../services/authorization-api.service';

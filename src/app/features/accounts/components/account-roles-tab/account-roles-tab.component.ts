@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { UrlUtils } from '../../../../shared/utils/url.utils';
+import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { AvailableRolesByUserIdResponse } from '../../models/available-roles-by-user-id.response';
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountRoleApiService } from '../../services/account-role-api.service';

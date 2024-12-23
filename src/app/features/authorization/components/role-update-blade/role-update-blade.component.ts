@@ -12,7 +12,7 @@ import { BladeService } from '../../../../shared/components/blade/services/blade
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
-import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http-error-response-mapping.utils';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { RoleFormConfig, RoleFormContract } from '../../contracts/role-form.contract';
 import { RoleResponse } from '../../models/role.response';
 import { RoleUpdateRequest } from '../../models/update-role.request';

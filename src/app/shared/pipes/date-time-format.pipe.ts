@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DateTime } from 'luxon';
 import { DateTimeProvider } from '../../core/types/datetime-provider.type';
-import { DateTimeUtils } from '../utils/datetime.utils';
+import { DateTimeUtils } from '../utils/date/datetime.utils';
 
 /**
  * Pipe para formatear fechas usando Luxon DateTime.

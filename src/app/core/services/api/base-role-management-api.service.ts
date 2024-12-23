@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { UrlUtils } from '../../../shared/utils/url.utils';
+import { UrlUtils } from '../../../shared/utils/url/url.utils';
 import { ApiUrls } from '../../config/api-urls';
 import { ApiBaseService } from './api.base.service';
 

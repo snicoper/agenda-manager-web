@@ -17,7 +17,7 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { passwordMustMatchValidator } from '../../../../shared/components/forms/validators/password-must-match.validator';
 import { strongPasswordValidator } from '../../../../shared/components/forms/validators/strong-password.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http-error-response-mapping.utils';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { ConfirmAccountRequest } from '../../models/confirm-account.request';
 import { AccountApiService } from '../../services/account-api.service';
 

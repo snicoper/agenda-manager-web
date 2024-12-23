@@ -15,8 +15,8 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
-import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http-error-response-mapping.utils';
-import { UrlUtils } from '../../../../shared/utils/url.utils';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
+import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarCreateRequest } from '../../models/calendar-create.request';
 import { CalendarApiService } from '../../services/calendar-api.service';
 

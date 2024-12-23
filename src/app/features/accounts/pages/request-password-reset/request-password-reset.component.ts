@@ -17,7 +17,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { emailValidator } from '../../../../shared/components/forms/validators/email.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http-error-response-mapping.utils';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { RequestPasswordResetRequest } from '../../models/request-password-reset.request';
 import { AccountApiService } from '../../services/account-api.service';
 

@@ -23,7 +23,7 @@ import { RequiredPermissionDirective } from '../../../../shared/directives/requi
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
-import { UrlUtils } from '../../../../shared/utils/url.utils';
+import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
 import { AccountPaginatedResponse } from '../../models/account-paginated.response';
 import { AccountApiService } from '../../services/account-api.service';

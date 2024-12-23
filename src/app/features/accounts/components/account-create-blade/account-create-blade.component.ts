@@ -18,7 +18,7 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { FormRoleSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-role-selector/form-role-selector.component';
 import { emailValidator } from '../../../../shared/components/forms/validators/email.validator';
 import { minLengthArrayValidator } from '../../../../shared/components/forms/validators/min-length-array.validator';
-import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http-error-response-mapping.utils';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { AccountCreateRequest } from '../../models/account-create.request';
 import { AccountApiService } from '../../services/account-api.service';
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { BaseRoleManagementApiService } from '../../../core/services/api/base-role-management-api.service';
-import { UrlUtils } from '../../../shared/utils/url.utils';
+import { UrlUtils } from '../../../shared/utils/url/url.utils';
 import { AccountRoleByUserIdResponse } from '../models/account-role-by-user-id.response';
 import { AvailableRolesByUserIdResponse } from '../models/available-roles-by-user-id.response';
 

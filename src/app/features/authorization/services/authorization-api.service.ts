@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../core/config/api-urls';
 import { BaseRoleManagementApiService } from '../../../core/services/api/base-role-management-api.service';
 import { PaginatedResult } from '../../../shared/paginated-result/paginated-result';
-import { UrlUtils } from '../../../shared/utils/url.utils';
+import { UrlUtils } from '../../../shared/utils/url/url.utils';
 import { CreateRoleRequest } from '../models/create-role.request';
 import { GetRolePermissionsByIdResponse } from '../models/get-role-permissions-by-id.response';
 import { RolePaginatedResponse } from '../models/role-paginated.response';

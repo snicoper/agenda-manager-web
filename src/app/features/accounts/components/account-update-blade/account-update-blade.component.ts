@@ -22,7 +22,7 @@ import { FormPhoneNumberField } from '../../../../shared/components/forms/inputs
 import { addressCompleteValidator } from '../../../../shared/components/forms/validators/address-complete.validator';
 import { identityDocumentValidator } from '../../../../shared/components/forms/validators/identity-document.validator';
 import { phoneCompleteValidator } from '../../../../shared/components/forms/validators/phone-complete.validator';
-import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http-error-response-mapping.utils';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { AccountUpdateRequest } from '../../models/account-update.request';
 import { AccountApiService } from '../../services/account-api.service';
 import { AccountDetailsService } from '../../services/account-details.service';
