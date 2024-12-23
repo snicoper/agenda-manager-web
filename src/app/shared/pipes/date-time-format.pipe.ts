@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DateTime } from 'luxon';
-import { DateTimeProvider } from '../../core/types/datetime-provider.type';
+import { DateTimeProvider } from '../../core/modules/i18n/types/datetime-provider.type';
 import { DateTimeUtils } from '../utils/date/datetime.utils';
 
 /**

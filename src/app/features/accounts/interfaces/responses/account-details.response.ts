@@ -1,5 +1,5 @@
+import { DateTimeProvider } from '../../../../core/modules/i18n/types/datetime-provider.type';
 import { IdentityDocumentType } from '../../../../core/modules/identity-document/identity-document-type.enum';
-import { DateTimeProvider } from '../../../../core/types/datetime-provider.type';
 
 export interface PhoneNumber {
   countryCode?: string;
