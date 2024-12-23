@@ -1,8 +1,8 @@
 import { Injectable, computed, inject } from '@angular/core';
-import { logError } from '../errors/debug-logger';
-import { BrowserStorageService } from '../services/browser-storage.service';
-import { BrowserStorageKey } from '../types/browser-storage-key.enum';
-import { ThemeColor } from '../types/theme-color.enum';
+import { logError } from '../../errors/debug-logger';
+import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
+import { ThemeColor } from '../../types/theme-color.enum';
+import { BrowserStorageService } from '../browser-storage.service';
 import { BaseState } from './base.state';
 
 @Injectable({ providedIn: 'root' })

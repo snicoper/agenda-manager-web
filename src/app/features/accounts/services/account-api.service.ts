@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../core/config/api-urls';
-import { PaginatedResult } from '../../../core/paginated-result/paginated-result';
-import { EmptyRequest } from '../../../core/paginated-result/types/empty-request.type';
 import { ApiBaseService } from '../../../core/services/api/api.base.service';
-import { DateTimeUtils } from '../../../core/utils/datetime.utils';
-import { UrlUtils } from '../../../core/utils/url.utils';
+import { PaginatedResult } from '../../../shared/paginated-result/paginated-result';
+import { EmptyRequest } from '../../../shared/paginated-result/types/empty-request.type';
+import { DateTimeUtils } from '../../../shared/utils/datetime.utils';
+import { UrlUtils } from '../../../shared/utils/url.utils';
 import { AccountCreateRequest } from '../models/account-create.request';
 import { AccountCreateResponse } from '../models/account-create.response';
 import { AccountDetailsResponse } from '../models/account-details.response';

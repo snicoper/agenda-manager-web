@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DateTimeUtils } from '../../../shared/utils/datetime.utils';
+import { UrlUtils } from '../../../shared/utils/url.utils';
 import { ApiUrls } from '../../config/api-urls';
 import { ApiBaseService } from '../../services/api/api.base.service';
-import { DateTimeUtils } from '../../utils/datetime.utils';
-import { UrlUtils } from '../../utils/url.utils';
 import { LoginRequest } from '../models/login.request';
 import { LoginResponse } from '../models/login.response';
 import { RefreshTokenRequest } from '../models/refresh-token.request';

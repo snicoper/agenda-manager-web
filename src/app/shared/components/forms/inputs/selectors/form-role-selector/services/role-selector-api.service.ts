@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../../../../core/config/api-urls';
 import { ApiBaseService } from '../../../../../../../core/services/api/api.base.service';
-import { UrlUtils } from '../../../../../../../core/utils/url.utils';
+import { UrlUtils } from '../../../../../../utils/url.utils';
 import { SelectableRole } from '../models/selectable-role';
 
 @Injectable()

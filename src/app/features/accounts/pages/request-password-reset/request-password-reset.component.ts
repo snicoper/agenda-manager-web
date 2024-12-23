@@ -9,8 +9,7 @@ import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
-import { FormState } from '../../../../core/models/form-state.interface';
-import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
+import { FormState } from '../../../../core/models/forms/form-state.interface';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -18,6 +17,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { emailValidator } from '../../../../shared/components/forms/validators/email.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http-error-response-mapping.utils';
 import { RequestPasswordResetRequest } from '../../models/request-password-reset.request';
 import { AccountApiService } from '../../services/account-api.service';
 

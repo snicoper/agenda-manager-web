@@ -6,9 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
-import { FormState } from '../../../../core/models/form-state.interface';
+import { FormState } from '../../../../core/models/forms/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -23,6 +22,7 @@ import { FormPhoneNumberField } from '../../../../shared/components/forms/inputs
 import { addressCompleteValidator } from '../../../../shared/components/forms/validators/address-complete.validator';
 import { identityDocumentValidator } from '../../../../shared/components/forms/validators/identity-document.validator';
 import { phoneCompleteValidator } from '../../../../shared/components/forms/validators/phone-complete.validator';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http-error-response-mapping.utils';
 import { AccountUpdateRequest } from '../../models/account-update.request';
 import { AccountApiService } from '../../services/account-api.service';
 import { AccountDetailsService } from '../../services/account-details.service';

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, forwardRef, input } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import ColorPicker, { ColorPickerOptions } from '@thednp/color-picker';
-import { FormState } from '../../../../../core/models/form-state.interface';
+import { FormState } from '../../../../../core/models/forms/form-state.interface';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */

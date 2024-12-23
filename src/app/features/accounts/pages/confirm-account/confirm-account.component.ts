@@ -7,9 +7,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { FormState } from '../../../../core/models/form-state.interface';
+import { FormState } from '../../../../core/models/forms/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http-error-response-mapping.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -18,6 +17,7 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { passwordMustMatchValidator } from '../../../../shared/components/forms/validators/password-must-match.validator';
 import { strongPasswordValidator } from '../../../../shared/components/forms/validators/strong-password.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http-error-response-mapping.utils';
 import { ConfirmAccountRequest } from '../../models/confirm-account.request';
 import { AccountApiService } from '../../services/account-api.service';
 

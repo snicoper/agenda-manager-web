@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SystemPermissions } from '../../../../core/auth/permissions/system-permissions.const';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
@@ -21,6 +20,7 @@ import { PageHeaderComponent } from '../../../../shared/components/layout/page-h
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
+import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { CalendarCreateBladeComponent } from '../../components/calendar-create-blade/calendar-create-blade.component';
 import { CalendarPaginatedResponse } from '../../models/calendar-paginated.response';

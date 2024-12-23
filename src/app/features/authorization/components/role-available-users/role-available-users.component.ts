@@ -10,11 +10,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { PaginatedResult } from '../../../../core/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { UrlUtils } from '../../../../core/utils/url.utils';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
+import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
+import { UrlUtils } from '../../../../shared/utils/url.utils';
 import { UserNotInRoleResponse } from '../../models/user-not-in-role.response';
 import { AuthorizationApiService } from '../../services/authorization-api.service';
 

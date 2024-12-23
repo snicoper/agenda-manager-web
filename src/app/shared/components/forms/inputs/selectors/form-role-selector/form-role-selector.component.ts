@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { finalize } from 'rxjs';
-import { FormState } from '../../../../../../core/models/form-state.interface';
+import { FormState } from '../../../../../../core/models/forms/form-state.interface';
 import { SnackBarService } from '../../../../../../core/services/snackbar.service';
 import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
 import { SelectableRole } from './models/selectable-role';

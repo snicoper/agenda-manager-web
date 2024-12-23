@@ -1,4 +1,4 @@
-import { AppEnvironment } from '../config/app-environment';
+import { AppEnvironment } from '../../core/config/app-environment';
 
 export abstract class UrlUtils {
   /**

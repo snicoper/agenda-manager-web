@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CountryLocaleService } from '../../../../../core/i18n/services/country-locale.service';
-import { FormState } from '../../../../../core/models/form-state.interface';
+import { FormState } from '../../../../../core/models/forms/form-state.interface';
 import {
   IdentityDocumentOptions,
   IdentityDocumentType,

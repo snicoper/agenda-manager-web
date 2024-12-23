@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { BrowserStorageService } from '../../services/browser-storage.service';
-import { BaseState } from '../../states/base.state';
+import { BaseState } from '../../services/states/base.state';
 import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
 import { LocalizationUtils } from '../utils/localization.utils';
 

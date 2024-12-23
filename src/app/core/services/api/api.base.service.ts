@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ApiResponse } from '../../models/api-response.interface';
-import { PaginatedResult } from '../../paginated-result/paginated-result';
+import { PaginatedResult } from '../../../shared/paginated-result/paginated-result';
+import { ApiResponse } from '../../models/http/api-response.interface';
 
 /**
  * Servicio base abstracto para la comunicación con la API.

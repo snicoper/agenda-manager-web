@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../core/config/api-urls';
-import { PaginatedResult } from '../../../core/paginated-result/paginated-result';
 import { ApiBaseService } from '../../../core/services/api/api.base.service';
-import { UrlUtils } from '../../../core/utils/url.utils';
+import { PaginatedResult } from '../../../shared/paginated-result/paginated-result';
+import { UrlUtils } from '../../../shared/utils/url.utils';
 import { CalendarCreateRequest } from '../models/calendar-create.request';
 import { CalendarDetailsRequest } from '../models/calendar-details.request';
 import { CalendarPaginatedResponse } from '../models/calendar-paginated.response';

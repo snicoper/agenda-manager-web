@@ -2,7 +2,7 @@ import { computed, effect, inject, Injectable } from '@angular/core';
 import { Settings } from 'luxon';
 import { AppEnvironment } from '../../config/app-environment';
 import { logInfo, logWarning } from '../../errors/debug-logger';
-import { BaseState } from '../../states/base.state';
+import { BaseState } from '../../services/states/base.state';
 import { LocaleState } from '../states/locale.state';
 import { TimeZoneState } from '../states/time-zone.state';
 import { LocalesSupported } from '../types/locales-supported.enum';
