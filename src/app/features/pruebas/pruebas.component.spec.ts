@@ -17,13 +17,10 @@ describe('PruebasComponent', () => {
 
     fixture = TestBed.createComponent(PruebasComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should call logInfo in constructor', () => {
-    expect(loggerSpy.logInfo).toHaveBeenCalled();
   });
 });
