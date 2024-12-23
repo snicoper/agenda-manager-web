@@ -2,11 +2,11 @@
   class="blade-container"
   role="dialog"
   aria-modal="true"
-  [class.visible]="bladeService.bladeState().isVisible"
+  [class.visible]="bladeService.bladeState.isVisible()"
   (click)="handleContainerClick($event)"
   (keydown)="handleKeyDown()"
 >
-  <div class="blade" [style.width]="bladeService.bladeState().options.width">
+  <div class="blade" [style.width]="bladeService.bladeState.options().width">
     <div class="blade-header">
       <button mat-icon-button (click)="bladeService.hide()">
         <mat-icon>close</mat-icon>
@@ -14,7 +14,7 @@
     </div>
 
     <div class="blade-content">
-      <ng-container *ngComponentOutlet="bladeService.bladeState().component" />
+      <ng-container *ngComponentOutlet="bladeService.bladeState.component()" />
     </div>
   </div>
 </div>

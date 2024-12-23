@@ -31,4 +31,4 @@ export const SiteUrls = {
     notFound: '/errors/404',
     forbidden: '/errors/403',
   },
-};
+} as const;

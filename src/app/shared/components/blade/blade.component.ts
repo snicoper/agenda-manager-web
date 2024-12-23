@@ -19,7 +19,7 @@ export class BladeComponent implements OnDestroy {
 
   @HostListener('document:keydown.escape')
   handleEscapeKey(): void {
-    if (this.bladeService.bladeState().isVisible && this.closeOnEscapeKey()) {
+    if (this.bladeService.bladeState.isVisible() && this.closeOnEscapeKey()) {
       this.bladeService.hide();
     }
   }

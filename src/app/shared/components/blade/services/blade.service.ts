@@ -1,6 +1,7 @@
 import { computed, effect, Injectable, signal, Type } from '@angular/core';
 import { Subject } from 'rxjs';
-import { BladeOptions } from '../models/blade-options.interface';
+import { BladeOptions } from '../interfaces/blade-options.interface';
+import { BladeState } from '../interfaces/blade-state.interface';
 
 @Injectable({ providedIn: 'root' })
 export class BladeService {
@@ -11,11 +12,11 @@ export class BladeService {
   private readonly resultSubject$ = new Subject<unknown>();
   readonly result = this.resultSubject$.asObservable();
 
-  readonly bladeState = computed(() => ({
-    isVisible: this.isVisible$(),
-    component: this.component$(),
-    options: this.options$(),
-  }));
+  readonly bladeState: BladeState = {
+    isVisible: computed(() => this.isVisible$()),
+    component: computed(() => this.component$()),
+    options: computed(() => this.options$()),
+  };
 
   constructor() {
     // Manejar el scroll basado en el estado de visibilidad.

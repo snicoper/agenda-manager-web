@@ -72,7 +72,7 @@ export class RoleUpdateBladeComponent {
     this.loadingRole = true;
 
     this.apiService
-      .getRoleById(this.bladeService.bladeState().options.data?.toString() ?? '')
+      .getRoleById(this.bladeService.bladeState.options().data?.toString() ?? '')
       .pipe(finalize(() => (this.loadingRole = false)))
       .subscribe({
         next: (response) => {
