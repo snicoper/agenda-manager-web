@@ -9,8 +9,8 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/breadcrumb-collection';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
-import { AccountApiService } from '../../services/account-api.service';
 import { AccountDetailsService } from '../../services/account-details.service';
+import { AccountApiService } from '../../services/api/account-api.service';
 import { IdentityDocumentUtils } from '../../types/identity-document.type';
 import { AccountUpdateBladeComponent } from '../account-update-blade/account-update-blade.component';
 

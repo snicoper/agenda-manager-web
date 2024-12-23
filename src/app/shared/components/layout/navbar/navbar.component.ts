@@ -7,9 +7,9 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { AppEnvironment } from '../../../../core/config/app-environment';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { ThemeState } from '../../../../core/services/states/theme.state';
 import { ThemeColor } from '../../../../core/types/theme-color.enum';
 import { LayoutService } from '../services/layout.service';
+import { ThemeState } from '../services/states/theme.state';
 
 @Component({
   selector: 'am-navbar',

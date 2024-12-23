@@ -7,7 +7,7 @@ import { logError } from '../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../core/services/snackbar.service';
 import { AccountDetailsResponse } from '../models/account-details.response';
 import { AccountDetailsState } from '../models/account-details.state';
-import { AccountApiService } from './account-api.service';
+import { AccountApiService } from './api/account-api.service';
 
 @Injectable({ providedIn: 'root' })
 export class AccountDetailsService {

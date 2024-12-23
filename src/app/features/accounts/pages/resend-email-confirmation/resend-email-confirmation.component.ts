@@ -9,7 +9,7 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 import { ResendEmailConfirmation } from '../../models/resend-email-confirmation.request';
-import { AccountApiService } from '../../services/account-api.service';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-resend-email-confirmation',

@@ -24,7 +24,7 @@ import { PaginatedResult } from '../../../../shared/paginated-result/paginated-r
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { CalendarCreateBladeComponent } from '../../components/calendar-create-blade/calendar-create-blade.component';
 import { CalendarPaginatedResponse } from '../../models/calendar-paginated.response';
-import { CalendarApiService } from '../../services/calendar-api.service';
+import { CalendarApiService } from '../../services/api/calendar-api.service';
 
 @Component({
   selector: 'am-calendar-list',

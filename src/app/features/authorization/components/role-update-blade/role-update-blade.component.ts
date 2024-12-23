@@ -16,7 +16,7 @@ import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/htt
 import { RoleFormConfig, RoleFormContract } from '../../contracts/role-form.contract';
 import { RoleResponse } from '../../models/role.response';
 import { RoleUpdateRequest } from '../../models/update-role.request';
-import { AuthorizationApiService } from '../../services/authorization-api.service';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
   selector: 'am-role-update-blade',

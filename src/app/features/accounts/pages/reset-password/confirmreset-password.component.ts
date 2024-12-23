@@ -19,7 +19,7 @@ import { strongPasswordValidator } from '../../../../shared/components/forms/val
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { ResetPasswordRequest } from '../../models/reset-password.request';
-import { AccountApiService } from '../../services/account-api.service';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-reset-password',

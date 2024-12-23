@@ -18,7 +18,7 @@ import { FormTimeZoneSelectorComponent } from '../../../../shared/components/for
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarCreateRequest } from '../../models/calendar-create.request';
-import { CalendarApiService } from '../../services/calendar-api.service';
+import { CalendarApiService } from '../../services/api/calendar-api.service';
 
 @Component({
   selector: 'am-calendar-create-blade',

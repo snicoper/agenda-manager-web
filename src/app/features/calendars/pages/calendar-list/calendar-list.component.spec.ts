@@ -10,7 +10,7 @@ import { PaginatedResult } from '../../../../core/paginated-result/paginated-res
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { CalendarPaginatedResponse } from '../../models/calendar-paginated.response';
-import { CalendarApiService } from '../../services/calendar-api.service';
+import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarListComponent } from './calendar-list.component';
 
 describe('CalendarListComponent', () => {

@@ -24,8 +24,8 @@ import { identityDocumentValidator } from '../../../../shared/components/forms/v
 import { phoneCompleteValidator } from '../../../../shared/components/forms/validators/phone-complete.validator';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { AccountUpdateRequest } from '../../models/account-update.request';
-import { AccountApiService } from '../../services/account-api.service';
 import { AccountDetailsService } from '../../services/account-details.service';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 /**
  * Known Issue: Material UI Initialization in Dynamic Component Loading

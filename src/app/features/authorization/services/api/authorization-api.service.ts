@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiUrls } from '../../../core/config/api-urls';
-import { BaseRoleManagementApiService } from '../../../core/services/api/base-role-management-api.service';
-import { PaginatedResult } from '../../../shared/paginated-result/paginated-result';
-import { UrlUtils } from '../../../shared/utils/url/url.utils';
-import { CreateRoleRequest } from '../models/create-role.request';
-import { GetRolePermissionsByIdResponse } from '../models/get-role-permissions-by-id.response';
-import { RolePaginatedResponse } from '../models/role-paginated.response';
-import { RoleResponse } from '../models/role.response';
-import { UpdatePermissionForRoleRequest } from '../models/update-permission-for-role.request';
-import { RoleUpdateRequest } from '../models/update-role.request';
-import { UserInRoleResponse } from '../models/user-in-role.response';
-import { UserNotInRoleResponse } from '../models/user-not-in-role.response';
+import { ApiUrls } from '../../../../core/config/api-urls';
+import { BaseRoleManagementApiService } from '../../../../core/services/api/base-role-management-api.service';
+import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
+import { UrlUtils } from '../../../../shared/utils/url/url.utils';
+import { CreateRoleRequest } from '../../models/create-role.request';
+import { GetRolePermissionsByIdResponse } from '../../models/get-role-permissions-by-id.response';
+import { RolePaginatedResponse } from '../../models/role-paginated.response';
+import { RoleResponse } from '../../models/role.response';
+import { UpdatePermissionForRoleRequest } from '../../models/update-permission-for-role.request';
+import { RoleUpdateRequest } from '../../models/update-role.request';
+import { UserInRoleResponse } from '../../models/user-in-role.response';
+import { UserNotInRoleResponse } from '../../models/user-not-in-role.response';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorizationApiService extends BaseRoleManagementApiService {

@@ -20,7 +20,7 @@ import { emailValidator } from '../../../../shared/components/forms/validators/e
 import { minLengthArrayValidator } from '../../../../shared/components/forms/validators/min-length-array.validator';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { AccountCreateRequest } from '../../models/account-create.request';
-import { AccountApiService } from '../../services/account-api.service';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-account-create-blade',

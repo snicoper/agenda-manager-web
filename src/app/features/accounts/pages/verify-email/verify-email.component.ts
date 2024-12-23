@@ -8,7 +8,7 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 import { VerifyEmailRequest } from '../../models/verify-email.request';
-import { AccountApiService } from '../../services/account-api.service';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-verify-email',

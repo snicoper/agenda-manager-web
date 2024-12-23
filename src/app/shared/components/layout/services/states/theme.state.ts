@@ -1,9 +1,9 @@
 import { Injectable, computed, inject } from '@angular/core';
-import { logError } from '../../errors/debug-logger';
-import { BrowserStorageKey } from '../../types/browser-storage-key.enum';
-import { ThemeColor } from '../../types/theme-color.enum';
-import { BrowserStorageService } from '../browser-storage.service';
-import { BaseState } from './base.state';
+import { logError } from '../../../../../core/errors/debug-logger';
+import { BrowserStorageService } from '../../../../../core/services/browser-storage.service';
+import { BaseState } from '../../../../../core/services/states/base.state';
+import { BrowserStorageKey } from '../../../../../core/types/browser-storage-key.enum';
+import { ThemeColor } from '../../../../../core/types/theme-color.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeState extends BaseState<ThemeColor> {

@@ -26,7 +26,7 @@ import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pi
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
 import { AccountPaginatedResponse } from '../../models/account-paginated.response';
-import { AccountApiService } from '../../services/account-api.service';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-account-list',

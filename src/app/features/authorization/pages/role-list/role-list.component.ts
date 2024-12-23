@@ -28,7 +28,7 @@ import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { RoleCreateBladeComponent } from '../../components/role-create-blade/role-create-blade.component';
 import { RoleUpdateBladeComponent } from '../../components/role-update-blade/role-update-blade.component';
 import { RolePaginatedResponse } from '../../models/role-paginated.response';
-import { AuthorizationApiService } from '../../services/authorization-api.service';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
   selector: 'am-role-list',

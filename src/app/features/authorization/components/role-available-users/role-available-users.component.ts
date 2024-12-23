@@ -16,7 +16,7 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { UserNotInRoleResponse } from '../../models/user-not-in-role.response';
-import { AuthorizationApiService } from '../../services/authorization-api.service';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
   selector: 'am-role-available-users',

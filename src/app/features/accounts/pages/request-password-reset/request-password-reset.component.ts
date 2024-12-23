@@ -19,7 +19,7 @@ import { emailValidator } from '../../../../shared/components/forms/validators/e
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { RequestPasswordResetRequest } from '../../models/request-password-reset.request';
-import { AccountApiService } from '../../services/account-api.service';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 interface AlertState {
   isSuccess: boolean;

@@ -12,7 +12,7 @@ import { PageHeaderComponent } from '../../../../shared/components/layout/page-h
 import { RoleAssignedUsersComponent } from '../../components/role-assigned-users/role-assigned-users.component';
 import { RoleAvailableUsersComponent } from '../../components/role-available-users/role-available-users.component';
 import { RoleResponse } from '../../models/role.response';
-import { AuthorizationApiService } from '../../services/authorization-api.service';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
   selector: 'am-role-user-assignments',

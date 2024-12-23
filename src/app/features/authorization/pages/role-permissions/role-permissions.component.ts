@@ -19,7 +19,7 @@ import { PageHeaderComponent } from '../../../../shared/components/layout/page-h
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { GetRolePermissionsByIdResponse, PermissionDetail } from '../../models/get-role-permissions-by-id.response';
 import { UpdatePermissionForRoleRequest } from '../../models/update-permission-for-role.request';
-import { AuthorizationApiService } from '../../services/authorization-api.service';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
   selector: 'am-role-details',

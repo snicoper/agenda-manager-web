@@ -13,7 +13,7 @@ import { FormTextareaComponent } from '../../../../shared/components/forms/input
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { RoleFormConfig, RoleFormContract } from '../../contracts/role-form.contract';
 import { CreateRoleRequest } from '../../models/create-role.request';
-import { AuthorizationApiService } from '../../services/authorization-api.service';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
   selector: 'am-role-create-blade',

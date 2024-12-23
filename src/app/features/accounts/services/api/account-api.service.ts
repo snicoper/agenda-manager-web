@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiUrls } from '../../../core/config/api-urls';
-import { ApiBaseService } from '../../../core/services/api/api.base.service';
-import { PaginatedResult } from '../../../shared/paginated-result/paginated-result';
-import { EmptyRequest } from '../../../shared/paginated-result/types/empty-request.type';
-import { DateTimeUtils } from '../../../shared/utils/date/datetime.utils';
-import { UrlUtils } from '../../../shared/utils/url/url.utils';
-import { AccountCreateRequest } from '../models/account-create.request';
-import { AccountCreateResponse } from '../models/account-create.response';
-import { AccountDetailsResponse } from '../models/account-details.response';
-import { AccountPaginatedResponse } from '../models/account-paginated.response';
-import { AccountUpdateRequest } from '../models/account-update.request';
-import { ConfirmAccountRequest } from '../models/confirm-account.request';
-import { RequestPasswordResetRequest } from '../models/request-password-reset.request';
-import { ResendEmailConfirmation } from '../models/resend-email-confirmation.request';
-import { ResetPasswordRequest } from '../models/reset-password.request';
-import { VerifyEmailRequest } from '../models/verify-email.request';
+import { ApiUrls } from '../../../../core/config/api-urls';
+import { ApiBaseService } from '../../../../core/services/api/api.base.service';
+import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
+import { EmptyRequest } from '../../../../shared/paginated-result/types/empty-request.type';
+import { DateTimeUtils } from '../../../../shared/utils/date/datetime.utils';
+import { UrlUtils } from '../../../../shared/utils/url/url.utils';
+import { AccountCreateRequest } from '../../models/account-create.request';
+import { AccountCreateResponse } from '../../models/account-create.response';
+import { AccountDetailsResponse } from '../../models/account-details.response';
+import { AccountPaginatedResponse } from '../../models/account-paginated.response';
+import { AccountUpdateRequest } from '../../models/account-update.request';
+import { ConfirmAccountRequest } from '../../models/confirm-account.request';
+import { RequestPasswordResetRequest } from '../../models/request-password-reset.request';
+import { ResendEmailConfirmation } from '../../models/resend-email-confirmation.request';
+import { ResetPasswordRequest } from '../../models/reset-password.request';
+import { VerifyEmailRequest } from '../../models/verify-email.request';
 
 @Injectable({ providedIn: 'root' })
 export class AccountApiService extends ApiBaseService {
