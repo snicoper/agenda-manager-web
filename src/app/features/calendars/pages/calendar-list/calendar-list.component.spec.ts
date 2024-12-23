@@ -36,11 +36,11 @@ describe('CalendarListComponent', () => {
     mockCalendarApiService = jasmine.createSpyObj('CalendarApiService', ['getCalendarsPaginated']);
     mockSnackBarService = jasmine.createSpyObj('SnackBarService', ['error', 'success']);
     mockBladeService = jasmine.createSpyObj('BladeService', ['show', 'result'], {
-      bladeState: computed(() => ({
-        isVisible: false,
-        component: null,
-        options: {},
-      })),
+      bladeState: {
+        isVisible: computed(() => false),
+        component: computed(() => null),
+        options: computed(() => ({})),
+      },
       result: of(true),
     });
     mockCalendarApiService.getCalendarsPaginated.and.returnValue(of(mockPaginatedResponse));
