@@ -1,6 +1,7 @@
-import { LogicalOperator } from '../types/logical-operator';
-import { RelationalOperator } from '../types/relational-operator';
-import { FilterOptions, PaginatedResultFilter } from './paginated-result-filter';
+import { LogicalOperator } from '../enums/logical-operator';
+import { RelationalOperator } from '../enums/relational-operator';
+import { FilterOptions } from '../interfaces/filter-options.interface';
+import { PaginatedResultFilter } from './paginated-result-filter';
 
 describe('PaginatedResultFilter', () => {
   describe('constructor', () => {

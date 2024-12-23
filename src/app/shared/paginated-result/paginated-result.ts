@@ -1,10 +1,10 @@
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
+import { LogicalOperator } from './enums/logical-operator';
+import { OrderType } from './enums/order-type';
+import { RelationalOperator } from './enums/relational-operator';
 import { PaginatedResultFilter } from './models/paginated-result-filter';
 import { PaginatedResultOrder } from './models/paginated-result-order';
-import { LogicalOperator } from './types/logical-operator';
-import { OrderType } from './types/order-type';
-import { RelationalOperator } from './types/relational-operator';
 
 export class PaginatedResult<T> {
   items: T[] = [];

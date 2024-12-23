@@ -1,12 +1,6 @@
-import { LogicalOperator } from '../types/logical-operator';
-import { RelationalOperator } from '../types/relational-operator';
-
-export interface FilterOptions {
-  propertyName: string;
-  operator: RelationalOperator;
-  value: string;
-  logicalOperator?: LogicalOperator;
-}
+import { LogicalOperator } from '../enums/logical-operator';
+import { RelationalOperator } from '../enums/relational-operator';
+import { FilterOptions } from '../interfaces/filter-options.interface';
 
 export class PaginatedResultFilter {
   constructor(

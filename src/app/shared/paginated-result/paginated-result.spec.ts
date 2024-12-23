@@ -1,8 +1,9 @@
-import { FilterOptions, PaginatedResultFilter } from './models/paginated-result-filter';
+import { LogicalOperator } from './enums/logical-operator';
+import { OrderType } from './enums/order-type';
+import { RelationalOperator } from './enums/relational-operator';
+import { FilterOptions } from './interfaces/filter-options.interface';
+import { PaginatedResultFilter } from './models/paginated-result-filter';
 import { PaginatedResult } from './paginated-result';
-import { LogicalOperator } from './types/logical-operator';
-import { OrderType } from './types/order-type';
-import { RelationalOperator } from './types/relational-operator';
 
 interface TestModel {
   id: number;

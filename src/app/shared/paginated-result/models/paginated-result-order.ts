@@ -1,5 +1,5 @@
 import { Sort } from '@angular/material/sort';
-import { OrderType } from '../types/order-type';
+import { OrderType } from '../enums/order-type';
 
 export class PaginatedResultOrder {
   constructor(
