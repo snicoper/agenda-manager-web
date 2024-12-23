@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -7,9 +7,9 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { AppEnvironment } from '../../../../core/config/app-environment';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { LayoutService } from '../../../../core/services/layout.service';
 import { ThemeState } from '../../../../core/states/theme.state';
 import { ThemeColor } from '../../../../core/types/theme-color.enum';
+import { LayoutService } from '../services/layout.service';
 
 @Component({
   selector: 'am-navbar',
@@ -22,8 +22,8 @@ export class NavbarComponent {
   private authService = inject(AuthService);
   private themeState = inject(ThemeState);
 
-  navbarState = computed(() => this.layoutService.layoutState().navbarState);
-  theme = computed(() => this.themeState.value());
+  readonly navbarState = this.layoutService.layoutState.navbarState;
+  readonly theme = this.themeState.value;
 
   readonly siteUrls = SiteUrls;
   readonly siteName = AppEnvironment.SiteName;

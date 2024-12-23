@@ -1,4 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
+import { LayoutState } from '../models/layout-state.interface';
 
 @Injectable({ providedIn: 'root' })
 export class LayoutService {
@@ -6,11 +7,11 @@ export class LayoutService {
   private sidebarState$ = signal(true);
   private footerState$ = signal(true);
 
-  readonly layoutState = computed(() => ({
-    navbarState: this.navbarState$(),
-    sidebarState: this.sidebarState$(),
-    footerState: this.footerState$(),
-  }));
+  readonly layoutState: LayoutState = {
+    navbarState: computed(() => this.navbarState$()),
+    sidebarState: computed(() => this.sidebarState$()),
+    footerState: computed(() => this.footerState$()),
+  };
 
   navbarToggle(): void {
     this.navbarState$.update((value) => !value);

@@ -1,12 +1,12 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AuthService } from '../../../../core/auth/services/auth.service';
-import { LayoutService } from '../../../../core/services/layout.service';
+import { LayoutService } from '../services/layout.service';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 
 @Component({
@@ -28,7 +28,7 @@ export class SidebarComponent {
   private readonly layoutService = inject(LayoutService);
   private readonly authService = inject(AuthService);
 
-  readonly sidebarState = computed(() => this.layoutService.layoutState().sidebarState);
+  readonly sidebarState = this.layoutService.layoutState.sidebarState;
 
   readonly email = this.authService.getEmail();
 }
