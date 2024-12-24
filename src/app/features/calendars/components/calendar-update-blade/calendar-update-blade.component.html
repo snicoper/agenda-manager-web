@@ -1,1 +1,47 @@
-<p>calendar-update-blade works!</p>,
+<section class="blade-content-container">
+  @if (calendarState.loading() || formState.isLoading) {
+    <div class="d-flex justify-content-center">
+      <mat-spinner />
+    </div>
+  } @else {
+    <h3 class="blade-title">Actualizar calendario</h3>
+
+    <div class="blade-body">
+      <form [formGroup]="formState.form">
+        <am-non-field-errors [badRequest]="formState.badRequest" />
+
+        <div class="section-title">Nombre</div>
+        <div class="row">
+          <!-- name field -->
+          <div class="col-12">
+            <am-form-input fieldName="name" formControlName="name" label="Nombre" [formState]="formState" />
+          </div>
+
+          <!-- description field -->
+          <div class="col-12">
+            <am-form-input
+              fieldName="description"
+              formControlName="description"
+              label="Descripción"
+              [formState]="formState"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3 blade-actions">
+      <button mat-flat-button class="me-2" (click)="handleCloseBlade()">
+        <mat-icon>close</mat-icon>
+        Cerrar
+      </button>
+
+      <am-btn-loading
+        btnText="Actualizar calendario"
+        icon="update"
+        (eventClick)="handleSubmit()"
+        [loading]="formState.isLoading"
+      />
+    </div>
+  }
+</section>

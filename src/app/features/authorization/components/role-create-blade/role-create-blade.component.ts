@@ -11,7 +11,7 @@ import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-l
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
-import { RoleFormConfig, RoleFormContract } from '../../contracts/role-form.contract';
+import { RoleFieldsValidators } from '../../contracts/role-fields-validators.contract';
 import { CreateRoleRequest } from '../../interfaces/requests/create-role.request';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
@@ -62,14 +62,9 @@ export class RoleCreateBladeComponent {
   }
 
   private buildForm(): void {
-    const formContract: RoleFormContract = {
-      name: { ...RoleFormConfig.name },
-      description: { ...RoleFormConfig.description },
-    } as const;
-
     this.formState.form = this.formBuilder.group({
-      name: [formContract.name.initialValue, formContract.name.validators],
-      description: [formContract.description.initialValue, formContract.description.validators],
+      name: ['', RoleFieldsValidators.name],
+      description: ['', RoleFieldsValidators.description],
     });
   }
 

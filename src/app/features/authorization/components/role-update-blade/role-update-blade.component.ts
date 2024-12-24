@@ -13,7 +13,7 @@ import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-l
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
-import { RoleFormConfig, RoleFormContract } from '../../contracts/role-form.contract';
+import { RoleFieldsValidators } from '../../contracts/role-fields-validators.contract';
 import { RoleUpdateRequest } from '../../interfaces/requests/update-role.request';
 import { RoleResponse } from '../../interfaces/responses/role.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
@@ -112,20 +112,12 @@ export class RoleUpdateBladeComponent {
   }
 
   private buildForm(): void {
-    const formContract = {
-      name: {
-        ...RoleFormConfig.name,
-        initialValue: this.role.name,
-      },
-      description: {
-        ...RoleFormConfig.description,
-        initialValue: this.role.description,
-      },
-    } as RoleFormContract;
+    const nameValue = this.role.name;
+    const descriptionValue = this.role.description;
 
     this.formState.form = this.formBuilder.group({
-      name: [formContract.name.initialValue, formContract.name.validators],
-      description: [formContract.description.initialValue, formContract.description.validators],
+      name: [nameValue, RoleFieldsValidators.name],
+      description: [descriptionValue, RoleFieldsValidators.description],
     });
   }
 }

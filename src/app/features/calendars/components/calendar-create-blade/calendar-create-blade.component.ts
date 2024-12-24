@@ -17,6 +17,7 @@ import { FormTextareaComponent } from '../../../../shared/components/forms/input
 import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
+import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valildators.contract';
 import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 
@@ -72,8 +73,8 @@ export class CalendarCreateBladeComponent implements OnInit {
 
   private buildForm(): void {
     this.formState.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(100)]],
-      description: ['', [Validators.required, Validators.maxLength(500)]],
+      name: ['', [CalendarFieldsValidators.name]],
+      description: ['', [CalendarFieldsValidators.description]],
       ianaTimeZone: [this.timeZoneState.get(), [Validators.required]],
     });
   }
