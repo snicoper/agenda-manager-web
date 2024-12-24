@@ -11,6 +11,16 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      <mat-divider />
+
+      <div class="d-flex justify-content-start mt-2">
+        <section class="m-2">
+          <button mat-raised-button (click)="handleNavigateToRoleUserAssignments()">
+            <mat-icon>people</mat-icon>
+            Administrar usuarios
+          </button>
+        </section>
+      </div>
       @if (roleNotFound) {
         <am-alert type="error" message="El rol al que intenta acceder no existe" [show]="true" />
       }
@@ -64,12 +74,6 @@
             }
           </tbody>
         </table>
-
-        <mat-divider />
-
-        <section class="m-2">
-          <button mat-flat-button (click)="handleNavigateToRoleUserAssignments()">Administrar usuarios</button>
-        </section>
       </div>
     </mat-card-content>
   </mat-card>
