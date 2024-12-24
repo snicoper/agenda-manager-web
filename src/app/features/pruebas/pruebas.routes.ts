@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { SystemRoles } from '../../core/auth/constants/system-roles.const';
 import { AuthGuard } from '../../core/guards/auth.guard';
+import { SystemRoles } from '../../core/modules/auth/constants/system-roles.const';
 import { PruebasComponent } from './pruebas.component';
 
 export const routes: Routes = [
