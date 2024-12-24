@@ -120,7 +120,7 @@ export class AccountInfoTabComponent implements OnInit {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Accounts', SiteUrls.accounts.accounts)
+      .add('Accounts', SiteUrls.accounts.list)
       .add('Account Details', SiteUrls.accounts.details, '', false);
   }
 }

@@ -72,7 +72,7 @@ export class AccountDetailsService {
             this.snackBarService.error('Error al cargar los detalles de la cuenta');
           }
 
-          this.router.navigateByUrl(SiteUrls.accounts.accounts);
+          this.router.navigateByUrl(SiteUrls.accounts.list);
         },
       });
   }

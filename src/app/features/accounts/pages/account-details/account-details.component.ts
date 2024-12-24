@@ -60,8 +60,6 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb
-      .add('Cuentas', SiteUrls.accounts.accounts)
-      .add('Detalles de cuenta', SiteUrls.accounts.details, '', false);
+    this.breadcrumb.add('Cuentas', SiteUrls.accounts.list).add('Detalles', SiteUrls.accounts.details, '', false);
   }
 }

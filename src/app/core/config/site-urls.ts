@@ -3,7 +3,7 @@ export const SiteUrls = {
   home: '/',
 
   accounts: {
-    accounts: '/accounts',
+    list: '/accounts',
     details: '/accounts/{id}',
     confirmAccount: '/accounts/confirm-account',
     requestPasswordReset: '/accounts/request-password-reset',

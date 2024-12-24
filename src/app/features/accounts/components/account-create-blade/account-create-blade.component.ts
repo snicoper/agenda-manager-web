@@ -94,7 +94,7 @@ export class AccountCreateBladeComponent implements OnInit {
         next: (response) => {
           this.snackBarService.success('Usuario creado correctamente');
           this.bladeService.emitResult(true);
-          this.router.navigate([SiteUrls.accounts.accounts, response.userId]);
+          this.router.navigate([SiteUrls.accounts.list, response.userId]);
         },
         error: (error: HttpErrorResponse) => {
           const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);

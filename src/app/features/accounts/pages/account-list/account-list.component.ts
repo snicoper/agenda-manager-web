@@ -125,7 +125,7 @@ export class AccountListComponent implements AfterViewInit {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Cuentas', SiteUrls.accounts.accounts, '', false);
+    this.breadcrumb.add('Cuentas', SiteUrls.accounts.list, '', false);
   }
 
   private loadAccounts(): void {

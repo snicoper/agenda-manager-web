@@ -22,6 +22,7 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
+import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarCreateBladeComponent } from '../../components/calendar-create-blade/calendar-create-blade.component';
 import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
@@ -104,6 +105,11 @@ export class CalendarListComponent implements AfterViewInit {
         }
       },
     });
+  }
+
+  handleClickDetails(calendarId: string): void {
+    const url = UrlUtils.buildSiteUrl(SiteUrls.calendars.details, { id: calendarId });
+    this.router.navigateByUrl(url);
   }
 
   private setBreadcrumb(): void {
