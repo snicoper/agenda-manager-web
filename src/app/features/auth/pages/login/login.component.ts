@@ -4,19 +4,20 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { LoginRequest } from '../../../../core/modules/auth/interfaces/requests/login.request';
 import { AuthService } from '../../../../core/modules/auth/services/auth.service';
+import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { emailValidator } from '../../../../shared/components/forms/validators/email.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-login',
@@ -26,6 +27,7 @@ import { FormState } from '../../../../core/modules/forms/interfaces/form-state.
     MatCardModule,
     MatButtonModule,
     MatDivider,
+    MatIconModule,
     PageSimpleComponent,
     FormInputComponent,
     NonFieldErrorsComponent,

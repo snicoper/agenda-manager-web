@@ -5,7 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
+import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -16,7 +17,6 @@ import { RoleFormConfig, RoleFormContract } from '../../contracts/role-form.cont
 import { RoleUpdateRequest } from '../../interfaces/requests/update-role.request';
 import { RoleResponse } from '../../interfaces/responses/role.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-role-update-blade',
@@ -73,7 +73,10 @@ export class RoleUpdateBladeComponent {
 
     this.apiService
       .getRoleById(this.bladeService.bladeState.options().data?.toString() ?? '')
-      .pipe(finalize(() => (this.loadingRole = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loadingRole = false)),
+      )
       .subscribe({
         next: (response) => {
           this.role = response;
@@ -86,7 +89,10 @@ export class RoleUpdateBladeComponent {
   private updateRole(request: RoleUpdateRequest): void {
     this.apiService
       .updateRole(this.role.id, request)
-      .pipe(finalize(() => (this.formState.isLoading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.formState.isLoading = false)),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('Role actualizado correctamente.');

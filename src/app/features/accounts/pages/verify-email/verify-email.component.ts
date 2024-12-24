@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
@@ -12,7 +13,16 @@ import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-verify-email',
-  imports: [CommonModule, RouterLink, MatButtonModule, MatDivider, MatCardModule, PageSimpleComponent, AlertComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatButtonModule,
+    MatDivider,
+    MatCardModule,
+    MatIconModule,
+    PageSimpleComponent,
+    AlertComponent,
+  ],
   templateUrl: './verify-email.component.html',
   styleUrl: './verify-email.component.scss',
 })

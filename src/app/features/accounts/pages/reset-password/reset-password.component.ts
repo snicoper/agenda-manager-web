@@ -5,9 +5,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -19,7 +21,6 @@ import { PageSimpleComponent } from '../../../../shared/components/layout/page-s
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { ResetPasswordRequest } from '../../interfaces/requests/reset-password.request';
 import { AccountApiService } from '../../services/api/account-api.service';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-reset-password',
@@ -30,6 +31,7 @@ import { FormState } from '../../../../core/modules/forms/interfaces/form-state.
     MatCardModule,
     MatButtonModule,
     MatDivider,
+    MatIconModule,
     PageSimpleComponent,
     FormInputComponent,
     BtnLoadingComponent,
@@ -89,7 +91,10 @@ export class ResetPasswordComponent {
   private confirmRecoveryPassword(request: ResetPasswordRequest): void {
     this.accountApiService
       .resetPassword(request)
-      .pipe(finalize(() => (this.formState.isLoading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.formState.isLoading = false)),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('La contraseña se ha actualizado correctamente.');

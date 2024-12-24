@@ -5,10 +5,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
+import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -19,7 +21,6 @@ import { PageSimpleComponent } from '../../../../shared/components/layout/page-s
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { RequestPasswordResetRequest } from '../../interfaces/requests/request-password-reset.request';
 import { AccountApiService } from '../../services/api/account-api.service';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 
 interface AlertState {
   isSuccess: boolean;
@@ -37,6 +38,7 @@ interface AlertState {
     MatCardModule,
     MatButtonModule,
     MatDivider,
+    MatIconModule,
     PageSimpleComponent,
     FormInputComponent,
     BtnLoadingComponent,
@@ -110,7 +112,10 @@ export class RequestPasswordResetComponent {
 
     this.apiService
       .requestPasswordReset(request)
-      .pipe(finalize(() => (this.formState.isSubmitted = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.formState.isLoading = false)),
+      )
       .subscribe({
         next: (response) => {
           if (response) {

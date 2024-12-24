@@ -6,7 +6,7 @@ import { AccountListComponent } from './pages/account-list/account-list.componen
 import { ConfirmAccountComponent } from './pages/confirm-account/confirm-account.component';
 import { RequestPasswordResetComponent } from './pages/request-password-reset/request-password-reset.component';
 import { ResendEmailConfirmationComponent } from './pages/resend-email-confirmation/resend-email-confirmation.component';
-import { ResetPasswordComponent } from './pages/reset-password/confirmreset-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 
 export const routes: Routes = [

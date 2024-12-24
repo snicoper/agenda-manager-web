@@ -3,8 +3,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { TimeZoneState } from '../../../../core/modules/i18n/services/states/time-zone.state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -18,7 +19,6 @@ import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/htt
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-calendar-create-blade',
@@ -82,7 +82,10 @@ export class CalendarCreateBladeComponent implements OnInit {
     this.formState.isLoading = true;
     this.apiService
       .createCalendar(request)
-      .pipe(finalize(() => (this.formState.isLoading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.formState.isLoading = false)),
+      )
       .subscribe({
         next: (response) => {
           this.snackBarService.success('Calendar created successfully.');

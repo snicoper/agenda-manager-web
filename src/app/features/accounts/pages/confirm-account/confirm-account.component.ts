@@ -4,9 +4,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -19,7 +21,6 @@ import { PageSimpleComponent } from '../../../../shared/components/layout/page-s
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { ConfirmAccountRequest } from '../../interfaces/requests/confirm-account.request';
 import { AccountApiService } from '../../services/api/account-api.service';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-confirm-account',
@@ -29,6 +30,7 @@ import { FormState } from '../../../../core/modules/forms/interfaces/form-state.
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
+    MatIconModule,
     PageSimpleComponent,
     FormInputComponent,
     BtnLoadingComponent,
@@ -97,7 +99,10 @@ export class ConfirmAccountComponent {
 
     this.apiService
       .confirmAccount(request)
-      .pipe(finalize(() => (this.formState.isLoading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.formState.isLoading = false)),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('Ha confirmado su cuenta correctamente.');

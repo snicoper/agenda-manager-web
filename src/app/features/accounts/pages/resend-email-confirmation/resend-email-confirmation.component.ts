@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
@@ -13,7 +14,15 @@ import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-resend-email-confirmation',
-  imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, PageSimpleComponent, BtnLoadingComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    PageSimpleComponent,
+    BtnLoadingComponent,
+  ],
   templateUrl: './resend-email-confirmation.component.html',
   styleUrl: './resend-email-confirmation.component.scss',
 })
