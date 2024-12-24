@@ -28,21 +28,6 @@ import { AccountUpdateRequest } from '../../interfaces/requests/account-update.r
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountApiService } from '../../services/api/account-api.service';
 
-/**
- * Known Issue: Material UI Initialization in Dynamic Component Loading
- *
- * When loading Material UI components dynamically (especially with nested structures
- * like blades + tabs), there can be timing issues with Material's initialization.
- *
- * The issue manifests as:
- * - Incorrect initial styling
- * - Components appearing unstyled momentarily
- * - Style flickering on first render
- *
- * Solution:
- * Adding a setTimeout in ngOnInit forces an additional change detection cycle,
- * allowing Material to complete its initialization before the component fully renders.
- */
 @Component({
   selector: 'am-account-update-blade',
   imports: [
@@ -81,6 +66,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     setTimeout(() => {
       // Force an extra change detection cycle for Material initialization.
+      // @see BladeComponent for more information.
     }, 0);
 
     // Continue with normal initialization.

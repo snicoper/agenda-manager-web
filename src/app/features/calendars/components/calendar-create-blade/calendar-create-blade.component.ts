@@ -53,6 +53,12 @@ export class CalendarCreateBladeComponent implements OnInit {
   readonly formInputTypes = FormInputType;
 
   ngOnInit(): void {
+    setTimeout(() => {
+      // Force an extra change detection cycle for Material initialization.
+      // @see BladeComponent for more information.
+    }, 0);
+
+    // Continue with normal initialization.
     this.buildForm();
   }
 
