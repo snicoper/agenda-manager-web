@@ -28,7 +28,7 @@ export class CalendarDetailsComponent implements OnInit, OnDestroy {
     tabs: [
       {
         label: 'Información',
-        icon: 'person',
+        icon: 'event_note',
         permissions: [SystemPermissions.Calendars.Read],
         component: CalendarInfoTabComponent,
       },
