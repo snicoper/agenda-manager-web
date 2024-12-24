@@ -2,8 +2,8 @@ import { Component, forwardRef, input } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormState } from '../../../../../core/interfaces/forms/form-state.interface';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
+import { FormState } from '../../../../../core/modules/forms/interfaces/form-state.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

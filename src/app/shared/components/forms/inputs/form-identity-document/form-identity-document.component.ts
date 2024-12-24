@@ -5,7 +5,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { FormState } from '../../../../../core/interfaces/forms/form-state.interface';
 import { CountryLocaleService } from '../../../../../core/modules/i18n/services/country-locale.service';
 import { IdentityDocumentOptions } from '../../../../../core/modules/identity-document/identity-document-display.const';
 import { IdentityDocumentType } from '../../../../../core/modules/identity-document/identity-document-type.enum';
@@ -13,6 +12,7 @@ import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.d
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormInputType } from '../form-input/types/form-input.type';
 import { FormIdentityDocumentField } from './models/form-identity-document-field.interface';
+import { FormState } from '../../../../../core/modules/forms/interfaces/form-state.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

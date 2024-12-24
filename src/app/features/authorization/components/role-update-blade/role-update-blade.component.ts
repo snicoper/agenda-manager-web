@@ -6,7 +6,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
-import { FormState } from '../../../../core/interfaces/forms/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -17,6 +16,7 @@ import { RoleFormConfig, RoleFormContract } from '../../contracts/role-form.cont
 import { RoleUpdateRequest } from '../../interfaces/requests/update-role.request';
 import { RoleResponse } from '../../interfaces/responses/role.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
+import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-role-update-blade',

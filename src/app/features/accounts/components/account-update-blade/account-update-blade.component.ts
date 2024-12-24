@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
-import { FormState } from '../../../../core/interfaces/forms/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -26,6 +25,7 @@ import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/htt
 import { AccountUpdateRequest } from '../../interfaces/requests/account-update.request';
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountApiService } from '../../services/api/account-api.service';
+import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 
 /**
  * Known Issue: Material UI Initialization in Dynamic Component Loading

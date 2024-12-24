@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { UrlUtils } from '../../../shared/utils/url/url.utils';
 import { ApiUrls } from '../../config/api-urls';
-import { NoContent } from '../../types/not-content.type';
+import { NoContent } from '../../modules/http/types/no-content.type';
 import { ApiBaseService } from './api.base.service';
 
 /**

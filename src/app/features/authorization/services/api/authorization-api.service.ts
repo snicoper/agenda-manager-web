@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
+import { NoContent } from '../../../../core/modules/http/types/no-content.type';
 import { BaseRoleManagementApiService } from '../../../../core/services/api/base-role-management-api.service';
-import { NoContent } from '../../../../core/types/not-content.type';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CreateRoleRequest } from '../../interfaces/requests/create-role.request';

@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { FormState } from '../../../../core/interfaces/forms/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -21,6 +20,7 @@ import { minLengthArrayValidator } from '../../../../shared/components/forms/val
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { AccountCreateRequest } from '../../interfaces/requests/account-create.request';
 import { AccountApiService } from '../../services/api/account-api.service';
+import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-account-create-blade',

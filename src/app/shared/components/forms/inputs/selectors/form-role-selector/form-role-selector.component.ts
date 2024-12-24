@@ -4,11 +4,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { finalize } from 'rxjs';
-import { FormState } from '../../../../../../core/interfaces/forms/form-state.interface';
 import { SnackBarService } from '../../../../../../core/services/snackbar.service';
 import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
 import { SelectableRole } from './models/selectable-role';
 import { RoleSelectorApiService } from './services/role-selector-api.service';
+import { FormState } from '../../../../../../core/modules/forms/interfaces/form-state.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

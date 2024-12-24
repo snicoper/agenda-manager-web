@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
+import { EmptyRequest } from '../../../../core/modules/http/types/empty-request.type';
+import { NoContent } from '../../../../core/modules/http/types/no-content.type';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
-import { NoContent } from '../../../../core/types/not-content.type';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { DateTimeUtils } from '../../../../shared/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
@@ -50,6 +51,6 @@ export class CalendarApiService extends ApiBaseService {
   toggleIsActive(calendarId: string): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.toggleIsActive, { calendarId: calendarId });
 
-    return this.put<unknown, NoContent>({} as unknown, endpoint);
+    return this.put<EmptyRequest, NoContent>({}, endpoint);
   }
 }
