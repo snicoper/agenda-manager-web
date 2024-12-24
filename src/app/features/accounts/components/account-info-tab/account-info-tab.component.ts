@@ -5,6 +5,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { logError } from '../../../../core/errors/debug-logger';
 import { IdentityDocumentUtils } from '../../../../core/modules/identity-document/identity-document-display.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -30,6 +31,8 @@ export class AccountInfoTabComponent {
 
   handleChangeStateIsActive(): void {
     if (!this.accountState.account()) {
+      logError('AccountInfoTabComponent.handleChangeStateIsActive', 'Account is not loaded');
+
       return;
     }
 
@@ -37,7 +40,10 @@ export class AccountInfoTabComponent {
 
     this.accountApi
       .toggleIsActive(this.accountState.userId()!)
-      .pipe(finalize(() => this.accountDetailsService.setLoadingState(false)))
+      .pipe(
+        take(1),
+        finalize(() => this.accountDetailsService.setLoadingState(false)),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('Estado de la cuenta actualizado correctamente');
@@ -51,6 +57,8 @@ export class AccountInfoTabComponent {
 
   handleConfirmEmail(): void {
     if (!this.accountState.account() || this.accountState.account()?.isEmailConfirmed) {
+      logError('AccountInfoTabComponent.handleConfirmEmail', 'Account is not loaded or email is already confirmed');
+
       return;
     }
 
@@ -58,7 +66,10 @@ export class AccountInfoTabComponent {
 
     this.accountApi
       .confirmEmail(this.accountState.userId()!)
-      .pipe(finalize(() => this.accountDetailsService.setLoadingState(false)))
+      .pipe(
+        take(1),
+        finalize(() => this.accountDetailsService.setLoadingState(false)),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('Correo electrónico confirmado correctamente');
@@ -72,6 +83,8 @@ export class AccountInfoTabComponent {
 
   handleChangeStateIsCollaborator(): void {
     if (!this.accountState.account()) {
+      logError('AccountInfoTabComponent.handleChangeStateIsCollaborator', 'Account is not loaded');
+
       return;
     }
 
@@ -79,7 +92,10 @@ export class AccountInfoTabComponent {
 
     this.accountApi
       .toggleIsCollaborator(this.accountState.userId()!)
-      .pipe(finalize(() => this.accountDetailsService.setLoadingState(false)))
+      .pipe(
+        take(1),
+        finalize(() => this.accountDetailsService.setLoadingState(false)),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('Usuario colaborador actualizado correctamente');

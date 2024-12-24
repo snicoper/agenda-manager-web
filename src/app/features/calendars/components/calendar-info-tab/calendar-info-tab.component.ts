@@ -12,6 +12,7 @@ import { BladeService } from '../../../../shared/components/blade/services/blade
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarDetailsService } from '../../services/calendar-details.service';
+import { CalendarUpdateBladeComponent } from '../calendar-update-blade/calendar-update-blade.component';
 
 @Component({
   selector: 'am-calendar-info-tab',
@@ -36,7 +37,13 @@ export class CalendarInfoTabComponent {
   readonly calendarState = this.calendarDetailsService.state;
 
   handleOpenUpdateCalendarBlade(): void {
-    // this.bladeService.show('am-calendar-update-blade', { calendarId: this.calendarState.calendarId() });
+    this.bladeService.show(CalendarUpdateBladeComponent);
+
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: () => {
+        this.calendarDetailsService.load(this.calendarState.calendarId()!);
+      },
+    });
   }
 
   handleChangeStateIsActive(): void {
