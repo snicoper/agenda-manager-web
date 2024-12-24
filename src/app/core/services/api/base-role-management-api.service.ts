@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { UrlUtils } from '../../../shared/utils/url/url.utils';
 import { ApiUrls } from '../../config/api-urls';
+import { NoContent } from '../../types/not-content.type';
 import { ApiBaseService } from './api.base.service';
 
 /**
@@ -10,22 +11,22 @@ import { ApiBaseService } from './api.base.service';
  */
 export class BaseRoleManagementApiService extends ApiBaseService {
   /** Assign user to role. */
-  assignUserToRole(roleId: string, userId: string): Observable<boolean> {
+  assignUserToRole(roleId: string, userId: string): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.userRoles.assignUserToRole, {
       roleId: roleId,
       userId: userId,
     });
 
-    return this.post<boolean, boolean>(true, endpoint, (response) => response.value as boolean);
+    return this.put<boolean, NoContent>(true, endpoint, (response) => response.value as NoContent);
   }
 
   /** Unassigned user from role. */
-  unAssignedUserFromRole(roleId: string, userId: string): Observable<boolean> {
+  unAssignedUserFromRole(roleId: string, userId: string): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.userRoles.unAssignedUserFromRole, {
       roleId: roleId,
       userId: userId,
     });
 
-    return this.delete<boolean>(endpoint, (response) => response.value as boolean);
+    return this.delete<NoContent>(endpoint, (response) => response.value as NoContent);
   }
 }

@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { PaginatedResult } from '../../../shared/paginated-result/paginated-result';
 import { ApiResponse } from '../../interfaces/http/api-response.interface';
+import { NoContent } from '../../types/not-content.type';
 
 /**
  * Servicio base abstracto para la comunicación con la API.
@@ -75,10 +76,12 @@ export abstract class ApiBaseService {
     request: TRequest,
     endpoint = '',
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
-  ): Observable<TResponse> {
-    return this.http
-      .put<ApiResponse<TResponse>>(endpoint, request)
-      .pipe(map((response) => this.handleResponse(response, mapper)));
+  ): Observable<TResponse | NoContent> {
+    return this.http.put<ApiResponse<TResponse>>(endpoint, request, { observe: 'response' }).pipe(
+      map((response) => {
+        return this.handleNoContentResponse(response, mapper);
+      }),
+    );
   }
 
   /**
@@ -91,10 +94,10 @@ export abstract class ApiBaseService {
   protected delete<TResponse>(
     endpoint = '',
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
-  ): Observable<TResponse> {
+  ): Observable<TResponse | NoContent> {
     return this.http
-      .delete<ApiResponse<TResponse>>(endpoint)
-      .pipe(map((response) => this.handleResponse(response, mapper)));
+      .delete<ApiResponse<TResponse>>(endpoint, { observe: 'response' })
+      .pipe(map((response) => this.handleNoContentResponse(response, mapper)));
   }
 
   /**
@@ -109,6 +112,23 @@ export abstract class ApiBaseService {
     mapper?: (data: ApiResponse<TResponse>) => TResponse,
   ): TResponse {
     return mapper ? mapper(response) : response.value;
+  }
+
+  /**
+   * Maneja la respuesta de la API cuando no hay contenido.
+   * @param response Respuesta de la API.
+   * @param mapper Función opcional para transformar la respuesta.
+   * @returns La respuesta transformada o un valor nulo.
+   */
+  private handleNoContentResponse<TResponse>(
+    response: HttpResponse<ApiResponse<TResponse>>,
+    mapper?: (data: ApiResponse<TResponse>) => TResponse,
+  ): TResponse | NoContent {
+    if (response.status === HttpStatusCode.NoContent) {
+      return null;
+    }
+
+    return response.body ? this.handleResponse(response.body, mapper) : null;
   }
 
   /**

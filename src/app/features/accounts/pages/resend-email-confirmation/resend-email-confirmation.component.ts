@@ -37,7 +37,7 @@ export class ResendEmailConfirmationComponent {
     } as const;
 
     this.accountApiService
-      .confirmEmailResent(request)
+      .resendEmailConfirmation(request)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
+import { NoContent } from '../../../../core/types/not-content.type';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { EmptyRequest } from '../../../../shared/paginated-result/types/empty-request.type';
 import { DateTimeUtils } from '../../../../shared/utils/date/datetime.utils';
@@ -58,13 +59,6 @@ export class AccountApiService extends ApiBaseService {
     );
   }
 
-  /** Account confirmation. */
-  confirmAccount(request: ConfirmAccountRequest): Observable<boolean> {
-    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.confirmAccount);
-
-    return this.post<ConfirmAccountRequest, boolean>(request, endpoint, (response) => response.isSuccess);
-  }
-
   /** Recovery password. */
   requestPasswordReset(request: RequestPasswordResetRequest): Observable<boolean> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.requestPasswordReset);
@@ -72,52 +66,59 @@ export class AccountApiService extends ApiBaseService {
     return this.post<RequestPasswordResetRequest, boolean>(request, endpoint, (response) => response.isSuccess);
   }
 
-  /** Confirm recovery password. */
-  confirmRecoveryPassword(request: ResetPasswordRequest): Observable<boolean> {
-    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.resetPassword);
-
-    return this.post<ResetPasswordRequest, boolean>(request, endpoint, (response) => response.isSuccess);
-  }
-
   /** Resend email code. */
-  confirmEmailResent(request: ResendEmailConfirmation): Observable<boolean> {
+  resendEmailConfirmation(request: ResendEmailConfirmation): Observable<boolean> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.resendEmailConfirmation);
 
     return this.post<ResendEmailConfirmation, boolean>(request, endpoint, (response) => response.isSuccess);
   }
 
+  /** Account confirmation. */
+  confirmAccount(request: ConfirmAccountRequest): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.confirmAccount);
+
+    return this.put<ConfirmAccountRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
+  }
+
+  /** Confirm recovery password. */
+  resetPassword(request: ResetPasswordRequest): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.resetPassword);
+
+    return this.put<ResetPasswordRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
+  }
+
   /** Verify email. */
-  verifyEmail(request: VerifyEmailRequest): Observable<boolean> {
+  verifyEmail(request: VerifyEmailRequest): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.verifyEmail);
 
-    return this.post<VerifyEmailRequest, boolean>(request, endpoint, (response) => response.isSuccess);
+    return this.put<VerifyEmailRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
   }
 
   /** Update account. */
-  updateAccount(userId: string, request: AccountUpdateRequest): Observable<boolean> {
+  updateAccount(userId: string, request: AccountUpdateRequest): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.updateAccount, { userId: userId });
 
-    return this.put<AccountUpdateRequest, boolean>(request, endpoint, (response) => response.isSuccess);
+    return this.put<AccountUpdateRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
   }
 
   /** Toggle account is active. */
-  toggleIsActive(userId: string): Observable<boolean> {
+  toggleIsActive(userId: string): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.toggleIsActive, { userId: userId });
 
-    return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
+    return this.put<EmptyRequest, NoContent>({}, endpoint, (response) => response.value as NoContent);
   }
 
   /** Confirm email. */
-  confirmEmail(userId: string): Observable<boolean> {
+  confirmEmail(userId: string): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.confirmEmail, { userId: userId });
 
-    return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
+    return this.put<EmptyRequest, NoContent>({}, endpoint, (response) => response.value as NoContent);
   }
 
   /** Toggle account is collaborator. */
-  toggleIsCollaborator(userId: string): Observable<boolean> {
+  toggleIsCollaborator(userId: string): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.toggleIsCollaborator, { userId: userId });
 
-    return this.put<EmptyRequest, boolean>({}, endpoint, (response) => response.isSuccess);
+    return this.put<EmptyRequest, NoContent>({}, endpoint, (response) => response.value as NoContent);
   }
 }

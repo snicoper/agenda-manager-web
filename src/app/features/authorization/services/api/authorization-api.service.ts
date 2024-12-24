@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
 import { BaseRoleManagementApiService } from '../../../../core/services/api/base-role-management-api.service';
+import { NoContent } from '../../../../core/types/not-content.type';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CreateRoleRequest } from '../../interfaces/requests/create-role.request';
@@ -57,24 +58,24 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
     roleId: string,
     permissionId: string,
     request: UpdatePermissionForRoleRequest,
-  ): Observable<boolean> {
+  ): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.updatePermissionForRole, {
       roleId: roleId,
       permissionId: permissionId,
     });
 
-    return this.put<UpdatePermissionForRoleRequest, boolean>(
+    return this.put<UpdatePermissionForRoleRequest, NoContent>(
       request,
       endpoint,
-      (response) => response.value as boolean,
+      (response) => response.value as NoContent,
     );
   }
 
   /** Delete role. */
-  deleteRole(roleId: string): Observable<boolean> {
+  deleteRole(roleId: string): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.deleteRole, { roleId: roleId });
 
-    return this.delete<boolean>(endpoint, (response) => response.value as boolean);
+    return this.delete<NoContent>(endpoint, (response) => response.value as NoContent);
   }
 
   /** Get users by role id. */
@@ -106,9 +107,9 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
   }
 
   /** Update role. */
-  updateRole(roleId: string, request: RoleUpdateRequest): Observable<boolean> {
+  updateRole(roleId: string, request: RoleUpdateRequest): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.updateRol, { roleId: roleId });
 
-    return this.put<RoleUpdateRequest, boolean>(request, endpoint, (response) => response.value as boolean);
+    return this.put<RoleUpdateRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
   }
 }

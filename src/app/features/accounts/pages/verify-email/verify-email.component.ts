@@ -43,14 +43,9 @@ export class VerifyEmailComponent {
     } as const;
 
     this.accountApiService.verifyEmail(request).subscribe({
-      next: (isSuccess) => {
-        this.isSuccess = isSuccess;
-
-        this.message = isSuccess
-          ? 'Correo electrónico verificado con éxito.'
-          : 'La confirmación de correo electrónico ha fallado o expiro.';
-
-        this.alertType = isSuccess ? 'success' : 'error';
+      next: () => {
+        this.message = 'Correo electrónico verificado con éxito.';
+        this.alertType = 'success';
       },
       error: () => {
         this.isSuccess = false;

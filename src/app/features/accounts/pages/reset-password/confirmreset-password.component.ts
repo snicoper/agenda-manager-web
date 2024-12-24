@@ -88,7 +88,7 @@ export class ResetPasswordComponent {
 
   private confirmRecoveryPassword(request: ResetPasswordRequest): void {
     this.accountApiService
-      .confirmRecoveryPassword(request)
+      .resetPassword(request)
       .pipe(finalize(() => (this.formState.isLoading = false)))
       .subscribe({
         next: () => {
