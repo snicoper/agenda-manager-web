@@ -6,11 +6,10 @@ import { ApiResponse } from '../../interfaces/http/api-response.interface';
 import { NoContent } from '../../types/not-content.type';
 
 /**
- * Servicio base abstracto para la comunicación con la API.
+ * Clase base abstracta para la comunicación con la API.
  * Proporciona métodos genéricos para realizar operaciones CRUD.
  */
 export abstract class ApiBaseService {
-  // Cliente HTTP inyectado para realizar solicitudes HTTP.
   protected readonly http = inject(HttpClient);
 
   /**
