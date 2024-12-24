@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -8,7 +8,6 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { IdentityDocumentUtils } from '../../../../core/modules/identity-document/identity-document-display.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountApiService } from '../../services/api/account-api.service';
@@ -20,20 +19,14 @@ import { AccountUpdateBladeComponent } from '../account-update-blade/account-upd
   templateUrl: './account-info-tab.component.html',
   styleUrl: './account-info-tab.component.scss',
 })
-export class AccountInfoTabComponent implements OnInit {
+export class AccountInfoTabComponent {
   private readonly accountApi = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly accountDetailsService = inject(AccountDetailsService);
   private readonly bladeService = inject(BladeService);
 
-  readonly breadcrumb = new BreadcrumbCollection();
   readonly siteUrls = SiteUrls;
-
-  accountState = this.accountDetailsService.state;
-
-  ngOnInit(): void {
-    this.setBreadcrumb();
-  }
+  readonly accountState = this.accountDetailsService.state;
 
   handleChangeStateIsActive(): void {
     if (!this.accountState.account()) {
@@ -116,11 +109,5 @@ export class AccountInfoTabComponent implements OnInit {
         this.accountDetailsService.load(this.accountState.userId()!);
       },
     });
-  }
-
-  private setBreadcrumb(): void {
-    this.breadcrumb
-      .add('Accounts', SiteUrls.accounts.list)
-      .add('Account Details', SiteUrls.accounts.details, '', false);
   }
 }

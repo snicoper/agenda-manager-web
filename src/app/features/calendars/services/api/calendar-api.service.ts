@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
+import { NoContent } from '../../../../core/types/not-content.type';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
+import { DateTimeUtils } from '../../../../shared/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
-import { CalendarDetailsRequest } from '../../interfaces/requests/calendar-details.request';
+import { CalendarDetailsResponse } from '../../interfaces/responses/calendar-details.response';
 import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
 
 @Injectable({
@@ -26,10 +28,15 @@ export class CalendarApiService extends ApiBaseService {
   }
 
   /** Obtener detalles de un calendario. */
-  getCalendarById(calendarId: string): Observable<CalendarDetailsRequest> {
+  getCalendarById(calendarId: string): Observable<CalendarDetailsResponse> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.getCalendarById, { calendarId: calendarId });
 
-    return this.get<CalendarDetailsRequest>(endpoint, (response) => response.value as CalendarDetailsRequest);
+    return this.get<CalendarDetailsResponse>(endpoint, (response) => {
+      return {
+        ...(response.value as CalendarDetailsResponse),
+        createAt: DateTimeUtils.fromApi(response.value.createdAt),
+      };
+    });
   }
 
   /** Crear un calendario. */
@@ -37,5 +44,12 @@ export class CalendarApiService extends ApiBaseService {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.createCalendar);
 
     return this.post<CalendarCreateRequest, string>(request, endpoint, (response) => response.value as string);
+  }
+
+  /** Toggle active calendar. */
+  toggleIsActive(calendarId: string): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.toggleIsActive, { calendarId: calendarId });
+
+    return this.put<unknown, NoContent>({} as unknown, endpoint);
   }
 }
