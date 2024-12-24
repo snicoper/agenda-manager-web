@@ -6,6 +6,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { logError } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
@@ -34,10 +35,14 @@ export class CalendarInfoTabComponent {
   readonly siteUrls = SiteUrls;
   readonly calendarState = this.calendarDetailsService.state;
 
-  handleOpenUpdateCalendarBlade(): void {}
+  handleOpenUpdateCalendarBlade(): void {
+    // this.bladeService.show('am-calendar-update-blade', { calendarId: this.calendarState.calendarId() });
+  }
 
   handleChangeStateIsActive(): void {
     if (!this.calendarState.calendar()) {
+      logError('CalendarInfoTabComponent.handleChangeStateIsActive', 'Calendar is not loaded');
+
       return;
     }
 
