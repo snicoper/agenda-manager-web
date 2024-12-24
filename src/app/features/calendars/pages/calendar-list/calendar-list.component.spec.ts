@@ -32,7 +32,7 @@ describe('CalendarListComponent', () => {
   mockPaginatedResponse.totalItems = mockCalendars.length;
   mockPaginatedResponse.totalPages = 1;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     mockCalendarApiService = jasmine.createSpyObj('CalendarApiService', ['getCalendarsPaginated']);
     mockSnackBarService = jasmine.createSpyObj('SnackBarService', ['error', 'success']);
     mockBladeService = jasmine.createSpyObj('BladeService', ['show', 'result'], {
@@ -45,7 +45,7 @@ describe('CalendarListComponent', () => {
     });
     mockCalendarApiService.getCalendarsPaginated.and.returnValue(of(mockPaginatedResponse));
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [CalendarListComponent],
       providers: [
         provideRouter([]),
@@ -55,12 +55,10 @@ describe('CalendarListComponent', () => {
         { provide: SnackBarService, useValue: mockSnackBarService },
         { provide: BladeService, useValue: mockBladeService },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(CalendarListComponent);
     component = fixture.componentInstance;
-
-    // Simula ngAfterViewInit.
     fixture.detectChanges();
   });
 
@@ -69,13 +67,8 @@ describe('CalendarListComponent', () => {
   });
 
   it('should load calendars on init', fakeAsync(() => {
-    // Reinicia el spy antes del test.
     mockCalendarApiService.getCalendarsPaginated.calls.reset();
-
-    // Simula completamente la inicialización del componente.
     component.ngAfterViewInit();
-
-    // Fuerza la detección de cambios.
     fixture.detectChanges();
     tick();
 

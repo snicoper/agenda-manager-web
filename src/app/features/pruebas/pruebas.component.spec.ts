@@ -6,14 +6,14 @@ describe('PruebasComponent', () => {
   let fixture: ComponentFixture<PruebasComponent>;
   let loggerSpy: { logInfo: jasmine.Spy };
 
-  beforeEach(async () => {
+  beforeEach(() => {
     loggerSpy = jasmine.createSpyObj('logger', ['logInfo']);
     (window as any).logInfo = loggerSpy.logInfo;
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [PruebasComponent],
       providers: [],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(PruebasComponent);
     component = fixture.componentInstance;

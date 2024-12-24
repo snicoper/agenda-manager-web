@@ -10,15 +10,15 @@ describe('PageBaseComponent', () => {
   let fixture: ComponentFixture<PageBaseComponent>;
   let routerMock: { events: Subject<any> };
 
-  beforeEach(async () => {
+  beforeEach(() => {
     routerMock = {
       events: new Subject(),
     };
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [PageBaseComponent],
       providers: [provideRouter([]), provideHttpClient(), provideAnimations()],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(PageBaseComponent);
     component = fixture.componentInstance;
