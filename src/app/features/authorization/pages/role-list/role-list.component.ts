@@ -22,13 +22,13 @@ import { PageHeaderComponent } from '../../../../shared/components/layout/page-h
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
-import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { RoleCreateBladeComponent } from '../../components/role-create-blade/role-create-blade.component';
 import { RoleUpdateBladeComponent } from '../../components/role-update-blade/role-update-blade.component';
 import { RolePaginatedResponse } from '../../interfaces/responses/role-paginated.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
+import { PaginatedResult } from '../../../../shared/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-role-list',

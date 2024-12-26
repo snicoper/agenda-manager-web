@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { PaginatedResult } from '../../paginated-result/paginated-result';
+import { PaginatedResult } from '../../modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-paginator',

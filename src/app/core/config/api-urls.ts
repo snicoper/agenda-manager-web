@@ -20,6 +20,7 @@ export const ApiUrls = {
   calendars: {
     getCalendarsPaginated: '/calendars/paginated',
     getCalendarById: '/calendars/{calendarId}',
+    getCalendarSettings: '/calendars/{calendarId}/settings',
     createCalendar: '/calendars',
     updateCalendar: '/calendars/{calendarId}',
     toggleIsActive: '/calendars/{calendarId}/toggle-is-active',

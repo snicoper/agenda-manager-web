@@ -14,7 +14,7 @@ export interface SystemPermissionsType {
   Permissions: Permission;
   Calendars: Permission;
   CalendarHolidays: Permission;
-  CalendarConfigurations: Permission;
+  CalendarSettings: Permission;
   Resources: Permission;
   ResourceSchedules: Permission;
   ResourceTypes: Permission;
@@ -31,7 +31,7 @@ export interface ModuleRoleDisplayNameType {
   permission: string;
   calendar: string;
   'calendar-holiday': string;
-  'calendar-configuration': string;
+  'calendar-settings': string;
   resource: string;
   'resource-schedule': string;
   'resource-type': string;

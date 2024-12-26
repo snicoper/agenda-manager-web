@@ -50,11 +50,11 @@ export const SystemPermissions: SystemPermissionsType = {
     Delete: 'calendar-holiday:delete',
   },
 
-  CalendarConfigurations: {
-    Create: 'calendar-configuration:create',
-    Read: 'calendar-configuration:read',
-    Update: 'calendar-configuration:update',
-    Delete: 'calendar-configuration:delete',
+  CalendarSettings: {
+    Create: 'calendar-settings:create',
+    Read: 'calendar-settings:read',
+    Update: 'calendar-settings:update',
+    Delete: 'calendar-settings:delete',
   },
 
   Resources: {

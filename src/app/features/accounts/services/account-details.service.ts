@@ -32,7 +32,7 @@ export class AccountDetailsService {
 
   refresh(): void {
     if (!this.userId$()) {
-      logError('User id is not defined');
+      logError('AccountDetailsService.refresh', 'User id is not defined');
 
       return;
     }
@@ -51,7 +51,7 @@ export class AccountDetailsService {
 
   private loadUserDetails(): void {
     if (!this.userId$()) {
-      logError('User id is not defined');
+      logError('AccountDetailsService.loadUserDetails', 'User id is not defined');
 
       return;
     }

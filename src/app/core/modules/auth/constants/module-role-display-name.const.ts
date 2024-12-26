@@ -8,7 +8,7 @@ export const ModuleRoleDisplayName: ModuleRoleDisplayNameType = {
   permission: 'Permisos',
   calendar: 'Calendarios',
   'calendar-holiday': 'Días festivos del calendario',
-  'calendar-configuration': 'Configuraciones del calendario',
+  'calendar-settings': 'Configuraciones del calendario',
   resource: 'Recursos',
   'resource-schedule': 'Horarios de los recursos',
   'resource-type': 'Tipos de recursos',

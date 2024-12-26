@@ -10,6 +10,7 @@ import { NavToolbarComponent } from '../../../../shared/components/layout/nav-to
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { CalendarInfoTabComponent } from '../../components/calendar-info-tab/calendar-info-tab.component';
+import { CalendarSettingsTabComponent } from '../../components/calendar-settings-tab/calendar-settings-tab.component';
 import { CalendarDetailsService } from '../../services/calendar-details.service';
 
 @Component({
@@ -31,6 +32,12 @@ export class CalendarDetailsComponent implements OnInit, OnDestroy {
         icon: 'event_note',
         permissions: [SystemPermissions.Calendars.Read],
         component: CalendarInfoTabComponent,
+      },
+      {
+        label: 'Configuración',
+        icon: 'settings',
+        permissions: [SystemPermissions.CalendarSettings.Read],
+        component: CalendarSettingsTabComponent,
       },
     ],
   };

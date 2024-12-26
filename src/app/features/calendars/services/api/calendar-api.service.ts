@@ -4,13 +4,14 @@ import { ApiUrls } from '../../../../core/config/api-urls';
 import { EmptyRequest } from '../../../../core/modules/http/types/empty-request.type';
 import { NoContent } from '../../../../core/modules/http/types/no-content.type';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
-import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { DateTimeUtils } from '../../../../shared/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
 import { CalendarUpdateRequest } from '../../interfaces/requests/calendar-update-request';
 import { CalendarDetailsResponse } from '../../interfaces/responses/calendar-details.response';
 import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
+import { CalendarSettingsResponse } from '../../interfaces/responses/calendar-settings.response';
+import { PaginatedResult } from '../../../../shared/modules/paginated-result/paginated-result';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +40,13 @@ export class CalendarApiService extends ApiBaseService {
         createAt: DateTimeUtils.fromApi(response.value.createdAt),
       };
     });
+  }
+
+  /** Obtener settings de un calendario. */
+  getCalendarSettings(calendarId: string): Observable<CalendarSettingsResponse> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.getCalendarSettings, { calendarId: calendarId });
+
+    return this.get<CalendarSettingsResponse>(endpoint, (response) => response.value as CalendarSettingsResponse);
   }
 
   /** Crear un calendario. */

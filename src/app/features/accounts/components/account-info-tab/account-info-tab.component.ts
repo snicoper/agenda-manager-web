@@ -6,9 +6,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
-import { IdentityDocumentUtils } from '../../../../core/modules/identity-document/identity-document-display.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
+import { IdentityDocumentUtils } from '../../../../shared/modules/identity-document/identity-document-display.const';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountApiService } from '../../services/api/account-api.service';
@@ -47,7 +47,7 @@ export class AccountInfoTabComponent {
       .subscribe({
         next: () => {
           this.snackBarService.success('Estado de la cuenta actualizado correctamente');
-          this.accountDetailsService.load(this.accountState.userId()!);
+          this.accountDetailsService.refresh();
         },
         error: () => {
           this.snackBarService.error('Error al actualizar el estado de la cuenta');
@@ -73,7 +73,7 @@ export class AccountInfoTabComponent {
       .subscribe({
         next: () => {
           this.snackBarService.success('Correo electrónico confirmado correctamente');
-          this.accountDetailsService.load(this.accountState.userId()!);
+          this.accountDetailsService.refresh();
         },
         error: () => {
           this.snackBarService.error('Error al confirmar el correo electrónico');
@@ -99,7 +99,7 @@ export class AccountInfoTabComponent {
       .subscribe({
         next: () => {
           this.snackBarService.success('Usuario colaborador actualizado correctamente');
-          this.accountDetailsService.load(this.accountState.userId()!);
+          this.accountDetailsService.refresh();
         },
         error: () => {
           this.snackBarService.error('Error al actualizar el usuario colaborador');
@@ -122,7 +122,7 @@ export class AccountInfoTabComponent {
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: () => {
-        this.accountDetailsService.load(this.accountState.userId()!);
+        this.accountDetailsService.refresh();
       },
     });
   }

@@ -29,13 +29,13 @@ export const IdentityDocumentDisplayInfo: Record<IdentityDocumentType, { code: s
     code: 'NSS',
     description: 'Número de Seguridad Social',
   },
-};
+} as const;
 
 export const IdentityDocumentOptions = Object.entries(IdentityDocumentDisplayInfo).map(([type, info]) => ({
   value: Number(type),
   code: info.code,
   description: info.description,
-}));
+})) as { value: IdentityDocumentType; code: string; description: string }[];
 
 export const IdentityDocumentUtils = {
   getCodeByType: (type: IdentityDocumentType): string => IdentityDocumentDisplayInfo[type]?.code ?? '',
