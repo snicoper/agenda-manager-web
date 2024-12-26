@@ -1,12 +1,4 @@
-/**
- * Define cómo gestionar los conflictos cuando un día festivo se solapa con citas existentes:
- * permitir que coexistan, rechazar la operación, o cancelar automáticamente las citas afectadas.
- */
-export enum HolidayConflictStrategy {
-  Allow = 1,
-  Reject = 2,
-  Cancel = 3,
-}
+import { HolidayConflictStrategy } from '../enums/holiday-conflict-strategy.enum';
 
 export const HolidayConflictInfo: Record<HolidayConflictStrategy, { code: string; description: string }> = {
   [HolidayConflictStrategy.Allow]: {
@@ -28,11 +20,3 @@ export const HolidayConflictOptions = Object.entries(HolidayConflictInfo).map(([
   code: info.code,
   description: info.description,
 })) as { value: HolidayConflictStrategy; code: string; description: string }[];
-
-export const HolidayConflictUtils = {
-  getCodeByType: (type: HolidayConflictStrategy): string => HolidayConflictInfo[type]?.code ?? '',
-
-  getDescriptionByType: (type: HolidayConflictStrategy): string => HolidayConflictInfo[type]?.description ?? '',
-
-  isValidType: (type: HolidayConflictStrategy): boolean => type in HolidayConflictStrategy,
-} as const;

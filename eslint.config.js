@@ -19,6 +19,9 @@ module.exports = tseslint.config(
         {
           code: 120,
           ignorePattern: "[^imports|^exports]",
+          ignoreComments: true,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
         },
       ],
       "no-alert": "error",

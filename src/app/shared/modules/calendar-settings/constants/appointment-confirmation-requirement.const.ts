@@ -1,10 +1,4 @@
-/**
- * Define el estado inicial de las citas al ser creadas.
- */
-export enum AppointmentConfirmationRequirementStrategy {
-  Require = 1,
-  AutoAccept = 2,
-}
+import { AppointmentConfirmationRequirementStrategy } from '../enums/appointment-confirmation-requirement-strategy.enum';
 
 export const AppointmentConfirmationRequirementInfo: Record<
   AppointmentConfirmationRequirementStrategy,
@@ -27,14 +21,3 @@ export const AppointmentConfirmationRequirementOptions = Object.entries(Appointm
     description: info.description,
   }),
 ) as { value: AppointmentConfirmationRequirementStrategy; code: string; description: string }[];
-
-export const AppointmentConfirmationRequirementUtils = {
-  getCodeByType: (type: AppointmentConfirmationRequirementStrategy): string =>
-    AppointmentConfirmationRequirementInfo[type]?.code ?? '',
-
-  getDescriptionByType: (type: AppointmentConfirmationRequirementStrategy): string =>
-    AppointmentConfirmationRequirementInfo[type]?.description ?? '',
-
-  isValidType: (type: AppointmentConfirmationRequirementStrategy): boolean =>
-    type in AppointmentConfirmationRequirementStrategy,
-} as const;
