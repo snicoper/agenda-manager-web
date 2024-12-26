@@ -16,7 +16,7 @@ import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/htt
 import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valildators.contract';
 import { CalendarUpdateRequest } from '../../interfaces/requests/calendar-update-request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { CalendarDetailsService } from '../../services/calendar-details.service';
+import { CalendarDetailsStateService } from '../../services/calendar-details-state.service';
 
 @Component({
   selector: 'am-calendar-update-blade',
@@ -37,7 +37,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly bladeService = inject(BladeService);
-  private readonly calendarDetailsService = inject(CalendarDetailsService);
+  private readonly calendarDetailsStateService = inject(CalendarDetailsStateService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -47,7 +47,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
   };
   readonly formInputTypes = FormInputType;
 
-  calendarState = this.calendarDetailsService.state;
+  calendarState = this.calendarDetailsStateService.state;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -94,7 +94,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.snackBarService.success('Calendario actualizado con éxito');
-          this.calendarDetailsService.refresh();
+          this.calendarDetailsStateService.refresh();
           this.bladeService.emitResult(true);
         },
         error: (error) => {
@@ -105,7 +105,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private loadCalendar(): void {
-    this.calendarDetailsService.refresh();
+    this.calendarDetailsStateService.refresh();
     this.buildForm();
   }
 

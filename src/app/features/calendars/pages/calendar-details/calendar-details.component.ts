@@ -11,7 +11,7 @@ import { PageBaseComponent } from '../../../../shared/components/layout/page-bas
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { CalendarInfoTabComponent } from '../../components/calendar-info-tab/calendar-info-tab.component';
 import { CalendarSettingsTabComponent } from '../../components/calendar-settings-tab/calendar-settings-tab.component';
-import { CalendarDetailsService } from '../../services/calendar-details.service';
+import { CalendarDetailsStateService } from '../../services/calendar-details-state.service';
 
 @Component({
   selector: 'am-calendar-details',
@@ -20,7 +20,7 @@ import { CalendarDetailsService } from '../../services/calendar-details.service'
   styleUrl: './calendar-details.component.scss',
 })
 export class CalendarDetailsComponent implements OnInit, OnDestroy {
-  private readonly calendarDetailsService = inject(CalendarDetailsService);
+  private readonly calendarDetailsStateService = inject(CalendarDetailsStateService);
   private readonly route = inject(ActivatedRoute);
 
   readonly calendarId = this.route.snapshot.params['id'];
@@ -42,7 +42,7 @@ export class CalendarDetailsComponent implements OnInit, OnDestroy {
     ],
   };
 
-  calendar = this.calendarDetailsService.state.calendar;
+  calendar = this.calendarDetailsStateService.state.calendar;
 
   ngOnInit(): void {
     if (!this.calendarId) {
@@ -51,12 +51,12 @@ export class CalendarDetailsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.calendarDetailsService.load(this.calendarId);
+    this.calendarDetailsStateService.load(this.calendarId);
     this.setBreadcrumb();
   }
 
   ngOnDestroy(): void {
-    this.calendarDetailsService.clean();
+    this.calendarDetailsStateService.clean();
   }
 
   private setBreadcrumb(): void {

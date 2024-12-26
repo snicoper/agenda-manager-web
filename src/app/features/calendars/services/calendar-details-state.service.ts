@@ -1,16 +1,16 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../core/config/site-urls';
 import { logError } from '../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../core/services/snackbar.service';
-import { CalendarDetailsState } from '../interfaces/calendar-details.state';
+import { CalendarDetailsState } from '../interfaces/calendar-details-state.interface';
 import { CalendarDetailsResponse } from '../interfaces/responses/calendar-details.response';
 import { CalendarApiService } from './api/calendar-api.service';
 
 @Injectable({ providedIn: 'root' })
-export class CalendarDetailsService {
+export class CalendarDetailsStateService {
   private readonly calendarApi = inject(CalendarApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
@@ -32,7 +32,7 @@ export class CalendarDetailsService {
 
   refresh(): void {
     if (!this.calendarId$()) {
-      logError('Calendar id is not defined');
+      logError('CalendarDetailsState.refresh', 'Calendar id is not defined');
 
       return;
     }
@@ -41,7 +41,7 @@ export class CalendarDetailsService {
   }
 
   setLoadingState(isLoading: boolean): void {
-    this.loading$.set(isLoading);
+    this.loading$.update(() => isLoading);
   }
 
   clean(): void {
@@ -51,7 +51,7 @@ export class CalendarDetailsService {
 
   private loadCalendarDetails(): void {
     if (!this.calendarId$()) {
-      logError('Calendar id is not defined');
+      logError('CalendarDetailsState.loadCalendarDetails', 'Calendar id is not defined');
 
       return;
     }
@@ -60,11 +60,12 @@ export class CalendarDetailsService {
 
     this.calendarApi
       .getCalendarById(this.calendarId$()!)
-      .pipe(finalize(() => this.loading$.set(false)))
+      .pipe(
+        take(1),
+        finalize(() => this.loading$.set(false)),
+      )
       .subscribe({
-        next: (response) => {
-          this.calendar$.set(response);
-        },
+        next: (response) => this.calendar$.set(response),
         error: (error) => {
           if (error.status === HttpStatusCode.NotFound) {
             this.snackBarService.error('El calendario no existe');

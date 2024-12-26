@@ -1,10 +1,13 @@
 @if (!calendarState.loading() && calendarState.calendar(); as calendar) {
+  <!-- actions -->
   <div class="d-flex justify-content-start">
     <button mat-raised-button (click)="handleOpenUpdateCalendarBlade()">
       <mat-icon>edit</mat-icon>
       <span>Editar</span>
     </button>
   </div>
+
+  <!-- table -->
   <div class="custom-table-container">
     <table class="table table-striped table-border-bottom">
       <tbody>
@@ -19,7 +22,7 @@
         <tr>
           <th>Activo</th>
           <td>
-            <mat-slide-toggle (change)="handleChangeStateIsActive()" [checked]="calendar.isActive"></mat-slide-toggle>
+            <mat-slide-toggle (change)="handleChangeStateIsActive()" [checked]="calendar.isActive" />
           </td>
         </tr>
         <tr>
