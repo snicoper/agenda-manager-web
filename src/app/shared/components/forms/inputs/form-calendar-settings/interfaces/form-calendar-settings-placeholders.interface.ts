@@ -1,4 +1,4 @@
-export interface FormCalendarSettingsPlaceholder {
+export interface FormCalendarSettingsPlaceholders {
   timeZone?: string;
   confirmationRequirement?: string;
   overlapBehavior?: string;

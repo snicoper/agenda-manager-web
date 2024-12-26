@@ -38,6 +38,10 @@ export class CalendarSettingsStateService {
     this.loadCalendarSettings();
   }
 
+  refresh(): void {
+    this.loadCalendarSettings();
+  }
+
   setLoadingState(isLoading: boolean): void {
     this.loading$.update(() => isLoading);
   }

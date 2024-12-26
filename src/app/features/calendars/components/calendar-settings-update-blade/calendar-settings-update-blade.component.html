@@ -1,1 +1,45 @@
-<p>calendar-settings-update-blade works!</p>,
+<section class="blade-content-container">
+  @if (calendarSettingsState.loading() || formState.isLoading) {
+    <div class="d-flex justify-content-center">
+      <mat-spinner />
+    </div>
+  } @else {
+    <h3 class="blade-title">Actualizar configuración de calendario</h3>
+
+    <div class="blade-body">
+      <form [formGroup]="formState.form">
+        <am-non-field-errors [badRequest]="formState.badRequest" />
+
+        <!-- time zone field -->
+        <am-form-time-zone-selector
+          fieldName="timeZone"
+          formControlName="timeZone"
+          label="Zona horaria"
+          [formState]="formState"
+        />
+
+        <!-- settings field -->
+        <am-form-calendar-settings
+          fieldName="settings"
+          formControlName="settings"
+          label="Configuración"
+          [formState]="formState"
+        />
+      </form>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3 blade-actions">
+      <button mat-flat-button class="me-2" (click)="handleCloseBlade()">
+        <mat-icon>close</mat-icon>
+        Cerrar
+      </button>
+
+      <am-btn-loading
+        btnText="Actualizar configuración de calendario"
+        icon="update"
+        (eventClick)="handleSubmit()"
+        [loading]="formState.isLoading"
+      />
+    </div>
+  }
+</section>

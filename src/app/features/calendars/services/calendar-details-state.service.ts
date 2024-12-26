@@ -26,6 +26,10 @@ export class CalendarDetailsStateService {
   };
 
   load(calendarId: string): void {
+    if (this.calendar$()) {
+      return;
+    }
+
     this.calendarId$.set(calendarId);
     this.loadCalendarDetails();
   }

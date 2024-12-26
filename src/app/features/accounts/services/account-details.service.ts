@@ -26,6 +26,10 @@ export class AccountDetailsService {
   };
 
   load(userId: string): void {
+    if (this.account$()) {
+      return;
+    }
+
     this.userId$.set(userId);
     this.loadUserDetails();
   }

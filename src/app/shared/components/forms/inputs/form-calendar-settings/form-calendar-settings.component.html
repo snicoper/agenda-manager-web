@@ -1,111 +1,100 @@
 <div class="calendar-settings-container">
   <div class="calendar-settings-fields">
-    <!-- time zone field -->
-    <mat-form-field class="time-zone">
-      <mat-label>Zona horaria</mat-label>
-      <input
-        matInput
-        [(ngModel)]="value.timeZone"
-        (ngModelChange)="onChangeValue(value)"
-        [type]="formInputTypes.Text"
-        [disabled]="isDisabled"
-        [id]="id + '-time-zone'"
-        [readonly]="readonly()"
-        [placeholder]="placeholders()?.timeZone ?? ''"
-      />
+    <div class="row">
+      <!-- confirmation requirement field -->
+      <div class="col-12">
+        <mat-form-field class="confirmation-requirement">
+          <mat-label>Requerimiento de confirmación</mat-label>
+          <mat-select
+            [(ngModel)]="value.confirmationRequirement"
+            (ngModelChange)="onChangeValue(value)"
+            [disabled]="isDisabled"
+            [id]="id + '-confirmation-requirement'"
+            [disabled]="readonly()"
+          >
+            @for (appointmentConfirmationRequirementOption of appointmentConfirmationRequirementOptions; track $index) {
+              <mat-option [value]="appointmentConfirmationRequirementOption.value">
+                {{ appointmentConfirmationRequirementOption.description }}
+              </mat-option>
+            }
+          </mat-select>
 
-      @if (showIcons()) {
-        <mat-icon matPrefix>schedule</mat-icon>
-      }
-    </mat-form-field>
+          @if (showIcons()) {
+            <mat-icon matPrefix>assignment_turned_in</mat-icon>
+          }
+        </mat-form-field>
 
-    <!-- confirmation requirement field -->
-    <mat-form-field class="confirmation-requirement">
-      <mat-label>Requerimiento de confirmación</mat-label>
-      <mat-select
-        [(ngModel)]="value.confirmationRequirement"
-        (ngModelChange)="onChangeValue(value)"
-        [disabled]="isDisabled"
-        [id]="id + '-confirmation-requirement'"
-        [disabled]="readonly()"
-      >
-        @for (appointmentConfirmationRequirementOption of appointmentConfirmationRequirementOptions; track $index) {
-          <mat-option [value]="appointmentConfirmationRequirementOption.value">
-            {{ appointmentConfirmationRequirementOption.description }}
-          </mat-option>
-        }
-      </mat-select>
+        <!-- appointment overlap behavior field -->
+        <mat-form-field class="appointment-overlapping-options">
+          <mat-label>Opciones de superposición de citas</mat-label>
+          <mat-select
+            [(ngModel)]="value.overlapBehavior"
+            (ngModelChange)="onChangeValue(value)"
+            [disabled]="isDisabled"
+            [id]="id + '-appointment-overlap-behavior'"
+            [disabled]="readonly()"
+          >
+            @for (appointmentOverlappingOption of appointmentOverlappingOptions; track $index) {
+              <mat-option [value]="appointmentOverlappingOption.value">
+                {{ appointmentOverlappingOption.description }}
+              </mat-option>
+            }
+          </mat-select>
 
-      @if (showIcons()) {
-        <mat-icon matPrefix>assignment_turned_in</mat-icon>
-      }
-    </mat-form-field>
+          @if (showIcons()) {
+            <mat-icon matPrefix>event_busy</mat-icon>
+          }
+        </mat-form-field>
+      </div>
 
-    <!-- appointment overlap behavior field -->
-    <mat-form-field class="appointment-overlapping-options">
-      <mat-label>Opciones de superposición de citas</mat-label>
-      <mat-select
-        [(ngModel)]="value.overlapBehavior"
-        (ngModelChange)="onChangeValue(value)"
-        [disabled]="isDisabled"
-        [id]="id + '-appointment-overlap-behavior'"
-        [disabled]="readonly()"
-      >
-        @for (appointmentOverlappingOption of appointmentOverlappingOptions; track $index) {
-          <mat-option [value]="appointmentOverlappingOption.value">
-            {{ appointmentOverlappingOption.description }}
-          </mat-option>
-        }
-      </mat-select>
+      <!-- holiday appointment-handling field-->
+      <div class="col-12">
+        <mat-form-field class="holiday-appointment-handling">
+          <mat-label>Manejo de citas en días festivos</mat-label>
+          <mat-select
+            [(ngModel)]="value.holidayAppointmentHandling"
+            (ngModelChange)="onChangeValue(value)"
+            [disabled]="isDisabled"
+            [id]="id + '-holiday-appointment-handling'"
+            [disabled]="readonly()"
+          >
+            @for (holidayConflictOption of holidayConflictOptions; track $index) {
+              <mat-option [value]="holidayConflictOption.value">
+                {{ holidayConflictOption.description }}
+              </mat-option>
+            }
+          </mat-select>
 
-      @if (showIcons()) {
-        <mat-icon matPrefix>event_busy</mat-icon>
-      }
-    </mat-form-field>
+          @if (showIcons()) {
+            <mat-icon matPrefix>event_busy</mat-icon>
+          }
+        </mat-form-field>
+      </div>
 
-    <!-- holiday-appointment-handling field-->
-    <mat-form-field class="holiday-appointment-handling">
-      <mat-label>Manejo de citas en días festivos</mat-label>
-      <mat-select
-        [(ngModel)]="value.holidayAppointmentHandling"
-        (ngModelChange)="onChangeValue(value)"
-        [disabled]="isDisabled"
-        [id]="id + '-holiday-appointment-handling'"
-        [disabled]="readonly()"
-      >
-        @for (holidayConflictOption of holidayConflictOptions; track $index) {
-          <mat-option [value]="holidayConflictOption.value">
-            {{ holidayConflictOption.description }}
-          </mat-option>
-        }
-      </mat-select>
+      <!-- schedule validation field -->
+      <div class="col-12">
+        <mat-form-field class="schedule-validation">
+          <mat-label>Validación de horario</mat-label>
+          <mat-select
+            [(ngModel)]="value.scheduleValidation"
+            (ngModelChange)="onChangeValue(value)"
+            [disabled]="isDisabled"
+            [id]="id + '-schedule-validation'"
+            [disabled]="readonly()"
+          >
+            @for (resourceScheduleValidationOption of resourceScheduleValidationOptions; track $index) {
+              <mat-option [value]="resourceScheduleValidationOption.value">
+                {{ resourceScheduleValidationOption.description }}
+              </mat-option>
+            }
+          </mat-select>
 
-      @if (showIcons()) {
-        <mat-icon matPrefix>event_busy</mat-icon>
-      }
-    </mat-form-field>
-
-    <!-- schedule-validation field -->
-    <mat-form-field class="schedule-validation">
-      <mat-label>Validación de horario</mat-label>
-      <mat-select
-        [(ngModel)]="value.scheduleValidation"
-        (ngModelChange)="onChangeValue(value)"
-        [disabled]="isDisabled"
-        [id]="id + '-schedule-validation'"
-        [disabled]="readonly()"
-      >
-        @for (resourceScheduleValidationOption of resourceScheduleValidationOptions; track $index) {
-          <mat-option [value]="resourceScheduleValidationOption.value">
-            {{ resourceScheduleValidationOption.description }}
-          </mat-option>
-        }
-      </mat-select>
-
-      @if (showIcons()) {
-        <mat-icon matPrefix>event_busy</mat-icon>
-      }
-    </mat-form-field>
+          @if (showIcons()) {
+            <mat-icon matPrefix>event_busy</mat-icon>
+          }
+        </mat-form-field>
+      </div>
+    </div>
   </div>
 
   @if (formState().form) {

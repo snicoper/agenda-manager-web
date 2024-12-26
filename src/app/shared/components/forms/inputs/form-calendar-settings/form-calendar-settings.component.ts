@@ -12,7 +12,7 @@ import { ResourceScheduleValidationOptions } from '../../../../modules/calendar-
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormInputType } from '../form-input/types/form-input.type';
 import { FormCalendarSettingsField } from './interfaces/form-calendar-settings-field.interface';
-import { FormCalendarSettingsPlaceholder } from './interfaces/form-calendar-settings-placeholder.interface';
+import { FormCalendarSettingsPlaceholders } from './interfaces/form-calendar-settings-placeholders.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -35,7 +35,7 @@ export class FormCalendarSettingsComponent implements ControlValueAccessor, OnIn
   label = input.required<string>();
   readonly = input(false);
   showIcons = input(false);
-  placeholders = input<FormCalendarSettingsPlaceholder>();
+  placeholders = input<FormCalendarSettingsPlaceholders>();
 
   readonly formInputTypes = FormInputType;
 
