@@ -58,7 +58,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     next: HttpHandler,
     error: HttpErrorResponse,
   ): Observable<HttpEvent<unknown>> {
-    logWarning(error);
+    logWarning('ApiErrorInterceptor.handleUnauthorized', error);
 
     if (!this.authService.getToken() && !this.authService.getRefreshToken()) {
       this.authService.logout();
@@ -104,22 +104,22 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
   /** Manejar error NotFound. */
   private handleNotFound(error: HttpErrorResponse): void {
-    logWarning(error);
+    logWarning('ApiErrorInterceptor.handleNotFound', error);
   }
 
   /** Manejar error Forbidden.  */
   private handleForbidden(error: HttpErrorResponse): void {
-    logWarning(error);
+    logWarning('ApiErrorInterceptor.handleForbidden', error);
   }
 
   /** Manejar error BadRequest. */
   private handleBadRequest(error: HttpErrorResponse): void {
-    logWarning(error);
+    logWarning('ApiErrorInterceptor.handleBadRequest', error);
   }
 
   /** Errores 500. */
   private handleUnknownError(error: HttpErrorResponse): void {
-    logError(error);
+    logError('ApiErrorInterceptor.handleUnknownError', error);
 
     this.snackBarService.error(
       `Ha ocurrido un error, por favor si el problema persiste póngase en contacto con la administración.`,

@@ -46,7 +46,7 @@ export class CalendarDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (!this.calendarId) {
-      logError('Calendar id is not defined');
+      logError('CalendarDetailsComponent.ngOnInit', 'Calendar id is not defined');
 
       return;
     }

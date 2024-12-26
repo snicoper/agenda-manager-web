@@ -32,7 +32,7 @@ export class CalendarDetailsStateService {
 
   refresh(): void {
     if (!this.calendarId$()) {
-      logError('CalendarDetailsState.refresh', 'Calendar id is not defined');
+      logError('CalendarDetailsStateService.refresh', 'Calendar id is not defined');
 
       return;
     }
@@ -51,7 +51,7 @@ export class CalendarDetailsStateService {
 
   private loadCalendarDetails(): void {
     if (!this.calendarId$()) {
-      logError('CalendarDetailsState.loadCalendarDetails', 'Calendar id is not defined');
+      logError('CalendarDetailsStateService.loadCalendarDetails', 'Calendar id is not defined');
 
       return;
     }
