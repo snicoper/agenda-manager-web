@@ -93,7 +93,7 @@ $table-border-radius: 8px;
 .custom-table-container {
   @include table-container;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 
   .table {
     @extend .table-base;
