@@ -20,12 +20,12 @@ import { PageHeaderComponent } from '../../../../shared/components/layout/page-h
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
+import { PaginatedResult } from '../../../../shared/modules/paginated-result/paginated-result';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarCreateBladeComponent } from '../../components/calendar-create-blade/calendar-create-blade.component';
 import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { PaginatedResult } from '../../../../shared/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-calendar-list',
@@ -120,7 +120,10 @@ export class CalendarListComponent implements AfterViewInit {
     this.loading = true;
     this.apiService
       .getCalendarsPaginated(this.paginatedResult)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
       .subscribe({
         next: (response) => {
           this.paginatedResult = PaginatedResult.create<CalendarPaginatedResponse>(response);
