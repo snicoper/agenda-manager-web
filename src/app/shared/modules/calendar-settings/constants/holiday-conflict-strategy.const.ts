@@ -20,3 +20,11 @@ export const HolidayConflictOptions = Object.entries(HolidayConflictInfo).map(([
   code: info.code,
   description: info.description,
 })) as { value: HolidayConflictStrategy; code: string; description: string }[];
+
+export const HolidayConflictUtils = {
+  getCodeByType: (type: HolidayConflictStrategy): string => HolidayConflictInfo[type]?.code ?? '',
+
+  getDescriptionByType: (type: HolidayConflictStrategy): string => HolidayConflictInfo[type]?.description ?? '',
+
+  isValidType: (type: HolidayConflictStrategy): boolean => type in HolidayConflictStrategy,
+} as const;

@@ -19,3 +19,12 @@ export const ResourceScheduleValidationOptions = Object.entries(ResourceSchedule
   code: info.code,
   description: info.description,
 })) as { value: ResourceScheduleValidationStrategy; code: string; description: string }[];
+
+export const ResourceScheduleValidationUtils = {
+  getCodeByType: (type: ResourceScheduleValidationStrategy): string => ResourceScheduleValidationInfo[type]?.code ?? '',
+
+  getDescriptionByType: (type: ResourceScheduleValidationStrategy): string =>
+    ResourceScheduleValidationInfo[type]?.description ?? '',
+
+  isValidType: (type: ResourceScheduleValidationStrategy): boolean => type in ResourceScheduleValidationStrategy,
+} as const;

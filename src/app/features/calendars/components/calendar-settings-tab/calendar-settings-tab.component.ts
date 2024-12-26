@@ -5,6 +5,7 @@ import { logError } from '../../../../core/errors/debug-logger';
 import { CalendarSettingsResponse } from '../../interfaces/responses/calendar-settings.response';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarDetailsService } from '../../services/calendar-details.service';
+import { ResourceScheduleValidationOptions } from '../../../../shared/modules/calendar-settings/constants/resource-schedule-validation.const';
 
 @Component({
   selector: 'am-calendar-settings-tab',
@@ -18,6 +19,8 @@ export class CalendarSettingsTabComponent {
 
   settings!: CalendarSettingsResponse;
   loading = true;
+
+  resourceScheduleValidationOptions = ResourceScheduleValidationOptions;
 
   constructor() {
     this.loadSettings();
