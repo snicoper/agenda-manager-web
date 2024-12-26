@@ -13,13 +13,13 @@ import { BladeService } from '../../../../shared/components/blade/services/blade
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormAddressComponent } from '../../../../shared/components/forms/inputs/form-address/form-address.component';
-import { FormAddressField } from '../../../../shared/components/forms/inputs/form-address/models/form-address-field.interface';
+import { FormAddressField } from '../../../../shared/components/forms/inputs/form-address/interfaces/form-address-field.interface';
 import { FormIdentityDocumentComponent } from '../../../../shared/components/forms/inputs/form-identity-document/form-identity-document.component';
-import { FormIdentityDocumentField } from '../../../../shared/components/forms/inputs/form-identity-document/models/form-identity-document-field.interface';
+import { FormIdentityDocumentField } from '../../../../shared/components/forms/inputs/form-identity-document/interfaces/form-identity-document-field.interface';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormPhoneNumberComponent } from '../../../../shared/components/forms/inputs/form-phone-number/form-phone-number.component';
-import { FormPhoneNumberField } from '../../../../shared/components/forms/inputs/form-phone-number/models/form-phone-number-field.interface';
+import { FormPhoneNumberField } from '../../../../shared/components/forms/inputs/form-phone-number/interfaces/form-phone-number-field.interface';
 import { addressCompleteValidator } from '../../../../shared/components/forms/validators/address-complete.validator';
 import { identityDocumentValidator } from '../../../../shared/components/forms/validators/identity-document.validator';
 import { phoneCompleteValidator } from '../../../../shared/components/forms/validators/phone-complete.validator';

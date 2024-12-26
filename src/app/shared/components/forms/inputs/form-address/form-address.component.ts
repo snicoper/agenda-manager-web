@@ -3,11 +3,11 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { FormState } from '../../../../../core/modules/forms/interfaces/form-state.interface';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormInputType } from '../form-input/types/form-input.type';
-import { FormAddressField } from './models/form-address-field.interface';
-import { FormAddressPlaceholders } from './models/form-address-placeholders.interface';
-import { FormState } from '../../../../../core/modules/forms/interfaces/form-state.interface';
+import { FormAddressField } from './interfaces/form-address-field.interface';
+import { FormAddressPlaceholders } from './interfaces/form-address-placeholders.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

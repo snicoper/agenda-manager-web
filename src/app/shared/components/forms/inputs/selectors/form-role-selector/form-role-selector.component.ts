@@ -3,12 +3,12 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
+import { FormState } from '../../../../../../core/modules/forms/interfaces/form-state.interface';
 import { SnackBarService } from '../../../../../../core/services/snackbar.service';
 import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
-import { SelectableRole } from './models/selectable-role';
+import { SelectableRole } from './interfaces/selectable-role.interface';
 import { RoleSelectorApiService } from './services/role-selector-api.service';
-import { FormState } from '../../../../../../core/modules/forms/interfaces/form-state.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -76,7 +76,10 @@ export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
     this.isLoading = true;
     this.roleSelectorApiService
       .getAllRoles()
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.isLoading = false)),
+      )
       .subscribe({
         next: (roles) => (this.availableRoles = roles),
         error: () => this.snackBarService.error('Error al cargar los roles'),

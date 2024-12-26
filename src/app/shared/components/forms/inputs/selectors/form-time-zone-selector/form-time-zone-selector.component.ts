@@ -8,7 +8,7 @@ import { getTimeZones } from '@vvo/tzdb';
 import { FormState } from '../../../../../../core/modules/forms/interfaces/form-state.interface';
 import { SelectOnFocusDirective } from '../../../../../directives/select-on-focus.directive';
 import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
-import { FormTimeZoneField } from './models/form-time-zone-field.interface';
+import { FormTimeZoneField } from './interfaces/form-time-zone-field.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

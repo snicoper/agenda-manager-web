@@ -12,7 +12,7 @@ import { IdentityDocumentOptions } from '../../../../modules/identity-document/i
 import { IdentityDocumentType } from '../../../../modules/identity-document/identity-document-type.enum';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormInputType } from '../form-input/types/form-input.type';
-import { FormIdentityDocumentField } from './models/form-identity-document-field.interface';
+import { FormIdentityDocumentField } from './interfaces/form-identity-document-field.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
