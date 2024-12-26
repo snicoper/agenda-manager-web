@@ -16,14 +16,20 @@
           <td>{{ settings.timeZone }}</td>
         </tr>
         <tr>
-          <th>Descripción</th>
+          <th>Estado inicial de las citas al ser creadas</th>
+          <td>{{ appointmentConfirmationRequirementValue }}</td>
         </tr>
         <tr>
-          <th>Activo</th>
-          <td></td>
+          <th>Gestión de conflictos al crear o modificar citas</th>
+          <td>{{ appointmentOverlappingValue }}</td>
         </tr>
         <tr>
-          <th>Fecha de creación</th>
+          <th>Gestión de conflictos al crear días festivos con solapamiento con las citas existentes</th>
+          <td>{{ holidayConflictValue }}</td>
+        </tr>
+        <tr>
+          <th>Permitir la creación de citas en días festivos</th>
+          <td>{{ resourceScheduleValidationValue }}</td>
         </tr>
       </tbody>
     </table>

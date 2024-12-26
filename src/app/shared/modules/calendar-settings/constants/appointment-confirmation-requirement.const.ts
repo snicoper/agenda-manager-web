@@ -6,11 +6,11 @@ export const AppointmentConfirmationRequirementInfo: Record<
 > = {
   [AppointmentConfirmationRequirementStrategy.Require]: {
     code: 'Require',
-    description: 'Require confirmation',
+    description: 'Requiere confirmación',
   },
   [AppointmentConfirmationRequirementStrategy.AutoAccept]: {
     code: 'AutoAccept',
-    description: 'Auto accept',
+    description: 'Auto aceptar',
   },
 } as const;
 

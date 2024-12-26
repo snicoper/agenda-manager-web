@@ -4,11 +4,11 @@ export const AppointmentOverlappingInfo: Record<AppointmentOverlappingStrategy, 
   {
     [AppointmentOverlappingStrategy.Allow]: {
       code: 'Allow',
-      description: 'Allow overlapping',
+      description: 'Permitir solapamientos',
     },
     [AppointmentOverlappingStrategy.Reject]: {
       code: 'Reject',
-      description: 'Reject overlapping',
+      description: 'Rechazar solapamientos',
     },
   } as const;
 

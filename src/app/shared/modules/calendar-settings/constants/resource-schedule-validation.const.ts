@@ -6,11 +6,11 @@ export const ResourceScheduleValidationInfo: Record<
 > = {
   [ResourceScheduleValidationStrategy.Validate]: {
     code: 'Validate',
-    description: 'Validate schedule',
+    description: 'Validar horarios',
   },
   [ResourceScheduleValidationStrategy.Ignore]: {
     code: 'Ignore',
-    description: 'Ignore schedule',
+    description: 'Ignorar horarios',
   },
 } as const;
 

@@ -3,15 +3,15 @@ import { HolidayConflictStrategy } from '../enums/holiday-conflict-strategy.enum
 export const HolidayConflictInfo: Record<HolidayConflictStrategy, { code: string; description: string }> = {
   [HolidayConflictStrategy.Allow]: {
     code: 'Allow',
-    description: 'Allow overlapping',
+    description: 'Permit solapamiento',
   },
   [HolidayConflictStrategy.Reject]: {
     code: 'Reject',
-    description: 'Reject overlapping',
+    description: 'Rechazar solapamiento',
   },
   [HolidayConflictStrategy.Cancel]: {
     code: 'Cancel',
-    description: 'Cancel overlapping',
+    description: 'Cancelar citas',
   },
 } as const;
 

@@ -30,7 +30,7 @@ export class CalendarSettingsStateService {
 
   load(): void {
     if (!this.state.calendarId()) {
-      logError('CalendarDetailsState.refresh', 'Calendar id is not defined');
+      logError('CalendarSettingsStateService.load', 'Calendar id is not defined');
 
       return;
     }
