@@ -74,3 +74,5 @@ Features ← Shared
 - Core debe mantenerse lo más pequeño posible
 - Features deben ser independientes entre sí
 - Data es opcional y depende de la complejidad del proyecto
+
+---

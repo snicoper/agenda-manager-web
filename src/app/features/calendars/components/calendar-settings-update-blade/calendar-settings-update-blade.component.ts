@@ -13,14 +13,14 @@ import { FormCalendarSettingsComponent } from '../../../../shared/components/for
 import { FormCalendarSettingsField } from '../../../../shared/components/forms/inputs/form-calendar-settings/interfaces/form-calendar-settings-field.interface';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
-import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
-import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
-import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { CalendarSettingsStateService } from '../../services/calendar-settings-state.service';
 import { AppointmentConfirmationRequirementStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/appointment-confirmation-requirement-strategy.enum';
 import { AppointmentOverlappingStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/appointment-overlapping-strategy.enum';
 import { HolidayConflictStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/holiday-conflict-strategy.enum';
 import { ResourceScheduleValidationStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/resource-schedule-validation-strategy.enum';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
+import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
+import { CalendarApiService } from '../../services/api/calendar-api.service';
+import { CalendarSettingsStateService } from '../../services/calendar-settings-state.service';
 
 @Component({
   selector: 'am-calendar-settings-update-blade',
