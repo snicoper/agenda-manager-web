@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logError } from '../../../../core/errors/debug-logger';
+import { logError } from '../../../../core/errors/logger/logger.co';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar/models/nav-toolbar-data.interface';
@@ -46,7 +46,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (!this.userId) {
-      logError('User id is not defined');
+      logError('AccountDetailsComponent.ngOnInit', 'User id is not defined');
 
       return;
     }

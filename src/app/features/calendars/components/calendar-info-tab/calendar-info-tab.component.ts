@@ -6,7 +6,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logError } from '../../../../core/errors/debug-logger';
+import { logError } from '../../../../core/errors/logger/logger.co';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
@@ -28,7 +28,7 @@ import { CalendarUpdateBladeComponent } from '../calendar-update-blade/calendar-
   styleUrl: './calendar-info-tab.component.scss',
 })
 export class CalendarInfoTabComponent {
-  private readonly calendarApi = inject(CalendarApiService);
+  private readonly apiService = inject(CalendarApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly calendarDetailsStateService = inject(CalendarDetailsStateService);
   private readonly bladeService = inject(BladeService);
@@ -55,7 +55,7 @@ export class CalendarInfoTabComponent {
 
     this.calendarDetailsStateService.setLoadingState(true);
 
-    this.calendarApi
+    this.apiService
       .toggleIsActive(this.calendarState.calendarId()!)
       .pipe(
         take(1),

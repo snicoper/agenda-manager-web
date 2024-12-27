@@ -26,7 +26,7 @@ import { RoleSelectorApiService } from './services/role-selector-api.service';
   imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, FieldErrorComponent],
 })
 export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
-  private readonly roleSelectorApiService = inject(RoleSelectorApiService);
+  private readonly apiService = inject(RoleSelectorApiService);
   private readonly snackBarService = inject(SnackBarService);
 
   formState = input.required<FormState>();
@@ -74,7 +74,7 @@ export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
 
   private loadRoles(): void {
     this.isLoading = true;
-    this.roleSelectorApiService
+    this.apiService
       .getAllRoles()
       .pipe(
         take(1),

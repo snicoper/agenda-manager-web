@@ -1,15 +1,10 @@
-import { AppEnvironment } from '../config/app-environment';
-
-interface LogSettings {
-  key: string;
-  color: string;
-}
-
-enum LogLevel {
-  Error = 'ERROR',
-  Warning = 'WARNING',
-  Info = 'INFO',
-}
+/**
+ * Muestra un mensaje de error en la consola.
+ * Solo se muestra en modo desarrollo.
+ */
+import { AppEnvironment } from '../../config/app-environment';
+import { LogLevel } from './enums/log-level.enum';
+import { LogSettings } from './interfaces/log-settings.interface';
 
 const logSettings = {
   [LogLevel.Error]: { key: LogLevel.Error, color: '#cc0066' },

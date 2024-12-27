@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { BrowserStorageKey } from '../../../../core/enums/browser-storage-key.enum';
 import { ThemeColor } from '../../../../core/enums/theme-color.enum';
-import { logError } from '../../../../core/errors/debug-logger';
+import { logError } from '../../../../core/errors/logger/logger.co';
 import { BrowserStorageService } from '../../../../core/services/browser-storage.service';
 
 @Injectable({ providedIn: 'root' })
@@ -50,7 +50,7 @@ export class ThemeStateService {
         this.refresh();
         break;
       default:
-        logError(`ThemeColor (${theme}) not implemented.`);
+        logError('ThemeStateService.updateTheme', `ThemeColor (${theme}) not implemented.`);
 
         return;
     }

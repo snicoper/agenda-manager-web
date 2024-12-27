@@ -1,3 +1,4 @@
+/** Errores parciales de la API, se obtienen en caso de usarlos en el frontend. */
 export const ApiResultErrors = {
   users: {
     userIsNotActive: 'UserErrors.UserIsNotActive',

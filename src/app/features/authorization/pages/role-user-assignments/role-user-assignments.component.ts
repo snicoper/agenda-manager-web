@@ -5,7 +5,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logWarning } from '../../../../core/errors/debug-logger';
+import { logWarning } from '../../../../core/errors/logger/logger.co';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { logError } from '../../../../core/errors/debug-logger';
+import { logError } from '../../../../core/errors/logger/logger.co';
 import { BladeComponent } from '../../blade/blade.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -22,7 +22,7 @@ export class PageBaseComponent implements OnInit {
       next: () => {
         this.isLeaving = false;
       },
-      error: (error) => logError(error),
+      error: (error) => logError('PageBaseComponent.ngOnInit', error),
     });
   }
 

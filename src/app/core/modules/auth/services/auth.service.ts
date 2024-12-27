@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { SiteUrls } from '../../../config/site-urls';
 import { BrowserStorageKey } from '../../../enums/browser-storage-key.enum';
-import { logError } from '../../../errors/debug-logger';
+import { logError } from '../../../errors/logger/logger.co';
 import { BrowserStorageService } from '../../../services/browser-storage.service';
 import { AuthState } from '../interfaces/auth-state.interface';
 import { LoginRequest } from '../interfaces/requests/login.request';
@@ -82,7 +82,7 @@ export class AuthService implements OnDestroy {
    */
   tryRefreshToken(): Observable<string> {
     if (!this.refreshToken) {
-      logError('No refresh token available');
+      logError('AuthService.tryRefreshToken', 'No refresh token available');
 
       return of('No refresh token available');
     }
@@ -238,7 +238,7 @@ export class AuthService implements OnDestroy {
       this.browserStorageService.set(BrowserStorageKey.AccessToken, response.accessToken);
       this.browserStorageService.set(BrowserStorageKey.RefreshToken, response.refreshToken);
     } catch (error) {
-      logError('Invalid token specified: ', error);
+      logError('AuthService.setTokenFromLoginResponse', 'Invalid token specified: ', error);
       this.logout();
     }
   }
@@ -264,7 +264,7 @@ export class AuthService implements OnDestroy {
         this.logout();
       }
     } catch (error) {
-      logError('Invalid token specified: ', error);
+      logError('AuthService.restoreAuthState', 'Invalid token specified: ', error);
       this.logout();
     }
   }

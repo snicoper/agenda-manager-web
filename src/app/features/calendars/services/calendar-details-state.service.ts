@@ -3,7 +3,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../core/config/site-urls';
-import { logError } from '../../../core/errors/debug-logger';
+import { logError } from '../../../core/errors/logger/logger.co';
 import { SnackBarService } from '../../../core/services/snackbar.service';
 import { CalendarDetailsState } from '../interfaces/calendar-details-state.interface';
 import { CalendarDetailsResponse } from '../interfaces/responses/calendar-details.response';
@@ -11,7 +11,7 @@ import { CalendarApiService } from './api/calendar-api.service';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarDetailsStateService {
-  private readonly calendarApi = inject(CalendarApiService);
+  private readonly apiService = inject(CalendarApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
 
@@ -62,7 +62,7 @@ export class CalendarDetailsStateService {
 
     this.loading$.set(true);
 
-    this.calendarApi
+    this.apiService
       .getCalendarById(this.calendarId$()!)
       .pipe(
         take(1),

@@ -7,9 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logError } from '../../../../core/errors/debug-logger';
+import { logError } from '../../../../core/errors/logger/logger.co';
 import { ModuleRoleDisplayName } from '../../../../core/modules/auth/constants/module-role-display-name.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
@@ -41,7 +41,7 @@ import { AuthorizationApiService } from '../../services/api/authorization-api.se
   styleUrl: './role-permissions.component.scss',
 })
 export class RolePermissionsComponent {
-  private readonly authorizationApiService = inject(AuthorizationApiService);
+  private readonly apiService = inject(AuthorizationApiService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly snackBarService = inject(SnackBarService);
@@ -105,7 +105,7 @@ export class RolePermissionsComponent {
       isAssigned,
     } as const;
 
-    this.authorizationApiService
+    this.apiService
       .updatePermissionForRole(this.role.roleId, permissionId, request)
       .pipe(finalize(() => (this.isUpdating = false)))
       .subscribe({
@@ -113,7 +113,7 @@ export class RolePermissionsComponent {
           this.snackBarService.success('Permiso actualizado con éxito.');
           this.loadRolePermissions();
         },
-        error: (error: HttpErrorResponse) => logError(error),
+        error: (error: HttpErrorResponse) => logError('RolePermissionsComponent.handleUpdatePermissionForRole', error),
       });
   }
 
@@ -124,9 +124,12 @@ export class RolePermissionsComponent {
   private loadRolePermissions(): void {
     this.loading = true;
 
-    this.authorizationApiService
+    this.apiService
       .getRolePermissionsById(this.roleId)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
       .subscribe({
         next: (response) => (this.role = response),
         error: (error: HttpErrorResponse) => {
