@@ -5,14 +5,14 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormState } from '../../../../../core/modules/forms/interfaces/form-state.interface';
-import { AppointmentConfirmationRequirementOptions } from '../../../../modules/calendar-settings/constants/appointment-confirmation-requirement.const';
-import { AppointmentOverlappingOptions } from '../../../../modules/calendar-settings/constants/appointment-overlapping-strategy.const';
-import { HolidayConflictOptions } from '../../../../modules/calendar-settings/constants/holiday-conflict-strategy.const';
-import { ResourceScheduleValidationOptions } from '../../../../modules/calendar-settings/constants/resource-schedule-validation.const';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormInputType } from '../form-input/types/form-input.type';
 import { FormCalendarSettingsField } from './interfaces/form-calendar-settings-field.interface';
 import { FormCalendarSettingsPlaceholders } from './interfaces/form-calendar-settings-placeholders.interface';
+import { AppointmentConfirmationRequirementOptions } from '../../../../modules/calendars/calendar-settings/constants/appointment-confirmation-requirement.const';
+import { AppointmentOverlappingOptions } from '../../../../modules/calendars/calendar-settings/constants/appointment-overlapping-strategy.const';
+import { HolidayConflictOptions } from '../../../../modules/calendars/calendar-settings/constants/holiday-conflict-strategy.const';
+import { ResourceScheduleValidationOptions } from '../../../../modules/calendars/calendar-settings/constants/resource-schedule-validation.const';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

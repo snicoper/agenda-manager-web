@@ -1,4 +1,4 @@
-import { IdentityDocumentType } from '../../../../shared/modules/identity-document/identity-document-type.enum';
+import { IdentityDocumentType } from '../../../../shared/modules/users/identity-document/identity-document-type.enum';
 
 export interface PhoneNumber {
   number: string;

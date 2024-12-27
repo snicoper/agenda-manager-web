@@ -8,11 +8,11 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/debug-logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { IdentityDocumentUtils } from '../../../../shared/modules/identity-document/identity-document-display.const';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountApiService } from '../../services/api/account-api.service';
 import { AccountUpdateBladeComponent } from '../account-update-blade/account-update-blade.component';
+import { IdentityDocumentUtils } from '../../../../shared/modules/users/identity-document/identity-document-display.const';
 
 @Component({
   selector: 'am-account-info-tab',
