@@ -47,16 +47,16 @@ export class CalendarSettingsTabComponent {
       }
 
       this.appointmentConfirmationRequirementValue = AppointmentConfirmationRequirementUtils.getDescriptionByType(
-        this.settingsState.settings()?.confirmationRequirement ?? 1,
+        this.settingsState.settings()?.appointmentConfirmationRequirement ?? 1,
       );
       this.appointmentOverlappingValue = AppointmentOverlappingUtils.getDescriptionByType(
-        this.settingsState.settings()?.overlapBehavior ?? 1,
+        this.settingsState.settings()?.appointmentOverlapping ?? 1,
       );
       this.holidayConflictValue = HolidayConflictUtils.getDescriptionByType(
-        this.settingsState.settings()?.holidayAppointmentHandling ?? 1,
+        this.settingsState.settings()?.holidayConflict ?? 1,
       );
       this.resourceScheduleValidationValue = ResourceScheduleValidationUtils.getDescriptionByType(
-        this.settingsState.settings()?.scheduleValidation ?? 1,
+        this.settingsState.settings()?.resourceScheduleValidation ?? 1,
       );
     });
   }

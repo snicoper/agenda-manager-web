@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { finalize, take } from 'rxjs';
 import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -16,6 +17,8 @@ import { AppointmentConfirmationRequirementStrategy } from '../../../../shared/m
 import { AppointmentOverlappingStrategy } from '../../../../shared/modules/calendar-settings/enums/appointment-overlapping-strategy.enum';
 import { HolidayConflictStrategy } from '../../../../shared/modules/calendar-settings/enums/holiday-conflict-strategy.enum';
 import { ResourceScheduleValidationStrategy } from '../../../../shared/modules/calendar-settings/enums/resource-schedule-validation-strategy.enum';
+import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
+import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarSettingsStateService } from '../../services/calendar-settings-state.service';
 
@@ -74,6 +77,17 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
     }
 
     this.formState.isLoading = true;
+
+    const request: CalendarUpdateSettingsRequest = {
+      calendarId: this.calendarSettingsState.calendarId()!,
+      timeZone: this.formState.form.value.timeZone,
+      appointmentConfirmationRequirement: this.formState.form.value.settings.appointmentConfirmationRequirement,
+      appointmentOverlapping: this.formState.form.value.settings.appointmentOverlapping,
+      holidayConflict: this.formState.form.value.settings.holidayConflict,
+      resourceScheduleValidation: this.formState.form.value.settings.resourceScheduleValidation,
+    };
+
+    this.update(request);
   }
 
   private loadCalendarSettings(): void {
@@ -105,15 +119,35 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
 
   private getSettingsValue(): FormCalendarSettingsField {
     const settingsValue: FormCalendarSettingsField = {
-      confirmationRequirement: this.calendarSettingsState.settings()
-        ?.confirmationRequirement as AppointmentConfirmationRequirementStrategy,
-      overlapBehavior: this.calendarSettingsState.settings()?.overlapBehavior as AppointmentOverlappingStrategy,
-      holidayAppointmentHandling: this.calendarSettingsState.settings()
-        ?.holidayAppointmentHandling as HolidayConflictStrategy,
-      scheduleValidation: this.calendarSettingsState.settings()
-        ?.scheduleValidation as ResourceScheduleValidationStrategy,
+      appointmentConfirmationRequirement: this.calendarSettingsState.settings()
+        ?.appointmentConfirmationRequirement as AppointmentConfirmationRequirementStrategy,
+      appointmentOverlapping: this.calendarSettingsState.settings()
+        ?.appointmentOverlapping as AppointmentOverlappingStrategy,
+      holidayConflict: this.calendarSettingsState.settings()?.holidayConflict as HolidayConflictStrategy,
+      resourceScheduleValidation: this.calendarSettingsState.settings()
+        ?.resourceScheduleValidation as ResourceScheduleValidationStrategy,
     };
 
     return settingsValue;
+  }
+
+  private update(request: CalendarUpdateSettingsRequest): void {
+    this.apiService
+      .updateCalendarSettings(this.calendarSettingsState.calendarId()!, request)
+      .pipe(
+        take(1),
+        finalize(() => (this.formState.isLoading = false)),
+      )
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Configuración de calendario actualizada con éxito');
+          this.calendarSettingsStateService.refresh();
+          this.bladeService.emitResult(true);
+        },
+        error: (error) => {
+          const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
+          this.formState.badRequest = badRequest;
+        },
+      });
   }
 }

@@ -1,7 +1,7 @@
 export interface FormCalendarSettingsPlaceholders {
   timeZone?: string;
-  confirmationRequirement?: string;
-  overlapBehavior?: string;
-  holidayAppointmentHandling?: string;
-  scheduleValidation?: string;
+  appointmentConfirmationRequirement?: string;
+  appointmentOverlapping?: string;
+  holidayConflict?: string;
+  resourceScheduleValidation?: string;
 }

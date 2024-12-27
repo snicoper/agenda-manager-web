@@ -79,8 +79,8 @@ export class CalendarCreateBladeComponent implements OnInit {
 
   private buildForm(): void {
     this.formState.form = this.formBuilder.group({
-      name: ['', [CalendarFieldsValidators.name]],
-      description: ['', [CalendarFieldsValidators.description]],
+      name: ['', CalendarFieldsValidators.name],
+      description: ['', CalendarFieldsValidators.description],
       ianaTimeZone: [this.timeZoneState.get(), [Validators.required]],
     });
   }
@@ -97,7 +97,7 @@ export class CalendarCreateBladeComponent implements OnInit {
         next: (response) => {
           this.snackBarService.success('Calendar created successfully.');
           this.bladeService.emitResult(true);
-          this.router.navigateByUrl(UrlUtils.buildSiteUrl(SiteUrls.calendars.details, { id: response }));
+          this.router.navigateByUrl(UrlUtils.buildSiteUrl(SiteUrls.calendars.details, { id: response.calendarId }));
         },
         error: (error) => {
           const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);

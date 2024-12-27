@@ -6,8 +6,8 @@ import { ResourceScheduleValidationStrategy } from '../../../../shared/modules/c
 export interface CalendarSettingsResponse {
   calendarId: string;
   timeZone: string;
-  confirmationRequirement: AppointmentConfirmationRequirementStrategy;
-  overlapBehavior: AppointmentOverlappingStrategy;
-  holidayAppointmentHandling: HolidayConflictStrategy;
-  scheduleValidation: ResourceScheduleValidationStrategy;
+  appointmentConfirmationRequirement: AppointmentConfirmationRequirementStrategy;
+  appointmentOverlapping: AppointmentOverlappingStrategy;
+  holidayConflict: HolidayConflictStrategy;
+  resourceScheduleValidation: ResourceScheduleValidationStrategy;
 }

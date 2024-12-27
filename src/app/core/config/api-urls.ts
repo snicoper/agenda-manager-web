@@ -23,6 +23,7 @@ export const ApiUrls = {
     getCalendarSettings: '/calendars/{calendarId}/settings',
     createCalendar: '/calendars',
     updateCalendar: '/calendars/{calendarId}',
+    updateCalendarSettings: '/calendars/{calendarId}/settings',
     toggleIsActive: '/calendars/{calendarId}/toggle-is-active',
   },
   roles: {

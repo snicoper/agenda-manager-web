@@ -11,8 +11,8 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { CalendarUpdateBladeComponent } from '../calendar-update-blade/calendar-update-blade.component';
 import { CalendarDetailsStateService } from '../../services/calendar-details-state.service';
+import { CalendarUpdateBladeComponent } from '../calendar-update-blade/calendar-update-blade.component';
 
 @Component({
   selector: 'am-calendar-info-tab',
@@ -64,7 +64,7 @@ export class CalendarInfoTabComponent {
       .subscribe({
         next: () => {
           this.snackBarService.success('Estado del calendario actualizado correctamente');
-          this.calendarDetailsStateService.load(this.calendarState.calendarId()!);
+          this.calendarDetailsStateService.refresh();
         },
         error: () => {
           this.snackBarService.error('Error al actualizar el estado del calendario');

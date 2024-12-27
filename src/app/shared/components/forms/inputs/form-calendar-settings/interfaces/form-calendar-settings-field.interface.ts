@@ -4,8 +4,8 @@ import { HolidayConflictStrategy } from '../../../../../modules/calendar-setting
 import { ResourceScheduleValidationStrategy } from '../../../../../modules/calendar-settings/enums/resource-schedule-validation-strategy.enum';
 
 export interface FormCalendarSettingsField {
-  confirmationRequirement: AppointmentConfirmationRequirementStrategy;
-  overlapBehavior: AppointmentOverlappingStrategy;
-  holidayAppointmentHandling: HolidayConflictStrategy;
-  scheduleValidation: ResourceScheduleValidationStrategy;
+  appointmentConfirmationRequirement: AppointmentConfirmationRequirementStrategy;
+  appointmentOverlapping: AppointmentOverlappingStrategy;
+  holidayConflict: HolidayConflictStrategy;
+  resourceScheduleValidation: ResourceScheduleValidationStrategy;
 }

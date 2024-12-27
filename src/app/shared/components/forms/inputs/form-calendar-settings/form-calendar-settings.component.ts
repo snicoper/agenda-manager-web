@@ -45,7 +45,7 @@ export class FormCalendarSettingsComponent implements ControlValueAccessor, OnIn
   readonly holidayConflictOptions = HolidayConflictOptions;
   readonly resourceScheduleValidationOptions = ResourceScheduleValidationOptions;
 
-  value = {} as FormCalendarSettingsField;
+  value!: FormCalendarSettingsField;
   isDisabled = false;
 
   // Generate unique id for each instance of the component.

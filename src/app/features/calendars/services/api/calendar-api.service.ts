@@ -9,9 +9,11 @@ import { DateTimeUtils } from '../../../../shared/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
 import { CalendarUpdateRequest } from '../../interfaces/requests/calendar-update-request';
+import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
 import { CalendarDetailsResponse } from '../../interfaces/responses/calendar-details.response';
 import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
 import { CalendarSettingsResponse } from '../../interfaces/responses/calendar-settings.response';
+import { CalendarCreateResponse } from '../../interfaces/responses/calendar-create.response';
 
 @Injectable({
   providedIn: 'root',
@@ -50,10 +52,14 @@ export class CalendarApiService extends ApiBaseService {
   }
 
   /** Crear un calendario. */
-  createCalendar(request: CalendarCreateRequest): Observable<string> {
+  createCalendar(request: CalendarCreateRequest): Observable<CalendarCreateResponse> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.createCalendar);
 
-    return this.post<CalendarCreateRequest, string>(request, endpoint, (response) => response.value as string);
+    return this.post<CalendarCreateRequest, CalendarCreateResponse>(
+      request,
+      endpoint,
+      (response) => response.value as CalendarCreateResponse,
+    );
   }
 
   /** Actualizar un calendario. */
@@ -61,6 +67,13 @@ export class CalendarApiService extends ApiBaseService {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.updateCalendar, { calendarId: calendarId });
 
     return this.put<CalendarUpdateRequest, NoContent>(request, endpoint);
+  }
+
+  /** Actualizar configuración de calendario */
+  updateCalendarSettings(calendarId: string, request: CalendarUpdateSettingsRequest): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.updateCalendarSettings, { calendarId: calendarId });
+
+    return this.put<CalendarUpdateSettingsRequest, NoContent>(request, endpoint);
   }
 
   /** Toggle active calendar. */

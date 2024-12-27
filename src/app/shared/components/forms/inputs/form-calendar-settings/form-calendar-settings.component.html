@@ -6,7 +6,7 @@
         <mat-form-field class="confirmation-requirement">
           <mat-label>Requerimiento de confirmación</mat-label>
           <mat-select
-            [(ngModel)]="value.confirmationRequirement"
+            [(ngModel)]="value.appointmentConfirmationRequirement"
             (ngModelChange)="onChangeValue(value)"
             [disabled]="isDisabled"
             [id]="id + '-confirmation-requirement'"
@@ -28,7 +28,7 @@
         <mat-form-field class="appointment-overlapping-options">
           <mat-label>Opciones de superposición de citas</mat-label>
           <mat-select
-            [(ngModel)]="value.overlapBehavior"
+            [(ngModel)]="value.appointmentOverlapping"
             (ngModelChange)="onChangeValue(value)"
             [disabled]="isDisabled"
             [id]="id + '-appointment-overlap-behavior'"
@@ -52,7 +52,7 @@
         <mat-form-field class="holiday-appointment-handling">
           <mat-label>Manejo de citas en días festivos</mat-label>
           <mat-select
-            [(ngModel)]="value.holidayAppointmentHandling"
+            [(ngModel)]="value.holidayConflict"
             (ngModelChange)="onChangeValue(value)"
             [disabled]="isDisabled"
             [id]="id + '-holiday-appointment-handling'"
@@ -76,7 +76,7 @@
         <mat-form-field class="schedule-validation">
           <mat-label>Validación de horario</mat-label>
           <mat-select
-            [(ngModel)]="value.scheduleValidation"
+            [(ngModel)]="value.resourceScheduleValidation"
             (ngModelChange)="onChangeValue(value)"
             [disabled]="isDisabled"
             [id]="id + '-schedule-validation'"
