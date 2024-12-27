@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime, Subject } from 'rxjs';
-import { logError } from '../../../../core/errors/debug-logger';
+import { logError } from '../../../../core/errors/logger/logger.co';
 import { LogicalOperator } from '../../../modules/paginated-result/enums/logical-operator';
 import { RelationalOperator } from '../../../modules/paginated-result/enums/relational-operator';
 import { PaginatedResult } from '../../../modules/paginated-result/paginated-result';

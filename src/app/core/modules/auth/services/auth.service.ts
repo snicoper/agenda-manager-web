@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { SiteUrls } from '../../../config/site-urls';
 import { BrowserStorageKey } from '../../../enums/browser-storage-key.enum';
-import { logError } from '../../../errors/debug-logger';
+import { logError } from '../../../errors/logger/logger.co';
 import { BrowserStorageService } from '../../../services/browser-storage.service';
 import { AuthState } from '../interfaces/auth-state.interface';
 import { LoginRequest } from '../interfaces/requests/login.request';

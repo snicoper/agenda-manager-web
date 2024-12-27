@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { logInfo } from '../../core/errors/debug-logger';
+import { logInfo } from '../../core/errors/logger/logger.co';
 
 @Component({
   selector: 'am-pruebas',

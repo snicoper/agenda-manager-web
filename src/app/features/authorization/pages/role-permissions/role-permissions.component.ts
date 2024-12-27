@@ -9,7 +9,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { logError } from '../../../../core/errors/debug-logger';
+import { logError } from '../../../../core/errors/logger/logger.co';
 import { ModuleRoleDisplayName } from '../../../../core/modules/auth/constants/module-role-display-name.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';

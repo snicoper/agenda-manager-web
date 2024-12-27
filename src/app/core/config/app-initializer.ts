@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ThemeStateService } from '../../shared/components/layout/services/theme.state.service';
-import { logError, logInfo } from '../errors/debug-logger';
+import { logError, logInfo } from '../errors/logger/logger.co';
 import { AuthService } from '../modules/auth/services/auth.service';
 import { LocaleStateService } from '../modules/i18n/services/locale.state.service';
 import { LuxonDateTimeService } from '../modules/i18n/services/luxon-date-time.service';
@@ -27,9 +27,9 @@ export class AppInitializer {
       // Inicializaciones paralelas que no dependen de locale/timezone.
       await Promise.all([this.authService.initialize(), Promise.resolve(this.themeStateService.refresh())]);
 
-      logInfo('AppInitializer', 'Application initialized successfully');
+      logInfo('AppInitializer.load', 'Application initialized successfully');
     } catch (error) {
-      logError('AppInitializer', 'Error initializing application', error);
+      logError('AppInitializer.load', 'Error initializing application', error);
       throw error;
     }
   }
