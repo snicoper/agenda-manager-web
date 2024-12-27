@@ -68,7 +68,7 @@ export class AuthGuard {
       : permissions.some((permission) => this.authService.hasPermission(permission));
 
     if (!hasPermissions) {
-      logError(`Permisos requeridos para acceder: ${permissions.join(', ')}`);
+      logError('AuthGuard.checkPermissions', `Permisos requeridos para acceder: ${permissions.join(', ')}`);
     }
 
     return hasPermissions;
@@ -84,7 +84,7 @@ export class AuthGuard {
       : roles.some((role) => this.authService.hasRole(role));
 
     if (!hasRoles) {
-      logError(`Roles requeridos para acceder: ${roles.join(', ')}`);
+      logError('AuthGuard.checkRoles', `Roles requeridos para acceder: ${roles.join(', ')}`);
     }
 
     return hasRoles;

@@ -46,7 +46,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (!this.userId) {
-      logError('User id is not defined');
+      logError('AccountDetailsComponent.ngOnInit', 'User id is not defined');
 
       return;
     }

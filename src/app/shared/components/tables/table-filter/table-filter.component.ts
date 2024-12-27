@@ -28,7 +28,7 @@ export class TableFilterComponent<T> {
   constructor() {
     this.filterSubject.pipe(debounceTime(300), takeUntilDestroyed()).subscribe({
       next: (term) => this.applyFilters(term),
-      error: (error) => logError(error),
+      error: (error) => logError('TableFilterComponent.constructor', error),
     });
   }
 

@@ -22,7 +22,7 @@ export class PageBaseComponent implements OnInit {
       next: () => {
         this.isLeaving = false;
       },
-      error: (error) => logError(error),
+      error: (error) => logError('PageBaseComponent.ngOnInit', error),
     });
   }
 

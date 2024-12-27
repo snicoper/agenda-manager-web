@@ -50,7 +50,7 @@ export class ThemeStateService {
         this.refresh();
         break;
       default:
-        logError(`ThemeColor (${theme}) not implemented.`);
+        logError('ThemeStateService.updateTheme', `ThemeColor (${theme}) not implemented.`);
 
         return;
     }
