@@ -43,7 +43,7 @@ import { AccountApiService } from '../../services/api/account-api.service';
 export class ResetPasswordComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly accountApiService = inject(AccountApiService);
+  private readonly apiService = inject(AccountApiService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
 
@@ -89,7 +89,7 @@ export class ResetPasswordComponent {
   }
 
   private confirmRecoveryPassword(request: ResetPasswordRequest): void {
-    this.accountApiService
+    this.apiService
       .resetPassword(request)
       .pipe(
         take(1),

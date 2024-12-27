@@ -20,13 +20,13 @@ import { PageHeaderComponent } from '../../../../shared/components/layout/page-h
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
+import { PaginatedResult } from '../../../../shared/modules/paginated-result/paginated-result';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
 import { AccountPaginatedResponse } from '../../interfaces/responses/account-paginated.response';
 import { AccountApiService } from '../../services/api/account-api.service';
-import { PaginatedResult } from '../../../../shared/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-account-list',
@@ -133,7 +133,10 @@ export class AccountListComponent implements AfterViewInit {
 
     this.apiService
       .getAccountsPaginated(this.paginatedResult)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
       .subscribe({
         next: (response) => {
           this.paginatedResult = PaginatedResult.create<AccountPaginatedResponse>(response);
@@ -141,7 +144,7 @@ export class AccountListComponent implements AfterViewInit {
 
           if (this.sort && this.paginatedResult.order) {
             this.sort.active = this.paginatedResult.order.propertyName;
-            this.sort.direction = this.paginatedResult.order.orderType.toLocaleLowerCase() as SortDirection;
+            this.sort.direction = this.paginatedResult.order.orderType.toLowerCase() as SortDirection;
           }
         },
         error: () => this.snackBarService.error('Ha ocurrido un error al cargar las cuentas.'),

@@ -14,7 +14,7 @@ import { CalendarDetailsStateService } from './calendar-details-state.service';
   providedIn: 'root',
 })
 export class CalendarSettingsStateService {
-  private readonly calendarApi = inject(CalendarApiService);
+  private readonly apiService = inject(CalendarApiService);
   private readonly calendarDetailsStateService = inject(CalendarDetailsStateService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
@@ -59,7 +59,7 @@ export class CalendarSettingsStateService {
 
     this.loading$.set(true);
 
-    this.calendarApi
+    this.apiService
       .getCalendarSettings(this.state.calendarId()!)
       .pipe(
         take(1),

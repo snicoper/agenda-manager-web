@@ -28,7 +28,7 @@ import { CalendarUpdateBladeComponent } from '../calendar-update-blade/calendar-
   styleUrl: './calendar-info-tab.component.scss',
 })
 export class CalendarInfoTabComponent {
-  private readonly calendarApi = inject(CalendarApiService);
+  private readonly apiService = inject(CalendarApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly calendarDetailsStateService = inject(CalendarDetailsStateService);
   private readonly bladeService = inject(BladeService);
@@ -55,7 +55,7 @@ export class CalendarInfoTabComponent {
 
     this.calendarDetailsStateService.setLoadingState(true);
 
-    this.calendarApi
+    this.apiService
       .toggleIsActive(this.calendarState.calendarId()!)
       .pipe(
         take(1),
