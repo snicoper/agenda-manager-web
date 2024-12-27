@@ -11,7 +11,7 @@ export class TimeZoneStateService {
 
   readonly value = computed(() => this.state$());
 
-  refresh(): void {
+  initialize(): void {
     const storedTimeZone = this.getStoredTimeZone();
     const timeZone = storedTimeZone ?? LocalizationUtils.defaultTimezone;
 

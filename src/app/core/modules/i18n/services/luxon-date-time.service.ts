@@ -18,7 +18,7 @@ export class LuxonDateTimeService {
     timeZone: computed(() => this.timeZoneStateService.value()),
   };
 
-  refresh(): void {
+  initialize(): void {
     effect(() => {
       const currentLocale = this.value.locale();
       const currentTimeZone = this.value.timeZone();

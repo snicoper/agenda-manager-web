@@ -2,8 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { ThemeStateService } from '../../shared/components/layout/services/theme.state.service';
 import { logError, logInfo } from '../errors/debug-logger';
 import { AuthService } from '../modules/auth/services/auth.service';
-import { LuxonDateTimeService } from '../modules/i18n/services/luxon-date-time.service';
 import { LocaleStateService } from '../modules/i18n/services/locale.state.service';
+import { LuxonDateTimeService } from '../modules/i18n/services/luxon-date-time.service';
 import { TimeZoneStateService } from '../modules/i18n/services/time-zone.state.service';
 
 /** Configuración inicial de la aplicación. */
@@ -18,11 +18,11 @@ export class AppInitializer {
   async load(): Promise<void> {
     try {
       // Primero inicializamos los estados base.
-      this.localeStateService.refresh();
-      this.timeZoneStateService.refresh();
+      this.localeStateService.initialize();
+      this.timeZoneStateService.initialize();
 
       // Luego los servicios que dependen de ellos.
-      this.luxonDateTimeService.refresh();
+      this.luxonDateTimeService.initialize();
 
       // Inicializaciones paralelas que no dependen de locale/timezone.
       await Promise.all([this.authService.initialize(), Promise.resolve(this.themeStateService.refresh())]);

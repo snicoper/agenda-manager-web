@@ -13,7 +13,7 @@ export class LocaleStateService {
 
   readonly value = computed(() => this.state$());
 
-  refresh(): void {
+  initialize(): void {
     const storedLocale = LocalizationUtils.fromString(this.browserStorage.get(BrowserStorageKey.Locale));
     const localeSupported = storedLocale ?? LocalizationUtils.defaultLocale;
 
@@ -21,6 +21,7 @@ export class LocaleStateService {
   }
 
   set(locale: LocalesSupported): void {
+    this.state$.set(locale);
     this.saveLocaleToStorage(locale);
   }
 
