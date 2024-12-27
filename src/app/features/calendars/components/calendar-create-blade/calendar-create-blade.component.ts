@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
-import { TimeZoneState } from '../../../../core/modules/i18n/services/states/time-zone.state';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -20,6 +19,7 @@ import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valildators.contract';
 import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
+import { TimeZoneStateService } from '../../../../core/modules/i18n/services/time-zone.state.service';
 
 @Component({
   selector: 'am-calendar-create-blade',
@@ -42,7 +42,7 @@ export class CalendarCreateBladeComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly bladeService = inject(BladeService);
-  private readonly timeZoneState = inject(TimeZoneState);
+  private readonly timeZoneStateService = inject(TimeZoneStateService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -81,7 +81,7 @@ export class CalendarCreateBladeComponent implements OnInit {
     this.formState.form = this.formBuilder.group({
       name: ['', CalendarFieldsValidators.name],
       description: ['', CalendarFieldsValidators.description],
-      ianaTimeZone: [this.timeZoneState.get(), [Validators.required]],
+      ianaTimeZone: [this.timeZoneStateService.get(), [Validators.required]],
     });
   }
 

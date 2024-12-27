@@ -4,16 +4,16 @@ import * as en from 'i18n-iso-countries/langs/en.json';
 import * as es from 'i18n-iso-countries/langs/es.json';
 import { CountryLocale } from '../interfaces/country-locale.interface';
 import { LocalizationUtils } from '../utils/localization.utils';
-import { LocaleState } from './states/locale.state';
+import { LocaleStateService } from './locale.state.service';
 
 /** Countries from library i18n-iso-countries. */
 @Injectable({ providedIn: 'root' })
 export class CountryLocaleService {
-  private readonly localeState = inject(LocaleState);
+  private readonly localeStateService = inject(LocaleStateService);
 
-  private countriesState = signal<CountryLocale[]>([]);
+  private readonly state$ = signal<CountryLocale[]>([]);
 
-  readonly countries = computed(() => this.countriesState());
+  readonly value = computed(() => this.state$());
 
   constructor() {
     countries.registerLocale(es);
@@ -21,7 +21,7 @@ export class CountryLocaleService {
 
     // Update countries list whenever the locale changes.
     effect(() => {
-      const locale = this.localeState.value();
+      const locale = this.localeStateService.value();
 
       if (locale) {
         this.updateCountriesList(LocalizationUtils.mapLocaleToLibraryFormat(locale));
@@ -38,6 +38,6 @@ export class CountryLocaleService {
       }))
       .sort((a, b) => a.name.localeCompare(b.name, locale));
 
-    this.countriesState.set(sortedCountries);
+    this.state$.set(sortedCountries);
   }
 }

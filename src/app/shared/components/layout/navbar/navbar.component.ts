@@ -9,7 +9,7 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { ThemeColor } from '../../../../core/enums/theme-color.enum';
 import { AuthService } from '../../../../core/modules/auth/services/auth.service';
 import { LayoutService } from '../services/layout.service';
-import { ThemeState } from '../services/states/theme.state';
+import { ThemeStateService } from '../services/theme.state.service';
 
 @Component({
   selector: 'am-navbar',
@@ -20,10 +20,10 @@ import { ThemeState } from '../services/states/theme.state';
 export class NavbarComponent {
   private layoutService = inject(LayoutService);
   private authService = inject(AuthService);
-  private themeState = inject(ThemeState);
+  private themeStateService = inject(ThemeStateService);
 
   readonly navbarState = this.layoutService.layoutState.navbarState;
-  readonly theme = this.themeState.value;
+  readonly theme = this.themeStateService.value;
 
   readonly siteUrls = SiteUrls;
   readonly siteName = AppEnvironment.SiteName;
@@ -31,7 +31,7 @@ export class NavbarComponent {
   readonly userEmail = this.authService.getEmail();
 
   handleToggleTheme(): void {
-    this.themeState.toggle();
+    this.themeStateService.toggle();
   }
 
   handleToggleSidebar(): void {

@@ -2,27 +2,26 @@ import { computed, effect, inject, Injectable } from '@angular/core';
 import { Settings } from 'luxon';
 import { AppEnvironment } from '../../../config/app-environment';
 import { logInfo, logWarning } from '../../../errors/debug-logger';
-import { BaseState } from '../../../services/states/base.state';
 import { LocalesSupported } from '../enums/locales-supported.enum';
 import { LocalizationUtils } from '../utils/localization.utils';
-import { LocaleState } from './states/locale.state';
-import { TimeZoneState } from './states/time-zone.state';
+import { LocaleStateService } from './locale.state.service';
+import { TimeZoneStateService } from './time-zone.state.service';
 
 /** State for the current locale in Luxon. */
 @Injectable({ providedIn: 'root' })
-export class LuxonDateTimeService extends BaseState<string> {
-  private readonly localeState = inject(LocaleState);
-  private readonly timeZoneState = inject(TimeZoneState);
+export class LuxonDateTimeService {
+  private readonly localeStateService = inject(LocaleStateService);
+  private readonly timeZoneStateService = inject(TimeZoneStateService);
 
-  private readonly luxonDateTimeState = {
-    locale: computed(() => this.localeState.value()),
-    timeZone: computed(() => this.timeZoneState.value()),
+  private readonly value = {
+    locale: computed(() => this.localeStateService.value()),
+    timeZone: computed(() => this.timeZoneStateService.value()),
   };
 
-  override refresh(): void {
+  refresh(): void {
     effect(() => {
-      const currentLocale = this.luxonDateTimeState.locale();
-      const currentTimeZone = this.luxonDateTimeState.timeZone();
+      const currentLocale = this.value.locale();
+      const currentTimeZone = this.value.timeZone();
 
       if (currentLocale && currentTimeZone) {
         this.updateLuxonSettings(currentLocale, currentTimeZone);
@@ -31,15 +30,17 @@ export class LuxonDateTimeService extends BaseState<string> {
   }
 
   private updateLuxonSettings(locale: LocalesSupported, timeZone: string): void {
-    const value = LocalizationUtils.toString(locale) ?? AppEnvironment.DefaultLocale;
+    const localeValue = LocalizationUtils.toString(locale) ?? AppEnvironment.DefaultLocale;
 
-    if (value !== locale.toString()) {
-      logWarning('LuxonDateTimeService', `Locale ${locale} not supported. Using default locale.`);
+    if (localeValue !== locale.toString()) {
+      logWarning('LuxonDateTimeService.updateLuxonSettings', `Locale ${locale} not supported. Using default locale.`);
     }
 
-    this.set(value);
-    Settings.defaultLocale = value;
+    Settings.defaultLocale = localeValue;
     Settings.defaultZone = timeZone;
-    logInfo('LuxonDateTimeService', `Settings updated - Locale: ${value}, TimeZone: ${timeZone}`);
+    logInfo(
+      'LuxonDateTimeService.updateLuxonSettings',
+      `Settings updated - Locale: ${localeValue}, TimeZone: ${timeZone}`,
+    );
   }
 }

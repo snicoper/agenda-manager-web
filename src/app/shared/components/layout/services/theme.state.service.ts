@@ -1,17 +1,18 @@
-import { Injectable, computed, inject } from '@angular/core';
-import { BrowserStorageKey } from '../../../../../core/enums/browser-storage-key.enum';
-import { ThemeColor } from '../../../../../core/enums/theme-color.enum';
-import { logError } from '../../../../../core/errors/debug-logger';
-import { BrowserStorageService } from '../../../../../core/services/browser-storage.service';
-import { BaseState } from '../../../../../core/services/states/base.state';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { BrowserStorageKey } from '../../../../core/enums/browser-storage-key.enum';
+import { ThemeColor } from '../../../../core/enums/theme-color.enum';
+import { logError } from '../../../../core/errors/debug-logger';
+import { BrowserStorageService } from '../../../../core/services/browser-storage.service';
 
 @Injectable({ providedIn: 'root' })
-export class ThemeState extends BaseState<ThemeColor> {
+export class ThemeStateService {
   private readonly browserStorage = inject(BrowserStorageService);
 
-  readonly theme = computed(() => this.state$());
+  private readonly state$ = signal<ThemeColor>(ThemeColor.Auto);
 
-  override refresh(): void {
+  readonly value = computed(() => this.state$());
+
+  refresh(): void {
     const storedTheme = this.browserStorage.get(BrowserStorageKey.Theme) as ThemeColor;
     const initialTheme = storedTheme || ThemeColor.Auto;
 
@@ -31,8 +32,8 @@ export class ThemeState extends BaseState<ThemeColor> {
     this.updateTheme(newTheme);
   }
 
-  override set(theme: ThemeColor): void {
-    this.updateTheme(theme);
+  get(): ThemeColor {
+    return this.value();
   }
 
   private updateTheme(theme: ThemeColor): void {
@@ -53,8 +54,6 @@ export class ThemeState extends BaseState<ThemeColor> {
 
         return;
     }
-
-    super.set(theme);
   }
 
   private applyTheme(addTheme: string, removeTheme: string): void {

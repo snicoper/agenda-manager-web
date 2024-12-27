@@ -54,7 +54,7 @@ export class FormIdentityDocumentComponent implements ControlValueAccessor {
   readonly formInputTypes = FormInputType;
 
   /** Get countries. */
-  readonly countries = this.countryLocaleService.countries;
+  readonly countries = this.countryLocaleService.value;
 
   /** Get filtered countries. */
   readonly filteredCountries = computed(() => {

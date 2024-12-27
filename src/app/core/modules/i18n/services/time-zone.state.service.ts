@@ -1,23 +1,30 @@
-import { inject, Injectable } from '@angular/core';
-import { BrowserStorageKey } from '../../../../enums/browser-storage-key.enum';
-import { BrowserStorageService } from '../../../../services/browser-storage.service';
-import { BaseState } from '../../../../services/states/base.state';
-import { LocalizationUtils } from '../../utils/localization.utils';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { BrowserStorageKey } from '../../../enums/browser-storage-key.enum';
+import { BrowserStorageService } from '../../../services/browser-storage.service';
+import { LocalizationUtils } from '../utils/localization.utils';
 
 @Injectable({ providedIn: 'root' })
-export class TimeZoneState extends BaseState<string> {
+export class TimeZoneStateService {
   private readonly browserStorage = inject(BrowserStorageService);
 
-  override refresh(): void {
+  private readonly state$ = signal('');
+
+  readonly value = computed(() => this.state$());
+
+  refresh(): void {
     const storedTimeZone = this.getStoredTimeZone();
     const timeZone = storedTimeZone ?? LocalizationUtils.defaultTimezone;
 
     this.set(timeZone);
   }
 
-  override set(timezone: string): void {
-    super.set(timezone);
+  set(timezone: string): void {
+    this.state$.set(timezone);
     this.saveTimeZoneToStorage(timezone);
+  }
+
+  get(): string {
+    return this.state$();
   }
 
   private getStoredTimeZone(): string | null {
