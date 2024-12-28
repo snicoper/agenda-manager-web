@@ -4,6 +4,8 @@ import { ApiUrls } from '../../../../core/config/api-urls';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
+import { ResourceTypeCreateRequest } from '../../interfaces/requests/resource-type-create.request';
+import { ResourceTypeCreateResponse } from '../../interfaces/responses/resource-type-create.response';
 import { ResourceTypePaginatedResponse } from '../../interfaces/responses/resource-type-paginated.response';
 
 @Injectable({ providedIn: 'root' })
@@ -18,6 +20,17 @@ export class ResourceTypeApiService extends ApiBaseService {
       paginatedResult,
       endpoint,
       (response) => response.value as PaginatedResult<ResourceTypePaginatedResponse>,
+    );
+  }
+
+  /** Crear un nuevo tipo de recurso. */
+  createResourceType(request: ResourceTypeCreateRequest): Observable<ResourceTypeCreateResponse> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resourceTypes.createResourceType);
+
+    return this.post<ResourceTypeCreateRequest, ResourceTypeCreateResponse>(
+      request,
+      endpoint,
+      (response) => response.value as ResourceTypeCreateResponse,
     );
   }
 }
