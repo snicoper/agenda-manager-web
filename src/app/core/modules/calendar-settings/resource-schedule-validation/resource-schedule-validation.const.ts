@@ -1,5 +1,5 @@
+import { BaseEnumInfo } from '../../../utils/enums/enum-utils.interface';
 import { EnumUtils } from '../../../utils/enums/enum.utils';
-import { BaseEnumInfo } from '../../../utils/interfaces/enum-utils.interface';
 import { ResourceScheduleValidationStrategy } from './resource-schedule-validation-strategy.enum';
 
 export const ResourceScheduleValidationInfo: Record<ResourceScheduleValidationStrategy, BaseEnumInfo> = {

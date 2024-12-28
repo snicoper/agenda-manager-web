@@ -1,5 +1,5 @@
+import { BaseEnumInfo } from '../../../utils/enums/enum-utils.interface';
 import { EnumUtils } from '../../../utils/enums/enum.utils';
-import { BaseEnumInfo } from '../../../utils/interfaces/enum-utils.interface';
 import { IdentityDocumentType } from './identity-document-type.enum';
 
 export const IdentityDocumentDisplayInfo: Record<IdentityDocumentType, BaseEnumInfo> = {

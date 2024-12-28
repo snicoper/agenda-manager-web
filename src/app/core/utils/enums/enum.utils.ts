@@ -1,4 +1,4 @@
-import { BaseEnumInfo } from '../interfaces/enum-utils.interface';
+import { BaseEnumInfo } from './enum-utils.interface';
 
 /**
  * Generic utility class for handling enums with additional display information.

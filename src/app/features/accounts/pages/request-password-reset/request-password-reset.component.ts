@@ -11,7 +11,7 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
-import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http/http-error-response-mapping.utils';
+import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
