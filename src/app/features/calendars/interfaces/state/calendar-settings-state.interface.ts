@@ -1,5 +1,5 @@
 import { Signal } from '@angular/core';
-import { CalendarSettingsResponse } from './responses/calendar-settings.response';
+import { CalendarSettingsResponse } from '../responses/calendar-settings.response';
 
 export interface CalendarSettingsState {
   calendarId: Signal<string | null>;

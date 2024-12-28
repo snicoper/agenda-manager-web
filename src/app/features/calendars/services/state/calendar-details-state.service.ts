@@ -5,9 +5,9 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { CalendarDetailsState } from '../../interfaces/calendar-details-state.interface';
 import { CalendarDetailsResponse } from '../../interfaces/responses/calendar-details.response';
 import { CalendarApiService } from '../api/calendar-api.service';
+import { CalendarDetailsState } from '../../interfaces/state/calendar-details-state.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarDetailsStateService {

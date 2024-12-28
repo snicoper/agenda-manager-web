@@ -1,5 +1,5 @@
 import { Signal } from '@angular/core';
-import { AccountDetailsResponse } from './responses/account-details.response';
+import { AccountDetailsResponse } from '../responses/account-details.response';
 
 export interface AccountDetailsState {
   userId: Signal<string | null>;
