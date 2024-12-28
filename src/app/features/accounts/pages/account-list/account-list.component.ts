@@ -67,7 +67,6 @@ export class AccountListComponent implements AfterViewInit {
     'lastName',
     'isActive',
     'isEmailConfirmed',
-    'isCollaborator',
     'dateJoined',
     'actions',
   ];

@@ -7,6 +7,5 @@ export interface AccountPaginatedResponse {
   lastName: string;
   isActive: boolean;
   isEmailConfirmed: boolean;
-  isCollaborator: boolean;
   dateJoined: DateTimeProvider;
 }

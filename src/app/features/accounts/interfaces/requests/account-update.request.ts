@@ -29,5 +29,4 @@ export interface AccountUpdateRequest {
   identityDocument: IdentityDocument;
   isEmailConfirmed: boolean;
   isActive: boolean;
-  isCollaborator: boolean;
 }

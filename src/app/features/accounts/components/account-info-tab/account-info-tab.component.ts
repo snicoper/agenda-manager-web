@@ -81,32 +81,6 @@ export class AccountInfoTabComponent {
       });
   }
 
-  handleChangeStateIsCollaborator(): void {
-    if (!this.accountState.account()) {
-      logError('AccountInfoTabComponent.handleChangeStateIsCollaborator', 'Account is not loaded');
-
-      return;
-    }
-
-    this.accountDetailsService.setLoadingState(true);
-
-    this.accountApi
-      .toggleIsCollaborator(this.accountState.userId()!)
-      .pipe(
-        take(1),
-        finalize(() => this.accountDetailsService.setLoadingState(false)),
-      )
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Usuario colaborador actualizado correctamente');
-          this.accountDetailsService.refresh();
-        },
-        error: () => {
-          this.snackBarService.error('Error al actualizar el usuario colaborador');
-        },
-      });
-  }
-
   getIdentityDocumentDescriptionByType(): string {
     const type = this.accountState.account()?.identityDocument?.type;
 

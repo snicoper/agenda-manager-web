@@ -12,7 +12,6 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
-import { FormCheckboxComponent } from '../../../../shared/components/forms/inputs/form-checkbox/form-checkbox.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormRoleSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-role-selector/form-role-selector.component';
@@ -31,7 +30,6 @@ import { AccountApiService } from '../../services/api/account-api.service';
     MatIconModule,
     FormInputComponent,
     FormRoleSelectorComponent,
-    FormCheckboxComponent,
     NonFieldErrorsComponent,
     BtnLoadingComponent,
   ],
@@ -79,7 +77,6 @@ export class AccountCreateBladeComponent implements OnInit {
       email: ['', [Validators.required, emailValidator()]],
       firstName: ['', [Validators.required, Validators.maxLength(100)]],
       lastName: ['', [Validators.required, Validators.maxLength(100)]],
-      isCollaborator: [false],
       roles: [[], [minLengthArrayValidator(1)]],
     });
   }

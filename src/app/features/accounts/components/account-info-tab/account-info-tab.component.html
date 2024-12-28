@@ -79,15 +79,6 @@
           </td>
         </tr>
         <tr>
-          <th>Es colaborador</th>
-          <td>
-            <mat-slide-toggle
-              (change)="handleChangeStateIsCollaborator()"
-              [checked]="account.isCollaborator"
-            ></mat-slide-toggle>
-          </td>
-        </tr>
-        <tr>
           <th>Fecha de creación</th>
           <td>{{ account.createdAt | dateTimeFormat }}</td>
         </tr>

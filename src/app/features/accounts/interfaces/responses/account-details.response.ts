@@ -27,7 +27,6 @@ export interface AccountDetailsResponse {
   lastName: string;
   isEmailConfirmed: boolean;
   isActive: boolean;
-  isCollaborator: boolean;
   createdAt: DateTimeProvider;
   phoneNumber?: PhoneNumber;
   address?: Address;

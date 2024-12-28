@@ -71,14 +71,6 @@
               </td>
             </ng-container>
 
-            <!-- isCollaborator field -->
-            <ng-container matColumnDef="isCollaborator">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Colaborador</th>
-              <td mat-cell *matCellDef="let row">
-                <span [innerHTML]="row.isCollaborator | boolToIcon"></span>
-              </td>
-            </ng-container>
-
             <!-- dateJoined field -->
             <ng-container matColumnDef="dateJoined">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Ingreso</th>
