@@ -11,7 +11,7 @@
         [disabled]="isDisabled"
         [id]="id + '-type'"
       >
-        @for (item of identityDocumentOptions; track item.value) {
+        @for (item of identityDocumentUtils.getOptions(); track item.value) {
           <mat-option [value]="item.value">
             {{ item.code }}
           </mat-option>

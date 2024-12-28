@@ -1,6 +1,8 @@
+import { EnumUtils } from '../../../../../core/utils/enums/enum.utils';
+import { BaseEnumInfo } from '../../../../../core/utils/interfaces/enum-utils.interface';
 import { HolidayConflictStrategy } from '../enums/holiday-conflict-strategy.enum';
 
-export const HolidayConflictInfo: Record<HolidayConflictStrategy, { code: string; description: string }> = {
+export const HolidayConflictInfo: Record<HolidayConflictStrategy, BaseEnumInfo> = {
   [HolidayConflictStrategy.Allow]: {
     code: 'Allow',
     description: 'Permit solapamiento',
@@ -15,16 +17,4 @@ export const HolidayConflictInfo: Record<HolidayConflictStrategy, { code: string
   },
 } as const;
 
-export const HolidayConflictOptions = Object.entries(HolidayConflictInfo).map(([type, info]) => ({
-  value: Number(type),
-  code: info.code,
-  description: info.description,
-})) as { value: HolidayConflictStrategy; code: string; description: string }[];
-
-export const HolidayConflictUtils = {
-  getCodeByType: (type: HolidayConflictStrategy): string => HolidayConflictInfo[type]?.code ?? '',
-
-  getDescriptionByType: (type: HolidayConflictStrategy): string => HolidayConflictInfo[type]?.description ?? '',
-
-  isValidType: (type: HolidayConflictStrategy): boolean => type in HolidayConflictStrategy,
-} as const;
+export const HolidayConflictUtils = new EnumUtils<HolidayConflictStrategy, BaseEnumInfo>(HolidayConflictInfo);

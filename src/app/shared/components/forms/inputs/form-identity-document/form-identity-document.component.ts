@@ -8,11 +8,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormState } from '../../../../../core/modules/forms/interfaces/form-state.interface';
 import { CountryLocaleService } from '../../../../../core/modules/i18n/services/country-locale.service';
 import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.directive';
+import { IdentityDocumentUtils } from '../../../../modules/users/identity-document/identity-document-display.const';
+import { IdentityDocumentType } from '../../../../modules/users/identity-document/identity-document-type.enum';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormInputType } from '../form-input/types/form-input.type';
 import { FormIdentityDocumentField } from './interfaces/form-identity-document-field.interface';
-import { IdentityDocumentOptions } from '../../../../modules/users/identity-document/identity-document-display.const';
-import { IdentityDocumentType } from '../../../../modules/users/identity-document/identity-document-type.enum';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -50,7 +50,7 @@ export class FormIdentityDocumentComponent implements ControlValueAccessor {
   showIcons = input(false);
   placeholder = input('');
 
-  readonly identityDocumentOptions = IdentityDocumentOptions;
+  readonly identityDocumentUtils = IdentityDocumentUtils;
   readonly formInputTypes = FormInputType;
 
   /** Get countries. */
@@ -97,7 +97,7 @@ export class FormIdentityDocumentComponent implements ControlValueAccessor {
   };
 
   getDocumentLabel(): string {
-    const selectedDoc = this.identityDocumentOptions.find((x) => x.value === this.value.type);
+    const selectedDoc = this.identityDocumentUtils.getOptions().find((x) => x.value === this.value.type);
 
     return selectedDoc ? `Número de ${selectedDoc.code}` : 'Número de Documento';
   }

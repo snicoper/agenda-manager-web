@@ -3,12 +3,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { CalendarSettingsStateService } from '../../services/calendar-settings-state.service';
-import { CalendarSettingsUpdateBladeComponent } from '../calendar-settings-update-blade/calendar-settings-update-blade.component';
 import { AppointmentConfirmationRequirementUtils } from '../../../../shared/modules/calendars/calendar-settings/constants/appointment-confirmation-requirement.const';
 import { AppointmentOverlappingUtils } from '../../../../shared/modules/calendars/calendar-settings/constants/appointment-overlapping-strategy.const';
 import { HolidayConflictUtils } from '../../../../shared/modules/calendars/calendar-settings/constants/holiday-conflict-strategy.const';
 import { ResourceScheduleValidationUtils } from '../../../../shared/modules/calendars/calendar-settings/constants/resource-schedule-validation.const';
+import { CalendarSettingsStateService } from '../../services/calendar-settings-state.service';
+import { CalendarSettingsUpdateBladeComponent } from '../calendar-settings-update-blade/calendar-settings-update-blade.component';
 
 @Component({
   selector: 'am-calendar-settings-tab',
@@ -46,16 +46,19 @@ export class CalendarSettingsTabComponent {
         return;
       }
 
-      this.appointmentConfirmationRequirementValue = AppointmentConfirmationRequirementUtils.getDescriptionByType(
+      this.appointmentConfirmationRequirementValue = AppointmentConfirmationRequirementUtils.getDescriptionByValue(
         this.settingsState.settings()?.appointmentConfirmationRequirement ?? 1,
       );
-      this.appointmentOverlappingValue = AppointmentOverlappingUtils.getDescriptionByType(
+
+      this.appointmentOverlappingValue = AppointmentOverlappingUtils.getDescriptionByValue(
         this.settingsState.settings()?.appointmentOverlapping ?? 1,
       );
-      this.holidayConflictValue = HolidayConflictUtils.getDescriptionByType(
+
+      this.holidayConflictValue = HolidayConflictUtils.getDescriptionByValue(
         this.settingsState.settings()?.holidayConflict ?? 1,
       );
-      this.resourceScheduleValidationValue = ResourceScheduleValidationUtils.getDescriptionByType(
+
+      this.resourceScheduleValidationValue = ResourceScheduleValidationUtils.getDescriptionByValue(
         this.settingsState.settings()?.resourceScheduleValidation ?? 1,
       );
     });

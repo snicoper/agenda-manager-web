@@ -43,4 +43,7 @@ export const ApiUrls = {
     assignUserToRole: '/user-roles/{roleId}/assign-user/{userId}',
     unAssignedUserFromRole: '/user-roles/{roleId}/unassigned-user/{userId}',
   },
+  resourceTypes: {
+    getResourceTypesPaginated: '/resource-types/paginated',
+  },
 } as const;

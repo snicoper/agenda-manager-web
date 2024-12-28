@@ -88,7 +88,7 @@ export class AccountInfoTabComponent {
       return '';
     }
 
-    return IdentityDocumentUtils.getDescriptionByType(type!);
+    return IdentityDocumentUtils.getDescriptionByValue(type!);
   }
 
   handleOpenUpdateAccountBlade(): void {

@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../core/config/site-urls';
 import { logError } from '../../../core/errors/logger/logger.co';
 import { SnackBarService } from '../../../core/services/snackbar.service';
@@ -64,7 +64,10 @@ export class AccountDetailsService {
 
     this.accountApi
       .getAccountDetails(this.userId$()!)
-      .pipe(finalize(() => this.loading$.set(false)))
+      .pipe(
+        take(1),
+        finalize(() => this.loading$.set(false)),
+      )
       .subscribe({
         next: (response) => {
           this.account$.set(response);

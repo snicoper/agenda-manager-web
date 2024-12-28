@@ -1,6 +1,8 @@
+import { EnumUtils } from '../../../../core/utils/enums/enum.utils';
+import { BaseEnumInfo } from '../../../../core/utils/interfaces/enum-utils.interface';
 import { IdentityDocumentType } from './identity-document-type.enum';
 
-export const IdentityDocumentDisplayInfo: Record<IdentityDocumentType, { code: string; description: string }> = {
+export const IdentityDocumentDisplayInfo: Record<IdentityDocumentType, BaseEnumInfo> = {
   [IdentityDocumentType.NationalId]: {
     code: 'DNI',
     description: 'Documento Nacional de Identidad',
@@ -31,16 +33,4 @@ export const IdentityDocumentDisplayInfo: Record<IdentityDocumentType, { code: s
   },
 } as const;
 
-export const IdentityDocumentOptions = Object.entries(IdentityDocumentDisplayInfo).map(([type, info]) => ({
-  value: Number(type),
-  code: info.code,
-  description: info.description,
-})) as { value: IdentityDocumentType; code: string; description: string }[];
-
-export const IdentityDocumentUtils = {
-  getCodeByType: (type: IdentityDocumentType): string => IdentityDocumentDisplayInfo[type]?.code ?? '',
-
-  getDescriptionByType: (type: IdentityDocumentType): string => IdentityDocumentDisplayInfo[type]?.description ?? '',
-
-  isValidType: (type: IdentityDocumentType): boolean => type in IdentityDocumentType,
-} as const;
+export const IdentityDocumentUtils = new EnumUtils<IdentityDocumentType, BaseEnumInfo>(IdentityDocumentDisplayInfo);

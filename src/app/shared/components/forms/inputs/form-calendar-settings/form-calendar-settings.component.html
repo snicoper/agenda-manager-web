@@ -12,9 +12,9 @@
             [id]="id + '-confirmation-requirement'"
             [disabled]="readonly()"
           >
-            @for (appointmentConfirmationRequirementOption of appointmentConfirmationRequirementOptions; track $index) {
-              <mat-option [value]="appointmentConfirmationRequirementOption.value">
-                {{ appointmentConfirmationRequirementOption.description }}
+            @for (option of appointmentConfirmationRequirementUtils.getOptions(); track $index) {
+              <mat-option [value]="option.value">
+                {{ option.description }}
               </mat-option>
             }
           </mat-select>
@@ -34,9 +34,9 @@
             [id]="id + '-appointment-overlap-behavior'"
             [disabled]="readonly()"
           >
-            @for (appointmentOverlappingOption of appointmentOverlappingOptions; track $index) {
-              <mat-option [value]="appointmentOverlappingOption.value">
-                {{ appointmentOverlappingOption.description }}
+            @for (option of appointmentOverlappingUtils.getOptions(); track $index) {
+              <mat-option [value]="option.value">
+                {{ option.description }}
               </mat-option>
             }
           </mat-select>
@@ -58,9 +58,9 @@
             [id]="id + '-holiday-appointment-handling'"
             [disabled]="readonly()"
           >
-            @for (holidayConflictOption of holidayConflictOptions; track $index) {
-              <mat-option [value]="holidayConflictOption.value">
-                {{ holidayConflictOption.description }}
+            @for (option of holidayConflictUtils.getOptions(); track $index) {
+              <mat-option [value]="option.value">
+                {{ option.description }}
               </mat-option>
             }
           </mat-select>
@@ -82,9 +82,9 @@
             [id]="id + '-schedule-validation'"
             [disabled]="readonly()"
           >
-            @for (resourceScheduleValidationOption of resourceScheduleValidationOptions; track $index) {
-              <mat-option [value]="resourceScheduleValidationOption.value">
-                {{ resourceScheduleValidationOption.description }}
+            @for (option of resourceScheduleValidationUtils.getOptions(); track $index) {
+              <mat-option [value]="option.value">
+                {{ option.description }}
               </mat-option>
             }
           </mat-select>

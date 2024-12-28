@@ -27,6 +27,4 @@ export interface AccountUpdateRequest {
   phone: PhoneNumber;
   address: Address;
   identityDocument: IdentityDocument;
-  isEmailConfirmed: boolean;
-  isActive: boolean;
 }
