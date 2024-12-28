@@ -21,10 +21,10 @@ import { PageHeaderComponent } from '../../../../shared/components/layout/page-h
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
-import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { ResourceTypeCreateBladeComponent } from '../../components/resource-type-create-blade/resource-type-create-blade.component';
 import { ResourceTypePaginatedResponse } from '../../interfaces/responses/resource-type-paginated.response';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-resource-type-list',

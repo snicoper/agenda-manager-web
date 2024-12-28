@@ -14,9 +14,9 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
-import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { UserInRoleResponse } from '../../interfaces/responses/user-in-role.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-role-assigned-users',

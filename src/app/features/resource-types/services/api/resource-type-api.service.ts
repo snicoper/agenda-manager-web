@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
-import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { ResourceTypeCreateRequest } from '../../interfaces/requests/resource-type-create.request';
 import { ResourceTypeCreateResponse } from '../../interfaces/responses/resource-type-create.response';
 import { ResourceTypePaginatedResponse } from '../../interfaces/responses/resource-type-paginated.response';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Injectable({ providedIn: 'root' })
 export class ResourceTypeApiService extends ApiBaseService {

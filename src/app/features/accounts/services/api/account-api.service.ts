@@ -6,7 +6,6 @@ import { NoContent } from '../../../../core/http/types/no-content.type';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { DateTimeUtils } from '../../../../core/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
-import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { AccountCreateRequest } from '../../interfaces/requests/account-create.request';
 import { AccountUpdateRequest } from '../../interfaces/requests/account-update.request';
 import { ConfirmAccountRequest } from '../../interfaces/requests/confirm-account.request';
@@ -17,6 +16,7 @@ import { VerifyEmailRequest } from '../../interfaces/requests/verify-email.reque
 import { AccountCreateResponse } from '../../interfaces/responses/account-create.response';
 import { AccountDetailsResponse } from '../../interfaces/responses/account-details.response';
 import { AccountPaginatedResponse } from '../../interfaces/responses/account-paginated.response';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Injectable({ providedIn: 'root' })
 export class AccountApiService extends ApiBaseService {

@@ -6,7 +6,6 @@ import { NoContent } from '../../../../core/http/types/no-content.type';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { DateTimeUtils } from '../../../../core/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
-import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
 import { CalendarUpdateRequest } from '../../interfaces/requests/calendar-update-request';
 import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
@@ -14,6 +13,7 @@ import { CalendarCreateResponse } from '../../interfaces/responses/calendar-crea
 import { CalendarDetailsResponse } from '../../interfaces/responses/calendar-details.response';
 import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
 import { CalendarSettingsResponse } from '../../interfaces/responses/calendar-settings.response';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Injectable({
   providedIn: 'root',

@@ -1,9 +1,9 @@
 import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { PaginatedResult } from '../../../shared/paginated-result/paginated-result';
 import { ApiResponse } from '../../http/interfaces/api-response.interface';
 import { NoContent } from '../../http/types/no-content.type';
+import { PaginatedResult } from '../../modules/paginated-result/paginated-result';
 
 /**
  * Clase base abstracta para la comunicación con la API.

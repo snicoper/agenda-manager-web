@@ -6,9 +6,9 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime, Subject } from 'rxjs';
 import { logError } from '../../../../core/errors/logger/logger';
-import { LogicalOperator } from '../../../paginated-result/enums/logical-operator';
-import { RelationalOperator } from '../../../paginated-result/enums/relational-operator';
-import { PaginatedResult } from '../../../paginated-result/paginated-result';
+import { LogicalOperator } from '../../../../core/modules/paginated-result/enums/logical-operator';
+import { RelationalOperator } from '../../../../core/modules/paginated-result/enums/relational-operator';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-table-filter',
