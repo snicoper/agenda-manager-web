@@ -21,14 +21,18 @@ export const SiteUrls = {
     details: '/calendars/{id}',
   },
 
+  errors: {
+    notFound: '/errors/404',
+    forbidden: '/errors/403',
+  },
+
   roles: {
     list: '/authorization/roles',
     permissions: '/authorization/roles/{id}/permissions',
     roleUserAssignments: '/authorization/roles/{id}/user-assignments',
   },
 
-  errors: {
-    notFound: '/errors/404',
-    forbidden: '/errors/403',
+  resourceTypes: {
+    list: '/resource-types',
   },
 } as const;

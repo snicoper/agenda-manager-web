@@ -26,6 +26,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/errors/errors.routes').then((m) => m.routes),
   },
   {
+    path: 'resource-types',
+    loadChildren: () => import('./features/resource-types/resource-types.routes').then((m) => m.routes),
+  },
+  {
     path: '**',
     redirectTo: '/errors/404',
     pathMatch: 'full',

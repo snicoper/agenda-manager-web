@@ -60,7 +60,7 @@ export const sidebarMenuItems: SidebarMenuItem[] = [
     role: [SystemRoles.Administrator, SystemRoles.Employee],
     items: [
       { icon: 'schedule', text: 'Horarios', route: 'SiteUrls.schedules' },
-      { icon: 'category', text: 'Tipos de Recursos', route: 'SiteUrls.resourceTypes' },
+      { icon: 'category', text: 'Tipos de Recursos', route: SiteUrls.resourceTypes.list },
       { icon: 'apps', text: 'Servicios', route: 'SiteUrls.services' },
     ],
   },
