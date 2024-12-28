@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -19,7 +18,8 @@ import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valildators.contract';
 import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { TimeZoneStateService } from '../../../../core/modules/i18n/services/time-zone.state.service';
+import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
+import { TimeZoneStateService } from '../../../../core/i18n/services/time-zone.state.service';
 
 @Component({
   selector: 'am-calendar-create-blade',

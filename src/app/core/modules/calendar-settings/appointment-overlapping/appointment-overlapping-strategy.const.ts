@@ -1,6 +1,6 @@
-import { EnumUtils } from '../../../../../core/utils/enums/enum.utils';
-import { BaseEnumInfo } from '../../../../../core/utils/interfaces/enum-utils.interface';
-import { AppointmentOverlappingStrategy } from '../enums/appointment-overlapping-strategy.enum';
+import { EnumUtils } from '../../../utils/enums/enum.utils';
+import { BaseEnumInfo } from '../../../utils/interfaces/enum-utils.interface';
+import { AppointmentOverlappingStrategy } from './appointment-overlapping-strategy.enum';
 
 export const AppointmentOverlappingInfo: Record<AppointmentOverlappingStrategy, BaseEnumInfo> = {
   [AppointmentOverlappingStrategy.Allow]: {

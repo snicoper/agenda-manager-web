@@ -1,5 +1,5 @@
 import { ErrorHandler } from '@angular/core';
-import { logError } from './logger/logger.co';
+import { logError } from './logger/logger';
 
 /** Global error handler. */
 export class CustomErrorHandler implements ErrorHandler {

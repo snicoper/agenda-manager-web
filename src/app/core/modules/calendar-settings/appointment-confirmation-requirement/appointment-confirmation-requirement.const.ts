@@ -1,6 +1,6 @@
-import { EnumUtils } from '../../../../../core/utils/enums/enum.utils';
-import { BaseEnumInfo } from '../../../../../core/utils/interfaces/enum-utils.interface';
-import { AppointmentConfirmationRequirementStrategy } from '../enums/appointment-confirmation-requirement-strategy.enum';
+import { EnumUtils } from '../../../utils/enums/enum.utils';
+import { BaseEnumInfo } from '../../../utils/interfaces/enum-utils.interface';
+import { AppointmentConfirmationRequirementStrategy } from './appointment-confirmation-requirement-strategy.enum';
 
 export const AppointmentConfirmationRequirementInfo: Record<AppointmentConfirmationRequirementStrategy, BaseEnumInfo> =
   {

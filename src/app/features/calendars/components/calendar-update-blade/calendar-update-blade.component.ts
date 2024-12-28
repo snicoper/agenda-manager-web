@@ -4,8 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
-import { logError } from '../../../../core/errors/logger/logger.co';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
+import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -17,6 +16,7 @@ import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valild
 import { CalendarUpdateRequest } from '../../interfaces/requests/calendar-update-request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarDetailsStateService } from '../../services/calendar-details-state.service';
+import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-calendar-update-blade',

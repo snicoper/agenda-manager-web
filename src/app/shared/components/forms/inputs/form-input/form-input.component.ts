@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormIconPosition } from '../../types/form-icon-position.enum';
 import { FormInputType } from './types/form-input.type';
-import { FormState } from '../../../../../core/modules/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../../core/forms/interfaces/form-state.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

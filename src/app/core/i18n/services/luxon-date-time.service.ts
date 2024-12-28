@@ -1,11 +1,11 @@
 import { computed, effect, inject, Injectable } from '@angular/core';
 import { Settings } from 'luxon';
-import { AppEnvironment } from '../../../config/app-environment';
-import { logInfo, logWarning } from '../../../errors/logger/logger.co';
 import { LocalesSupported } from '../enums/locales-supported.enum';
 import { LocalizationUtils } from '../utils/localization.utils';
 import { LocaleStateService } from './locale.state.service';
 import { TimeZoneStateService } from './time-zone.state.service';
+import { AppEnvironment } from '../../config/app-environment';
+import { logWarning, logInfo } from '../../errors/logger/logger';
 
 /** State for the current locale in Luxon. */
 @Injectable({ providedIn: 'root' })

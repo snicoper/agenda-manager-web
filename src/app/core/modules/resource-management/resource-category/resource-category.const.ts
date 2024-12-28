@@ -1,5 +1,5 @@
-import { EnumUtils } from '../../../../core/utils/enums/enum.utils';
-import { BaseEnumInfo } from '../../../../core/utils/interfaces/enum-utils.interface';
+import { EnumUtils } from '../../../utils/enums/enum.utils';
+import { BaseEnumInfo } from '../../../utils/interfaces/enum-utils.interface';
 import { ResourceCategory } from './resource-category.enum';
 
 export const ResourceCategoryDisplayInfo: Record<ResourceCategory, BaseEnumInfo> = {
@@ -17,7 +17,4 @@ export const ResourceCategoryDisplayInfo: Record<ResourceCategory, BaseEnumInfo>
   },
 } as const;
 
-export const ResourceCategoryUtils = new EnumUtils<ResourceCategory, BaseEnumInfo>(
-  ResourceCategory,
-  ResourceCategoryDisplayInfo,
-);
+export const ResourceCategoryUtils = new EnumUtils<ResourceCategory, BaseEnumInfo>(ResourceCategoryDisplayInfo);

@@ -1,4 +1,4 @@
-import { DateTimeProvider } from '../../../../core/modules/i18n/types/datetime-provider.type';
+import { DateTimeProvider } from '../../../../core/i18n/types/datetime-provider.type';
 
 export interface AccountPaginatedResponse {
   id: string;

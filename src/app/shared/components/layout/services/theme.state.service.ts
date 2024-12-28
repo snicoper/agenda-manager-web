@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { BrowserStorageKey } from '../../../../core/enums/browser-storage-key.enum';
 import { ThemeColor } from '../../../../core/enums/theme-color.enum';
-import { logError } from '../../../../core/errors/logger/logger.co';
+import { logError } from '../../../../core/errors/logger/logger';
 import { BrowserStorageService } from '../../../../core/services/browser-storage.service';
 
 @Injectable({ providedIn: 'root' })

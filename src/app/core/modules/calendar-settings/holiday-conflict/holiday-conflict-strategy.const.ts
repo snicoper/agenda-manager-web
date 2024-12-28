@@ -1,6 +1,6 @@
-import { EnumUtils } from '../../../../../core/utils/enums/enum.utils';
-import { BaseEnumInfo } from '../../../../../core/utils/interfaces/enum-utils.interface';
-import { HolidayConflictStrategy } from '../enums/holiday-conflict-strategy.enum';
+import { EnumUtils } from '../../../utils/enums/enum.utils';
+import { BaseEnumInfo } from '../../../utils/interfaces/enum-utils.interface';
+import { HolidayConflictStrategy } from './holiday-conflict-strategy.enum';
 
 export const HolidayConflictInfo: Record<HolidayConflictStrategy, BaseEnumInfo> = {
   [HolidayConflictStrategy.Allow]: {

@@ -3,7 +3,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../core/config/site-urls';
-import { logError } from '../../../core/errors/logger/logger.co';
+import { logError } from '../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../core/services/snackbar.service';
 import { AccountDetailsState } from '../interfaces/account-details-state.interface';
 import { AccountDetailsResponse } from '../interfaces/responses/account-details.response';

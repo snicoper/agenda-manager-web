@@ -10,7 +10,6 @@ import { RouterLink } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -21,6 +20,7 @@ import { PageSimpleComponent } from '../../../../shared/components/layout/page-s
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { RequestPasswordResetRequest } from '../../interfaces/requests/request-password-reset.request';
 import { AccountApiService } from '../../services/api/account-api.service';
+import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
 
 interface AlertState {
   isSuccess: boolean;

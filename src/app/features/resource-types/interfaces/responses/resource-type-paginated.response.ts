@@ -1,4 +1,4 @@
-import { ResourceCategory } from '../../../../shared/modules/resource-types/resource-category/resource-category.enum';
+import { ResourceCategory } from '../../../../core/modules/resource-management/resource-category/resource-category.enum';
 
 export interface ResourceTypePaginatedResponse {
   resourceTypeId: string;

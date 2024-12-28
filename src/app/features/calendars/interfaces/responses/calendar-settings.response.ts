@@ -1,7 +1,7 @@
-import { AppointmentConfirmationRequirementStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/appointment-confirmation-requirement-strategy.enum';
-import { AppointmentOverlappingStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/appointment-overlapping-strategy.enum';
-import { HolidayConflictStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/holiday-conflict-strategy.enum';
-import { ResourceScheduleValidationStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/resource-schedule-validation-strategy.enum';
+import { AppointmentConfirmationRequirementStrategy } from '../../../../core/modules/calendar-settings/appointment-confirmation-requirement/appointment-confirmation-requirement-strategy.enum';
+import { AppointmentOverlappingStrategy } from '../../../../core/modules/calendar-settings/appointment-overlapping/appointment-overlapping-strategy.enum';
+import { HolidayConflictStrategy } from '../../../../core/modules/calendar-settings/holiday-conflict/holiday-conflict-strategy.enum';
+import { ResourceScheduleValidationStrategy } from '../../../../core/modules/calendar-settings/resource-schedule-validation/resource-schedule-validation-strategy.enum';
 
 export interface CalendarSettingsResponse {
   calendarId: string;

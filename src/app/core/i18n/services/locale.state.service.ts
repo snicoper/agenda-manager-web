@@ -1,8 +1,8 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { BrowserStorageKey } from '../../../enums/browser-storage-key.enum';
-import { BrowserStorageService } from '../../../services/browser-storage.service';
 import { LocalesSupported } from '../enums/locales-supported.enum';
 import { LocalizationUtils } from '../utils/localization.utils';
+import { BrowserStorageKey } from '../../enums/browser-storage-key.enum';
+import { BrowserStorageService } from '../../services/browser-storage.service';
 
 /** State for the current locale. */
 @Injectable({ providedIn: 'root' })

@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -21,6 +20,7 @@ import { PageSimpleComponent } from '../../../../shared/components/layout/page-s
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { ResetPasswordRequest } from '../../interfaces/requests/reset-password.request';
 import { AccountApiService } from '../../services/api/account-api.service';
+import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-reset-password',

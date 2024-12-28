@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { SiteUrls } from '../config/site-urls';
-import { logError, logWarning } from '../errors/logger/logger.co';
+import { logError, logWarning } from '../errors/logger/logger';
 import { AuthService } from '../modules/auth/services/auth.service';
 import { SnackBarService } from '../services/snackbar.service';
 

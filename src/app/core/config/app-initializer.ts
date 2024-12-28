@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { ThemeStateService } from '../../shared/components/layout/services/theme.state.service';
-import { logError, logInfo } from '../errors/logger/logger.co';
+import { logError, logInfo } from '../errors/logger/logger';
 import { AuthService } from '../modules/auth/services/auth.service';
-import { LocaleStateService } from '../modules/i18n/services/locale.state.service';
-import { LuxonDateTimeService } from '../modules/i18n/services/luxon-date-time.service';
-import { TimeZoneStateService } from '../modules/i18n/services/time-zone.state.service';
+import { LocaleStateService } from '../i18n/services/locale.state.service';
+import { LuxonDateTimeService } from '../i18n/services/luxon-date-time.service';
+import { TimeZoneStateService } from '../i18n/services/time-zone.state.service';
 
 /** Configuración inicial de la aplicación. */
 @Injectable({ providedIn: 'root' })

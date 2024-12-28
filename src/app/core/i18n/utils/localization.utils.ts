@@ -1,4 +1,4 @@
-import { AppEnvironment } from '../../../config/app-environment';
+import { AppEnvironment } from '../../config/app-environment';
 import { LocalesSupported } from '../enums/locales-supported.enum';
 
 export abstract class LocalizationUtils {

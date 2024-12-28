@@ -16,7 +16,7 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { UserInRoleResponse } from '../../interfaces/responses/user-in-role.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
-import { PaginatedResult } from '../../../../shared/modules/paginated-result/paginated-result';
+import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-role-assigned-users',

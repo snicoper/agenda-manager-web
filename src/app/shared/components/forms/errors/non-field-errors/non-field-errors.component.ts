@@ -2,8 +2,8 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-import { BadRequest } from '../../../../../core/modules/http/interfaces/bad-request.interface';
 import { AlertComponent } from '../../../alert/alert.component';
+import { BadRequest } from '../../../../../core/http/interfaces/bad-request.interface';
 
 @Component({
   selector: 'am-non-field-errors',

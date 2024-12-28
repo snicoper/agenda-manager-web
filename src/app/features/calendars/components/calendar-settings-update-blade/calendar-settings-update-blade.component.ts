@@ -4,7 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
-import { FormState } from '../../../../core/modules/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
+import { AppointmentConfirmationRequirementStrategy } from '../../../../core/modules/calendar-settings/appointment-confirmation-requirement/appointment-confirmation-requirement-strategy.enum';
+import { AppointmentOverlappingStrategy } from '../../../../core/modules/calendar-settings/appointment-overlapping/appointment-overlapping-strategy.enum';
+import { ResourceScheduleValidationStrategy } from '../../../../core/modules/calendar-settings/resource-schedule-validation/resource-schedule-validation-strategy.enum';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -13,14 +16,11 @@ import { FormCalendarSettingsComponent } from '../../../../shared/components/for
 import { FormCalendarSettingsField } from '../../../../shared/components/forms/inputs/form-calendar-settings/interfaces/form-calendar-settings-field.interface';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
-import { AppointmentConfirmationRequirementStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/appointment-confirmation-requirement-strategy.enum';
-import { AppointmentOverlappingStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/appointment-overlapping-strategy.enum';
-import { HolidayConflictStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/holiday-conflict-strategy.enum';
-import { ResourceScheduleValidationStrategy } from '../../../../shared/modules/calendars/calendar-settings/enums/resource-schedule-validation-strategy.enum';
 import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarSettingsStateService } from '../../services/calendar-settings-state.service';
+import { HolidayConflictStrategy } from '../../../../core/modules/calendar-settings/holiday-conflict/holiday-conflict-strategy.enum';
 
 @Component({
   selector: 'am-calendar-settings-update-blade',

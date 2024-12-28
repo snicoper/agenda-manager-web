@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../modules/auth/services/auth.service';
-import { LocaleStateService } from '../modules/i18n/services/locale.state.service';
+import { LocaleStateService } from '../i18n/services/locale.state.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {

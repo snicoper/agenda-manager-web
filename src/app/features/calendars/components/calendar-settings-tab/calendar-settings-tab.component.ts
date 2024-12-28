@@ -2,13 +2,13 @@ import { Component, effect, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AppointmentConfirmationRequirementUtils } from '../../../../core/modules/calendar-settings/appointment-confirmation-requirement/appointment-confirmation-requirement.const';
+import { AppointmentOverlappingUtils } from '../../../../core/modules/calendar-settings/appointment-overlapping/appointment-overlapping-strategy.const';
+import { ResourceScheduleValidationUtils } from '../../../../core/modules/calendar-settings/resource-schedule-validation/resource-schedule-validation.const';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { AppointmentConfirmationRequirementUtils } from '../../../../shared/modules/calendars/calendar-settings/constants/appointment-confirmation-requirement.const';
-import { AppointmentOverlappingUtils } from '../../../../shared/modules/calendars/calendar-settings/constants/appointment-overlapping-strategy.const';
-import { HolidayConflictUtils } from '../../../../shared/modules/calendars/calendar-settings/constants/holiday-conflict-strategy.const';
-import { ResourceScheduleValidationUtils } from '../../../../shared/modules/calendars/calendar-settings/constants/resource-schedule-validation.const';
 import { CalendarSettingsStateService } from '../../services/calendar-settings-state.service';
 import { CalendarSettingsUpdateBladeComponent } from '../calendar-settings-update-blade/calendar-settings-update-blade.component';
+import { HolidayConflictUtils } from '../../../../core/modules/calendar-settings/holiday-conflict/holiday-conflict-strategy.const';
 
 @Component({
   selector: 'am-calendar-settings-tab',

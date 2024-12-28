@@ -30,6 +30,7 @@
     "streetview",
     "thednp",
     "tipar",
-    "tseslint"
+    "tseslint",
+    "tzdb"
   ]
 }

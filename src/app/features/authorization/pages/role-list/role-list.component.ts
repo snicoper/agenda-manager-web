@@ -28,7 +28,7 @@ import { RoleCreateBladeComponent } from '../../components/role-create-blade/rol
 import { RoleUpdateBladeComponent } from '../../components/role-update-blade/role-update-blade.component';
 import { RolePaginatedResponse } from '../../interfaces/responses/role-paginated.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
-import { PaginatedResult } from '../../../../shared/modules/paginated-result/paginated-result';
+import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-role-list',

@@ -23,7 +23,7 @@ features/
   feature-name/
     components/    # Componentes específicos de la feature
     contracts/     # Contratos/interfaces específicos
-    models/        # Modelos de datos (requests/responses)
+    interfaces/    # Modelos de datos (requests/responses)
     pages/         # Componentes página/rutas
     services/      # Servicios específicos de la feature
 ```
@@ -37,7 +37,7 @@ Contiene elementos reutilizables en toda la aplicación:
 - **Components**: Componentes UI reutilizables
 - **Directives**: Directivas compartidas
 - **Pipes**: Pipes reutilizables
-- **Models**: Modelos/interfaces compartidos
+- **Interfaces**: Modelos/interfaces compartidos
 - **Utils**: Utilidades y helpers
 - **Services**: Servicios no singleton reutilizables
 

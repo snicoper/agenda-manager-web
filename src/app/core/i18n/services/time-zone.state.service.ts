@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { BrowserStorageKey } from '../../../enums/browser-storage-key.enum';
-import { BrowserStorageService } from '../../../services/browser-storage.service';
 import { LocalizationUtils } from '../utils/localization.utils';
+import { BrowserStorageKey } from '../../enums/browser-storage-key.enum';
+import { BrowserStorageService } from '../../services/browser-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class TimeZoneStateService {
