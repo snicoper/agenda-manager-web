@@ -5,10 +5,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { getTimeZones } from '@vvo/tzdb';
+import { FormState } from '../../../../../../core/forms/interfaces/form-state.interface';
 import { SelectOnFocusDirective } from '../../../../../directives/select-on-focus.directive';
 import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
+import { FormIconPosition } from '../../../types/form-icon-position.enum';
 import { FormTimeZoneField } from './interfaces/form-time-zone-field.interface';
-import { FormState } from '../../../../../../core/forms/interfaces/form-state.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -38,6 +39,10 @@ export class FormTimeZoneSelectorComponent implements ControlValueAccessor {
   fieldName = input.required<string>();
   label = input.required<string>();
   placeholder = input('');
+  icon = input('');
+  formIconPosition = input(FormIconPosition.prefix);
+
+  readonly iconPositions = FormIconPosition;
 
   value = '';
   items: FormTimeZoneField[];

@@ -1,4 +1,4 @@
-@if (items.length) {
+@if (resourceCategoryUtils.getOptions().length > 0) {
   <mat-form-field>
     <!-- label -->
     <mat-label>{{ label() }}</mat-label>
@@ -12,21 +12,21 @@
 
     <!-- input -->
     <input
-      aria-label="Selección de zona horaria"
+      aria-label="Selección de categoría de recurso"
       matInput
       amSelectOnFocus
       (ngModelChange)="onChangeValue($event)"
       [(ngModel)]="value"
-      [matAutocomplete]="timezones"
+      [matAutocomplete]="categories"
       [disabled]="isDisabled"
       [id]="id"
       [placeholder]="placeholder()"
     />
 
     <!-- autocomplete -->
-    <mat-autocomplete #timezones="matAutocomplete">
-      @for (item of itemsFiltered; track $index) {
-        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+    <mat-autocomplete #categories="matAutocomplete">
+      @for (category of resourceCategoryUtils.getOptions(); track $index) {
+        <mat-option [value]="category.code">{{ category.description }}</mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>
