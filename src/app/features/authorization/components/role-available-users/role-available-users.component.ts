@@ -11,12 +11,12 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
-import { UrlUtils } from '../../../../shared/utils/url/url.utils';
+import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 import { UserNotInRoleResponse } from '../../interfaces/responses/user-not-in-role.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
-import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-role-available-users',

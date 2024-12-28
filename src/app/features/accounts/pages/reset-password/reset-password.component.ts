@@ -9,7 +9,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http/http-error-response-mapping.utils';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
@@ -17,10 +19,8 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { passwordMustMatchValidator } from '../../../../shared/components/forms/validators/password-must-match.validator';
 import { strongPasswordValidator } from '../../../../shared/components/forms/validators/strong-password.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { ResetPasswordRequest } from '../../interfaces/requests/reset-password.request';
 import { AccountApiService } from '../../services/api/account-api.service';
-import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-reset-password',

@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { DateTimeUtils } from '../../../../shared/utils/date/datetime.utils';
 import { BrowserStorageKey } from '../../../enums/browser-storage-key.enum';
 import { BrowserStorageService } from '../../../services/browser-storage.service';
+import { DateTimeUtils } from '../../../utils/date/datetime.utils';
 import { AuthApiService } from './api/auth-api.service';
 import { AuthService } from './auth.service';
 

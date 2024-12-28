@@ -12,11 +12,11 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { ModuleRoleDisplayName } from '../../../../core/modules/auth/constants/module-role-display-name.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
-import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { UpdatePermissionForRoleRequest } from '../../interfaces/requests/update-permission-for-role.request';
 import {
   GetRolePermissionsByIdResponse,

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { HttpErrorResponseMappingUtils } from '../../../../core/utils/http/http-error-response-mapping.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -13,7 +14,6 @@ import { FormCategoryResourceTypeComponent } from '../../../../shared/components
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
-import { HttpErrorResponseMappingUtils } from '../../../../shared/utils/http/http-error-response-mapping.utils';
 import { ResourceTypeFieldsValidators } from '../../contracts/resource-type-fields-validator.contract';
 import { ResourceTypeCreateRequest } from '../../interfaces/requests/resource-type-create.request';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';

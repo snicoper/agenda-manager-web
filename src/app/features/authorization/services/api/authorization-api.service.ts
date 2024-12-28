@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
+import { NoContent } from '../../../../core/http/types/no-content.type';
 import { BaseRoleManagementApiService } from '../../../../core/services/api/base-role-management-api.service';
+import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
-import { UrlUtils } from '../../../../shared/utils/url/url.utils';
 import { CreateRoleRequest } from '../../interfaces/requests/create-role.request';
 import { UpdatePermissionForRoleRequest } from '../../interfaces/requests/update-permission-for-role.request';
 import { RoleUpdateRequest } from '../../interfaces/requests/update-role.request';
@@ -12,7 +13,6 @@ import { RolePaginatedResponse } from '../../interfaces/responses/role-paginated
 import { RoleResponse } from '../../interfaces/responses/role.response';
 import { UserInRoleResponse } from '../../interfaces/responses/user-in-role.response';
 import { UserNotInRoleResponse } from '../../interfaces/responses/user-not-in-role.response';
-import { NoContent } from '../../../../core/http/types/no-content.type';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorizationApiService extends BaseRoleManagementApiService {
