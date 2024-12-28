@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
@@ -15,16 +18,13 @@ import { BladeService } from '../../../../shared/components/blade/services/blade
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
+import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { PaginatedResult } from '../../../../shared/paginated-result/paginated-result';
+import { ResourceTypeCreateBladeComponent } from '../../components/resource-type-create-blade/resource-type-create-blade.component';
 import { ResourceTypePaginatedResponse } from '../../interfaces/responses/resource-type-paginated.response';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
-import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 
 @Component({
   selector: 'am-resource-type-list',
@@ -42,7 +42,6 @@ import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
     PageHeaderComponent,
     TableFilterComponent,
     PaginatorComponent,
-    BoolToIconPipe,
     RequiredPermissionDirective,
   ],
   templateUrl: './resource-type-list.component.html',
@@ -95,7 +94,15 @@ export class ResourceTypeListComponent implements AfterViewInit {
   }
 
   handleCreateResourceType(): void {
-    // Logic to create a new resource type
+    this.bladeService.show(ResourceTypeCreateBladeComponent);
+
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: (result) => {
+        if (result) {
+          this.loadResourceTypes();
+        }
+      },
+    });
   }
 
   protected setBreadcrumb(): void {
