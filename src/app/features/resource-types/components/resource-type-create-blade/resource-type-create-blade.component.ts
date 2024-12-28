@@ -90,7 +90,7 @@ export class ResourceTypeCreateBladeComponent implements OnInit {
         finalize(() => (this.formState.isLoading = false)),
       )
       .subscribe({
-        next: (response) => {
+        next: () => {
           this.snackBarService.success('Tipo de recurso creado con éxito.');
           this.bladeService.emitResult(true);
           // TODO: Navigate to the resource type details.
