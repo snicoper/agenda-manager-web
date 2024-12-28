@@ -9,12 +9,21 @@ import { ResourceCategoryUtils } from '../../../../../core/modules/resource-mana
 import { ResourceCategory } from '../../../../../core/modules/resource-management/resource-category/resource-category.enum';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormIconPosition } from '../../types/form-icon-position.enum';
+import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.directive';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
   selector: 'am-form-category-resource-type',
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIcon, MatAutocompleteModule, FieldErrorComponent],
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIcon,
+    MatAutocompleteModule,
+    FieldErrorComponent,
+    SelectOnFocusDirective,
+  ],
   templateUrl: './form-category-resource-type.component.html',
   styleUrl: './form-category-resource-type.component.scss',
   providers: [
