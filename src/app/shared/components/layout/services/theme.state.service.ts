@@ -14,12 +14,10 @@ export class ThemeStateService {
 
   refresh(): void {
     const storedTheme = this.browserStorage.get(BrowserStorageKey.Theme) as ThemeColor;
-    const initialTheme = storedTheme || ThemeColor.Auto;
+    const initialTheme = storedTheme || this.getSystemTheme();
 
     if (initialTheme === ThemeColor.Auto) {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? ThemeColor.Dark
-        : ThemeColor.Light;
+      const systemTheme = this.getSystemTheme();
       this.updateTheme(systemTheme);
     } else {
       this.updateTheme(initialTheme);
@@ -33,7 +31,7 @@ export class ThemeStateService {
   }
 
   get(): ThemeColor {
-    return this.value();
+    return this.state$();
   }
 
   private updateTheme(theme: ThemeColor): void {
@@ -41,10 +39,10 @@ export class ThemeStateService {
 
     switch (theme) {
       case ThemeColor.Dark:
-        this.applyTheme('dark-theme', 'light-theme');
+        this.applyTheme(ThemeColor.Dark, ThemeColor.Light);
         break;
       case ThemeColor.Light:
-        this.applyTheme('light-theme', 'dark-theme');
+        this.applyTheme(ThemeColor.Light, ThemeColor.Dark);
         break;
       case ThemeColor.Auto:
         this.refresh();
@@ -54,10 +52,16 @@ export class ThemeStateService {
 
         return;
     }
+
+    this.state$.set(theme);
   }
 
   private applyTheme(addTheme: string, removeTheme: string): void {
     document.body.classList.remove(removeTheme);
     document.body.classList.add(addTheme);
+  }
+
+  private getSystemTheme(): ThemeColor {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? ThemeColor.Dark : ThemeColor.Light;
   }
 }
