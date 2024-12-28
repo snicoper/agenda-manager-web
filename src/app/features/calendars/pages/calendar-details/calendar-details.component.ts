@@ -11,7 +11,7 @@ import { PageBaseComponent } from '../../../../shared/components/layout/page-bas
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { CalendarInfoTabComponent } from '../../components/calendar-info-tab/calendar-info-tab.component';
 import { CalendarSettingsTabComponent } from '../../components/calendar-settings-tab/calendar-settings-tab.component';
-import { CalendarDetailsStateService } from '../../services/calendar-details-state.service';
+import { CalendarDetailsStateService } from '../../services/state/calendar-details-state.service';
 
 @Component({
   selector: 'am-calendar-details',

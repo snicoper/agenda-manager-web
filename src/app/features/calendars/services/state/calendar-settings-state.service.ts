@@ -2,12 +2,12 @@ import { HttpStatusCode } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
-import { SiteUrls } from '../../../core/config/site-urls';
-import { logError } from '../../../core/errors/logger/logger';
-import { SnackBarService } from '../../../core/services/snackbar.service';
-import { CalendarSettingsState } from '../interfaces/calendar-settings-state.interface';
-import { CalendarSettingsResponse } from '../interfaces/responses/calendar-settings.response';
-import { CalendarApiService } from './api/calendar-api.service';
+import { SiteUrls } from '../../../../core/config/site-urls';
+import { logError } from '../../../../core/errors/logger/logger';
+import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { CalendarSettingsState } from '../../interfaces/calendar-settings-state.interface';
+import { CalendarSettingsResponse } from '../../interfaces/responses/calendar-settings.response';
+import { CalendarApiService } from '../api/calendar-api.service';
 import { CalendarDetailsStateService } from './calendar-details-state.service';
 
 @Injectable({

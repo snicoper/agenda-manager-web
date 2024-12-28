@@ -2,15 +2,15 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
-import { SiteUrls } from '../../../core/config/site-urls';
-import { logError } from '../../../core/errors/logger/logger';
-import { SnackBarService } from '../../../core/services/snackbar.service';
-import { AccountDetailsState } from '../interfaces/account-details-state.interface';
-import { AccountDetailsResponse } from '../interfaces/responses/account-details.response';
-import { AccountApiService } from './api/account-api.service';
+import { SiteUrls } from '../../../../core/config/site-urls';
+import { logError } from '../../../../core/errors/logger/logger';
+import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { AccountDetailsState } from '../../interfaces/account-details-state.interface';
+import { AccountDetailsResponse } from '../../interfaces/responses/account-details.response';
+import { AccountApiService } from '../api/account-api.service';
 
 @Injectable({ providedIn: 'root' })
-export class AccountDetailsService {
+export class AccountDetailsStateService {
   private readonly accountApi = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);

@@ -25,8 +25,8 @@ import { addressCompleteValidator } from '../../../../shared/components/forms/va
 import { identityDocumentValidator } from '../../../../shared/components/forms/validators/identity-document.validator';
 import { phoneCompleteValidator } from '../../../../shared/components/forms/validators/phone-complete.validator';
 import { AccountUpdateRequest } from '../../interfaces/requests/account-update.request';
-import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountApiService } from '../../services/api/account-api.service';
+import { AccountDetailsStateService } from '../../services/state/account-details-state.service';
 
 @Component({
   selector: 'am-account-update-blade',
@@ -51,7 +51,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly bladeService = inject(BladeService);
-  private readonly accountDetailsService = inject(AccountDetailsService);
+  private readonly accountDetailsStateService = inject(AccountDetailsStateService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -61,7 +61,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   };
   readonly formInputTypes = FormInputType;
 
-  accountState = this.accountDetailsService.state;
+  accountState = this.accountDetailsStateService.state;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -94,7 +94,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private loadAccount(): void {
-    this.accountDetailsService.refresh();
+    this.accountDetailsStateService.refresh();
     this.buildForm();
   }
 
@@ -124,7 +124,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.snackBarService.success('Cuenta actualizada correctamente');
-          this.accountDetailsService.refresh();
+          this.accountDetailsStateService.refresh();
           this.bladeService.emitResult(true);
         },
         error: (error: HttpErrorResponse) => {

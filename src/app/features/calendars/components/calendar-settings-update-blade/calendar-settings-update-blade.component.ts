@@ -20,7 +20,7 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
 import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { CalendarSettingsStateService } from '../../services/calendar-settings-state.service';
+import { CalendarSettingsStateService } from '../../services/state/calendar-settings-state.service';
 
 @Component({
   selector: 'am-calendar-settings-update-blade',

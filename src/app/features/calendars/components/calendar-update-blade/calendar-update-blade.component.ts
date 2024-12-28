@@ -16,7 +16,7 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valildators.contract';
 import { CalendarUpdateRequest } from '../../interfaces/requests/calendar-update-request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { CalendarDetailsStateService } from '../../services/calendar-details-state.service';
+import { CalendarDetailsStateService } from '../../services/state/calendar-details-state.service';
 
 @Component({
   selector: 'am-calendar-update-blade',

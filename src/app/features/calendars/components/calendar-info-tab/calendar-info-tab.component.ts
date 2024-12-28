@@ -11,7 +11,7 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { CalendarDetailsStateService } from '../../services/calendar-details-state.service';
+import { CalendarDetailsStateService } from '../../services/state/calendar-details-state.service';
 import { CalendarUpdateBladeComponent } from '../calendar-update-blade/calendar-update-blade.component';
 
 @Component({

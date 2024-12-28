@@ -8,8 +8,8 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { AvailableRolesByUserIdResponse } from '../../interfaces/responses/available-roles-by-user-id.response';
-import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountRoleApiService } from '../../services/api/account-role-api.service';
+import { AccountDetailsStateService } from '../../services/state/account-details-state.service';
 
 @Component({
   selector: 'am-account-roles-tab',
@@ -19,11 +19,11 @@ import { AccountRoleApiService } from '../../services/api/account-role-api.servi
 })
 export class AccountRolesTabComponent implements OnInit {
   private readonly accountRoleApiService = inject(AccountRoleApiService);
-  private readonly accountDetailsService = inject(AccountDetailsService);
+  private readonly accountDetailsStateService = inject(AccountDetailsStateService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
 
-  accountState = this.accountDetailsService.state;
+  accountState = this.accountDetailsStateService.state;
   roles: AvailableRolesByUserIdResponse[] = [];
   loading = false;
 
@@ -78,14 +78,14 @@ export class AccountRolesTabComponent implements OnInit {
   }
 
   private loadAccountRoles(): void {
-    this.accountDetailsService.setLoadingState(true);
+    this.accountDetailsStateService.setLoadingState(true);
     this.loading = true;
 
     this.accountRoleApiService
       .getAvailableRolesByUserId(this.accountState.userId()!)
       .pipe(
         finalize(() => {
-          this.accountDetailsService.setLoadingState(false);
+          this.accountDetailsStateService.setLoadingState(false);
           this.loading = false;
         }),
       )

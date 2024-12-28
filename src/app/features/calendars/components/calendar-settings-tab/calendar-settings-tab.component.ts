@@ -4,11 +4,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppointmentConfirmationRequirementUtils } from '../../../../core/modules/calendar-settings/appointment-confirmation-requirement/appointment-confirmation-requirement.const';
 import { AppointmentOverlappingUtils } from '../../../../core/modules/calendar-settings/appointment-overlapping/appointment-overlapping-strategy.const';
+import { HolidayConflictUtils } from '../../../../core/modules/calendar-settings/holiday-conflict/holiday-conflict-strategy.const';
 import { ResourceScheduleValidationUtils } from '../../../../core/modules/calendar-settings/resource-schedule-validation/resource-schedule-validation.const';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { CalendarSettingsStateService } from '../../services/calendar-settings-state.service';
+import { CalendarSettingsStateService } from '../../services/state/calendar-settings-state.service';
 import { CalendarSettingsUpdateBladeComponent } from '../calendar-settings-update-blade/calendar-settings-update-blade.component';
-import { HolidayConflictUtils } from '../../../../core/modules/calendar-settings/holiday-conflict/holiday-conflict-strategy.const';
 
 @Component({
   selector: 'am-calendar-settings-tab',

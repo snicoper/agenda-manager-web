@@ -6,13 +6,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
+import { IdentityDocumentUtils } from '../../../../core/modules/users/identity-document/identity-document-display.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
-import { AccountDetailsService } from '../../services/account-details.service';
 import { AccountApiService } from '../../services/api/account-api.service';
+import { AccountDetailsStateService } from '../../services/state/account-details-state.service';
 import { AccountUpdateBladeComponent } from '../account-update-blade/account-update-blade.component';
-import { IdentityDocumentUtils } from '../../../../core/modules/users/identity-document/identity-document-display.const';
 
 @Component({
   selector: 'am-account-info-tab',
@@ -23,11 +23,11 @@ import { IdentityDocumentUtils } from '../../../../core/modules/users/identity-d
 export class AccountInfoTabComponent {
   private readonly accountApi = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
-  private readonly accountDetailsService = inject(AccountDetailsService);
+  private readonly accountDetailsStateService = inject(AccountDetailsStateService);
   private readonly bladeService = inject(BladeService);
 
   readonly siteUrls = SiteUrls;
-  readonly accountState = this.accountDetailsService.state;
+  readonly accountState = this.accountDetailsStateService.state;
 
   handleChangeStateIsActive(): void {
     if (!this.accountState.account()) {
@@ -36,18 +36,18 @@ export class AccountInfoTabComponent {
       return;
     }
 
-    this.accountDetailsService.setLoadingState(true);
+    this.accountDetailsStateService.setLoadingState(true);
 
     this.accountApi
       .toggleIsActive(this.accountState.userId()!)
       .pipe(
         take(1),
-        finalize(() => this.accountDetailsService.setLoadingState(false)),
+        finalize(() => this.accountDetailsStateService.setLoadingState(false)),
       )
       .subscribe({
         next: () => {
           this.snackBarService.success('Estado de la cuenta actualizado correctamente');
-          this.accountDetailsService.refresh();
+          this.accountDetailsStateService.refresh();
         },
         error: () => {
           this.snackBarService.error('Error al actualizar el estado de la cuenta');
@@ -62,18 +62,18 @@ export class AccountInfoTabComponent {
       return;
     }
 
-    this.accountDetailsService.setLoadingState(true);
+    this.accountDetailsStateService.setLoadingState(true);
 
     this.accountApi
       .confirmEmail(this.accountState.userId()!)
       .pipe(
         take(1),
-        finalize(() => this.accountDetailsService.setLoadingState(false)),
+        finalize(() => this.accountDetailsStateService.setLoadingState(false)),
       )
       .subscribe({
         next: () => {
           this.snackBarService.success('Correo electrónico confirmado correctamente');
-          this.accountDetailsService.refresh();
+          this.accountDetailsStateService.refresh();
         },
         error: () => {
           this.snackBarService.error('Error al confirmar el correo electrónico');
@@ -96,7 +96,7 @@ export class AccountInfoTabComponent {
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: () => {
-        this.accountDetailsService.refresh();
+        this.accountDetailsStateService.refresh();
       },
     });
   }
