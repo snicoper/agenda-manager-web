@@ -1,1 +1,36 @@
-<p>resource-type-info-tab works!</p>,
+@if (!resourceTypeState.loading() && resourceTypeState.resourceType(); as resourceType) {
+  <!-- actions -->
+  <div class="d-flex justify-content-start">
+    <button mat-raised-button (click)="handleOpenUpdateResourceTypeBlade()">
+      <mat-icon>edit</mat-icon>
+      <span>Editar</span>
+    </button>
+  </div>
+
+  <!-- table -->
+  <div class="custom-table-container">
+    <table class="table table-striped table-border-bottom">
+      <tbody>
+        <tr>
+          <th>Nombre</th>
+          <td>{{ resourceType.name }}</td>
+        </tr>
+        <tr>
+          <th>Descripción</th>
+          <td>{{ resourceType.description }}</td>
+        </tr>
+        <tr>
+          <th>Categoría</th>
+          <td>
+            {{ resourceCategoryUtils.getDescriptionByValue(resourceTypeState.resourceType()?.category!) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+} @else {
+  <!-- spinner -->
+  <div class="d-flex justify-content-center">
+    <mat-spinner diameter="100" />
+  </div>
+}
