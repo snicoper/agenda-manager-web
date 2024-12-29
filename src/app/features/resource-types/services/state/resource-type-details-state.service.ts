@@ -10,7 +10,7 @@ import { ResourceTypeState } from '../../interfaces/state/resource-type-state.in
 import { ResourceTypeApiService } from '../api/resource-type-api.service';
 
 @Injectable({ providedIn: 'root' })
-export class ResourceTypeDetailStateService {
+export class ResourceTypeDetailsStateService {
   private readonly apiService = inject(ResourceTypeApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);

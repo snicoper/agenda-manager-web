@@ -15,7 +15,7 @@ import { CalendarDetailsStateService } from '../../services/state/calendar-detai
 
 @Component({
   selector: 'am-calendar-details',
-  imports: [MatCardModule, NavToolbarComponent, PageBaseComponent, PageHeaderComponent],
+  imports: [MatCardModule, PageBaseComponent, PageHeaderComponent, NavToolbarComponent],
   templateUrl: './calendar-details.component.html',
   styleUrl: './calendar-details.component.scss',
 })
@@ -42,7 +42,7 @@ export class CalendarDetailsComponent implements OnInit, OnDestroy {
     ],
   };
 
-  calendar = this.calendarDetailsStateService.state.calendar;
+  readonly calendar = this.calendarDetailsStateService.state.calendar;
 
   ngOnInit(): void {
     if (!this.calendarId) {
