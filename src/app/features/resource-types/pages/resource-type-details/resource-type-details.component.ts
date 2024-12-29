@@ -7,6 +7,7 @@ import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar
 import { NavToolbarComponent } from '../../../../shared/components/layout/nav-toolbar/nav-toolbar.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
+import { ResourceTypeInfoTabComponent } from '../../components/resource-type-info-tab/resource-type-info-tab.component';
 import { ResourceTypeDetailsStateService } from '../../services/state/resource-type-details-state.service';
 
 @Component({
@@ -22,7 +23,13 @@ export class ResourceTypeDetailsComponent implements OnInit, OnDestroy {
   readonly resourceTypeId = this.route.snapshot.params['id'];
   readonly breadcrumb = new BreadcrumbCollection();
   readonly navData: NavToolbarData = {
-    tabs: [],
+    tabs: [
+      {
+        label: 'Detalles',
+        icon: 'event_note',
+        component: ResourceTypeInfoTabComponent,
+      },
+    ],
   };
 
   readonly resourceType = this.resourceTypeDetailsStateService.state.resourceType;
