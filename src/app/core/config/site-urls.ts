@@ -34,5 +34,6 @@ export const SiteUrls = {
 
   resourceTypes: {
     list: '/resource-types',
+    details: '/resource-types/{id}',
   },
 } as const;

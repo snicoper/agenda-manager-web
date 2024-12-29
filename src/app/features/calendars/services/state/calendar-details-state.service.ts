@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
@@ -6,8 +6,8 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { CalendarDetailsResponse } from '../../interfaces/responses/calendar-details.response';
-import { CalendarApiService } from '../api/calendar-api.service';
 import { CalendarDetailsState } from '../../interfaces/state/calendar-details-state.interface';
+import { CalendarApiService } from '../api/calendar-api.service';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarDetailsStateService {
@@ -70,9 +70,9 @@ export class CalendarDetailsStateService {
       )
       .subscribe({
         next: (response) => this.calendar$.set(response),
-        error: (error) => {
+        error: (error: HttpErrorResponse) => {
           if (error.status === HttpStatusCode.NotFound) {
-            this.snackBarService.error('El calendario no existe');
+            this.snackBarService.error('El calendario no encontrado');
           } else {
             this.snackBarService.error('Error al cargar los detalles del calendario');
           }
