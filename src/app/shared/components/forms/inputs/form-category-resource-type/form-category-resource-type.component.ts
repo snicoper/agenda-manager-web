@@ -7,9 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { FormState } from '../../../../../core/forms/interfaces/form-state.interface';
 import { ResourceCategoryUtils } from '../../../../../core/modules/resource-management/resource-category/resource-category.const';
 import { ResourceCategory } from '../../../../../core/modules/resource-management/resource-category/resource-category.enum';
+import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.directive';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormIconPosition } from '../../types/form-icon-position.enum';
-import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.directive';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
@@ -56,6 +56,12 @@ export class FormCategoryResourceTypeComponent implements ControlValueAccessor {
   onChange = (_: ResourceCategory): void => {};
 
   onTouch = (): void => {};
+
+  displayFn = (value: number): string => {
+    const option = this.resourceCategoryUtils.getOptions().find((opt) => opt.value === value);
+
+    return option ? option.description : '';
+  };
 
   writeValue(value: ResourceCategory): void {
     this.value = value;

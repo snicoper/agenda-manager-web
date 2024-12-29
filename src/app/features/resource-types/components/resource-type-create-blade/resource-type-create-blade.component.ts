@@ -4,9 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
+import { SiteUrls } from '../../../../core/config/site-urls';
 import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -90,10 +92,12 @@ export class ResourceTypeCreateBladeComponent implements OnInit {
         finalize(() => (this.formState.isLoading = false)),
       )
       .subscribe({
-        next: () => {
+        next: (response) => {
           this.snackBarService.success('Tipo de recurso creado con éxito.');
           this.bladeService.emitResult(true);
-          // TODO: Navigate to the resource type details.
+
+          const url = UrlUtils.buildSiteUrl(SiteUrls.resourceTypes.details, { id: response.resourceTypeId });
+          this.router.navigateByUrl(url);
         },
         error: (error) => {
           const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);

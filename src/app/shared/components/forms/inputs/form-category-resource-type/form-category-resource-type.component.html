@@ -24,9 +24,11 @@
     />
 
     <!-- autocomplete -->
-    <mat-autocomplete #categories="matAutocomplete">
-      @for (category of resourceCategoryUtils.getOptions(); track $index) {
-        <mat-option [value]="category.value">{{ category.description }}</mat-option>
+    <mat-autocomplete #categories="matAutocomplete" [displayWith]="displayFn">
+      @for (option of resourceCategoryUtils.getOptions(); track $index) {
+        <mat-option [value]="option.value">
+          {{ option.description }}
+        </mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>

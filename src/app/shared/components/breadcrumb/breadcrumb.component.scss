@@ -11,7 +11,6 @@
 
   .breadcrumb-link {
     color: var(--mat-primary);
-    text-transform: capitalize;
     text-decoration: none;
     text-decoration: none;
 
@@ -21,6 +20,7 @@
   }
 
   .breadcrumb-label {
+    // text-transform: capitalize;
     margin: 0 4px;
   }
 
