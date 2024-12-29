@@ -17,6 +17,7 @@ import { SystemPermissions } from '../../../../core/modules/auth/constants/syste
 import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { ResourceCategoryUtils } from '../../../../core/modules/resource-management/resource-category/resource-category.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
@@ -105,6 +106,11 @@ export class ResourceTypeListComponent implements AfterViewInit {
         }
       },
     });
+  }
+
+  handleClickDetails(resourceTypeId: string): void {
+    const url = UrlUtils.buildSiteUrl(SiteUrls.resourceTypes.details, { id: resourceTypeId });
+    this.router.navigateByUrl(url);
   }
 
   handleDeleteResourceType(resourceTypeId: string): void {
