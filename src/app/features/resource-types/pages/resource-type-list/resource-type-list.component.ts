@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -11,7 +12,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { ResourceCategoryUtils } from '../../../../core/modules/resource-management/resource-category/resource-category.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -24,7 +27,6 @@ import { RequiredPermissionDirective } from '../../../../shared/directives/requi
 import { ResourceTypeCreateBladeComponent } from '../../components/resource-type-create-blade/resource-type-create-blade.component';
 import { ResourceTypePaginatedResponse } from '../../interfaces/responses/resource-type-paginated.response';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
-import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-resource-type-list',
@@ -103,6 +105,31 @@ export class ResourceTypeListComponent implements AfterViewInit {
         }
       },
     });
+  }
+
+  handleDeleteResourceType(resourceTypeId: string): void {
+    this.loading = true;
+    this.apiService
+      .deleteResourceType(resourceTypeId)
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Tipo de recurso eliminado correctamente');
+          this.loadResourceTypes();
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.error === ApiResultErrors.resourceTypes.cannotDeleteResourceType) {
+            this.snackBarService.error('No se puede eliminar el tipo de recurso porque tiene recursos asociados');
+
+            return;
+          }
+
+          this.snackBarService.error('Error al eliminar el tipo de recurso');
+        },
+      });
   }
 
   protected setBreadcrumb(): void {

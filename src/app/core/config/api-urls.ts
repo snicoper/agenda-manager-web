@@ -46,5 +46,6 @@ export const ApiUrls = {
   resourceTypes: {
     getResourceTypesPaginated: '/resource-types/paginated',
     createResourceType: '/resource-types',
+    deleteResourceType: '/resource-types/{resourceTypeId}',
   },
 } as const;

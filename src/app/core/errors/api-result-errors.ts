@@ -18,4 +18,8 @@ export const ApiResultErrors = {
   roles: {
     roleHasUsersAssigned: 'RoleErrors.RoleHasUsersAssigned',
   },
+
+  resourceTypes: {
+    cannotDeleteResourceType: 'ResourceTypeErrors.CannotDeleteResourceType',
+  },
 };
