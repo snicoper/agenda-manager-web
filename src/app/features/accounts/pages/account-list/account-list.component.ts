@@ -61,15 +61,7 @@ export class AccountListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly displayedColumns = [
-    'email',
-    'firstName',
-    'lastName',
-    'isActive',
-    'isEmailConfirmed',
-    'dateJoined',
-    'actions',
-  ];
+  readonly displayedColumns = ['email', 'firstName', 'lastName', 'isActive', 'isEmailConfirmed', 'dateJoined'];
   readonly fieldsFilter = ['email', 'profile.firstName', 'profile.lastName'];
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;

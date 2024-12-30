@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -25,7 +26,6 @@ import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { CalendarCreateBladeComponent } from '../../components/calendar-create-blade/calendar-create-blade.component';
 import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-calendar-list',
@@ -59,7 +59,7 @@ export class CalendarListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly displayedColumns = ['name', 'description', 'isActive', 'actions'];
+  readonly displayedColumns = ['name', 'description', 'isActive'];
   readonly fieldsFilter = ['name', 'description'];
   readonly systemPermissions = SystemPermissions;
 
