@@ -6,11 +6,11 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { CalendarDetailsResponse } from '../../interfaces/responses/calendar-details.response';
-import { CalendarDetailsState } from '../../interfaces/state/calendar-details-state.interface';
+import { CalendarSelectedState } from '../../interfaces/state/calendar-selected-state.interface';
 import { CalendarApiService } from '../api/calendar-api.service';
 
 @Injectable({ providedIn: 'root' })
-export class CalendarDetailsStateService {
+export class CalendarSelectedStateService {
   private readonly apiService = inject(CalendarApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
@@ -19,7 +19,7 @@ export class CalendarDetailsStateService {
   private readonly calendar$ = signal<CalendarDetailsResponse | null>(null);
   private readonly loading$ = signal<boolean>(false);
 
-  readonly state: CalendarDetailsState = {
+  readonly state: CalendarSelectedState = {
     calendarId: computed(() => this.calendarId$()),
     calendar: computed(() => this.calendar$()),
     loading: computed(() => this.loading$()),

@@ -11,7 +11,7 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { CalendarDetailsStateService } from '../../services/state/calendar-details-state.service';
+import { CalendarSelectedStateService } from '../../services/state/calendar-selected-state.service';
 import { CalendarUpdateBladeComponent } from '../calendar-update-blade/calendar-update-blade.component';
 
 @Component({
@@ -30,18 +30,18 @@ import { CalendarUpdateBladeComponent } from '../calendar-update-blade/calendar-
 export class CalendarInfoTabComponent {
   private readonly apiService = inject(CalendarApiService);
   private readonly snackBarService = inject(SnackBarService);
-  private readonly calendarDetailsStateService = inject(CalendarDetailsStateService);
+  private readonly calendarSelectedStateService = inject(CalendarSelectedStateService);
   private readonly bladeService = inject(BladeService);
 
   readonly siteUrls = SiteUrls;
-  readonly calendarState = this.calendarDetailsStateService.state;
+  readonly calendarState = this.calendarSelectedStateService.state;
 
   handleOpenUpdateCalendarBlade(): void {
     this.bladeService.show(CalendarUpdateBladeComponent);
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: () => {
-        this.calendarDetailsStateService.load(this.calendarState.calendarId()!);
+        this.calendarSelectedStateService.load(this.calendarState.calendarId()!);
       },
     });
   }
@@ -53,18 +53,18 @@ export class CalendarInfoTabComponent {
       return;
     }
 
-    this.calendarDetailsStateService.setLoadingState(true);
+    this.calendarSelectedStateService.setLoadingState(true);
 
     this.apiService
       .toggleIsActive(this.calendarState.calendarId()!)
       .pipe(
         take(1),
-        finalize(() => this.calendarDetailsStateService.setLoadingState(false)),
+        finalize(() => this.calendarSelectedStateService.setLoadingState(false)),
       )
       .subscribe({
         next: () => {
           this.snackBarService.success('Estado del calendario actualizado correctamente');
-          this.calendarDetailsStateService.refresh();
+          this.calendarSelectedStateService.refresh();
         },
         error: () => {
           this.snackBarService.error('Error al actualizar el estado del calendario');

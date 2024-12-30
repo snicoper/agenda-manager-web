@@ -20,7 +20,7 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
 import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { CalendarSettingsStateService } from '../../services/state/calendar-settings-state.service';
+import { CalendarSettingsSelectedStateService } from '../../services/state/calendar-settings-selected-state.service';
 
 @Component({
   selector: 'am-calendar-settings-update-blade',
@@ -42,7 +42,7 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly bladeService = inject(BladeService);
-  private readonly calendarSettingsStateService = inject(CalendarSettingsStateService);
+  private readonly calendarSettingsSelectedStateService = inject(CalendarSettingsSelectedStateService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -51,7 +51,7 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
     isLoading: false,
   };
   readonly formInputTypes = FormInputType;
-  readonly calendarSettingsState = this.calendarSettingsStateService.state;
+  readonly calendarSettingsState = this.calendarSettingsSelectedStateService.state;
 
   constructor() {
     this.loadListeners();
@@ -94,7 +94,7 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private loadCalendarSettings(): void {
-    this.calendarSettingsStateService.refresh();
+    this.calendarSettingsSelectedStateService.refresh();
   }
 
   private loadListeners(): void {
@@ -147,7 +147,7 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.snackBarService.success('Configuración de calendario actualizada con éxito');
-          this.calendarSettingsStateService.refresh();
+          this.calendarSettingsSelectedStateService.refresh();
           this.bladeService.emitResult(true);
         },
         error: (error) => {

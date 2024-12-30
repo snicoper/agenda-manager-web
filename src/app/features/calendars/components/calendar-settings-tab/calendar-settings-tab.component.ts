@@ -7,7 +7,7 @@ import { AppointmentOverlappingUtils } from '../../../../core/modules/calendar-s
 import { HolidayConflictUtils } from '../../../../core/modules/calendar-settings/holiday-conflict/holiday-conflict-strategy.const';
 import { ResourceScheduleValidationUtils } from '../../../../core/modules/calendar-settings/resource-schedule-validation/resource-schedule-validation.const';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { CalendarSettingsStateService } from '../../services/state/calendar-settings-state.service';
+import { CalendarSettingsSelectedStateService } from '../../services/state/calendar-settings-selected-state.service';
 import { CalendarSettingsUpdateBladeComponent } from '../calendar-settings-update-blade/calendar-settings-update-blade.component';
 
 @Component({
@@ -17,10 +17,10 @@ import { CalendarSettingsUpdateBladeComponent } from '../calendar-settings-updat
   styleUrl: './calendar-settings-tab.component.scss',
 })
 export class CalendarSettingsTabComponent {
-  private readonly calendarSettingsStateService = inject(CalendarSettingsStateService);
+  private readonly calendarSettingsSelectedStateService = inject(CalendarSettingsSelectedStateService);
   private readonly bladeService = inject(BladeService);
 
-  readonly settingsState = this.calendarSettingsStateService.state;
+  readonly settingsState = this.calendarSettingsSelectedStateService.state;
 
   // Estado inicial de las citas al ser creadas.
   appointmentConfirmationRequirementValue = '';
@@ -32,7 +32,7 @@ export class CalendarSettingsTabComponent {
   resourceScheduleValidationValue = '';
 
   constructor() {
-    this.calendarSettingsStateService.load();
+    this.calendarSettingsSelectedStateService.load();
     this.loadListeners();
   }
 

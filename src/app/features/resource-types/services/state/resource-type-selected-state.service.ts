@@ -6,11 +6,11 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { ResourceTypeDetailsResponse } from '../../interfaces/responses/resource-type-details.response';
-import { ResourceTypeState } from '../../interfaces/state/resource-type-state.interface';
+import { ResourceTypeSelectedState } from '../../interfaces/state/resource-type-selected-state.interface';
 import { ResourceTypeApiService } from '../api/resource-type-api.service';
 
 @Injectable({ providedIn: 'root' })
-export class ResourceTypeDetailsStateService {
+export class ResourceTypeSelectedStateService {
   private readonly apiService = inject(ResourceTypeApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
@@ -19,7 +19,7 @@ export class ResourceTypeDetailsStateService {
   private readonly resourceType$ = signal<ResourceTypeDetailsResponse | null>(null);
   private readonly loading$ = signal<boolean>(false);
 
-  readonly state: ResourceTypeState = {
+  readonly state: ResourceTypeSelectedState = {
     resourceTypeId: computed(() => this.resourceTypeId$()),
     resourceType: computed(() => this.resourceType$()),
     loading: computed(() => this.loading$()),

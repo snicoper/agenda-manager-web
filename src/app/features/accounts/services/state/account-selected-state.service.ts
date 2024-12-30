@@ -6,11 +6,11 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { AccountDetailsResponse } from '../../interfaces/responses/account-details.response';
-import { AccountDetailsState } from '../../interfaces/state/account-details-state.interface';
 import { AccountApiService } from '../api/account-api.service';
+import { AccountSelectedState } from '../../interfaces/state/account-selected-state.interface';
 
 @Injectable({ providedIn: 'root' })
-export class AccountDetailsStateService {
+export class AccountSelectedStateService {
   private readonly accountApi = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
@@ -19,7 +19,7 @@ export class AccountDetailsStateService {
   private readonly account$ = signal<AccountDetailsResponse | null>(null);
   private readonly loading$ = signal<boolean>(false);
 
-  readonly state: AccountDetailsState = {
+  readonly state: AccountSelectedState = {
     userId: computed(() => this.userId$()),
     account: computed(() => this.account$()),
     loading: computed(() => this.loading$()),

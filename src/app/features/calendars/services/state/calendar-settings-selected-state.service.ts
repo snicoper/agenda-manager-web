@@ -6,24 +6,24 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { CalendarSettingsResponse } from '../../interfaces/responses/calendar-settings.response';
-import { CalendarSettingsState } from '../../interfaces/state/calendar-settings-state.interface';
+import { CalendarSettingsSelectedState } from '../../interfaces/state/calendar-settings-selected-state.interface';
 import { CalendarApiService } from '../api/calendar-api.service';
-import { CalendarDetailsStateService } from './calendar-details-state.service';
+import { CalendarSelectedStateService } from './calendar-selected-state.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CalendarSettingsStateService {
+export class CalendarSettingsSelectedStateService {
   private readonly apiService = inject(CalendarApiService);
-  private readonly calendarDetailsStateService = inject(CalendarDetailsStateService);
+  private readonly calendarSelectedStateService = inject(CalendarSelectedStateService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
 
   private readonly settings$ = signal<CalendarSettingsResponse | null>(null);
   private readonly loading$ = signal<boolean>(false);
 
-  readonly state: CalendarSettingsState = {
-    calendarId: this.calendarDetailsStateService.state.calendarId,
+  readonly state: CalendarSettingsSelectedState = {
+    calendarId: this.calendarSelectedStateService.state.calendarId,
     settings: computed(() => this.settings$()),
     loading: computed(() => this.loading$()),
   };

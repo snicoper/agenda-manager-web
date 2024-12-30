@@ -8,7 +8,7 @@ import { NavToolbarComponent } from '../../../../shared/components/layout/nav-to
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { ResourceTypeInfoTabComponent } from '../../components/resource-type-info-tab/resource-type-info-tab.component';
-import { ResourceTypeDetailsStateService } from '../../services/state/resource-type-details-state.service';
+import { ResourceTypeSelectedStateService } from '../../services/state/resource-type-selected-state.service';
 
 @Component({
   selector: 'am-resource-type-details',
@@ -17,7 +17,7 @@ import { ResourceTypeDetailsStateService } from '../../services/state/resource-t
   styleUrl: './resource-type-details.component.scss',
 })
 export class ResourceTypeDetailsComponent implements OnInit, OnDestroy {
-  private readonly resourceTypeDetailsStateService = inject(ResourceTypeDetailsStateService);
+  private readonly resourceTypeSelectedStateService = inject(ResourceTypeSelectedStateService);
   private readonly route = inject(ActivatedRoute);
 
   readonly resourceTypeId = this.route.snapshot.params['id'];
@@ -32,19 +32,19 @@ export class ResourceTypeDetailsComponent implements OnInit, OnDestroy {
     ],
   };
 
-  readonly resourceType = this.resourceTypeDetailsStateService.state.resourceType;
+  readonly resourceType = this.resourceTypeSelectedStateService.state.resourceType;
 
   ngOnInit(): void {
     if (!this.resourceTypeId) {
       return;
     }
 
-    this.resourceTypeDetailsStateService.load(this.resourceTypeId);
+    this.resourceTypeSelectedStateService.load(this.resourceTypeId);
     this.setBreadcrumb();
   }
 
   ngOnDestroy(): void {
-    this.resourceTypeDetailsStateService.clean();
+    this.resourceTypeSelectedStateService.clean();
   }
 
   private setBreadcrumb(): void {

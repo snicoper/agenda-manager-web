@@ -16,7 +16,7 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valildators.contract';
 import { CalendarUpdateRequest } from '../../interfaces/requests/calendar-update-request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
-import { CalendarDetailsStateService } from '../../services/state/calendar-details-state.service';
+import { CalendarSelectedStateService } from '../../services/state/calendar-selected-state.service';
 
 @Component({
   selector: 'am-calendar-update-blade',
@@ -37,7 +37,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly bladeService = inject(BladeService);
-  private readonly calendarDetailsStateService = inject(CalendarDetailsStateService);
+  private readonly calendarSelectedStateService = inject(CalendarSelectedStateService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -46,7 +46,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
     isLoading: false,
   };
   readonly formInputTypes = FormInputType;
-  readonly calendarState = this.calendarDetailsStateService.state;
+  readonly calendarState = this.calendarSelectedStateService.state;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -103,7 +103,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.snackBarService.success('Calendario actualizado con éxito');
-          this.calendarDetailsStateService.refresh();
+          this.calendarSelectedStateService.refresh();
           this.bladeService.emitResult(true);
         },
         error: (error) => {
@@ -114,7 +114,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private loadCalendar(): void {
-    this.calendarDetailsStateService.refresh();
+    this.calendarSelectedStateService.refresh();
     this.buildForm();
   }
 

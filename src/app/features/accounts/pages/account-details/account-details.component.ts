@@ -11,7 +11,7 @@ import { PageBaseComponent } from '../../../../shared/components/layout/page-bas
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { AccountInfoTabComponent } from '../../components/account-info-tab/account-info-tab.component';
 import { AccountRolesTabComponent } from '../../components/account-roles-tab/account-roles-tab.component';
-import { AccountDetailsStateService } from '../../services/state/account-details-state.service';
+import { AccountSelectedStateService } from '../../services/state/account-selected-state.service';
 
 @Component({
   selector: 'am-account-details',
@@ -20,7 +20,7 @@ import { AccountDetailsStateService } from '../../services/state/account-details
   styleUrl: './account-details.component.scss',
 })
 export class AccountDetailsComponent implements OnInit, OnDestroy {
-  private readonly accountDetailsStateService = inject(AccountDetailsStateService);
+  private readonly accountSelectedStateService = inject(AccountSelectedStateService);
   private readonly route = inject(ActivatedRoute);
 
   readonly userId = this.route.snapshot.params['userId'];
@@ -42,7 +42,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     ],
   };
 
-  account = this.accountDetailsStateService.state.account;
+  account = this.accountSelectedStateService.state.account;
 
   ngOnInit(): void {
     if (!this.userId) {
@@ -51,12 +51,12 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.accountDetailsStateService.load(this.userId);
+    this.accountSelectedStateService.load(this.userId);
     this.setBreadcrumb();
   }
 
   ngOnDestroy(): void {
-    this.accountDetailsStateService.clean();
+    this.accountSelectedStateService.clean();
   }
 
   private setBreadcrumb(): void {

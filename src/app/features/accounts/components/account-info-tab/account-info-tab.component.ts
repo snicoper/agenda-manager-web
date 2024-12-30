@@ -11,7 +11,7 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountApiService } from '../../services/api/account-api.service';
-import { AccountDetailsStateService } from '../../services/state/account-details-state.service';
+import { AccountSelectedStateService } from '../../services/state/account-selected-state.service';
 import { AccountUpdateBladeComponent } from '../account-update-blade/account-update-blade.component';
 
 @Component({
@@ -23,11 +23,11 @@ import { AccountUpdateBladeComponent } from '../account-update-blade/account-upd
 export class AccountInfoTabComponent {
   private readonly accountApi = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
-  private readonly accountDetailsStateService = inject(AccountDetailsStateService);
+  private readonly accountSelectedStateService = inject(AccountSelectedStateService);
   private readonly bladeService = inject(BladeService);
 
   readonly siteUrls = SiteUrls;
-  readonly accountState = this.accountDetailsStateService.state;
+  readonly accountState = this.accountSelectedStateService.state;
 
   handleChangeStateIsActive(): void {
     if (!this.accountState.account()) {
@@ -36,18 +36,18 @@ export class AccountInfoTabComponent {
       return;
     }
 
-    this.accountDetailsStateService.setLoadingState(true);
+    this.accountSelectedStateService.setLoadingState(true);
 
     this.accountApi
       .toggleIsActive(this.accountState.userId()!)
       .pipe(
         take(1),
-        finalize(() => this.accountDetailsStateService.setLoadingState(false)),
+        finalize(() => this.accountSelectedStateService.setLoadingState(false)),
       )
       .subscribe({
         next: () => {
           this.snackBarService.success('Estado de la cuenta actualizado correctamente');
-          this.accountDetailsStateService.refresh();
+          this.accountSelectedStateService.refresh();
         },
         error: () => {
           this.snackBarService.error('Error al actualizar el estado de la cuenta');
@@ -62,18 +62,18 @@ export class AccountInfoTabComponent {
       return;
     }
 
-    this.accountDetailsStateService.setLoadingState(true);
+    this.accountSelectedStateService.setLoadingState(true);
 
     this.accountApi
       .confirmEmail(this.accountState.userId()!)
       .pipe(
         take(1),
-        finalize(() => this.accountDetailsStateService.setLoadingState(false)),
+        finalize(() => this.accountSelectedStateService.setLoadingState(false)),
       )
       .subscribe({
         next: () => {
           this.snackBarService.success('Correo electrónico confirmado correctamente');
-          this.accountDetailsStateService.refresh();
+          this.accountSelectedStateService.refresh();
         },
         error: () => {
           this.snackBarService.error('Error al confirmar el correo electrónico');
@@ -96,7 +96,7 @@ export class AccountInfoTabComponent {
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: () => {
-        this.accountDetailsStateService.refresh();
+        this.accountSelectedStateService.refresh();
       },
     });
   }

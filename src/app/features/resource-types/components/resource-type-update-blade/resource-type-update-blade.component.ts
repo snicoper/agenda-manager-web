@@ -15,7 +15,7 @@ import { FormTextareaComponent } from '../../../../shared/components/forms/input
 import { ResourceTypeFieldsValidators } from '../../contracts/resource-type-fields-validator.contract';
 import { ResourceTypeUpdateRequest } from '../../interfaces/requests/resource-type-update.request';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
-import { ResourceTypeDetailsStateService } from '../../services/state/resource-type-details-state.service';
+import { ResourceTypeSelectedStateService } from '../../services/state/resource-type-selected-state.service';
 
 @Component({
   selector: 'am-resource-type-update-blade',
@@ -37,7 +37,7 @@ export class ResourceTypeUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly bladeService = inject(BladeService);
-  private readonly resourceTypeDetailsStateService = inject(ResourceTypeDetailsStateService);
+  private readonly resourceTypeSelectedStateService = inject(ResourceTypeSelectedStateService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -46,7 +46,7 @@ export class ResourceTypeUpdateBladeComponent implements OnInit, OnDestroy {
     isLoading: false,
   };
   readonly formInputTypes = FormInputType;
-  readonly resourceTypeState = this.resourceTypeDetailsStateService.state;
+  readonly resourceTypeState = this.resourceTypeSelectedStateService.state;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -107,7 +107,7 @@ export class ResourceTypeUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private loadResourceType(): void {
-    this.resourceTypeDetailsStateService.refresh();
+    this.resourceTypeSelectedStateService.refresh();
     this.buildForm();
   }
 

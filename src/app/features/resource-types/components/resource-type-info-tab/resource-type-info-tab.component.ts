@@ -7,9 +7,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ResourceCategoryUtils } from '../../../../core/modules/resource-management/resource-category/resource-category.const';
-import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { ResourceTypeDetailsStateService } from '../../services/state/resource-type-details-state.service';
+import { ResourceTypeSelectedStateService } from '../../services/state/resource-type-selected-state.service';
 import { ResourceTypeUpdateBladeComponent } from '../resource-type-update-blade/resource-type-update-blade.component';
 
 @Component({
@@ -19,12 +18,11 @@ import { ResourceTypeUpdateBladeComponent } from '../resource-type-update-blade/
   styleUrl: './resource-type-info-tab.component.scss',
 })
 export class ResourceTypeInfoTabComponent {
-  private readonly snackBarService = inject(SnackBarService);
-  private readonly resourceTypeDetailsStateService = inject(ResourceTypeDetailsStateService);
+  private readonly resourceTypeSelectedStateService = inject(ResourceTypeSelectedStateService);
   private readonly bladeService = inject(BladeService);
 
   readonly siteUrls = SiteUrls;
-  readonly resourceTypeState = this.resourceTypeDetailsStateService.state;
+  readonly resourceTypeState = this.resourceTypeSelectedStateService.state;
   readonly resourceCategoryUtils = ResourceCategoryUtils;
 
   handleOpenUpdateResourceTypeBlade(): void {
@@ -32,7 +30,7 @@ export class ResourceTypeInfoTabComponent {
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: () => {
-        this.resourceTypeDetailsStateService.refresh();
+        this.resourceTypeSelectedStateService.refresh();
       },
     });
   }
