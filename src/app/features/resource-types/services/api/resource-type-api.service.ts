@@ -43,6 +43,13 @@ export class ResourceTypeApiService extends ApiBaseService {
     );
   }
 
+  /** Actualizar un tipo de recurso. */
+  updateResourceType(resourceTypeId: string, request: ResourceTypeCreateRequest): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resourceTypes.updateResourceType, { resourceTypeId });
+
+    return this.put<ResourceTypeCreateRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
+  }
+
   /** Eliminar un tipo de recurso. */
   deleteResourceType(resourceTypeId: string): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.resourceTypes.deleteResourceType, { resourceTypeId });

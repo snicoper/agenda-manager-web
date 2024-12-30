@@ -4,11 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ResourceCategoryUtils } from '../../../../core/modules/resource-management/resource-category/resource-category.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
 import { ResourceTypeDetailsStateService } from '../../services/state/resource-type-details-state.service';
 import { ResourceTypeUpdateBladeComponent } from '../resource-type-update-blade/resource-type-update-blade.component';
 
@@ -19,7 +19,6 @@ import { ResourceTypeUpdateBladeComponent } from '../resource-type-update-blade/
   styleUrl: './resource-type-info-tab.component.scss',
 })
 export class ResourceTypeInfoTabComponent {
-  private readonly apiService = inject(ResourceTypeApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly resourceTypeDetailsStateService = inject(ResourceTypeDetailsStateService);
   private readonly bladeService = inject(BladeService);
@@ -30,5 +29,11 @@ export class ResourceTypeInfoTabComponent {
 
   handleOpenUpdateResourceTypeBlade(): void {
     this.bladeService.show(ResourceTypeUpdateBladeComponent);
+
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: () => {
+        this.resourceTypeDetailsStateService.refresh();
+      },
+    });
   }
 }

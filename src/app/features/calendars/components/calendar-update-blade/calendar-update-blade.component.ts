@@ -46,8 +46,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
     isLoading: false,
   };
   readonly formInputTypes = FormInputType;
-
-  calendarState = this.calendarDetailsStateService.state;
+  readonly calendarState = this.calendarDetailsStateService.state;
 
   ngOnInit(): void {
     setTimeout(() => {
