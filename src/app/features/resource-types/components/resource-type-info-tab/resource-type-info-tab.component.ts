@@ -6,12 +6,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { filter, switchMap, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { ResourceCategoryUtils } from '../../../../core/modules/resource-management/resource-category/resource-category.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
+import { ConfirmationDialogService } from '../../../../shared/components/dialogs/confirmation-dialog/services/confirmation-dialog.service';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
 import { ResourceTypeSelectedStateService } from '../../services/state/resource-type-selected-state.service';
 import { ResourceTypeUpdateBladeComponent } from '../resource-type-update-blade/resource-type-update-blade.component';
@@ -28,6 +29,7 @@ export class ResourceTypeInfoTabComponent {
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
   private readonly bladeService = inject(BladeService);
+  private readonly confirmationDialogService = inject(ConfirmationDialogService);
 
   readonly siteUrls = SiteUrls;
   readonly resourceTypeState = this.resourceTypeSelectedStateService.state;
@@ -44,9 +46,17 @@ export class ResourceTypeInfoTabComponent {
   }
 
   handleDeleteResourceType(): void {
-    this.apiService
-      .deleteResourceType(this.resourceTypeState.resourceTypeId()!)
-      .pipe(take(1))
+    this.confirmationDialogService
+      .confirm({
+        title: 'Eliminar tipo de recurso',
+        message: '¿Estás seguro de que quieres eliminar este tipo de recurso?',
+        confirmText: 'Eliminar',
+        cancelText: 'Cancelar',
+      })
+      .pipe(
+        filter(Boolean),
+        switchMap(() => this.apiService.deleteResourceType(this.resourceTypeState.resourceTypeId()!).pipe(take(1))),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('Tipo de recurso eliminado correctamente');

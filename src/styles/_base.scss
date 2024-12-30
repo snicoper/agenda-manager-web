@@ -28,14 +28,6 @@ a {
   cursor: pointer;
 }
 
-.text-muted {
-  color: var(--mat-outline-variant);
-}
-
-.text-muted-secondary {
-  color: var(--mat-outline);
-}
-
 /***************
  * TEXTS.
  */
@@ -51,6 +43,14 @@ a {
 /***************
  * COLORS.
  */
+
+.text-muted {
+  color: var(--mat-outline-variant);
+}
+
+.text-muted-secondary {
+  color: var(--mat-outline);
+}
 
 .bg-transparent {
   background-color: transparent !important;
