@@ -15,7 +15,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { RoleFieldsValidators } from '../../contracts/role-fields-validators.contract';
 import { RoleUpdateRequest } from '../../interfaces/requests/update-role.request';
-import { RoleResponse } from '../../interfaces/responses/role.response';
+import { RoleDetailsResponse } from '../../interfaces/responses/role-details.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
@@ -46,7 +46,7 @@ export class RoleUpdateBladeComponent {
     isLoading: false,
   };
 
-  role = {} as RoleResponse;
+  roleDetails!: RoleDetailsResponse;
   loadingRole = true;
 
   constructor() {
@@ -79,7 +79,7 @@ export class RoleUpdateBladeComponent {
       )
       .subscribe({
         next: (response) => {
-          this.role = response;
+          this.roleDetails = response;
           this.buildForm();
         },
         error: () => this.snackBarService.error('Ha ocurrido un error al obtener el role.'),
@@ -88,7 +88,7 @@ export class RoleUpdateBladeComponent {
 
   private updateRole(request: RoleUpdateRequest): void {
     this.apiService
-      .updateRole(this.role.id, request)
+      .updateRole(this.roleDetails.id, request)
       .pipe(
         take(1),
         finalize(() => (this.formState.isLoading = false)),
@@ -96,7 +96,7 @@ export class RoleUpdateBladeComponent {
       .subscribe({
         next: () => {
           this.snackBarService.success('Role actualizado correctamente.');
-          this.bladeService.emitResult<string>(this.role.id);
+          this.bladeService.emitResult<string>(this.roleDetails.id);
         },
         error: (error) => {
           if (error.status === HttpStatusCode.BadRequest || error.status === HttpStatusCode.Conflict) {
@@ -112,8 +112,8 @@ export class RoleUpdateBladeComponent {
   }
 
   private buildForm(): void {
-    const nameValue = this.role.name;
-    const descriptionValue = this.role.description;
+    const nameValue = this.roleDetails.name;
+    const descriptionValue = this.roleDetails.description;
 
     this.formState.form = this.formBuilder.group({
       name: [nameValue, RoleFieldsValidators.name],

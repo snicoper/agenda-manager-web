@@ -1,4 +1,4 @@
-export interface RoleResponse {
+export interface RoleDetailsResponse {
   id: string;
   name: string;
   description: string;

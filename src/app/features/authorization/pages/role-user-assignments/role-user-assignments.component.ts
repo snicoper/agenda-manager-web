@@ -11,7 +11,7 @@ import { PageBaseComponent } from '../../../../shared/components/layout/page-bas
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { RoleAssignedUsersComponent } from '../../components/role-assigned-users/role-assigned-users.component';
 import { RoleAvailableUsersComponent } from '../../components/role-available-users/role-available-users.component';
-import { RoleResponse } from '../../interfaces/responses/role.response';
+import { RoleDetailsResponse } from '../../interfaces/responses/role-details.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
@@ -35,7 +35,7 @@ export class RoleUserAssignmentsComponent {
   readonly breadcrumb = new BreadcrumbCollection();
   readonly roleId = this.route.snapshot.paramMap.get('id') ?? '';
 
-  role: RoleResponse | null = null;
+  roleDetails: RoleDetailsResponse | null = null;
   loading = true;
 
   constructor() {
@@ -62,7 +62,7 @@ export class RoleUserAssignmentsComponent {
       .getRoleById(this.roleId)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (role) => (this.role = role),
+        next: (role) => (this.roleDetails = role),
       });
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
 import { NoContent } from '../../../../core/http/types/no-content.type';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { BaseRoleManagementApiService } from '../../../../core/services/api/base-role-management-api.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { CreateRoleRequest } from '../../interfaces/requests/create-role.request';
@@ -9,10 +10,9 @@ import { UpdatePermissionForRoleRequest } from '../../interfaces/requests/update
 import { RoleUpdateRequest } from '../../interfaces/requests/update-role.request';
 import { GetRolePermissionsByIdResponse } from '../../interfaces/responses/get-role-permissions-by-id.response';
 import { RolePaginatedResponse } from '../../interfaces/responses/role-paginated.response';
-import { RoleResponse } from '../../interfaces/responses/role.response';
 import { UserInRoleResponse } from '../../interfaces/responses/user-in-role.response';
 import { UserNotInRoleResponse } from '../../interfaces/responses/user-not-in-role.response';
-import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
+import { RoleDetailsResponse } from '../../interfaces/responses/role-details.response';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorizationApiService extends BaseRoleManagementApiService {
@@ -30,10 +30,10 @@ export class AuthorizationApiService extends BaseRoleManagementApiService {
   }
 
   /** Get role by id. */
-  getRoleById(roleId: string): Observable<RoleResponse> {
+  getRoleById(roleId: string): Observable<RoleDetailsResponse> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.roles.getRoleById, { roleId: roleId });
 
-    return this.get<RoleResponse>(endpoint, (response) => response.value as RoleResponse);
+    return this.get<RoleDetailsResponse>(endpoint, (response) => response.value as RoleDetailsResponse);
   }
 
   /** Get role with permissions by id. */

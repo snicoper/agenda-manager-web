@@ -72,7 +72,7 @@ export class CalendarSelectedStateService {
         next: (response) => this.calendar$.set(response),
         error: (error: HttpErrorResponse) => {
           if (error.status === HttpStatusCode.NotFound) {
-            this.snackBarService.error('El calendario no encontrado');
+            this.snackBarService.error('Calendario no encontrado');
           } else {
             this.snackBarService.error('Error al cargar los detalles del calendario');
           }
