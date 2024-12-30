@@ -107,7 +107,10 @@ export class RolePermissionsComponent {
 
     this.apiService
       .updatePermissionForRole(this.role.roleId, permissionId, request)
-      .pipe(finalize(() => (this.isUpdating = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.isUpdating = false)),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('Permiso actualizado con éxito.');

@@ -8,7 +8,7 @@ import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/s
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -86,7 +86,10 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
     this.loading = true;
     this.apiService
       .assignUserToRole(this.roleId(), userId)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('Usuario incluido con éxito.');
@@ -101,7 +104,10 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
 
     this.apiService
       .getUsersNotInRoleIdPaginated(this.roleId(), this.paginatedResult)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
       .subscribe({
         next: (response) => {
           this.paginatedResult = PaginatedResult.create<UserNotInRoleResponse>(response);

@@ -8,15 +8,15 @@ import { MatSort, MatSortModule, Sort, SortDirection } from '@angular/material/s
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { UserInRoleResponse } from '../../interfaces/responses/user-in-role.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
-import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-role-assigned-users',
@@ -86,7 +86,10 @@ export class RoleAssignedUsersComponent implements AfterViewInit {
     this.loading = true;
     this.apiService
       .unAssignedUserFromRole(this.roleId(), userId)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
       .subscribe({
         next: () => {
           this.snackBarService.success('Usuario excluido con éxito.');
@@ -101,7 +104,10 @@ export class RoleAssignedUsersComponent implements AfterViewInit {
 
     this.apiService
       .getUsersByRoleIdPaginated(this.roleId(), this.paginatedResult)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
       .subscribe({
         next: (response) => {
           this.paginatedResult = PaginatedResult.create<UserInRoleResponse>(response);

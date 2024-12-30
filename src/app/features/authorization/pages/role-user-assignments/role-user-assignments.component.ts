@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logWarning } from '../../../../core/errors/logger/logger';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
@@ -60,7 +60,10 @@ export class RoleUserAssignmentsComponent {
 
     this.authorizationApiService
       .getRoleById(this.roleId)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
       .subscribe({
         next: (role) => (this.roleDetails = role),
       });

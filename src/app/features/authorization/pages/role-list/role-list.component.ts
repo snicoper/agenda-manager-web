@@ -14,6 +14,7 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -28,7 +29,6 @@ import { RoleCreateBladeComponent } from '../../components/role-create-blade/rol
 import { RoleUpdateBladeComponent } from '../../components/role-update-blade/role-update-blade.component';
 import { RolePaginatedResponse } from '../../interfaces/responses/role-paginated.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
-import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-role-list',
@@ -138,25 +138,28 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   handleDeleteRole(roleId: string): void {
-    this.apiService.deleteRole(roleId).subscribe({
-      next: () => {
-        this.snackBarService.success('El role ha sido eliminado com éxito!');
+    this.apiService
+      .deleteRole(roleId)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('El role ha sido eliminado com éxito!');
 
-        this.loadRoles();
-      },
-      error: (error: HttpErrorResponse) => {
-        if (
-          error.status === HttpStatusCode.Conflict &&
-          error.error.code === ApiResultErrors.roles.roleHasUsersAssigned
-        ) {
-          this.snackBarService.error('No se puede eliminar el role porque tiene usuarios asignados.');
+          this.loadRoles();
+        },
+        error: (error: HttpErrorResponse) => {
+          if (
+            error.status === HttpStatusCode.Conflict &&
+            error.error.code === ApiResultErrors.roles.roleHasUsersAssigned
+          ) {
+            this.snackBarService.error('No se puede eliminar el role porque tiene usuarios asignados.');
 
-          return;
-        }
+            return;
+          }
 
-        this.snackBarService.error('Ha ocurrido un error al eliminar el role.');
-      },
-    });
+          this.snackBarService.error('Ha ocurrido un error al eliminar el role.');
+        },
+      });
   }
 
   private setBreadcrumb(): void {
@@ -168,7 +171,10 @@ export class RoleListComponent implements AfterViewInit {
 
     this.apiService
       .getRolesPaginated(this.paginatedResult)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        take(1),
+        finalize(() => (this.loading = false)),
+      )
       .subscribe({
         next: (response) => {
           this.paginatedResult = PaginatedResult.create<RolePaginatedResponse>(response);
