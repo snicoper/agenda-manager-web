@@ -72,7 +72,6 @@ export class ResourceTypeUpdateBladeComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.formState.isLoading = true;
     const request = this.mapToRequest();
     this.update(request);
   }
@@ -88,6 +87,8 @@ export class ResourceTypeUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private update(request: ResourceTypeUpdateRequest): void {
+    this.formState.isLoading = true;
+
     this.apiService
       .updateResourceType(this.resourceTypeState.resourceTypeId()!, request)
       .pipe(

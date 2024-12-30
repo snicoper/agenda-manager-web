@@ -69,8 +69,18 @@ export class CalendarCreateBladeComponent implements OnInit {
       return;
     }
 
-    const request: CalendarCreateRequest = this.formState.form.value;
+    const request = this.mapToRequest();
     this.create(request);
+  }
+
+  private mapToRequest(): CalendarCreateRequest {
+    const request: CalendarCreateRequest = {
+      name: this.formState.form.value.name,
+      description: this.formState.form.value.description,
+      ianaTimeZone: this.formState.form.value.ianaTimeZone,
+    };
+
+    return request;
   }
 
   handleCloseBlade(): void {
@@ -87,6 +97,7 @@ export class CalendarCreateBladeComponent implements OnInit {
 
   private create(request: CalendarCreateRequest): void {
     this.formState.isLoading = true;
+
     this.apiService
       .createCalendar(request)
       .pipe(

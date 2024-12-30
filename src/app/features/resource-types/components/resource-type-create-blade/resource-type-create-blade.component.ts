@@ -67,12 +67,21 @@ export class ResourceTypeCreateBladeComponent implements OnInit {
       return;
     }
 
-    const request: ResourceTypeCreateRequest = this.formState.form.value;
+    const request = this.mapToRequest();
     this.create(request);
   }
 
   handleCloseBlade(): void {
     this.bladeService.emitResult(false);
+  }
+
+  private mapToRequest(): ResourceTypeCreateRequest {
+    const request: ResourceTypeCreateRequest = {
+      name: this.formState.form.value.name,
+      description: this.formState.form.value.description,
+    };
+
+    return request;
   }
 
   private buildForm(): void {
@@ -85,6 +94,7 @@ export class ResourceTypeCreateBladeComponent implements OnInit {
 
   private create(request: ResourceTypeCreateRequest): void {
     this.formState.isLoading = true;
+
     this.apiService
       .createResourceType(request)
       .pipe(

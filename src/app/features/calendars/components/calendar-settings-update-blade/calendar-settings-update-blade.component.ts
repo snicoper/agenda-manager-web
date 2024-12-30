@@ -76,8 +76,11 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.formState.isLoading = true;
+    const request = this.mapToRequest();
+    this.update(request);
+  }
 
+  private mapToRequest(): CalendarUpdateSettingsRequest {
     const request: CalendarUpdateSettingsRequest = {
       calendarId: this.calendarSettingsState.calendarId()!,
       timeZone: this.formState.form.value.timeZone,
@@ -87,7 +90,7 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
       resourceScheduleValidation: this.formState.form.value.settings.resourceScheduleValidation,
     };
 
-    this.update(request);
+    return request;
   }
 
   private loadCalendarSettings(): void {
@@ -95,7 +98,6 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private loadListeners(): void {
-    this.formState.isLoading = true;
     effect(() => {
       if (!this.calendarSettingsState.settings()) {
         return;
@@ -106,6 +108,8 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private buildForm(): void {
+    this.formState.isLoading = true;
+
     const timeZoneValue: string = this.calendarSettingsState.settings()?.timeZone as string;
     const settingsValue: FormCalendarSettingsField = this.getSettingsValue();
 
@@ -132,6 +136,8 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private update(request: CalendarUpdateSettingsRequest): void {
+    this.formState.isLoading = true;
+
     this.apiService
       .updateCalendarSettings(this.calendarSettingsState.calendarId()!, request)
       .pipe(

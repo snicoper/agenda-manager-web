@@ -75,11 +75,18 @@ export class ConfirmAccountComponent {
       return;
     }
 
-    this.formState.isLoading = true;
-    const request: ConfirmAccountRequest = { ...this.formState.form.value };
-    request.token = this.token;
-
+    const request = this.mapToRequest();
     this.confirmAccount(request);
+  }
+
+  private mapToRequest(): ConfirmAccountRequest {
+    const request: ConfirmAccountRequest = {
+      newPassword: this.formState.form.value.newPassword,
+      confirmNewPassword: this.formState.form.value.confirmNewPassword,
+      token: this.token,
+    };
+
+    return request;
   }
 
   private buildForm(): void {

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -26,7 +27,6 @@ import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pi
 import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
 import { AccountPaginatedResponse } from '../../interfaces/responses/account-paginated.response';
 import { AccountApiService } from '../../services/api/account-api.service';
-import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Component({
   selector: 'am-account-list',
@@ -97,7 +97,7 @@ export class AccountListComponent implements AfterViewInit {
     this.bladeService.result.pipe(take(1)).subscribe({
       next: (result) => {
         if (result) {
-          this.loadAccounts();
+          this.bladeService.hide();
         }
       },
     });

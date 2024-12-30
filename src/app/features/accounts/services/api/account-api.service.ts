@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
 import { EmptyRequest } from '../../../../core/http/types/empty-request.type';
 import { NoContent } from '../../../../core/http/types/no-content.type';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { DateTimeUtils } from '../../../../core/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
@@ -16,7 +17,6 @@ import { VerifyEmailRequest } from '../../interfaces/requests/verify-email.reque
 import { AccountCreateResponse } from '../../interfaces/responses/account-create.response';
 import { AccountDetailsResponse } from '../../interfaces/responses/account-details.response';
 import { AccountPaginatedResponse } from '../../interfaces/responses/account-paginated.response';
-import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 
 @Injectable({ providedIn: 'root' })
 export class AccountApiService extends ApiBaseService {
@@ -52,9 +52,11 @@ export class AccountApiService extends ApiBaseService {
 
   /** Create account. */
   createAccount(request: AccountCreateRequest): Observable<AccountCreateResponse> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.createAccount);
+
     return this.post<AccountCreateRequest, AccountCreateResponse>(
       request,
-      ApiUrls.accounts.createAccount,
+      endpoint,
       (response) => response.value as AccountCreateResponse,
     );
   }

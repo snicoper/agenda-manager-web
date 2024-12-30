@@ -57,8 +57,17 @@ export class RoleCreateBladeComponent {
       return;
     }
 
-    const request = this.formState.form.value as CreateRoleRequest;
+    const request = this.mapToRequest();
     this.create(request);
+  }
+
+  private mapToRequest(): CreateRoleRequest {
+    const request: CreateRoleRequest = {
+      name: this.formState.form.value.name,
+      description: this.formState.form.value.description,
+    };
+
+    return request;
   }
 
   private buildForm(): void {

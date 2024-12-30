@@ -72,9 +72,17 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.formState.isLoading = true;
-    const request: CalendarUpdateRequest = this.formState.form.value;
+    const request = this.mapToRequest();
     this.update(request);
+  }
+
+  private mapToRequest(): CalendarUpdateRequest {
+    const request: CalendarUpdateRequest = {
+      name: this.formState.form.value.name,
+      description: this.formState.form.value.description,
+    };
+
+    return request;
   }
 
   private update(request: CalendarUpdateRequest): void {
@@ -83,6 +91,8 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
 
       return;
     }
+
+    this.formState.isLoading = true;
 
     this.apiService
       .updateCalendar(this.calendarState.calendarId()!, request)

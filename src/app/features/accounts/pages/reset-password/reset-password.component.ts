@@ -69,11 +69,18 @@ export class ResetPasswordComponent {
       return;
     }
 
-    this.formState.isLoading = true;
-    const request: ResetPasswordRequest = this.formState.form.value;
-    request.token = this.token;
-
+    const request = this.mapToRequest();
     this.confirmRecoveryPassword(request);
+  }
+
+  private mapToRequest(): ResetPasswordRequest {
+    const request: ResetPasswordRequest = {
+      newPassword: this.formState.form.value.newPassword,
+      confirmNewPassword: this.formState.form.value.confirm,
+      token: this.token,
+    };
+
+    return request;
   }
 
   private buildForm(): void {
@@ -89,6 +96,8 @@ export class ResetPasswordComponent {
   }
 
   private confirmRecoveryPassword(request: ResetPasswordRequest): void {
+    this.formState.isLoading = true;
+
     this.apiService
       .resetPassword(request)
       .pipe(

@@ -20,7 +20,6 @@ export interface IdentityDocument {
 }
 
 export interface AccountUpdateRequest {
-  userId: string;
   email: string;
   firstName: string;
   lastName: string;

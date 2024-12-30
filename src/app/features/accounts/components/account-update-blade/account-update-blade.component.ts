@@ -88,9 +88,21 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.formState.isLoading = true;
-    const request: AccountUpdateRequest = this.formState.form.value;
+    const request = this.mapToRequest();
     this.update(request);
+  }
+
+  private mapToRequest(): AccountUpdateRequest {
+    const request: AccountUpdateRequest = {
+      email: this.accountState.account()!.email,
+      firstName: this.formState.form.value.firstName,
+      lastName: this.formState.form.value.lastName,
+      phone: this.formState.form.value.phone,
+      address: this.formState.form.value.address,
+      identityDocument: this.formState.form.value.identityDocument,
+    };
+
+    return request;
   }
 
   private loadAccount(): void {
@@ -114,6 +126,8 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
 
       return;
     }
+
+    this.formState.isLoading = true;
 
     this.apiService
       .updateAccount(this.accountState.userId()!, request)

@@ -107,8 +107,20 @@ export class RequestPasswordResetComponent {
       return;
     }
 
+    const request = this.mapToRequest();
+    this.requestPasswordReset(request);
+  }
+
+  private mapToRequest(): RequestPasswordResetRequest {
+    const request: RequestPasswordResetRequest = {
+      email: this.formState.form.value.email,
+    };
+
+    return request;
+  }
+
+  private requestPasswordReset(request: RequestPasswordResetRequest): void {
     this.formState.isLoading = true;
-    const request: RequestPasswordResetRequest = this.formState.form.value;
 
     this.apiService
       .requestPasswordReset(request)
