@@ -1,0 +1,49 @@
+@if (!roleState.loading() && roleState.role(); as role) {
+  <div class="d-flex justify-content-start">
+    <button
+      mat-raised-button
+      [amRequiredPermission]="systemPermissions.Roles.Update"
+      [disabled]="!roleState.role()?.isEditable"
+      (click)="handleOpenUpdateRoleBlade()"
+    >
+      <mat-icon>edit</mat-icon>
+      <span>Editar</span>
+    </button>
+
+    <span class="me-2"></span>
+
+    <button
+      mat-raised-button
+      [amRequiredPermission]="systemPermissions.Roles.Delete"
+      [disabled]="!roleState.role()?.isEditable"
+      (click)="handleDeleteRole()"
+    >
+      <mat-icon>delete</mat-icon>
+      <span>Eliminar</span>
+    </button>
+  </div>
+  <div class="custom-table-container">
+    <table class="table table-striped table-border-bottom">
+      <tbody>
+        <tr>
+          <th>Nombre</th>
+          <td>{{ role.name }}</td>
+        </tr>
+        <tr>
+          <th>Descripción</th>
+          <td>{{ role.description }}</td>
+        </tr>
+        <tr>
+          <th>Editable</th>
+          <td>
+            <span [innerHTML]="role.isEditable | boolToIcon"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+} @else {
+  <div class="d-flex justify-content-center">
+    <mat-spinner diameter="100" />
+  </div>
+}

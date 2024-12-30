@@ -1,55 +1,33 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
-import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { ModuleRoleDisplayName } from '../../../../core/modules/auth/constants/module-role-display-name.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
-import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
-import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
-import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { UpdatePermissionForRoleRequest } from '../../interfaces/requests/update-permission-for-role.request';
 import {
   GetRolePermissionsByIdResponse,
   PermissionDetail,
 } from '../../interfaces/responses/get-role-permissions-by-id.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
+import { RoleSelectedStateService } from '../../services/state/role-selected-state.service';
 
 @Component({
-  selector: 'am-role-details',
-  imports: [
-    MatCardModule,
-    MatSlideToggleModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatProgressSpinnerModule,
-    PageBaseComponent,
-    PageHeaderComponent,
-    AlertComponent,
-  ],
-  templateUrl: './role-permissions.component.html',
-  styleUrl: './role-permissions.component.scss',
+  selector: 'am-role-permissions-tab',
+  imports: [MatSlideToggleModule, MatIconModule, MatProgressSpinnerModule, AlertComponent],
+  templateUrl: './role-permissions-tab.component.html',
+  styleUrl: './role-permissions-tab.component.scss',
 })
-export class RolePermissionsComponent {
+export class RolePermissionsTabComponent {
   private readonly apiService = inject(AuthorizationApiService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
   private readonly snackBarService = inject(SnackBarService);
+  private readonly roleSelectedStateService = inject(RoleSelectedStateService);
 
   private readonly actionOrder = ['Read', 'Update', 'Create', 'Delete'];
-
-  readonly breadcrumb = new BreadcrumbCollection();
-  readonly roleId = this.route.snapshot.paramMap.get('id') ?? '';
 
   role: GetRolePermissionsByIdResponse | null = null;
   loading = false;
@@ -57,18 +35,7 @@ export class RolePermissionsComponent {
   roleNotFound = false;
 
   constructor() {
-    if (!this.roleId) {
-      this.roleNotFound = true;
-      throw new Error('Role id is required.');
-    }
-
-    this.setBreadcrumb();
     this.loadRolePermissions();
-  }
-
-  handleNavigateToRoleUserAssignments(): void {
-    const url = UrlUtils.buildSiteUrl(SiteUrls.roles.roleUserAssignments, { id: this.roleId });
-    this.router.navigateByUrl(url);
   }
 
   getModuleRoleDisplayName(moduleName: string): string {
@@ -120,15 +87,11 @@ export class RolePermissionsComponent {
       });
   }
 
-  private setBreadcrumb(): void {
-    this.breadcrumb.add('Roles', SiteUrls.roles.list).add('Permisos', SiteUrls.roles.permissions, '', false);
-  }
-
   private loadRolePermissions(): void {
     this.loading = true;
 
     this.apiService
-      .getRolePermissionsById(this.roleId)
+      .getRolePermissionsById(this.roleSelectedStateService.state.roleId()!)
       .pipe(
         take(1),
         finalize(() => (this.loading = false)),

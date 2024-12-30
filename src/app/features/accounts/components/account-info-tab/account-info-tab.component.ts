@@ -21,7 +21,7 @@ import { AccountUpdateBladeComponent } from '../account-update-blade/account-upd
   styleUrl: './account-info-tab.component.scss',
 })
 export class AccountInfoTabComponent {
-  private readonly accountApi = inject(AccountApiService);
+  private readonly apiService = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly accountSelectedStateService = inject(AccountSelectedStateService);
   private readonly bladeService = inject(BladeService);
@@ -38,7 +38,7 @@ export class AccountInfoTabComponent {
 
     this.accountSelectedStateService.setLoadingState(true);
 
-    this.accountApi
+    this.apiService
       .toggleIsActive(this.accountState.userId()!)
       .pipe(
         take(1),
@@ -64,7 +64,7 @@ export class AccountInfoTabComponent {
 
     this.accountSelectedStateService.setLoadingState(true);
 
-    this.accountApi
+    this.apiService
       .confirmEmail(this.accountState.userId()!)
       .pipe(
         take(1),

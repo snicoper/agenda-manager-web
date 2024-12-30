@@ -60,8 +60,7 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
     isLoading: false,
   };
   readonly formInputTypes = FormInputType;
-
-  accountState = this.accountSelectedStateService.state;
+  readonly accountState = this.accountSelectedStateService.state;
 
   ngOnInit(): void {
     setTimeout(() => {

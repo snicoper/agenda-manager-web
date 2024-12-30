@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -12,7 +11,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
 import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -26,7 +24,6 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { RoleCreateBladeComponent } from '../../components/role-create-blade/role-create-blade.component';
-import { RoleUpdateBladeComponent } from '../../components/role-update-blade/role-update-blade.component';
 import { RolePaginatedResponse } from '../../interfaces/responses/role-paginated.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
@@ -62,7 +59,7 @@ export class RoleListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly displayedColumns = ['name', 'description', 'isEditable', 'actions'];
+  readonly displayedColumns = ['name', 'description', 'isEditable'];
   readonly fieldsFilter = ['name', 'description'];
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
@@ -84,16 +81,6 @@ export class RoleListComponent implements AfterViewInit {
     });
   }
 
-  handleRoleUserAssignments(roleId: string): void {
-    const url = UrlUtils.buildSiteUrl(SiteUrls.roles.roleUserAssignments, { id: roleId });
-    this.router.navigateByUrl(url);
-  }
-
-  handleSelectRow(role: RolePaginatedResponse): void {
-    const url = UrlUtils.buildSiteUrl(SiteUrls.roles.permissions, { id: role.id });
-    this.router.navigateByUrl(url);
-  }
-
   handlePageEvent(pageEvent: PageEvent): void {
     this.paginatedResult = this.paginatedResult.handlePageEvent(pageEvent);
     this.loadRoles();
@@ -109,6 +96,11 @@ export class RoleListComponent implements AfterViewInit {
     this.loadRoles();
   }
 
+  handleRowSelected(role: RolePaginatedResponse): void {
+    const url = UrlUtils.buildSiteUrl(SiteUrls.roles.details, { id: role.id });
+    this.router.navigateByUrl(url);
+  }
+
   handleOpenCreateRoleBlade(): void {
     this.bladeService.show(RoleCreateBladeComponent);
 
@@ -117,49 +109,11 @@ export class RoleListComponent implements AfterViewInit {
         const data = result as { roleId: string };
 
         if (data) {
-          const url = UrlUtils.buildSiteUrl(SiteUrls.roles.permissions, { id: data.roleId });
+          const url = UrlUtils.buildSiteUrl(SiteUrls.roles.details, { id: data.roleId });
           this.router.navigateByUrl(url);
         }
       },
     });
-  }
-
-  handleOpenUpdateRoleBlade(roleId: string): void {
-    this.bladeService.show<string>(RoleUpdateBladeComponent, {
-      data: roleId,
-    });
-
-    this.bladeService.result.pipe(take(1)).subscribe({
-      next: () => {
-        const url = UrlUtils.buildSiteUrl(SiteUrls.roles.permissions, { id: roleId });
-        this.router.navigateByUrl(url);
-      },
-    });
-  }
-
-  handleDeleteRole(roleId: string): void {
-    this.apiService
-      .deleteRole(roleId)
-      .pipe(take(1))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('El role ha sido eliminado com éxito!');
-
-          this.loadRoles();
-        },
-        error: (error: HttpErrorResponse) => {
-          if (
-            error.status === HttpStatusCode.Conflict &&
-            error.error.code === ApiResultErrors.roles.roleHasUsersAssigned
-          ) {
-            this.snackBarService.error('No se puede eliminar el role porque tiene usuarios asignados.');
-
-            return;
-          }
-
-          this.snackBarService.error('Ha ocurrido un error al eliminar el role.');
-        },
-      });
   }
 
   private setBreadcrumb(): void {

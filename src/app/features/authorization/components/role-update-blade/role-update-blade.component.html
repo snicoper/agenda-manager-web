@@ -1,6 +1,10 @@
 <div class="blade-content-container">
-  @if (!loadingRole) {
-    <h2 class="blade-title">Actualizar rol: {{ roleDetails.name }}</h2>
+  @if (roleSelectedState.loading() || formState.isLoading) {
+    <div class="blade-loading">
+      <mat-spinner diameter="100"></mat-spinner>
+    </div>
+  } @else {
+    <h2 class="blade-title">Actualizar rol: {{ roleSelectedState.role()?.name }}</h2>
 
     <div class="blade-body">
       <form [formGroup]="formState.form" class="form">
@@ -24,10 +28,6 @@
         Cerrar
       </button>
       <am-btn-loading [loading]="formState.isLoading" icon="save" btnText="Actualizar" (eventClick)="handleSubmit()" />
-    </div>
-  } @else {
-    <div class="blade-loading">
-      <mat-spinner diameter="100"></mat-spinner>
     </div>
   }
 </div>

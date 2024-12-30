@@ -41,8 +41,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
       },
     ],
   };
-
-  account = this.accountSelectedStateService.state.account;
+  readonly account = this.accountSelectedStateService.state.account;
 
   ngOnInit(): void {
     if (!this.userId) {

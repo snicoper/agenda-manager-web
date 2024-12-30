@@ -1,5 +1,5 @@
 import { HttpStatusCode } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -15,8 +15,8 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { RoleFieldsValidators } from '../../contracts/role-fields-validators.contract';
 import { RoleUpdateRequest } from '../../interfaces/requests/update-role.request';
-import { RoleDetailsResponse } from '../../interfaces/responses/role-details.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
+import { RoleSelectedStateService } from '../../services/state/role-selected-state.service';
 
 @Component({
   selector: 'am-role-update-blade',
@@ -33,11 +33,12 @@ import { AuthorizationApiService } from '../../services/api/authorization-api.se
   templateUrl: './role-update-blade.component.html',
   styleUrl: './role-update-blade.component.scss',
 })
-export class RoleUpdateBladeComponent {
+export class RoleUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly apiService = inject(AuthorizationApiService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
+  private readonly roleSelectedStateService = inject(RoleSelectedStateService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -46,11 +47,23 @@ export class RoleUpdateBladeComponent {
     isLoading: false,
   };
 
-  roleDetails!: RoleDetailsResponse;
-  loadingRole = true;
+  readonly roleSelectedState = this.roleSelectedStateService.state;
 
-  constructor() {
+  ngOnInit(): void {
+    setTimeout(() => {
+      // Force an extra change detection cycle for Material initialization.
+      // @see BladeComponent for more information.
+    });
+
     this.loadRole();
+  }
+
+  ngOnDestroy(): void {
+    this.bladeService.hide();
+  }
+
+  handleCloseBlade(): void {
+    this.bladeService.hide();
   }
 
   handleSubmit(): void {
@@ -60,35 +73,27 @@ export class RoleUpdateBladeComponent {
       return;
     }
 
-    const request = this.formState.form.value as RoleUpdateRequest;
+    const request = this.mapToRequest();
     this.updateRole(request);
   }
 
-  handleCloseBlade(): void {
-    this.bladeService.hide();
+  private mapToRequest(): RoleUpdateRequest {
+    const request: RoleUpdateRequest = {
+      name: this.formState.form.value.name,
+      description: this.formState.form.value.description,
+    };
+
+    return request;
   }
 
   private loadRole(): void {
-    this.loadingRole = true;
-
-    this.apiService
-      .getRoleById(this.bladeService.bladeState.options().data?.toString() ?? '')
-      .pipe(
-        take(1),
-        finalize(() => (this.loadingRole = false)),
-      )
-      .subscribe({
-        next: (response) => {
-          this.roleDetails = response;
-          this.buildForm();
-        },
-        error: () => this.snackBarService.error('Ha ocurrido un error al obtener el role.'),
-      });
+    this.roleSelectedStateService.refresh();
+    this.buildForm();
   }
 
   private updateRole(request: RoleUpdateRequest): void {
     this.apiService
-      .updateRole(this.roleDetails.id, request)
+      .updateRole(this.roleSelectedState.roleId()!, request)
       .pipe(
         take(1),
         finalize(() => (this.formState.isLoading = false)),
@@ -96,7 +101,8 @@ export class RoleUpdateBladeComponent {
       .subscribe({
         next: () => {
           this.snackBarService.success('Role actualizado correctamente.');
-          this.bladeService.emitResult<string>(this.roleDetails.id);
+          this.roleSelectedStateService.refresh();
+          this.bladeService.emitResult(true);
         },
         error: (error) => {
           if (error.status === HttpStatusCode.BadRequest || error.status === HttpStatusCode.Conflict) {
@@ -112,8 +118,8 @@ export class RoleUpdateBladeComponent {
   }
 
   private buildForm(): void {
-    const nameValue = this.roleDetails.name;
-    const descriptionValue = this.roleDetails.description;
+    const nameValue = this.roleSelectedState.role()?.name;
+    const descriptionValue = this.roleSelectedState.role()?.description;
 
     this.formState.form = this.formBuilder.group({
       name: [nameValue, RoleFieldsValidators.name],

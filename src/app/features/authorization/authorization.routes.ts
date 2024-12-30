@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { SystemPermissions } from '../../core/modules/auth/constants/system-permissions.const';
+import { RoleDetailsComponent } from './pages/role-details/role-details.component';
 import { RoleListComponent } from './pages/role-list/role-list.component';
-import { RolePermissionsComponent } from './pages/role-permissions/role-permissions.component';
-import { RoleUserAssignmentsComponent } from './pages/role-user-assignments/role-user-assignments.component';
 
 export const routes: Routes = [
   {
@@ -19,25 +18,13 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'roles/:id/permissions',
-    component: RolePermissionsComponent,
+    path: 'roles/:roleId',
+    component: RoleDetailsComponent,
     title: 'Detalles del rol',
     canActivate: [AuthGuard],
     data: {
       auth: {
         permissions: [SystemPermissions.Roles.Read],
-        requiresAll: true,
-      },
-    },
-  },
-  {
-    path: 'roles/:id/user-assignments',
-    component: RoleUserAssignmentsComponent,
-    title: 'Asignación de usuarios',
-    canActivate: [AuthGuard],
-    data: {
-      auth: {
-        permissions: [SystemPermissions.Roles.Update],
         requiresAll: true,
       },
     },

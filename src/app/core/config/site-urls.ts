@@ -28,8 +28,7 @@ export const SiteUrls = {
 
   roles: {
     list: '/authorization/roles',
-    permissions: '/authorization/roles/{id}/permissions',
-    roleUserAssignments: '/authorization/roles/{id}/user-assignments',
+    details: '/authorization/roles/{id}',
   },
 
   resourceTypes: {
