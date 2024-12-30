@@ -5,7 +5,7 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
-import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar/models/nav-toolbar-data.interface';
+import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar/interfaces/nav-toolbar-data.interface';
 import { NavToolbarComponent } from '../../../../shared/components/layout/nav-toolbar/nav-toolbar.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
@@ -25,6 +25,7 @@ export class RoleDetailsComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
 
   readonly roleId = this.route.snapshot.params['roleId'];
+  readonly tabSelected = this.route.snapshot.queryParams['tab'] || '';
   readonly breadcrumb = new BreadcrumbCollection();
   readonly navData: NavToolbarData = {
     tabs: [

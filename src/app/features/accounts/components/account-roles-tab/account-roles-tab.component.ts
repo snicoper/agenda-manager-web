@@ -4,7 +4,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
+import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
+import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { AvailableRolesByUserIdResponse } from '../../interfaces/responses/available-roles-by-user-id.response';
 import { AccountRoleApiService } from '../../services/api/account-role-api.service';
 import { AccountSelectedStateService } from '../../services/state/account-selected-state.service';
@@ -40,8 +42,9 @@ export class AccountRolesTabComponent implements OnInit {
   }
 
   handleNavigateToRolePermissions(roleId: string): void {
-    // const url = UrlUtils.buildSiteUrl(SiteUrls.roles.permissions, { id: roleId });
-    // this.router.navigateByUrl(url);
+    const url = UrlUtils.buildSiteUrl(SiteUrls.roles.details, { id: roleId });
+
+    this.router.navigateByUrl(url);
   }
 
   private assignUserToRole(roleId: string): void {

@@ -7,7 +7,7 @@ import { AuthService } from '../../../../core/modules/auth/services/auth.service
 import { AllPermissions } from '../../../../core/modules/auth/types/all-permissions.type';
 import { RequiredPermissionDirective } from '../../../directives/required-permission.directive';
 import { RequiredRoleDirective } from '../../../directives/required-role.directive';
-import { NavToolbarData } from './models/nav-toolbar-data.interface';
+import { NavToolbarData } from './interfaces/nav-toolbar-data.interface';
 
 @Component({
   selector: 'am-nav-toolbar',
@@ -31,7 +31,7 @@ export class NavToolbarComponent {
 
   readonly themePalette = 'primary';
 
-  onSelectedIndexChange(index: number): void {
+  handleSelectedIndexChange(index: number): void {
     this.selectedIndex.set(index);
   }
 
