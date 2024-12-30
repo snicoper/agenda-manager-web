@@ -28,12 +28,16 @@ export class CalendarDetailsComponent implements OnInit, OnDestroy {
   readonly navData: NavToolbarData = {
     tabs: [
       {
+        index: 0,
+        name: 'info',
         label: 'Información',
         icon: 'event_note',
         permissions: [SystemPermissions.Calendars.Read],
         component: CalendarInfoTabComponent,
       },
       {
+        index: 1,
+        name: 'settings',
         label: 'Configuración',
         icon: 'settings',
         permissions: [SystemPermissions.CalendarSettings.Read],

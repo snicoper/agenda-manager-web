@@ -4,6 +4,8 @@ import { AllPermissions } from '../../../../../core/modules/auth/types/all-permi
 import { SystemRole } from '../../../../../core/modules/auth/types/system-roles.type';
 
 export interface NavTab {
+  index: number;
+  name: string;
   label: string;
   icon?: string;
   component: Type<unknown>;

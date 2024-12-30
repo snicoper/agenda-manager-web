@@ -25,6 +25,8 @@ export class ResourceTypeDetailsComponent implements OnInit, OnDestroy {
   readonly navData: NavToolbarData = {
     tabs: [
       {
+        index: 0,
+        name: 'info',
         label: 'Detalles',
         icon: 'event_note',
         component: ResourceTypeInfoTabComponent,

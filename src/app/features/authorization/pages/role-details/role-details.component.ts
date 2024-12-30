@@ -30,18 +30,24 @@ export class RoleDetailsComponent implements OnInit, OnDestroy {
   readonly navData: NavToolbarData = {
     tabs: [
       {
+        index: 0,
+        name: 'info',
         label: 'Información',
         icon: 'person',
         permissions: [SystemPermissions.Roles.Read],
         component: RoleInfoTabComponent,
       },
       {
+        index: 1,
+        name: 'permissions',
         label: 'Permisos',
         icon: 'security',
         permissions: [SystemPermissions.Roles.Read],
         component: RolePermissionsTabComponent,
       },
       {
+        index: 2,
+        name: 'users',
         label: 'Usuarios',
         icon: 'people',
         permissions: [SystemPermissions.Roles.Read],

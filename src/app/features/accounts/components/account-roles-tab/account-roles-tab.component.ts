@@ -23,7 +23,8 @@ export class AccountRolesTabComponent implements OnInit {
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
 
-  accountState = this.accountSelectedStateService.state;
+  readonly accountState = this.accountSelectedStateService.state;
+
   roles: AvailableRolesByUserIdResponse[] = [];
   loading = false;
 

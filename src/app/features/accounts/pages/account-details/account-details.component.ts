@@ -28,12 +28,16 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   readonly navData: NavToolbarData = {
     tabs: [
       {
+        index: 0,
+        name: 'info',
         label: 'Información',
         icon: 'person',
         permissions: [SystemPermissions.Users.Read],
         component: AccountInfoTabComponent,
       },
       {
+        index: 1,
+        name: 'roles',
         label: 'Roles',
         icon: 'assignment_ind',
         permissions: [SystemPermissions.Roles.Read],

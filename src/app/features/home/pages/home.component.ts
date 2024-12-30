@@ -15,6 +15,8 @@ export class HomeComponent {
   navData: NavToolbarData = {
     tabs: [
       {
+        index: 0,
+        name: 'info',
         label: 'Información',
         icon: 'person',
         component: PruebasComponent,
