@@ -1,4 +1,10 @@
 <section class="working-days-week-container">
+  <h3>{{ title() }}</h3>
+
+  @if (helpText()) {
+    <span class="help-text">{{ helpText() }}</span>
+  }
+
   <mat-chip-listbox multiple aria-label="Day selection" (change)="onSelectionChange($event)">
     @for (day of days(); track day.value) {
       <mat-chip-option [selected]="day.selected">

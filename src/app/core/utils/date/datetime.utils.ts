@@ -1,5 +1,5 @@
 import { DateTime, Interval } from 'luxon';
-import { WeekDaysFlags } from '../../modules/week-days/week-days.utils';
+import { WeekDaysUtils } from '../../modules/week-days/week-days.utils';
 
 export abstract class DateTimeUtils {
   /**
@@ -64,9 +64,9 @@ export abstract class DateTimeUtils {
       const d = subInt.start;
 
       if (d) {
-        const dayFlag = WeekDaysFlags.fromLuxonWeekday(d.weekday);
+        const dayFlag = WeekDaysUtils.fromLuxonWeekday(d.weekday);
 
-        if (WeekDaysFlags.hasFlag(weekDayFlags, dayFlag)) {
+        if (WeekDaysUtils.hasFlag(weekDayFlags, dayFlag)) {
           result.push(d);
         }
       }

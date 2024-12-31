@@ -5,6 +5,19 @@
 }
 
 .working-days-week-container {
+  h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .help-text {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--mat-outline);
+  }
+
   mat-chip-set {
     display: flex;
     justify-content: center;

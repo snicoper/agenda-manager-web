@@ -14,6 +14,7 @@ import { CalendarCreateResponse } from '../../models/responses/calendar-create.r
 import { CalendarDetailsResponse } from '../../models/responses/calendar-details.response';
 import { CalendarPaginatedResponse } from '../../models/responses/calendar-paginated.response';
 import { CalendarSettingsResponse } from '../../models/responses/calendar-settings.response';
+import { CalendarAvailableDaysRequest } from '../../models/requests/calendar-available-days.request';
 
 @Injectable({
   providedIn: 'root',
@@ -67,6 +68,13 @@ export class CalendarApiService extends ApiBaseService {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.updateCalendar, { calendarId: calendarId });
 
     return this.put<CalendarUpdateRequest, NoContent>(request, endpoint);
+  }
+
+  /** Actualizar días disponibles de un calendario. */
+  updateAvailableDays(calendarId: string, request: CalendarAvailableDaysRequest): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.updateAvailableDays, { calendarId: calendarId });
+
+    return this.put<CalendarAvailableDaysRequest, NoContent>(request, endpoint);
   }
 
   /** Actualizar configuración de calendario */

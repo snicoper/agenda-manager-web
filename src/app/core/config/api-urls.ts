@@ -22,6 +22,7 @@ export const ApiUrls = {
     getCalendarSettings: '/calendars/{calendarId}/settings',
     createCalendar: '/calendars',
     updateCalendar: '/calendars/{calendarId}',
+    updateAvailableDays: '/calendars/{calendarId}/available-days',
     updateCalendarSettings: '/calendars/{calendarId}/settings',
     toggleIsActive: '/calendars/{calendarId}/toggle-is-active',
   },

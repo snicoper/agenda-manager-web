@@ -1,4 +1,17 @@
 @if (!settingsState.loading() && settingsState.settings(); as settings) {
+  <!-- working days -->
+  <div class="d-flex justify-content-center mb-4">
+    @if (calendarState.loading()) {
+      <mat-spinner diameter="40" class="mt-4" />
+    } @else {
+      <am-working-days-week
+        helpText="Selecciona los días laborables de la semana."
+        (valueChange)="handleWorkingDaysChange($event)"
+        [value]="calendarState.calendar()?.availableDays!"
+      />
+    }
+  </div>
+
   <!-- actions -->
   <div class="d-flex justify-content-start">
     <button mat-raised-button (click)="handleOpenUpdateCalendarSettingsBlade()">
@@ -6,8 +19,6 @@
       <span>Editar</span>
     </button>
   </div>
-
-  <am-working-days-week (valueChange)="handleWorkingDaysChange($event)" [value]="15" />
 
   <!-- table -->
   <div class="custom-table-container">

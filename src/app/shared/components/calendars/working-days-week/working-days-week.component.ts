@@ -2,7 +2,7 @@ import { Component, computed, input, output } from '@angular/core';
 import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 import { WeekDays } from '../../../../core/modules/week-days/week-days.const';
 import { WeekDay } from '../../../../core/modules/week-days/week-days.type';
-import { WeekDaysFlags } from '../../../../core/modules/week-days/week-days.utils';
+import { WeekDaysUtils } from '../../../../core/modules/week-days/week-days.utils';
 
 @Component({
   selector: 'am-working-days-week',
@@ -12,6 +12,9 @@ import { WeekDaysFlags } from '../../../../core/modules/week-days/week-days.util
 })
 export class WorkingDaysWeekComponent {
   value = input<number>(WeekDays.None);
+  title = input<string>('Días laborables');
+  helpText = input<string>('');
+
   valueChange = output<number>();
 
   protected readonly days = computed(() => {
@@ -20,7 +23,7 @@ export class WorkingDaysWeekComponent {
       .map(([key, value]) => ({
         name: key,
         value: value as WeekDay,
-        selected: WeekDaysFlags.hasFlag(this.value(), value as WeekDay),
+        selected: WeekDaysUtils.hasFlag(this.value(), value as WeekDay),
       }));
   });
 
