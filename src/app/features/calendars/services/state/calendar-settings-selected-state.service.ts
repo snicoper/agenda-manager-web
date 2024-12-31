@@ -5,8 +5,8 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { CalendarSettingsResponse } from '../../interfaces/responses/calendar-settings.response';
-import { CalendarSettingsSelectedState } from '../../interfaces/state/calendar-settings-selected-state.interface';
+import { CalendarSettingsResponse } from '../../models/responses/calendar-settings.response';
+import { CalendarSettingsSelectedState } from '../../models/state/calendar-settings-selected-state.model';
 import { CalendarApiService } from '../api/calendar-api.service';
 import { CalendarSelectedStateService } from './calendar-selected-state.service';
 

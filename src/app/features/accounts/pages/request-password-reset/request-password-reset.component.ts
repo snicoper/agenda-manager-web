@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
-import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -19,7 +19,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { emailValidator } from '../../../../shared/components/forms/validators/email.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { RequestPasswordResetRequest } from '../../interfaces/requests/request-password-reset.request';
+import { RequestPasswordResetRequest } from '../../models/requests/request-password-reset.request';
 import { AccountApiService } from '../../services/api/account-api.service';
 
 interface AlertState {

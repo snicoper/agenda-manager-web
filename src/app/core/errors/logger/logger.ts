@@ -4,7 +4,7 @@
  */
 import { AppEnvironment } from '../../config/app-environment';
 import { LogLevel } from './enums/log-level.enum';
-import { LogSettings } from './interfaces/log-settings.interface';
+import { LogSettings } from './models/log-settings.model';
 
 const logSettings = {
   [LogLevel.Error]: { key: LogLevel.Error, color: '#cc0066' },

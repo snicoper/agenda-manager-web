@@ -5,11 +5,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { getTimeZones } from '@vvo/tzdb';
-import { FormState } from '../../../../../../core/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../../../core/forms/models/form-state.model';
 import { SelectOnFocusDirective } from '../../../../../directives/select-on-focus.directive';
 import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
 import { FormIconPosition } from '../../../types/form-icon-position.enum';
-import { FormTimeZoneField } from './interfaces/form-time-zone-field.interface';
+import { FormTimeZoneField } from './models/form-time-zone-field.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

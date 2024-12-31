@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ApiResponse } from '../../http/interfaces/api-response.interface';
+import { ApiResponse } from '../../http/models/api-response.model';
 import { NoContent } from '../../http/types/no-content.type';
 import { PaginatedResult } from '../../modules/paginated-result/paginated-result';
 

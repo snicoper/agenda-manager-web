@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { isValidPhoneNumber } from 'libphonenumber-js';
-import { FormPhoneNumberField } from '../inputs/form-phone-number/interfaces/form-phone-number-field.interface';
+import { FormPhoneNumberField } from '../inputs/form-phone-number/models/form-phone-number-field.interface';
 
 const isValidCountryCodeLength = (countryCode: string): boolean => countryCode.length <= 4;
 const isValidNumberLength = (number: string): boolean => number.length <= 15;

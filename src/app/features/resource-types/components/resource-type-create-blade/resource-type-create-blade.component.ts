@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
@@ -17,7 +17,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { ResourceTypeFieldsValidators } from '../../contracts/resource-type-fields-validator.contract';
-import { ResourceTypeCreateRequest } from '../../interfaces/requests/resource-type-create.request';
+import { ResourceTypeCreateRequest } from '../../models/requests/resource-type-create.request';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
 
 @Component({

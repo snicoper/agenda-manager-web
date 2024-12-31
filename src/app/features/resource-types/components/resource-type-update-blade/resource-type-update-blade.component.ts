@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
-import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../core/forms/models/form-state.model';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
@@ -13,7 +13,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { ResourceTypeFieldsValidators } from '../../contracts/resource-type-fields-validator.contract';
-import { ResourceTypeUpdateRequest } from '../../interfaces/requests/resource-type-update.request';
+import { ResourceTypeUpdateRequest } from '../../models/requests/resource-type-update.request';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
 import { ResourceTypeSelectedStateService } from '../../services/state/resource-type-selected-state.service';
 

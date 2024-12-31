@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -18,7 +18,7 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { FormRoleSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-role-selector/form-role-selector.component';
 import { emailValidator } from '../../../../shared/components/forms/validators/email.validator';
 import { minLengthArrayValidator } from '../../../../shared/components/forms/validators/min-length-array.validator';
-import { AccountCreateRequest, RoleToAdd } from '../../interfaces/requests/account-create.request';
+import { AccountCreateRequest, RoleToAdd } from '../../models/requests/account-create.request';
 import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({

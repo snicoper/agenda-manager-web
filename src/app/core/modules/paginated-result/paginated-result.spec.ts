@@ -1,7 +1,7 @@
 import { LogicalOperator } from './enums/logical-operator';
 import { OrderType } from './enums/order-type';
 import { RelationalOperator } from './enums/relational-operator';
-import { FilterOptions } from './interfaces/filter-options.interface';
+import { FilterOptions } from './models/filter-options.model';
 import { PaginatedResultFilter } from './models/paginated-result-filter';
 import { PaginatedResult } from './paginated-result';
 

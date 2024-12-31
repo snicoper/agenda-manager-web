@@ -2,7 +2,7 @@ import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import countries from 'i18n-iso-countries';
 import * as en from 'i18n-iso-countries/langs/en.json';
 import * as es from 'i18n-iso-countries/langs/es.json';
-import { CountryLocale } from '../interfaces/country-locale.interface';
+import { CountryLocale } from '../models/country-locale.model';
 import { LocalizationUtils } from '../utils/localization.utils';
 import { LocaleStateService } from './locale.state.service';
 

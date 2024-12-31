@@ -5,8 +5,8 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { RoleDetailsResponse } from '../../interfaces/responses/role-details.response';
 import { AuthorizationApiService } from '../api/authorization-api.service';
+import { RoleDetailsResponse } from '../../models/responses/role-details.response';
 
 @Injectable({ providedIn: 'root' })
 export class RoleSelectedStateService {

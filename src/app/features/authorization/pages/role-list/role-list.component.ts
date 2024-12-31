@@ -24,8 +24,8 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { RoleCreateBladeComponent } from '../../components/role-create-blade/role-create-blade.component';
-import { RolePaginatedResponse } from '../../interfaces/responses/role-paginated.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
+import { RolePaginatedResponse } from '../../models/responses/role-paginated.response';
 
 @Component({
   selector: 'am-role-list',

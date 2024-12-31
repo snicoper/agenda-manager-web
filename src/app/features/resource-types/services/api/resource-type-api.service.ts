@@ -5,10 +5,10 @@ import { NoContent } from '../../../../core/http/types/no-content.type';
 import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
-import { ResourceTypeCreateRequest } from '../../interfaces/requests/resource-type-create.request';
-import { ResourceTypeCreateResponse } from '../../interfaces/responses/resource-type-create.response';
-import { ResourceTypeDetailsResponse } from '../../interfaces/responses/resource-type-details.response';
-import { ResourceTypePaginatedResponse } from '../../interfaces/responses/resource-type-paginated.response';
+import { ResourceTypeCreateRequest } from '../../models/requests/resource-type-create.request';
+import { ResourceTypeCreateResponse } from '../../models/responses/resource-type-create.response';
+import { ResourceTypeDetailsResponse } from '../../models/responses/resource-type-details.response';
+import { ResourceTypePaginatedResponse } from '../../models/responses/resource-type-paginated.response';
 
 @Injectable({ providedIn: 'root' })
 export class ResourceTypeApiService extends ApiBaseService {

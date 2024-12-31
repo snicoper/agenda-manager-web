@@ -1,6 +1,6 @@
 import { LogicalOperator } from '../enums/logical-operator';
 import { RelationalOperator } from '../enums/relational-operator';
-import { FilterOptions } from '../interfaces/filter-options.interface';
+import { FilterOptions } from './filter-options.model';
 
 export class PaginatedResultFilter {
   constructor(

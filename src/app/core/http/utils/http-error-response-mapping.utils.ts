@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { BadRequest } from '../interfaces/bad-request.interface';
+import { BadRequest } from '../models/bad-request.model';
 
 /** Mapea un HttpErrorResponse a BadRequest. */
 export abstract class HttpErrorResponseMappingUtils {

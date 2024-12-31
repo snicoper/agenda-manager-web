@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { FormAddressField } from '../inputs/form-address/interfaces/form-address-field.interface';
+import { FormAddressField } from '../inputs/form-address/models/form-address-field.interface';
 
 /** Validación del conjunto de una dirección. */
 export const addressCompleteValidator = (): ValidatorFn => {

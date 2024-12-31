@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
-import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { TimeZoneStateService } from '../../../../core/i18n/services/time-zone.state.service';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -18,7 +18,7 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
 import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valildators.contract';
-import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
+import { CalendarCreateRequest } from '../../models/requests/calendar-create.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 
 @Component({

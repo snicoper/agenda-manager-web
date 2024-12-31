@@ -3,8 +3,8 @@ import { Component, forwardRef, input } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { FormState } from '../../../../../core/forms/models/form-state.model';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
-import { FormState } from '../../../../../core/forms/interfaces/form-state.interface';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

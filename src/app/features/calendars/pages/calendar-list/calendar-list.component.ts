@@ -24,8 +24,8 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { CalendarCreateBladeComponent } from '../../components/calendar-create-blade/calendar-create-blade.component';
-import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
+import { CalendarPaginatedResponse } from '../../models/responses/calendar-paginated.response';
 
 @Component({
   selector: 'am-calendar-list',

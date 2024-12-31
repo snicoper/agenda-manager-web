@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { BadRequest } from '../../http/interfaces/bad-request.interface';
+import { BadRequest } from '../../http/models/bad-request.model';
 
 export interface FormState {
   form: FormGroup;

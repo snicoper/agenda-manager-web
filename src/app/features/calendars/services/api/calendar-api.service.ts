@@ -3,17 +3,17 @@ import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
 import { EmptyRequest } from '../../../../core/http/types/empty-request.type';
 import { NoContent } from '../../../../core/http/types/no-content.type';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { DateTimeUtils } from '../../../../core/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
-import { CalendarCreateRequest } from '../../interfaces/requests/calendar-create.request';
-import { CalendarUpdateRequest } from '../../interfaces/requests/calendar-update-request';
-import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
-import { CalendarCreateResponse } from '../../interfaces/responses/calendar-create.response';
-import { CalendarDetailsResponse } from '../../interfaces/responses/calendar-details.response';
-import { CalendarPaginatedResponse } from '../../interfaces/responses/calendar-paginated.response';
-import { CalendarSettingsResponse } from '../../interfaces/responses/calendar-settings.response';
-import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
+import { CalendarCreateRequest } from '../../models/requests/calendar-create.request';
+import { CalendarUpdateRequest } from '../../models/requests/calendar-update-request';
+import { CalendarUpdateSettingsRequest } from '../../models/requests/calendar-update-settings.request';
+import { CalendarCreateResponse } from '../../models/responses/calendar-create.response';
+import { CalendarDetailsResponse } from '../../models/responses/calendar-details.response';
+import { CalendarPaginatedResponse } from '../../models/responses/calendar-paginated.response';
+import { CalendarSettingsResponse } from '../../models/responses/calendar-settings.response';
 
 @Injectable({
   providedIn: 'root',

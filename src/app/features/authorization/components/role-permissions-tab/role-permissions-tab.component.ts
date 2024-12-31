@@ -8,13 +8,13 @@ import { logError } from '../../../../core/errors/logger/logger';
 import { ModuleRoleDisplayName } from '../../../../core/modules/auth/constants/module-role-display-name.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
-import { UpdatePermissionForRoleRequest } from '../../interfaces/requests/update-permission-for-role.request';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
+import { RoleSelectedStateService } from '../../services/state/role-selected-state.service';
+import { UpdatePermissionForRoleRequest } from '../../models/requests/update-permission-for-role.request';
 import {
   GetRolePermissionsByIdResponse,
   PermissionDetail,
-} from '../../interfaces/responses/get-role-permissions-by-id.response';
-import { AuthorizationApiService } from '../../services/api/authorization-api.service';
-import { RoleSelectedStateService } from '../../services/state/role-selected-state.service';
+} from '../../models/responses/get-role-permissions-by-id.response';
 
 @Component({
   selector: 'am-role-permissions-tab',

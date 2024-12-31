@@ -9,8 +9,8 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { ResendEmailConfirmation } from '../../interfaces/requests/resend-email-confirmation.request';
 import { AccountApiService } from '../../services/api/account-api.service';
+import { ResendEmailConfirmation } from '../../models/requests/resend-email-confirmation.request';
 
 @Component({
   selector: 'am-resend-email-confirmation',

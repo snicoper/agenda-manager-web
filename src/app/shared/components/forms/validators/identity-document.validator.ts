@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { FormIdentityDocumentField } from '../inputs/form-identity-document/interfaces/form-identity-document-field.interface';
+import { FormIdentityDocumentField } from '../inputs/form-identity-document/models/form-identity-document-field.interface';
 
 /** Validación del conjunto de identity document. */
 export const identityDocumentValidator = (): ValidatorFn => {

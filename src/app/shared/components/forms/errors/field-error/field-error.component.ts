@@ -3,8 +3,8 @@ import { Component, OnInit, input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { FormState } from '../../../../../core/forms/models/form-state.model';
 import { getValidationErrorMessage } from '../../constants/custom-validator-errors.const';
-import { FormState } from '../../../../../core/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-field-error',

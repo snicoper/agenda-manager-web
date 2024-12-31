@@ -4,7 +4,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormState } from '../../../../../core/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../../core/forms/models/form-state.model';
 import { ResourceCategoryUtils } from '../../../../../core/modules/resource-management/resource-category/resource-category.const';
 import { ResourceCategory } from '../../../../../core/modules/resource-management/resource-category/resource-category.enum';
 import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.directive';

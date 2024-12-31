@@ -5,8 +5,8 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { ResourceTypeDetailsResponse } from '../../interfaces/responses/resource-type-details.response';
-import { ResourceTypeSelectedState } from '../../interfaces/state/resource-type-selected-state.interface';
+import { ResourceTypeDetailsResponse } from '../../models/responses/resource-type-details.response';
+import { ResourceTypeSelectedState } from '../../models/state/resource-type-selected-state.model';
 import { ResourceTypeApiService } from '../api/resource-type-api.service';
 
 @Injectable({ providedIn: 'root' })

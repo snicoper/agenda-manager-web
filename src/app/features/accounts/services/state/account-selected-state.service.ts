@@ -5,9 +5,9 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { AccountDetailsResponse } from '../../interfaces/responses/account-details.response';
+import { AccountDetailsResponse } from '../../models/responses/account-details.response';
+import { AccountSelectedState } from '../../models/state/account-selected.state';
 import { AccountApiService } from '../api/account-api.service';
-import { AccountSelectedState } from '../../interfaces/state/account-selected-state.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AccountSelectedStateService {

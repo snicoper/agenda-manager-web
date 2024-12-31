@@ -1,4 +1,4 @@
-import { NavTab } from './nav-tab.interface';
+import { NavTab } from './nav-tab.model';
 
 export interface NavToolbarData {
   tabs: NavTab[];

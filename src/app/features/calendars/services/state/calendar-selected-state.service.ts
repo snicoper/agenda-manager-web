@@ -5,8 +5,8 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { CalendarDetailsResponse } from '../../interfaces/responses/calendar-details.response';
-import { CalendarSelectedState } from '../../interfaces/state/calendar-selected-state.interface';
+import { CalendarDetailsResponse } from '../../models/responses/calendar-details.response';
+import { CalendarSelectedState } from '../../models/state/calendar-selected-state.model';
 import { CalendarApiService } from '../api/calendar-api.service';
 
 @Injectable({ providedIn: 'root' })

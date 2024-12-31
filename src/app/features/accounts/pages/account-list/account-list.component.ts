@@ -25,8 +25,8 @@ import { RequiredPermissionDirective } from '../../../../shared/directives/requi
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
-import { AccountPaginatedResponse } from '../../interfaces/responses/account-paginated.response';
 import { AccountApiService } from '../../services/api/account-api.service';
+import { AccountPaginatedResponse } from '../../models/responses/account-paginated.response';
 
 @Component({
   selector: 'am-account-list',

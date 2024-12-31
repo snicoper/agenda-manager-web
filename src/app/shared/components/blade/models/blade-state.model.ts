@@ -1,5 +1,5 @@
 import { Signal } from '@angular/core';
-import { BladeOptions } from './blade-options.interface';
+import { BladeOptions } from './blade-options.model';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 

@@ -4,9 +4,9 @@ import { ApiUrls } from '../../../../config/api-urls';
 import { ApiBaseService } from '../../../../services/api/api.base.service';
 import { DateTimeUtils } from '../../../../utils/date/datetime.utils';
 import { UrlUtils } from '../../../../utils/url/url.utils';
-import { LoginRequest } from '../../interfaces/requests/login.request';
-import { RefreshTokenRequest } from '../../interfaces/requests/refresh-token.request';
-import { LoginResponse } from '../../interfaces/responses/login.response';
+import { LoginRequest } from '../../models/requests/login.request';
+import { RefreshTokenRequest } from '../../models/requests/refresh-token.request';
+import { LoginResponse } from '../../models/responses/login.response';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService extends ApiBaseService {

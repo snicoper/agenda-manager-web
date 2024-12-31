@@ -9,7 +9,7 @@ import { AuthService } from '../../../../core/modules/auth/services/auth.service
 import { AllPermissions } from '../../../../core/modules/auth/types/all-permissions.type';
 import { RequiredPermissionDirective } from '../../../directives/required-permission.directive';
 import { RequiredRoleDirective } from '../../../directives/required-role.directive';
-import { NavToolbarData } from './interfaces/nav-toolbar-data.interface';
+import { NavToolbarData } from './models/nav-toolbar-data.model';
 
 @Component({
   selector: 'am-nav-toolbar',

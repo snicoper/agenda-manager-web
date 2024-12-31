@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { NavToolbarData } from '../../../shared/components/layout/nav-toolbar/interfaces/nav-toolbar-data.interface';
+import { NavToolbarData } from '../../../shared/components/layout/nav-toolbar/models/nav-toolbar-data.model';
 import { NavToolbarComponent } from '../../../shared/components/layout/nav-toolbar/nav-toolbar.component';
 import { PageBaseComponent } from '../../../shared/components/layout/page-base/page-base.component';
 import { PruebasComponent } from '../../pruebas/pruebas.component';

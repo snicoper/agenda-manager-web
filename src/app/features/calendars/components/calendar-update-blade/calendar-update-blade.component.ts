@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
 import { logError } from '../../../../core/errors/logger/logger';
-import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
@@ -14,7 +14,7 @@ import { NonFieldErrorsComponent } from '../../../../shared/components/forms/err
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valildators.contract';
-import { CalendarUpdateRequest } from '../../interfaces/requests/calendar-update-request';
+import { CalendarUpdateRequest } from '../../models/requests/calendar-update-request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarSelectedStateService } from '../../services/state/calendar-selected-state.service';
 

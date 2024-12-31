@@ -15,8 +15,8 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
-import { UserNotInRoleResponse } from '../../interfaces/responses/user-not-in-role.response';
 import { AuthorizationApiService } from '../../services/api/authorization-api.service';
+import { UserNotInRoleResponse } from '../../models/responses/user-not-in-role.response';
 
 @Component({
   selector: 'am-role-available-users',

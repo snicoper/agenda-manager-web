@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { LayoutState } from '../models/layout-state.interface';
+import { LayoutState } from '../models/layout-state.model';
 
 @Injectable({ providedIn: 'root' })
 export class LayoutService {

@@ -1,4 +1,4 @@
-import { SystemPermissionsType } from '../interfaces/system-permissions.interface';
+import { SystemPermissionsType } from '../models/system-permissions.model';
 
 export const SystemPermissions: SystemPermissionsType = {
   Appointments: {

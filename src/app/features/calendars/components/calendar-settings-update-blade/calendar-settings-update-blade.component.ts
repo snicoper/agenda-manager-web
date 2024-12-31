@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize, take } from 'rxjs';
-import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { AppointmentConfirmationRequirementStrategy } from '../../../../core/modules/calendar-settings/appointment-confirmation-requirement/appointment-confirmation-requirement-strategy.enum';
 import { AppointmentOverlappingStrategy } from '../../../../core/modules/calendar-settings/appointment-overlapping/appointment-overlapping-strategy.enum';
@@ -15,10 +15,10 @@ import { BladeService } from '../../../../shared/components/blade/services/blade
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormCalendarSettingsComponent } from '../../../../shared/components/forms/inputs/form-calendar-settings/form-calendar-settings.component';
-import { FormCalendarSettingsField } from '../../../../shared/components/forms/inputs/form-calendar-settings/interfaces/form-calendar-settings-field.interface';
+import { FormCalendarSettingsField } from '../../../../shared/components/forms/inputs/form-calendar-settings/models/form-calendar-settings-field.interface';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormTimeZoneSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-time-zone-selector/form-time-zone-selector.component';
-import { CalendarUpdateSettingsRequest } from '../../interfaces/requests/calendar-update-settings.request';
+import { CalendarUpdateSettingsRequest } from '../../models/requests/calendar-update-settings.request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarSettingsSelectedStateService } from '../../services/state/calendar-settings-selected-state.service';
 

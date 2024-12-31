@@ -6,10 +6,10 @@ import { SiteUrls } from '../../../config/site-urls';
 import { BrowserStorageKey } from '../../../enums/browser-storage-key.enum';
 import { logError } from '../../../errors/logger/logger';
 import { BrowserStorageService } from '../../../services/browser-storage.service';
-import { AuthState } from '../interfaces/auth-state.interface';
-import { LoginRequest } from '../interfaces/requests/login.request';
-import { RefreshTokenRequest } from '../interfaces/requests/refresh-token.request';
-import { LoginResponse } from '../interfaces/responses/login.response';
+import { AuthState } from '../models/auth-state.model';
+import { LoginRequest } from '../models/requests/login.request';
+import { RefreshTokenRequest } from '../models/requests/refresh-token.request';
+import { LoginResponse } from '../models/responses/login.response';
 import { AuthApiService } from './api/auth-api.service';
 
 /**

@@ -1,4 +1,4 @@
-import { ModuleRoleDisplayNameType } from '../interfaces/system-permissions.interface';
+import { ModuleRoleDisplayNameType } from '../models/system-permissions.model';
 
 export const ModuleRoleDisplayName: ModuleRoleDisplayNameType = {
   appointment: 'Citas',

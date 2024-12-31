@@ -8,8 +8,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { VerifyEmailRequest } from '../../interfaces/requests/verify-email.request';
 import { AccountApiService } from '../../services/api/account-api.service';
+import { VerifyEmailRequest } from '../../models/requests/verify-email.request';
 
 @Component({
   selector: 'am-verify-email',

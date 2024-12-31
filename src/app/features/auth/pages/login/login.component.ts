@@ -9,7 +9,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ApiResultErrors } from '../../../../core/errors/api-result-errors';
-import { LoginRequest } from '../../../../core/modules/auth/interfaces/requests/login.request';
+import { FormState } from '../../../../core/forms/models/form-state.model';
+import { LoginRequest } from '../../../../core/modules/auth/models/requests/login.request';
 import { AuthService } from '../../../../core/modules/auth/services/auth.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -17,7 +18,6 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { emailValidator } from '../../../../shared/components/forms/validators/email.validator';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { FormState } from '../../../../core/forms/interfaces/form-state.interface';
 
 @Component({
   selector: 'am-login',

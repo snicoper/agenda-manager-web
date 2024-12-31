@@ -7,9 +7,9 @@ import { finalize } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
-import { AvailableRolesByUserIdResponse } from '../../interfaces/responses/available-roles-by-user-id.response';
 import { AccountRoleApiService } from '../../services/api/account-role-api.service';
 import { AccountSelectedStateService } from '../../services/state/account-selected-state.service';
+import { AvailableRolesByUserIdResponse } from '../../models/responses/available-roles-by-user-id.response';
 
 @Component({
   selector: 'am-account-roles-tab',
