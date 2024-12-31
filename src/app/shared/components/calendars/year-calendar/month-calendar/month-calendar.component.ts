@@ -3,18 +3,20 @@ import { Component, computed, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatCalendarCellClassFunction, MatCalendarView, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DateTime } from 'luxon';
 import { Period } from '../../../../../core/models/period.model';
+import { CalendarItem } from '../models/calendar-event.model';
 
 @Component({
   selector: 'am-month-calendar',
-  imports: [CommonModule, MatCardModule, MatDatepickerModule, MatProgressSpinnerModule],
+  imports: [CommonModule, MatCardModule, MatDatepickerModule, MatProgressSpinnerModule, MatTooltipModule],
   templateUrl: './month-calendar.component.html',
   styleUrl: './month-calendar.component.scss',
 })
 export class MonthCalendarComponent {
   month = input.required<DateTime>();
-  periods = input.required<Period[]>();
+  items = input.required<CalendarItem[]>();
   loading = input<boolean>(false);
 
   periodSelected = output<Period>();
@@ -43,11 +45,12 @@ export class MonthCalendarComponent {
 
   dateClass: MatCalendarCellClassFunction<DateTime> = (cellDate: DateTime, view: MatCalendarView) => {
     if (view === 'month') {
-      const period = this.findPeriod(cellDate);
+      const item = this.findItem(cellDate);
 
-      if (period) {
-        // Aquí podríamos añadir más lógica para start/end/in-range.
-        return 'selected-date';
+      if (item) {
+        const classes = [item.cssClass || 'selected-date'];
+
+        return classes;
       }
     }
 
@@ -66,15 +69,21 @@ export class MonthCalendarComponent {
     });
   }
 
-  private findPeriod(date: DateTime): Period | undefined {
-    return this.periods().find((period) => this.isDateInPeriod(date, period));
+  private findItem(date: DateTime): CalendarItem | undefined {
+    return this.items().find((item) => this.isDateInPeriod(date, item.period));
   }
 
   private isDateInPeriod(date: DateTime, period: Period): boolean {
-    if (!period.start || !period.end) {
+    if (!period.start) {
       return false;
     }
 
+    // Si no hay end o end es igual a start, comparamos solo con start.
+    if (!period.end || period.start.equals(period.end)) {
+      return date.hasSame(period.start, 'day');
+    }
+
+    // Si hay un rango, comparamos que esté entre start y end.
     return date >= period.start && date <= period.end;
   }
 }

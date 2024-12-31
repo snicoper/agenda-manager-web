@@ -16,6 +16,7 @@ import { ApiErrorInterceptor } from './core/interceptors/api-error.interceptor';
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { PaginatedResultInterceptor } from './core/interceptors/paginated-result.interceptor';
 import { TitleStrategyService } from './shared/components/layout/services/title-strategy.service';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,6 +29,10 @@ export const appConfig: ApplicationConfig = {
     { provide: TitleStrategy, useClass: TitleStrategyService },
 
     provideLuxonDateAdapter(),
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'es-ES',
+    },
     {
       provide: MAT_LUXON_DATE_ADAPTER_OPTIONS,
       useValue: {

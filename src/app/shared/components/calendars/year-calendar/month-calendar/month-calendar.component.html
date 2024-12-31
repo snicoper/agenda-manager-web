@@ -1,7 +1,7 @@
 <mat-card class="calendar">
   <mat-card-content>
     <h4>{{ title() }}</h4>
-    @if (!loading() && periods() && month()) {
+    @if (!loading() && items() && month()) {
       <mat-calendar
         [startAt]="month()"
         [minDate]="minDate()"
@@ -12,7 +12,7 @@
       />
     } @else {
       <div class="loading-container">
-        <mat-progress-spinner color="primary" mode="indeterminate" />
+        <mat-progress-spinner mode="indeterminate" />
       </div>
     }
   </mat-card-content>

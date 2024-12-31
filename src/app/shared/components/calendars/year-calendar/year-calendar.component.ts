@@ -1,18 +1,18 @@
-import { CommonModule } from '@angular/common';
 import { Component, effect, input, output } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Period } from '../../../../core/models/period.model';
+import { CalendarItem } from './models/calendar-event.model';
 import { MonthCalendarComponent } from './month-calendar/month-calendar.component';
 
 @Component({
   selector: 'am-year-calendar',
-  imports: [CommonModule, MonthCalendarComponent],
+  imports: [MonthCalendarComponent],
   templateUrl: './year-calendar.component.html',
   styleUrl: './year-calendar.component.scss',
 })
 export class YearCalendarComponent {
   year = input.required<number>();
-  periods = input.required<Period[]>();
+  items = input.required<CalendarItem[]>();
   loading = input<boolean>(false);
 
   periodSelected = output<Period>();
@@ -25,6 +25,14 @@ export class YearCalendarComponent {
 
   handlePeriodSelected(period: Period): void {
     this.periodSelected.emit(period);
+  }
+
+  getItemsForMonth(month: DateTime): CalendarItem[] {
+    return this.items().filter((item) => {
+      const itemMonth = item.period.start?.month;
+
+      return itemMonth === month.month;
+    });
   }
 
   private initializeMonths(): void {

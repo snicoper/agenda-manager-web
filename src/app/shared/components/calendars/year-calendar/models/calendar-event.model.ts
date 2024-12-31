@@ -5,3 +5,8 @@ export interface CalendarEvent {
   name: string;
   description: string;
 }
+
+export interface CalendarItem {
+  period: Period;
+  cssClass?: string;
+}
