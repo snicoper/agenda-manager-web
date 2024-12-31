@@ -1,0 +1,45 @@
+import { Component, computed, input, output } from '@angular/core';
+import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
+import { WeekDays } from '../../../../core/modules/week-days/week-days.const';
+import { WeekDay } from '../../../../core/modules/week-days/week-days.type';
+import { WeekDaysFlags } from '../../../../core/modules/week-days/week-days.utils';
+
+@Component({
+  selector: 'am-working-days-week',
+  imports: [MatChipsModule],
+  templateUrl: './working-days-week.component.html',
+  styleUrl: './working-days-week.component.scss',
+})
+export class WorkingDaysWeekComponent {
+  value = input<number>(WeekDays.None);
+  valueChange = output<number>();
+
+  protected readonly days = computed(() => {
+    return Object.entries(WeekDays)
+      .filter(([key]) => key !== 'None')
+      .map(([key, value]) => ({
+        name: key,
+        value: value as WeekDay,
+        selected: WeekDaysFlags.hasFlag(this.value(), value as WeekDay),
+      }));
+  });
+
+  protected onSelectionChange(event: MatChipListboxChange): void {
+    const selectedDayNames = event.value as string[];
+
+    if (!selectedDayNames?.length) {
+      this.valueChange.emit(WeekDays.None);
+
+      return;
+    }
+
+    // Convertir los nombres de los días a sus valores numéricos y combinarlos.
+    const newValue = selectedDayNames.reduce((acc, dayName) => {
+      const dayValue = WeekDays[dayName as keyof typeof WeekDays];
+
+      return acc | dayValue;
+    }, 0);
+
+    this.valueChange.emit(newValue);
+  }
+}

@@ -64,8 +64,8 @@ export class MonthCalendarComponent {
 
     // Aquí iría la lógica para crear un nuevo periodo o modificar uno existente.
     this.periodSelected.emit({
-      start: date,
-      end: date,
+      start: date.startOf('day'),
+      end: date.endOf('day'),
     });
   }
 
