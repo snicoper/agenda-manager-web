@@ -9,6 +9,7 @@ import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar
 import { NavToolbarComponent } from '../../../../shared/components/layout/nav-toolbar/nav-toolbar.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
+import { CalendarHolidaysTabComponent } from '../../components/calendar-holidays-tab/calendar-holidays-tab.component';
 import { CalendarInfoTabComponent } from '../../components/calendar-info-tab/calendar-info-tab.component';
 import { CalendarSettingsTabComponent } from '../../components/calendar-settings-tab/calendar-settings-tab.component';
 import { CalendarSelectedStateService } from '../../services/state/calendar-selected-state.service';
@@ -37,6 +38,14 @@ export class CalendarDetailsComponent implements OnInit, OnDestroy {
       },
       {
         index: 1,
+        name: 'holidays',
+        label: 'Festivos',
+        icon: 'event',
+        permissions: [SystemPermissions.CalendarHolidays.Read],
+        component: CalendarHolidaysTabComponent,
+      },
+      {
+        index: 2,
         name: 'settings',
         label: 'Configuración',
         icon: 'settings',
