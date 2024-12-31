@@ -1,0 +1,15 @@
+<div class="year-calendar">
+  {{ periods() | json }}
+  @if (months) {
+    <div class="year-calendar-container">
+      @for (month of months; track month) {
+        <am-month-calendar
+          [month]="month"
+          [periods]="periods()"
+          [loading]="loading()"
+          (periodSelected)="handlePeriodSelected($event)"
+        />
+      }
+    </div>
+  }
+</div>

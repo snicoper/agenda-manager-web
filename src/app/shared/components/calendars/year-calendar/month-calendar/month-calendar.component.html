@@ -1,0 +1,19 @@
+<mat-card class="calendar">
+  <mat-card-content>
+    <h4>{{ title() }}</h4>
+    @if (!loading() && periods() && month()) {
+      <mat-calendar
+        [startAt]="month()"
+        [minDate]="minDate()"
+        [maxDate]="maxDate()"
+        [dateClass]="dateClass"
+        (selectedChange)="handlePeriodSelected($event)"
+        class="month-calendar"
+      />
+    } @else {
+      <div class="loading-container">
+        <mat-progress-spinner color="primary" mode="indeterminate" />
+      </div>
+    }
+  </mat-card-content>
+</mat-card>

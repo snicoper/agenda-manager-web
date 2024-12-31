@@ -1,0 +1,24 @@
+.year-calendar {
+  width: 100%;
+
+  .year-calendar-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 1375px;
+    margin: 0 auto;
+
+    @media (max-width: 1600px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

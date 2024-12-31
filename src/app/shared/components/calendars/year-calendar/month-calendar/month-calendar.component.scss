@@ -1,0 +1,72 @@
+.calendar {
+  width: 325px;
+  margin: 0 5px 5px 0;
+  min-height: 358px;
+
+  mat-card-content {
+    padding: 1rem;
+
+    h4 {
+      margin: 0 0 1rem 0;
+      font-weight: 500;
+      color: var(--mat-primary);
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    padding: 5rem 0;
+  }
+}
+
+::ng-deep .month-calendar {
+  // Ocultar header y navegación
+  mat-calendar-header {
+    display: none;
+  }
+
+  // Ocultar etiqueta del mes
+  .mat-calendar-body-label {
+    visibility: hidden;
+  }
+
+  .mat-calendar-body-cell {
+    &.selected-date {
+      background-color: var(--mat-primary-container);
+      border-radius: 50%;
+
+      .mat-calendar-body-cell-content {
+        color: var(--mat-on-primary-container);
+      }
+    }
+
+    &.range-start {
+      background-color: var(--mat-primary);
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+
+      .mat-calendar-body-cell-content {
+        color: var(--mat-on-primary);
+      }
+    }
+
+    &.range-end {
+      background-color: var(--mat-primary);
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+
+      .mat-calendar-body-cell-content {
+        color: var(--mat-on-primary);
+      }
+    }
+
+    &.in-range {
+      background-color: var(--mat-primary-container);
+
+      .mat-calendar-body-cell-content {
+        color: var(--mat-on-primary-container);
+      }
+    }
+  }
+}
