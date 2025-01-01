@@ -1,4 +1,5 @@
 import { DateTime, Interval } from 'luxon';
+import { WeekDay } from '../../modules/week-days/week-days.type';
 import { WeekDaysUtils } from '../../modules/week-days/week-days.utils';
 
 export abstract class DateTimeUtils {
@@ -52,7 +53,21 @@ export abstract class DateTimeUtils {
     return Math.abs(Math.round(result));
   }
 
-  static weekDaysFromYear(date: DateTime, weekDayFlags: number): DateTime[] {
+  /**
+   * Obtiene todos los días del año que coinciden con los días de la semana especificados.
+   *
+   * @param date Fecha utilizada para determinar el año a procesar.
+   * @param weekDayFlags Banderas de días de la semana (ej: WeekDays.Monday | WeekDays.Friday).
+   * @returns Array de fechas que coinciden con los días especificados.
+   *
+   * @example
+   * // Obtener todos los lunes y viernes del año.
+   * const dates = WeekDaysUtils.weekDaysFromYear(
+   *   DateTime.now(),
+   *   WeekDays.Monday | WeekDays.Friday
+   * );
+   */
+  static weekDaysFromYear(date: DateTime, weekDayFlags: WeekDay | number): DateTime[] {
     const result: DateTime[] = [];
     const start = date.startOf('year');
     const end = date.endOf('year');
@@ -61,18 +76,38 @@ export abstract class DateTimeUtils {
     const subIntervals = interval.splitBy({ days: 1 });
 
     subIntervals.forEach((subInt) => {
-      const d = subInt.start;
+      const dt = subInt.start;
 
-      if (d) {
-        const dayFlag = WeekDaysUtils.fromLuxonWeekday(d.weekday);
+      if (dt) {
+        const dayFlag = WeekDaysUtils.fromLuxonWeekday(dt.weekday);
 
         if (WeekDaysUtils.hasFlag(weekDayFlags, dayFlag)) {
-          result.push(d);
+          result.push(dt);
         }
       }
     });
 
     return result;
+  }
+
+  /**
+   * Obtiene todos los días del año que NO coinciden con los días de la semana especificados.
+   *
+   * @param date Fecha utilizada para determinar el año a procesar.
+   * @param weekDayFlags Banderas de días de la semana a excluir.
+   * @returns Array de fechas que NO coinciden con los días especificados.
+   *
+   * @example
+   * // Obtener todos los días que no son fin de semana.
+   * const dates = WeekDaysUtils.nonWeekDaysFromYear(
+   *   DateTime.now(),
+   *   WeekDays.Saturday | WeekDays.Sunday
+   * );
+   */
+  static nonWeekDaysFromYear(date: DateTime, weekDayFlags: WeekDay | number): DateTime[] {
+    const invertedFlags = ~weekDayFlags & 0b1111111;
+
+    return DateTimeUtils.weekDaysFromYear(date, invertedFlags);
   }
 
   /**
