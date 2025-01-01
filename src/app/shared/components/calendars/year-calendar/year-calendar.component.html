@@ -1,7 +1,11 @@
+<div class="d-flex justify-content-center year-selector">
+  <am-year-selector (yearSelected)="handlerYearSelected($event)" [year]="year()" />
+</div>
+
 <div class="year-calendar">
   @if (months) {
     <div class="year-calendar-container">
-      @for (month of months; track month) {
+      @for (month of months; track getMonthKey(month)) {
         <am-month-calendar
           [month]="month"
           [items]="getItemsForMonth(month)"

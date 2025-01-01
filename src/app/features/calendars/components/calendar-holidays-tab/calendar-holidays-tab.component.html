@@ -1,3 +1,10 @@
 <section class="d-flex flex-column">
-  <am-year-calendar (periodSelected)="handleDayClick($event)" [year]="year" [items]="items" [loading]="false" />
+  <am-year-calendar
+    (periodSelected)="handleDayClick($event)"
+    (yearChanged)="handleYearChanged($event)"
+    [showYearSelector]="true"
+    [year]="year()"
+    [items]="items"
+    [loading]="false"
+  />
 </section>

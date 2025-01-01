@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { DateTime } from 'luxon';
 import { logInfo } from '../../../../core/errors/logger/logger';
 import { Period } from '../../../../core/models/period.model';
@@ -16,7 +16,7 @@ export class CalendarHolidaysTabComponent {
   private readonly bladeService = inject(BladeService);
 
   day = DateTime.local().plus({ days: 10 }).startOf('day');
-  year = DateTime.local().year;
+  year = signal(DateTime.local().year);
 
   items: CalendarItem[] = [
     {
@@ -29,5 +29,9 @@ export class CalendarHolidaysTabComponent {
 
   handleDayClick(day: Period): void {
     logInfo('Day clicked', day);
+  }
+
+  handleYearChanged(year: number): void {
+    this.year.set(year);
   }
 }

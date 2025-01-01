@@ -1,0 +1,19 @@
+@if (selectedYear()) {
+  <div class="year-selector">
+    <button mat-icon-button (click)="handleDecrementYear()" aria-label="Previous year">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <button mat-raised-button class="year-button" (click)="picker.open()">
+      {{ selectedYear() }}
+    </button>
+
+    <button mat-icon-button (click)="handleIncrementYear()" aria-label="Next year">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <input [matDatepicker]="picker" class="hidden-input" [value]="selectedYear()" readonly />
+
+    <mat-datepicker #picker startView="multi-year" (yearSelected)="handleYearSelected($event)" />
+  </div>
+}
