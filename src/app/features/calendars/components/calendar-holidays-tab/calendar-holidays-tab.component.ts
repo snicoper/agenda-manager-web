@@ -15,8 +15,8 @@ import { YearCalendarComponent } from '../../../../shared/components/calendars/y
 export class CalendarHolidaysTabComponent {
   private readonly bladeService = inject(BladeService);
 
-  day = DateTime.local().minus({ days: 10 }).startOf('day');
-  year = 2024;
+  day = DateTime.local().plus({ days: 10 }).startOf('day');
+  year = DateTime.local().year;
 
   items: CalendarItem[] = [
     {

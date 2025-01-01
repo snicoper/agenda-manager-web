@@ -48,7 +48,7 @@ export class MonthCalendarComponent {
       const item = this.findItem(cellDate);
 
       if (item) {
-        const classes = [item.cssClass || 'selected-date'];
+        const classes = [item.cssClass || 'selected-date', 'calendar-item'];
 
         return classes;
       }
