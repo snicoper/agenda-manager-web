@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -55,14 +55,13 @@ export class ConfirmAccountComponent {
     isLoading: false,
     isSubmitted: false,
   };
-
-  validToken = false;
+  readonly validToken = signal(false);
 
   private token = this.route.snapshot.queryParams['token'];
 
   constructor() {
     if (this.token) {
-      this.validToken = true;
+      this.validToken.set(true);
     }
 
     this.buildForm();
@@ -114,7 +113,7 @@ export class ConfirmAccountComponent {
         next: () => {
           this.snackBarService.success('Ha confirmado su cuenta correctamente.');
           this.router.navigateByUrl(SiteUrls.auth.login);
-          this.validToken = true;
+          this.validToken.set(true);
         },
         error: (error: HttpErrorResponse) => {
           const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);

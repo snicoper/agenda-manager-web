@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
@@ -8,8 +8,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { AccountApiService } from '../../services/api/account-api.service';
 import { VerifyEmailRequest } from '../../models/requests/verify-email.request';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-verify-email',
@@ -34,14 +34,14 @@ export class VerifyEmailComponent {
 
   readonly siteUrls = SiteUrls;
 
-  alertType: 'success' | 'error' | undefined;
-  isSuccess = false;
-  message = '';
+  readonly alertType = signal<'success' | 'error' | undefined>(undefined);
+  readonly isSuccess = signal(false);
+  readonly message = signal('');
 
   constructor() {
     if (!this.token) {
-      this.isSuccess = false;
-      this.message = 'La confirmación de correo electrónico ha fallado o expiro.';
+      this.isSuccess.set(false);
+      this.message.set('La confirmación de correo electrónico ha fallado o expiro.');
     }
 
     this.verifyToken();
@@ -54,13 +54,13 @@ export class VerifyEmailComponent {
 
     this.accountApiService.verifyEmail(request).subscribe({
       next: () => {
-        this.message = 'Correo electrónico verificado con éxito.';
-        this.alertType = 'success';
+        this.message.set('Correo electrónico verificado con éxito.');
+        this.alertType.set('success');
       },
       error: () => {
-        this.isSuccess = false;
-        this.message = 'La confirmación de correo electrónico ha fallado o expiro.';
-        this.alertType = 'error';
+        this.isSuccess.set(false);
+        this.message.set('La confirmación de correo electrónico ha fallado o expiro.');
+        this.alertType.set('error');
       },
     });
   }

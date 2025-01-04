@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, signal, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,8 +25,8 @@ import { RequiredPermissionDirective } from '../../../../shared/directives/requi
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { AccountCreateBladeComponent } from '../../components/account-create-blade/account-create-blade.component';
-import { AccountApiService } from '../../services/api/account-api.service';
 import { AccountPaginatedResponse } from '../../models/responses/account-paginated.response';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-account-list',
@@ -66,9 +66,10 @@ export class AccountListComponent implements AfterViewInit {
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
 
-  dataSource = new MatTableDataSource<AccountPaginatedResponse>();
+  readonly loading = signal(false);
+
+  dataSource = new MatTableDataSource<AccountPaginatedResponse, MatPaginator>();
   paginatedResult = new PaginatedResult<AccountPaginatedResponse>();
-  loading = true;
 
   constructor() {
     this.setBreadcrumb();
@@ -120,13 +121,13 @@ export class AccountListComponent implements AfterViewInit {
   }
 
   private loadAccounts(): void {
-    this.loading = true;
+    this.loading.set(true);
 
     this.apiService
       .getAccountsPaginated(this.paginatedResult)
       .pipe(
         take(1),
-        finalize(() => (this.loading = false)),
+        finalize(() => this.loading.set(false)),
       )
       .subscribe({
         next: (response) => {

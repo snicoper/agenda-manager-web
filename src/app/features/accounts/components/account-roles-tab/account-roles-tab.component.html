@@ -1,8 +1,8 @@
-@if (!accountState.loading() && !loading) {
+@if (!accountState.loading() && !loading()) {
   <div class="custom-table-container">
     <table class="table table-striped table-border-bottom">
       <tbody>
-        @for (role of roles; track $index) {
+        @for (role of roles(); track $index) {
           <tr>
             <th>
               <span

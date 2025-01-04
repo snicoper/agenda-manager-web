@@ -1,6 +1,6 @@
 <am-page-simple>
   <section class="account-confirmation-container">
-    @if (validToken) {
+    @if (validToken()) {
       <!-- form -->
       <form (ngSubmit)="handleSubmit()" [formGroup]="formState.form" class="form">
         <mat-card class="mat-elevation-z10 p-4">

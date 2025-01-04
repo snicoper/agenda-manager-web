@@ -35,7 +35,7 @@
             class="table-striped"
             (matSortChange)="handleSortChange($event)"
             [dataSource]="dataSource"
-            [ngClass]="{ hidden: loading }"
+            [ngClass]="{ hidden: loading() }"
           >
             <!-- email field -->
             <ng-container matColumnDef="email">
@@ -98,7 +98,7 @@
           }
 
           <!-- spinner -->
-          @if (loading) {
+          @if (loading()) {
             <div class="d-flex justify-content-center p-5">
               <mat-progress-spinner mode="indeterminate" />
             </div>

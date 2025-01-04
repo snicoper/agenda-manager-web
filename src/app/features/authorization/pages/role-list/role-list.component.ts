@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, signal, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,8 +24,8 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { RoleCreateBladeComponent } from '../../components/role-create-blade/role-create-blade.component';
-import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 import { RolePaginatedResponse } from '../../models/responses/role-paginated.response';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
   selector: 'am-role-list',
@@ -64,9 +64,10 @@ export class RoleListComponent implements AfterViewInit {
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
 
-  dataSource = new MatTableDataSource<RolePaginatedResponse>();
+  readonly loading = signal(false);
+
+  dataSource = new MatTableDataSource<RolePaginatedResponse, MatPaginator>();
   paginatedResult = new PaginatedResult<RolePaginatedResponse>();
-  loading = true;
 
   constructor() {
     this.setBreadcrumb();
@@ -121,13 +122,13 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   private loadRoles(): void {
-    this.loading = true;
+    this.loading.set(true);
 
     this.apiService
       .getRolesPaginated(this.paginatedResult)
       .pipe(
         take(1),
-        finalize(() => (this.loading = false)),
+        finalize(() => this.loading.set(false)),
       )
       .subscribe({
         next: (response) => {

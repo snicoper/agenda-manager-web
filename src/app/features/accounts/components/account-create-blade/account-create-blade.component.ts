@@ -51,8 +51,6 @@ export class AccountCreateBladeComponent implements OnInit {
   };
   readonly formInputTypes = FormInputType;
 
-  loadingRoles = false;
-
   ngOnInit(): void {
     this.buildForm();
   }

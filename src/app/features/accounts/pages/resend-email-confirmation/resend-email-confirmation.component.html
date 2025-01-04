@@ -16,13 +16,13 @@
       <mat-card-footer class="mt-4 ms-2 d-flex justify-content-center">
         <am-btn-loading
           (eventClick)="handleSendCode()"
-          [loading]="isLoading"
-          [btnText]="resultSuccess ? 'Código enviado con éxito' : 'Reenviar código'"
-          [disabled]="resultSuccess"
-          [styles]="resultSuccess ? 'btn-success' : ''"
+          [loading]="isLoading()"
+          [btnText]="resultSuccess() ? 'Código enviado con éxito' : 'Reenviar código'"
+          [disabled]="resultSuccess()"
+          [styles]="resultSuccess() ? 'btn-success' : ''"
         />
 
-        @if (resultSuccess) {
+        @if (resultSuccess()) {
           <button mat-flat-button class="ms-2" type="button" [routerLink]="[siteUrls.auth.login]">
             <mat-icon>login</mat-icon>
             Iniciar sesión

@@ -9,7 +9,9 @@
         </mat-card-header>
 
         <mat-card-content>
-          <am-alert [type]="alertType" [dismissible]="false" [show]="alertType !== undefined">{{ message }}</am-alert>
+          <am-alert [type]="alertType()" [dismissible]="false" [show]="alertType() !== undefined">
+            {{ message() }}
+          </am-alert>
 
           <mat-divider />
         </mat-card-content>

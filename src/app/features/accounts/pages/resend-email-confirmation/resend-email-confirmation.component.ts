@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,8 +9,8 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { PageSimpleComponent } from '../../../../shared/components/layout/page-simple/page-simple.component';
-import { AccountApiService } from '../../services/api/account-api.service';
 import { ResendEmailConfirmation } from '../../models/requests/resend-email-confirmation.request';
+import { AccountApiService } from '../../services/api/account-api.service';
 
 @Component({
   selector: 'am-resend-email-confirmation',
@@ -31,15 +31,15 @@ export class ResendEmailConfirmationComponent {
   private readonly accountApiService = inject(AccountApiService);
   private readonly snackBarService = inject(SnackBarService);
 
+  readonly isLoading = signal(false);
+  readonly resultSuccess = signal(false);
+
   readonly email = this.route.snapshot.queryParams['email'];
   readonly siteUrls = SiteUrls;
 
-  isLoading = false;
-  resultSuccess = false;
-
   handleSendCode(): void {
-    this.isLoading = true;
-    this.resultSuccess = false;
+    this.isLoading.set(true);
+    this.resultSuccess.set(false);
 
     const request: ResendEmailConfirmation = {
       email: this.email,
@@ -47,10 +47,10 @@ export class ResendEmailConfirmationComponent {
 
     this.accountApiService
       .resendEmailConfirmation(request)
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
         next: () => {
-          this.resultSuccess = true;
+          this.resultSuccess.set(true);
           this.snackBarService.success('Se ha enviado un nuevo código de verificación a su correo.');
         },
         error: () => this.snackBarService.error('No se pudo enviar el código de verificación.'),
