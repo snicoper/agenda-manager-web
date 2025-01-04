@@ -11,17 +11,17 @@ import { BtnType } from './btn-type';
   templateUrl: './btn-loading.component.html',
 })
 export class BtnLoadingComponent {
-  loading = input.required<boolean>();
-  color = input('primary');
-  icon = input<string>();
-  btnText = input<string>();
-  btnTextLoading = input<string>();
-  spinnerColor = input('warn');
-  btnType = input(BtnType.submit);
-  styles = input('');
-  disabled = input(false);
+  readonly loading = input.required<boolean>();
+  readonly color = input('primary');
+  readonly icon = input<string>();
+  readonly btnText = input<string>();
+  readonly btnTextLoading = input<string>();
+  readonly spinnerColor = input('warn');
+  readonly btnType = input(BtnType.submit);
+  readonly styles = input('');
+  readonly disabled = input(false);
 
-  eventClick = output<void>();
+  readonly eventClick = output<void>();
 
   handleClick(): void {
     this.eventClick.emit();

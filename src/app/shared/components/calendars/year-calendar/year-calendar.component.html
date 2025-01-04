@@ -3,9 +3,9 @@
 </div>
 
 <div class="year-calendar">
-  @if (months) {
+  @if (months()) {
     <div class="year-calendar-container">
-      @for (month of months; track getMonthKey(month)) {
+      @for (month of months(); track getMonthKey(month)) {
         <am-month-calendar
           [month]="month"
           [items]="getItemsForMonth(month)"

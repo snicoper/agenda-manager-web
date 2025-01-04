@@ -1,4 +1,4 @@
-import { Component, effect, input, output } from '@angular/core';
+import { Component, effect, input, output, signal } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Period } from '../../../../core/models/period.model';
 import { YearSelectorComponent } from '../year-selector/year-selector.component';
@@ -12,15 +12,15 @@ import { MonthCalendarComponent } from './month-calendar/month-calendar.componen
   styleUrl: './year-calendar.component.scss',
 })
 export class YearCalendarComponent {
-  year = input.required<number>();
-  items = input.required<CalendarItem[]>();
-  showYearSelector = input<boolean>(false);
-  loading = input<boolean>(false);
+  readonly year = input.required<number>();
+  readonly items = input.required<CalendarItem[]>();
+  readonly showYearSelector = input<boolean>(false);
+  readonly loading = input<boolean>(false);
 
-  periodSelected = output<Period>();
-  yearChanged = output<number>();
+  readonly periodSelected = output<Period>();
+  readonly yearChanged = output<number>();
 
-  months: DateTime[] = [];
+  readonly months = signal<DateTime[]>([]);
 
   constructor() {
     this.initializeMonths();
@@ -54,7 +54,7 @@ export class YearCalendarComponent {
       const startMonth = 1;
       const endMonth = 12;
 
-      this.months = [];
+      this.months.set([]);
 
       for (let month = startMonth; month <= endMonth; month++) {
         const monthDate = DateTime.fromObject({
@@ -65,7 +65,7 @@ export class YearCalendarComponent {
 
         // Verificamos que el mes se creó correctamente.
         if (monthDate.isValid) {
-          this.months.push(monthDate);
+          this.months.update((months) => [...months, monthDate]);
         }
       }
     });

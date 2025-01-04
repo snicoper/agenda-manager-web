@@ -6,9 +6,9 @@
         <mat-form-field class="confirmation-requirement">
           <mat-label>Requerimiento de confirmación</mat-label>
           <mat-select
-            [(ngModel)]="value.appointmentConfirmationRequirement"
-            (ngModelChange)="onChangeValue(value)"
-            [disabled]="isDisabled"
+            [(ngModel)]="value().appointmentConfirmationRequirement"
+            (ngModelChange)="onChangeValue(value())"
+            [disabled]="isDisabled()"
             [id]="id + '-confirmation-requirement'"
             [disabled]="readonly()"
           >
@@ -28,9 +28,9 @@
         <mat-form-field class="appointment-overlapping-options">
           <mat-label>Opciones de superposición de citas</mat-label>
           <mat-select
-            [(ngModel)]="value.appointmentOverlapping"
-            (ngModelChange)="onChangeValue(value)"
-            [disabled]="isDisabled"
+            [(ngModel)]="value().appointmentOverlapping"
+            (ngModelChange)="onChangeValue(value())"
+            [disabled]="isDisabled()"
             [id]="id + '-appointment-overlap-behavior'"
             [disabled]="readonly()"
           >
@@ -52,9 +52,9 @@
         <mat-form-field class="holiday-appointment-handling">
           <mat-label>Manejo de citas en días festivos</mat-label>
           <mat-select
-            [(ngModel)]="value.holidayConflict"
-            (ngModelChange)="onChangeValue(value)"
-            [disabled]="isDisabled"
+            [(ngModel)]="value().holidayConflict"
+            (ngModelChange)="onChangeValue(value())"
+            [disabled]="isDisabled()"
             [id]="id + '-holiday-appointment-handling'"
             [disabled]="readonly()"
           >
@@ -76,9 +76,9 @@
         <mat-form-field class="schedule-validation">
           <mat-label>Validación de horario</mat-label>
           <mat-select
-            [(ngModel)]="value.resourceScheduleValidation"
-            (ngModelChange)="onChangeValue(value)"
-            [disabled]="isDisabled"
+            [(ngModel)]="value().resourceScheduleValidation"
+            (ngModelChange)="onChangeValue(value())"
+            [disabled]="isDisabled()"
             [id]="id + '-schedule-validation'"
             [disabled]="readonly()"
           >

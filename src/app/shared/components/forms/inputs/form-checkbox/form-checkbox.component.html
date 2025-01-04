@@ -1,7 +1,7 @@
 <mat-checkbox
   (ngModelChange)="onChangeValue($event)"
-  [(ngModel)]="value"
-  [disabled]="isDisabled"
+  [ngModel]="value()"
+  [disabled]="isDisabled()"
   [id]="id"
   [checked]="value"
 >

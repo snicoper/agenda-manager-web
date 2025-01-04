@@ -16,9 +16,9 @@
       matInput
       amSelectOnFocus
       (ngModelChange)="onChangeValue($event)"
-      [(ngModel)]="value"
+      [ngModel]="value()"
       [matAutocomplete]="categories"
-      [disabled]="isDisabled"
+      [disabled]="isDisabled()"
       [id]="id"
       [placeholder]="placeholder()"
     />

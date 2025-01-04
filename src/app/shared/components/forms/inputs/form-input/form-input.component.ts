@@ -24,18 +24,17 @@ import { FormInputType } from './types/form-input.type';
   ],
 })
 export class FormInputComponent implements ControlValueAccessor {
-  formState = input.required<FormState>();
-  fieldName = input.required<string>();
-  label = input.required<string>();
-  readonly = input(false);
-  formInputType = input(FormInputType.Text);
-  placeholder = input('');
-  icon = input('');
-  formIconPosition = input(FormIconPosition.prefix);
+  readonly formState = input.required<FormState>();
+  readonly fieldName = input.required<string>();
+  readonly label = input.required<string>();
+  readonly readonly = input(false);
+  readonly formInputType = input(FormInputType.Text);
+  readonly placeholder = input('');
+  readonly icon = input('');
+  readonly formIconPosition = input(FormIconPosition.prefix);
 
   readonly value = signal('');
   readonly isDisabled = signal(false);
-
   readonly iconPositions = FormIconPosition;
 
   // Generate unique id for each instance of the component.

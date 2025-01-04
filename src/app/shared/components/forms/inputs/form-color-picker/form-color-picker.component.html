@@ -4,11 +4,11 @@
     <input
       #colorPicker
       (ngModelChange)="onChangeValue($event)"
-      [(ngModel)]="value"
-      [disabled]="isDisabled"
+      [ngModel]="value()"
+      [disabled]="isDisabled()"
       [id]="id"
       [name]="id"
-      [value]="value"
+      [value]="value()"
       [attr.data-format]="dataFormat()"
       [readonly]="readonly()"
       data-function="color-picker"

@@ -11,8 +11,8 @@ import { DateTime } from 'luxon';
   styleUrl: './year-selector.component.scss',
 })
 export class YearSelectorComponent {
-  year = input.required<number>();
-  yearSelected = output<DateTime>();
+  readonly year = input.required<number>();
+  readonly yearSelected = output<DateTime>();
 
   @ViewChild('picker') private readonly picker!: MatDatepicker<DateTime>;
 

@@ -14,8 +14,8 @@ export class RequiredPermissionDirective implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly renderer = inject(Renderer2);
 
-  amRequiredPermission = input<AllPermissions | AllPermissions[] | null>();
-  requiresAll = input<boolean>(true);
+  readonly amRequiredPermission = input<AllPermissions | AllPermissions[] | null>();
+  readonly requiresAll = input<boolean>(true);
 
   ngOnInit(): void {
     this.renderer.addClass(this.elementRef.nativeElement, 'hidden');

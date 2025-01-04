@@ -27,10 +27,10 @@ import { BladeService } from './services/blade.service';
   styleUrl: './blade.component.scss',
 })
 export class BladeComponent implements OnDestroy {
-  bladeService = inject(BladeService);
+  readonly bladeService = inject(BladeService);
 
-  closeOnContainerClick = input(true);
-  closeOnEscapeKey = input(true);
+  readonly closeOnContainerClick = input(true);
+  readonly closeOnEscapeKey = input(true);
 
   @HostListener('document:keydown.escape')
   handleEscapeKey(): void {

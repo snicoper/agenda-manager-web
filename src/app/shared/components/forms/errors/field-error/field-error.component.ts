@@ -13,11 +13,10 @@ import { getValidationErrorMessage } from '../../constants/custom-validator-erro
   styleUrl: './field-error.component.scss',
 })
 export class FieldErrorComponent implements OnInit {
-  formState = input.required<FormState>();
-
-  fieldText = input<string>('');
-  fieldName = input<string>('');
-  validateOnlyOnSubmit = input(false);
+  readonly formState = input.required<FormState>();
+  readonly fieldText = input<string>('');
+  readonly fieldName = input<string>('');
+  readonly validateOnlyOnSubmit = input(false);
 
   control!: AbstractControl;
 

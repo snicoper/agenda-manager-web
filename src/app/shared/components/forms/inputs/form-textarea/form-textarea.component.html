@@ -3,8 +3,8 @@
   <textarea
     matInput
     (ngModelChange)="onChangeValue($event)"
-    [(ngModel)]="value"
-    [disabled]="isDisabled"
+    [ngModel]="value()"
+    [disabled]="isDisabled()"
     [id]="id"
     [placeholder]="placeholder()"
     [value]="value"

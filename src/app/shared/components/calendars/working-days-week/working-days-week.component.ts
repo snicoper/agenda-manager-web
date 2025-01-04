@@ -11,11 +11,11 @@ import { WeekDaysUtils } from '../../../../core/modules/week-days/week-days.util
   styleUrl: './working-days-week.component.scss',
 })
 export class WorkingDaysWeekComponent {
-  value = input<number>(WeekDays.None);
-  title = input<string>('Días laborables');
-  helpText = input<string>('');
+  readonly value = input<number>(WeekDays.None);
+  readonly title = input<string>('Días laborables');
+  readonly helpText = input<string>('');
 
-  valueChange = output<number>();
+  readonly valueChange = output<number>();
 
   protected readonly days = computed(() => {
     return Object.entries(WeekDays)

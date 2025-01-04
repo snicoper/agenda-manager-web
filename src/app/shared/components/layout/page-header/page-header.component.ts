@@ -10,5 +10,5 @@ import { BreadcrumbCollection } from '../../breadcrumb/models/breadcrumb-collect
   imports: [MatCardModule, BreadcrumbComponent],
 })
 export class PageHeaderComponent {
-  breadcrumb = input(new BreadcrumbCollection());
+  readonly breadcrumb = input(new BreadcrumbCollection());
 }

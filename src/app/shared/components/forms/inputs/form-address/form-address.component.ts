@@ -1,4 +1,4 @@
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -25,17 +25,16 @@ import { FormAddressPlaceholders } from './models/form-address-placeholders.inte
   ],
 })
 export class FormAddressComponent implements ControlValueAccessor {
-  formState = input.required<FormState>();
-  fieldName = input.required<string>();
-  label = input.required<string>();
-  readonly = input(false);
-  showIcons = input(false);
-  placeholders = input<FormAddressPlaceholders>();
+  readonly formState = input.required<FormState>();
+  readonly fieldName = input.required<string>();
+  readonly label = input.required<string>();
+  readonly readonly = input(false);
+  readonly showIcons = input(false);
+  readonly placeholders = input<FormAddressPlaceholders>();
 
+  readonly value = signal<FormAddressField>({} as FormAddressField);
+  readonly isDisabled = signal(false);
   readonly formInputTypes = FormInputType;
-
-  value = {} as FormAddressField;
-  isDisabled = false;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
@@ -45,7 +44,7 @@ export class FormAddressComponent implements ControlValueAccessor {
   onTouch = (): void => {};
 
   writeValue(value: FormAddressField): void {
-    this.value = value || ({} as FormAddressField);
+    this.value.set(value ?? null);
   }
 
   registerOnChange(fn: (value: FormAddressField) => void): void {
@@ -57,7 +56,7 @@ export class FormAddressComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   onChangeValue(value: FormAddressField): void {

@@ -29,9 +29,10 @@ export class NavToolbarComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  data = input.required<NavToolbarData>();
-  animationDuration = model<string>('225ms');
-  selectedIndex = model<number>(0);
+  readonly data = input.required<NavToolbarData>();
+
+  readonly animationDuration = model<string>('225ms');
+  readonly selectedIndex = model<number>(0);
 
   readonly themePalette = 'primary';
 

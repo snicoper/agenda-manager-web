@@ -9,13 +9,13 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './alert.component.scss',
 })
 export class AlertComponent {
-  type = input.required<'success' | 'error' | 'warning' | 'info' | undefined>();
-  dismissible = input(true);
-  showIcon = input(true);
+  readonly type = input.required<'success' | 'error' | 'warning' | 'info' | undefined>();
+  readonly dismissible = input(true);
+  readonly showIcon = input(true);
 
-  show = model(false);
+  readonly eventClose = output<void>();
 
-  eventClose = output<void>();
+  readonly show = model(false);
 
   handleClose(): void {
     this.show.update(() => false);

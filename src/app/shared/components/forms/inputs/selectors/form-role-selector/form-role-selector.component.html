@@ -2,18 +2,18 @@
   <mat-label>{{ label() }}</mat-label>
   <mat-select
     multiple
-    [(ngModel)]="value"
     (ngModelChange)="onSelectionChange($event)"
-    [disabled]="isDisabled"
+    [ngModel]="value()"
+    [disabled]="isDisabled()"
     [id]="id"
   >
-    @if (isLoading) {
+    @if (isLoading()) {
       <mat-option disabled>
         <mat-progress-spinner mode="indeterminate" diameter="20" />
         Cargando roles...
       </mat-option>
     } @else {
-      @for (role of availableRoles; track role.id) {
+      @for (role of availableRoles(); track role.id) {
         <mat-option [value]="role.id">{{ role.name }}</mat-option>
       }
     }

@@ -1,4 +1,4 @@
-import { Component, forwardRef, inject, input, OnInit } from '@angular/core';
+import { Component, forwardRef, inject, input, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -29,15 +29,14 @@ export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
   private readonly apiService = inject(RoleSelectorApiService);
   private readonly snackBarService = inject(SnackBarService);
 
-  formState = input.required<FormState>();
-  fieldName = input.required<string>();
-  label = input.required<string>();
+  readonly formState = input.required<FormState>();
+  readonly fieldName = input.required<string>();
+  readonly label = input.required<string>();
 
-  availableRoles: SelectableRole[] = [];
-  isLoading = false;
-
-  value: string[] = [];
-  isDisabled = false;
+  readonly availableRoles = signal<SelectableRole[]>([]);
+  readonly isLoading = signal(false);
+  readonly value = signal<string[]>([]);
+  readonly isDisabled = signal(false);
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
@@ -51,7 +50,7 @@ export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
   onTouch: () => void = () => {};
 
   writeValue(value: string[]): void {
-    this.value = value || [];
+    this.value.set(value ?? []);
   }
 
   registerOnChange(fn: (value: string[]) => void): void {
@@ -63,25 +62,25 @@ export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   onSelectionChange(selectedIds: string[]): void {
-    this.value = selectedIds;
-    this.onChange(this.value);
+    this.value.set(selectedIds);
+    this.onChange(this.value());
     this.onTouch();
   }
 
   private loadRoles(): void {
-    this.isLoading = true;
+    this.isLoading.set(true);
     this.apiService
       .getAllRoles()
       .pipe(
         take(1),
-        finalize(() => (this.isLoading = false)),
+        finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
-        next: (roles) => (this.availableRoles = roles),
+        next: (roles) => this.availableRoles.set(roles),
         error: () => this.snackBarService.error('Error al cargar los roles'),
       });
   }

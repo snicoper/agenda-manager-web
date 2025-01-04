@@ -1,5 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-empty-function */
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,20 +31,19 @@ import { FormIconPosition } from '../../types/form-icon-position.enum';
   ],
 })
 export class FormDateTimeComponent implements ControlValueAccessor {
-  formState = input.required<FormState>();
-  fieldName = input.required<string>();
-  labelDate = input<string>('Fecha de inicio');
-  labelTime = input<string>('Hora de inicio');
-  placeholderDate = input('');
-  placeholderTime = input('');
-  readonly = input(false);
-  icon = input('');
-  formIconPosition = input(FormIconPosition.prefix);
+  readonly formState = input.required<FormState>();
+  readonly fieldName = input.required<string>();
+  readonly labelDate = input<string>('Fecha de inicio');
+  readonly labelTime = input<string>('Hora de inicio');
+  readonly placeholderDate = input('');
+  readonly placeholderTime = input('');
+  readonly readonly = input(false);
+  readonly icon = input('');
+  readonly formIconPosition = input(FormIconPosition.prefix);
 
+  readonly value = signal(DateTime.local());
+  readonly isDisabled = signal(false);
   readonly iconPositions = FormIconPosition;
-
-  value = DateTime.local();
-  isDisabled = false;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
@@ -55,7 +54,7 @@ export class FormDateTimeComponent implements ControlValueAccessor {
   onTouch = (): void => {};
 
   writeValue(value: DateTime): void {
-    this.value = value || DateTime.local();
+    this.value.set(value ?? DateTime.local());
   }
 
   registerOnChange(fn: (value: DateTime) => void): void {
@@ -67,7 +66,7 @@ export class FormDateTimeComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   onChangeValue(value: DateTime): void {

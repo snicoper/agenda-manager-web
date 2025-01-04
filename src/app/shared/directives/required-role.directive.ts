@@ -15,8 +15,8 @@ export class RequiredRoleDirective implements OnInit {
   private readonly renderer = inject(Renderer2);
 
   // Permitir un rol o array de roles.
-  amRequiredRole = input<SystemRole | SystemRole[] | null>();
-  requiresAll = input<boolean>(true);
+  readonly amRequiredRole = input<SystemRole | SystemRole[] | null>();
+  readonly requiresAll = input<boolean>(true);
 
   ngOnInit(): void {
     this.renderer.addClass(this.elementRef.nativeElement, 'hidden');

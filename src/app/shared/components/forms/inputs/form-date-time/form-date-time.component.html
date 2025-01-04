@@ -4,9 +4,9 @@
       <mat-label>{{ labelDate() }}</mat-label>
       <input
         matInput
-        [(ngModel)]="value"
         (ngModelChange)="onChangeValue($event)"
-        [disabled]="isDisabled"
+        [ngModel]="value()"
+        [disabled]="isDisabled()"
         [id]="id + '-date'"
         [placeholder]="placeholderDate()"
         [value]="value"
@@ -23,11 +23,11 @@
       <mat-label>{{ labelTime() }}</mat-label>
       <input
         matInput
-        [(ngModel)]="value"
         (ngModelChange)="onChangeValue($event)"
+        [ngModel]="value()"
         [id]="id + '-time'"
         [placeholder]="placeholderTime()"
-        [value]="value"
+        [value]="value()"
         [matTimepicker]="timepicker"
         [ngModelOptions]="{ updateOn: 'blur' }"
         [readonly]="readonly()"

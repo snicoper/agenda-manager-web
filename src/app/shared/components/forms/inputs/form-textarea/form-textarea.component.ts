@@ -1,5 +1,5 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -22,15 +22,15 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
   imports: [FormsModule, MatFormFieldModule, MatInputModule, TextFieldModule, FieldErrorComponent],
 })
 export class FormTextareaComponent implements ControlValueAccessor {
-  formState = input.required<FormState>();
-  fieldName = input.required<string>();
-  label = input.required<string>();
-  readonly = input(false);
-  placeholder = input('');
-  rows = input(10);
+  readonly formState = input.required<FormState>();
+  readonly fieldName = input.required<string>();
+  readonly label = input.required<string>();
+  readonly readonly = input(false);
+  readonly placeholder = input('');
+  readonly rows = input(10);
 
-  value = '';
-  isDisabled = false;
+  readonly value = signal('');
+  readonly isDisabled = signal(false);
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
@@ -41,7 +41,7 @@ export class FormTextareaComponent implements ControlValueAccessor {
   onTouch = (): void => {};
 
   writeValue(value: string): void {
-    this.value = value || '';
+    this.value.set(value ?? '');
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -53,7 +53,7 @@ export class FormTextareaComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   onChangeValue(value: string): void {

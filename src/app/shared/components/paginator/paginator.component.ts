@@ -12,7 +12,7 @@ export class PaginatorComponent<T> {
   readonly paginatedResult = input.required<PaginatedResult<T>>();
   readonly show = input(true);
 
-  pageEvent = output<PageEvent>();
+  readonly pageEvent = output<PageEvent>();
 
   handlePageEvent(pageEvent: PageEvent): void {
     this.pageEvent.emit(pageEvent);

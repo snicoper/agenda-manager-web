@@ -1,4 +1,4 @@
-import { Component, forwardRef, input, OnInit } from '@angular/core';
+import { Component, forwardRef, input, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -30,13 +30,15 @@ import { FormCalendarSettingsPlaceholders } from './models/form-calendar-setting
   ],
 })
 export class FormCalendarSettingsComponent implements ControlValueAccessor, OnInit {
-  formState = input.required<FormState>();
-  fieldName = input.required<string>();
-  label = input.required<string>();
-  readonly = input(false);
-  showIcons = input(false);
-  placeholders = input<FormCalendarSettingsPlaceholders>();
+  readonly formState = input.required<FormState>();
+  readonly fieldName = input.required<string>();
+  readonly label = input.required<string>();
+  readonly readonly = input(false);
+  readonly showIcons = input(false);
+  readonly placeholders = input<FormCalendarSettingsPlaceholders>();
 
+  readonly value = signal({} as FormCalendarSettingsField);
+  readonly isDisabled = signal(false);
   readonly formInputTypes = FormInputType;
 
   /** Opciones de los selects.  */
@@ -44,9 +46,6 @@ export class FormCalendarSettingsComponent implements ControlValueAccessor, OnIn
   readonly appointmentOverlappingUtils = AppointmentOverlappingUtils;
   readonly holidayConflictUtils = HolidayConflictUtils;
   readonly resourceScheduleValidationUtils = ResourceScheduleValidationUtils;
-
-  value!: FormCalendarSettingsField;
-  isDisabled = false;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
@@ -60,7 +59,7 @@ export class FormCalendarSettingsComponent implements ControlValueAccessor, OnIn
   }
 
   writeValue(value: FormCalendarSettingsField): void {
-    this.value = value || ({} as FormCalendarSettingsField);
+    this.value.set(value ?? ({} as FormCalendarSettingsField));
   }
 
   registerOnChange(fn: (value: FormCalendarSettingsField) => void): void {
@@ -72,7 +71,7 @@ export class FormCalendarSettingsComponent implements ControlValueAccessor, OnIn
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   onChangeValue(value: FormCalendarSettingsField): void {

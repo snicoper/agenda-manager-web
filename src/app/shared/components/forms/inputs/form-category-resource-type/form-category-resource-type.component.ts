@@ -1,4 +1,4 @@
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -35,19 +35,18 @@ import { FormIconPosition } from '../../types/form-icon-position.enum';
   ],
 })
 export class FormCategoryResourceTypeComponent implements ControlValueAccessor {
-  formState = input.required<FormState>();
-  fieldName = input.required<string>();
-  label = input.required<string>();
-  readonly = input(false);
-  placeholder = input('');
-  icon = input('');
-  formIconPosition = input(FormIconPosition.prefix);
+  readonly formState = input.required<FormState>();
+  readonly fieldName = input.required<string>();
+  readonly label = input.required<string>();
+  readonly readonly = input(false);
+  readonly placeholder = input('');
+  readonly icon = input('');
+  readonly formIconPosition = input(FormIconPosition.prefix);
 
+  readonly value = signal<ResourceCategory>({} as ResourceCategory);
+  readonly isDisabled = signal(false);
   readonly iconPositions = FormIconPosition;
   readonly resourceCategoryUtils = ResourceCategoryUtils;
-
-  value!: ResourceCategory;
-  isDisabled = false;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
@@ -64,7 +63,7 @@ export class FormCategoryResourceTypeComponent implements ControlValueAccessor {
   };
 
   writeValue(value: ResourceCategory): void {
-    this.value = value;
+    this.value.set(value ?? ({} as ResourceCategory));
   }
 
   registerOnChange(fn: (value: ResourceCategory) => void): void {
@@ -76,7 +75,7 @@ export class FormCategoryResourceTypeComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   onChangeValue(value: ResourceCategory): void {

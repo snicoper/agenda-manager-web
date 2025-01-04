@@ -16,16 +16,16 @@
       matInput
       amSelectOnFocus
       (ngModelChange)="onChangeValue($event)"
-      [(ngModel)]="value"
+      [ngModel]="value()"
       [matAutocomplete]="timezones"
-      [disabled]="isDisabled"
+      [disabled]="isDisabled()"
       [id]="id"
       [placeholder]="placeholder()"
     />
 
     <!-- autocomplete -->
     <mat-autocomplete #timezones="matAutocomplete">
-      @for (item of itemsFiltered; track $index) {
+      @for (item of itemsFiltered(); track $index) {
         <mat-option [value]="item.id">{{ item.name }}</mat-option>
       }
     </mat-autocomplete>

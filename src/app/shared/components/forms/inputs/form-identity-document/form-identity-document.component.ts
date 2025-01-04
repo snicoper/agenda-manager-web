@@ -41,20 +41,27 @@ import { FormIdentityDocumentField } from './models/form-identity-document-field
 export class FormIdentityDocumentComponent implements ControlValueAccessor {
   private readonly countryLocaleService = inject(CountryLocaleService);
 
-  private searchText = signal('');
+  readonly formState = input.required<FormState>();
+  readonly fieldName = input.required<string>();
+  readonly label = input.required<string>();
+  readonly readonly = input(false);
+  readonly showIcons = input(false);
+  readonly placeholder = input('');
 
-  formState = input.required<FormState>();
-  fieldName = input.required<string>();
-  label = input.required<string>();
-  readonly = input(false);
-  showIcons = input(false);
-  placeholder = input('');
+  readonly value = signal<FormIdentityDocumentField>({
+    number: '',
+    countryCode: '',
+    type: IdentityDocumentType.NationalId,
+  });
+  readonly isDisabled = signal(false);
 
   readonly identityDocumentUtils = IdentityDocumentUtils;
   readonly formInputTypes = FormInputType;
 
   /** Get countries. */
   readonly countries = this.countryLocaleService.value;
+
+  private readonly searchText = signal('');
 
   /** Get filtered countries. */
   readonly filteredCountries = computed(() => {
@@ -66,13 +73,6 @@ export class FormIdentityDocumentComponent implements ControlValueAccessor {
         )
       : this.countries();
   });
-
-  value: FormIdentityDocumentField = {
-    number: '',
-    countryCode: '',
-    type: IdentityDocumentType.NationalId,
-  };
-  isDisabled = false;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
@@ -97,14 +97,14 @@ export class FormIdentityDocumentComponent implements ControlValueAccessor {
   };
 
   getDocumentLabel(): string {
-    const selectedDoc = this.identityDocumentUtils.getOptions().find((x) => x.value === this.value.type);
+    const selectedDoc = this.identityDocumentUtils.getOptions().find((x) => x.value === this.value().type);
 
     return selectedDoc ? `Número de ${selectedDoc.code}` : 'Número de Documento';
   }
 
   writeValue(value: FormIdentityDocumentField): void {
     if (value) {
-      this.value = value;
+      this.value.set(value ?? { number: '', countryCode: '', type: IdentityDocumentType.NationalId });
     }
   }
 
@@ -117,7 +117,7 @@ export class FormIdentityDocumentComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   onChangeValue(value: FormIdentityDocumentField): void {

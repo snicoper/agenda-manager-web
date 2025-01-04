@@ -16,10 +16,10 @@ import { PaginatedResult } from '../../../../core/modules/paginated-result/pagin
   templateUrl: './table-filter.component.html',
 })
 export class TableFilterComponent<T> {
-  paginatedResult = input.required<PaginatedResult<T>>();
-  fieldsFilter = input.required<string[]>();
+  readonly paginatedResult = input.required<PaginatedResult<T>>();
+  readonly fieldsFilter = input.required<string[]>();
 
-  filterChange = output<PaginatedResult<T>>();
+  readonly filterChange = output<PaginatedResult<T>>();
 
   term = '';
 

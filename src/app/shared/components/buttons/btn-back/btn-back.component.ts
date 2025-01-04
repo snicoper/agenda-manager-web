@@ -9,11 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './btn-back.component.html',
 })
 export class BtnBackComponent {
-  color = input('accent');
-  icon = input('arrow_back_ios');
-  text = input('Volver');
-
   private readonly location = inject(Location);
+
+  readonly color = input('accent');
+  readonly icon = input('arrow_back_ios');
+  readonly text = input('Volver');
 
   handleClick(): void {
     this.location.back();

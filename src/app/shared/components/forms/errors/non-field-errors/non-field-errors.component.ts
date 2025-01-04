@@ -11,7 +11,7 @@ import { AlertComponent } from '../../../alert/alert.component';
   templateUrl: './non-field-errors.component.html',
 })
 export class NonFieldErrorsComponent {
-  badRequest = input.required<BadRequest | undefined>();
+  readonly badRequest = input.required<BadRequest | undefined>();
 
   get hasError(): boolean {
     if (!this.badRequest()) {

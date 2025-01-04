@@ -12,7 +12,7 @@ import { BreadcrumbCollection } from './models/breadcrumb-collection.model';
   templateUrl: './breadcrumb.component.html',
 })
 export class BreadcrumbComponent implements OnInit {
-  breadcrumb = model(new BreadcrumbCollection());
+  readonly breadcrumb = model(new BreadcrumbCollection());
 
   ngOnInit(): void {
     this.breadcrumb().unshift({

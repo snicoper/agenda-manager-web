@@ -11,6 +11,7 @@ import { ConfirmationDialogData } from './models/confirmation-dialog-data.model'
 })
 export class ConfirmationDialogComponent {
   readonly data: ConfirmationDialogData = inject(MAT_DIALOG_DATA);
+
   private readonly dialogRef = inject(MatDialogRef<ConfirmationDialogComponent>);
 
   handleConfirm(): void {

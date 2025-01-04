@@ -15,6 +15,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 })
 export class PageBaseComponent implements OnInit {
   private readonly router = inject(Router);
+
   isLeaving = false;
 
   ngOnInit(): void {

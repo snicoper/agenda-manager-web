@@ -5,10 +5,10 @@
       <mat-label>Calle</mat-label>
       <input
         matInput
-        [(ngModel)]="value.street"
-        (ngModelChange)="onChangeValue(value)"
+        [(ngModel)]="value().street"
+        (ngModelChange)="onChangeValue(value())"
         [type]="formInputTypes.Text"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-street'"
         [readonly]="readonly()"
         [placeholder]="placeholders()?.street ?? ''"
@@ -24,10 +24,10 @@
       <mat-label>Ciudad</mat-label>
       <input
         matInput
-        [(ngModel)]="value.city"
-        (ngModelChange)="onChangeValue(value)"
+        [(ngModel)]="value().city"
+        (ngModelChange)="onChangeValue(value())"
         [type]="formInputTypes.Text"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-city'"
         [readonly]="readonly()"
         [placeholder]="placeholders()?.city ?? ''"
@@ -43,10 +43,10 @@
       <mat-label>País</mat-label>
       <input
         matInput
-        [(ngModel)]="value.country"
-        (ngModelChange)="onChangeValue(value)"
+        [(ngModel)]="value().country"
+        (ngModelChange)="onChangeValue(value())"
         [type]="formInputTypes.Text"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-country'"
         [readonly]="readonly()"
         [placeholder]="placeholders()?.country ?? ''"
@@ -62,10 +62,10 @@
       <mat-label>Provincia</mat-label>
       <input
         matInput
-        [(ngModel)]="value.state"
-        (ngModelChange)="onChangeValue(value)"
+        [(ngModel)]="value().state"
+        (ngModelChange)="onChangeValue(value())"
         [type]="formInputTypes.Text"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-state'"
         [readonly]="readonly()"
         [placeholder]="placeholders()?.state ?? ''"
@@ -81,10 +81,10 @@
       <mat-label>Código Postal</mat-label>
       <input
         matInput
-        [(ngModel)]="value.postalCode"
-        (ngModelChange)="onChangeValue(value)"
+        [(ngModel)]="value().postalCode"
+        (ngModelChange)="onChangeValue(value())"
         [type]="formInputTypes.Integer"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-postal-code'"
         [readonly]="readonly()"
         [placeholder]="placeholders()?.postalCode ?? ''"

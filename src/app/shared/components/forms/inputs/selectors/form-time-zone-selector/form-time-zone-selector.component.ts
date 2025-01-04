@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, FormGroup, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -35,28 +35,29 @@ import { FormTimeZoneField } from './models/form-time-zone-field.interface';
   ],
 })
 export class FormTimeZoneSelectorComponent implements ControlValueAccessor {
-  formState = input.required<FormState>();
-  fieldName = input.required<string>();
-  label = input.required<string>();
-  placeholder = input('');
-  icon = input('');
-  formIconPosition = input(FormIconPosition.prefix);
+  readonly formState = input.required<FormState>();
+  readonly fieldName = input.required<string>();
+  readonly label = input.required<string>();
+  readonly placeholder = input('');
+  readonly icon = input('');
+  readonly formIconPosition = input(FormIconPosition.prefix);
 
+  readonly value = signal('');
+  readonly items = signal<FormTimeZoneField[]>([]);
+  readonly itemsFiltered = signal<FormTimeZoneField[]>([]);
+  readonly isDisabled = signal(false);
   readonly iconPositions = FormIconPosition;
-
-  value = '';
-  items: FormTimeZoneField[];
-  itemsFiltered: FormTimeZoneField[];
-  isDisabled = false;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
   id = `time-zone-field-${(FormTimeZoneSelectorComponent.nextId += 1)}`;
 
   constructor() {
-    this.items = getTimeZones().map((tz) => {
-      return { id: tz.name, name: tz.name };
-    });
+    this.items.set(
+      getTimeZones().map((tz) => {
+        return { id: tz.name, name: tz.name };
+      }),
+    );
 
     this.itemsFiltered = this.items;
   }
@@ -66,7 +67,7 @@ export class FormTimeZoneSelectorComponent implements ControlValueAccessor {
   onTouch = (): void => {};
 
   writeValue(value: string): void {
-    this.value = value || '';
+    this.value.set(value);
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -78,12 +79,11 @@ export class FormTimeZoneSelectorComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   onChangeValue(value: string): void {
-    this.itemsFiltered = this.filter(value) ?? Array<string>;
-
+    this.itemsFiltered.set(this.filter(value) ?? Array<string>);
     this.onChange(value);
     this.onTouch();
   }
@@ -99,7 +99,7 @@ export class FormTimeZoneSelectorComponent implements ControlValueAccessor {
 
   private filter(value: string): FormTimeZoneField[] {
     const filterValue = value.toLocaleLowerCase();
-    const filterResult = this.items.filter((item) => item.name.toLocaleLowerCase().includes(filterValue));
+    const filterResult = this.items().filter((item) => item.name.toLocaleLowerCase().includes(filterValue));
 
     return filterResult;
   }

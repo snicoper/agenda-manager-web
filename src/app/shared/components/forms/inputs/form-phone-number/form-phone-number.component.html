@@ -6,10 +6,10 @@
       <input
         matInput
         placeholder="+34"
-        [(ngModel)]="value.countryCode"
-        (ngModelChange)="onChangeValue(value)"
+        [(ngModel)]="value().countryCode"
+        (ngModelChange)="onChangeValue(value())"
         [type]="formInputTypes.Text"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-country-code'"
         [readonly]="readonly()"
       />
@@ -24,10 +24,10 @@
       <mat-label>Teléfono</mat-label>
       <input
         matInput
-        [(ngModel)]="value.number"
-        (ngModelChange)="onChangeValue(value)"
+        [(ngModel)]="value().number"
+        (ngModelChange)="onChangeValue(value())"
         [type]="formInputTypes.Tel"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-number'"
         [placeholder]="placeholder()"
         [readonly]="readonly()"

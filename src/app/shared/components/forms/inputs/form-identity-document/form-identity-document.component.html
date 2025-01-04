@@ -5,10 +5,10 @@
       <mat-label>Tipo de Documento</mat-label>
       <mat-select
         matInput
-        [(ngModel)]="value.type"
-        (ngModelChange)="onChangeValue(value)"
+        [(ngModel)]="value().type"
+        (ngModelChange)="onChangeValue(value())"
         [placeholder]="placeholder()"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-type'"
       >
         @for (item of identityDocumentUtils.getOptions(); track item.value) {
@@ -29,10 +29,11 @@
       <input
         matInput
         amSelectOnFocus
-        [(ngModel)]="value.countryCode"
+        (ngModelChange)="onChangeValue(value())"
+        [(ngModel)]="value().countryCode"
         [matAutocomplete]="auto"
         (input)="handleCountryInput($event)"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-country'"
         [placeholder]="placeholder()"
       />
@@ -54,10 +55,10 @@
       <mat-label>{{ getDocumentLabel() }}</mat-label>
       <input
         matInput
-        [(ngModel)]="value.number"
-        (ngModelChange)="onChangeValue(value)"
+        (ngModelChange)="onChangeValue(value())"
+        [(ngModel)]="value().number"
         [type]="formInputTypes.Text"
-        [disabled]="isDisabled"
+        [disabled]="isDisabled()"
         [id]="id + '-number'"
         [placeholder]="placeholder()"
         [readonly]="readonly()"
