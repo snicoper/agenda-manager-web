@@ -6,6 +6,7 @@ import { BrowserStorageService } from '../../../services/browser-storage.service
 import { DateTimeUtils } from '../../../utils/date/datetime.utils';
 import { AuthApiService } from './api/auth-api.service';
 import { AuthService } from './auth.service';
+import { DateTime } from 'luxon';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -17,7 +18,7 @@ describe('AuthService', () => {
     accessToken:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJmYW1pbHlfbmFtZSI6IlRlc3QgVXNlciIsImlkIjoiMTIzIiwicm9sZXMiOlsiVXNlciJdLCJwZXJtaXNzaW9ucyI6WyJyZWFkOnVzZXJzIl0sImV4cCI6OTk5OTk5OTk5OX0',
     refreshToken: 'refresh-token',
-    expires: DateTimeUtils.fromApi('2024-12-22T10:00:00Z'),
+    expires: DateTimeUtils.fromApi('2024-12-22T10:00:00Z') as DateTime,
   };
 
   beforeEach(() => {

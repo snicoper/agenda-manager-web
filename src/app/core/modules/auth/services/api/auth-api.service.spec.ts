@@ -4,8 +4,9 @@ import { TestBed } from '@angular/core/testing';
 import { ApiUrls } from '../../../../config/api-urls';
 import { DateTimeUtils } from '../../../../utils/date/datetime.utils';
 import { UrlUtils } from '../../../../utils/url/url.utils';
-import { AuthApiService } from './auth-api.service';
 import { LoginRequest } from '../../models/requests/login.request';
+import { AuthApiService } from './auth-api.service';
+import { DateTime } from 'luxon';
 
 describe('AuthApiService', () => {
   let service: AuthApiService;
@@ -46,7 +47,7 @@ describe('AuthApiService', () => {
         // Assert
         expect(response.accessToken).toBe('token123');
         expect(response.refreshToken).toBe('refresh123');
-        expect(response.expires).toEqual(DateTimeUtils.fromApi('2024-12-22T10:00:00Z'));
+        expect(response.expires).toEqual(DateTimeUtils.fromApi('2024-12-22T10:00:00Z') as DateTime);
       });
 
       // Expect HTTP POST
