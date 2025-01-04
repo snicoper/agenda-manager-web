@@ -7,14 +7,18 @@ import { PaginatedResult } from '../../../../core/modules/paginated-result/pagin
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { DateTimeUtils } from '../../../../core/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
+import { CalendarAvailableDaysRequest } from '../../models/requests/calendar-available-days.request';
 import { CalendarCreateRequest } from '../../models/requests/calendar-create.request';
+import { CalendarHolidayCreateRequest } from '../../models/requests/calendar-hoiday-create.request';
 import { CalendarUpdateRequest } from '../../models/requests/calendar-update-request';
 import { CalendarUpdateSettingsRequest } from '../../models/requests/calendar-update-settings.request';
 import { CalendarCreateResponse } from '../../models/responses/calendar-create.response';
 import { CalendarDetailsResponse } from '../../models/responses/calendar-details.response';
+import { CalendarHolidayCreateResponse } from '../../models/responses/calendar-hoiday-create.response';
+import { CalendarHolidayResponse } from '../../models/responses/calendar-holiday.response';
 import { CalendarPaginatedResponse } from '../../models/responses/calendar-paginated.response';
 import { CalendarSettingsResponse } from '../../models/responses/calendar-settings.response';
-import { CalendarAvailableDaysRequest } from '../../models/requests/calendar-available-days.request';
+import { DateTime } from 'luxon';
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +56,24 @@ export class CalendarApiService extends ApiBaseService {
     return this.get<CalendarSettingsResponse>(endpoint, (response) => response.value as CalendarSettingsResponse);
   }
 
+  /** Obtener días festivos de un calendario. */
+  getCalendarHolidays(calendarId: string, year: number): Observable<CalendarHolidayResponse[]> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.getCalendarHolidaysInYear, {
+      calendarId: calendarId,
+      year: year.toString(),
+    });
+
+    return this.get<CalendarHolidayResponse[]>(endpoint, (response) => {
+      const items = response.value as CalendarHolidayResponse[];
+
+      return items.map((item) => ({
+        ...item,
+        start: DateTimeUtils.fromApi(item.start) as DateTime,
+        end: DateTimeUtils.fromApi(item.end) as DateTime,
+      }));
+    });
+  }
+
   /** Crear un calendario. */
   createCalendar(request: CalendarCreateRequest): Observable<CalendarCreateResponse> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.createCalendar);
@@ -60,6 +82,20 @@ export class CalendarApiService extends ApiBaseService {
       request,
       endpoint,
       (response) => response.value as CalendarCreateResponse,
+    );
+  }
+
+  /** Crear dia festivo de un calendario. */
+  createCalendarHoliday(
+    calendarId: string,
+    request: CalendarHolidayCreateRequest,
+  ): Observable<CalendarHolidayCreateResponse> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.createCalendarHoliday, { calendarId: calendarId });
+
+    return this.post<CalendarHolidayCreateRequest, CalendarHolidayCreateResponse>(
+      request,
+      endpoint,
+      (response) => response.value as CalendarHolidayCreateResponse,
     );
   }
 
@@ -77,7 +113,7 @@ export class CalendarApiService extends ApiBaseService {
     return this.put<CalendarAvailableDaysRequest, NoContent>(request, endpoint);
   }
 
-  /** Actualizar configuración de calendario */
+  /** Actualizar configuración de calendario. */
   updateCalendarSettings(calendarId: string, request: CalendarUpdateSettingsRequest): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.updateCalendarSettings, { calendarId: calendarId });
 

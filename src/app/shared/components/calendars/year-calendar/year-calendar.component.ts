@@ -36,9 +36,12 @@ export class YearCalendarComponent {
 
   getItemsForMonth(month: DateTime): CalendarItem[] {
     return this.items().filter((item) => {
-      const itemMonth = item.period.start?.month;
+      // Verifica si el mes está dentro del rango del período.
+      const startMonth = item.period.start?.month;
+      const endMonth = item.period.end?.month;
 
-      return itemMonth === month.month;
+      // Si el mes está entre el inicio y el fin (inclusive), debe mostrarse.
+      return startMonth <= month.month && month.month <= endMonth;
     });
   }
 

@@ -1,12 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DateTime } from 'luxon';
-import { DateTimeProvider } from '../../core/i18n/types/datetime-provider.type';
 import { DateTimeUtils } from '../../core/utils/date/datetime.utils';
 
 /**
  * Pipe para formatear fechas usando Luxon DateTime.
  *
- * @param value DateTimeProvider | string - Fecha a formatear
+ * @param value DateTime | string - Fecha a formatear
  * @param format DateTime - Formato de Luxon (DateTime.DATE_MED, DateTime.DATETIME_SHORT, etc.)
  *
  * @example
@@ -27,7 +26,7 @@ import { DateTimeUtils } from '../../core/utils/date/datetime.utils';
  */
 @Pipe({ name: 'dateTimeFormat' })
 export class DateTimeFormatPipe implements PipeTransform {
-  transform(value: DateTimeProvider | string | undefined | null, format = DateTime.DATE_MED): string {
+  transform(value: DateTime | string | undefined | null, format = DateTime.DATE_MED): string {
     if (!value) {
       return '';
     }

@@ -69,7 +69,14 @@ export class MonthCalendarComponent {
   }
 
   private findItem(date: DateTime): CalendarItem | undefined {
-    return this.items().find((item) => this.isDateInPeriod(date, item.period));
+    return this.items().find((item) => {
+      const startDate = item.period.start;
+      const endDate = item.period.end || startDate;
+      const checkDate = date.startOf('day');
+
+      // Verificamos si la fecha está en el rango entre start y end.
+      return checkDate >= startDate.startOf('day') && checkDate <= endDate.startOf('day');
+    });
   }
 
   private isDateInPeriod(date: DateTime, period: Period): boolean {

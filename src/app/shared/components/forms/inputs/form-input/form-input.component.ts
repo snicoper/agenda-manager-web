@@ -1,4 +1,4 @@
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -33,10 +33,10 @@ export class FormInputComponent implements ControlValueAccessor {
   icon = input('');
   formIconPosition = input(FormIconPosition.prefix);
 
-  readonly iconPositions = FormIconPosition;
+  readonly value = signal('');
+  readonly isDisabled = signal(false);
 
-  value = '';
-  isDisabled = false;
+  readonly iconPositions = FormIconPosition;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
@@ -47,7 +47,7 @@ export class FormInputComponent implements ControlValueAccessor {
   onTouch = (): void => {};
 
   writeValue(value: string): void {
-    this.value = value || '';
+    this.value.set(value ?? '');
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -59,7 +59,7 @@ export class FormInputComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   onChangeValue(value: string): void {

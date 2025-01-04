@@ -1,13 +1,14 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, forwardRef, input } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import ColorPicker, { ColorPickerOptions } from '@thednp/color-picker';
-import { FormState } from '../../../../../core/modules/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../../core/forms/models/form-state.model';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
   selector: 'am-form-color-picker',
+  imports: [FormsModule, FieldErrorComponent],
   templateUrl: './form-color-picker.component.html',
   styleUrl: './form-color-picker.component.scss',
   providers: [
@@ -17,7 +18,6 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
       multi: true,
     },
   ],
-  imports: [FormsModule, FieldErrorComponent],
 })
 export class FormColorPickerComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
   formState = input.required<FormState>();

@@ -3,7 +3,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
-import { FormState } from '../../../../../core/modules/forms/interfaces/form-state.interface';
+import { FormState } from '../../../../../core/forms/models/form-state.model';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 

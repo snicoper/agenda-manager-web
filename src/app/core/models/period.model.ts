@@ -1,6 +1,6 @@
-import { DateTimeProvider } from '../i18n/types/datetime-provider.type';
+import { DateTime } from 'luxon';
 
 export interface Period {
-  start: DateTimeProvider;
-  end: DateTimeProvider;
+  start: DateTime;
+  end: DateTime;
 }

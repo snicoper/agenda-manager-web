@@ -1,4 +1,4 @@
-import { DateTimeProvider } from '../../../../core/i18n/types/datetime-provider.type';
+import { DateTime } from 'luxon';
 
 export interface AccountPaginatedResponse {
   id: string;
@@ -7,5 +7,5 @@ export interface AccountPaginatedResponse {
   lastName: string;
   isActive: boolean;
   isEmailConfirmed: boolean;
-  dateJoined: DateTimeProvider;
+  dateJoined: DateTime | null;
 }

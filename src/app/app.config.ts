@@ -7,6 +7,7 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { MAT_LUXON_DATE_ADAPTER_OPTIONS, provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, TitleStrategy } from '@angular/router';
 import { routes } from './app.routes';
@@ -16,7 +17,6 @@ import { ApiErrorInterceptor } from './core/interceptors/api-error.interceptor';
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { PaginatedResultInterceptor } from './core/interceptors/paginated-result.interceptor';
 import { TitleStrategyService } from './shared/components/layout/services/title-strategy.service';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,7 +36,6 @@ export const appConfig: ApplicationConfig = {
     {
       provide: MAT_LUXON_DATE_ADAPTER_OPTIONS,
       useValue: {
-        useUtc: true,
         firstDayOfWeek: 1,
       },
     },

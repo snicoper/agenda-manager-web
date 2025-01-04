@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-6">
+    <mat-form-field>
+      <mat-label>{{ labelDate() }}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value"
+        (ngModelChange)="onChangeValue($event)"
+        [disabled]="isDisabled"
+        [id]="id + '-date'"
+        [placeholder]="placeholderDate()"
+        [value]="value"
+        [matDatepicker]="datepicker"
+        [readonly]="readonly()"
+      />
+      <mat-datepicker #datepicker />
+      <mat-datepicker-toggle [for]="datepicker" matSuffix />
+    </mat-form-field>
+  </div>
+
+  <div class="col-6">
+    <mat-form-field>
+      <mat-label>{{ labelTime() }}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="value"
+        (ngModelChange)="onChangeValue($event)"
+        [id]="id + '-time'"
+        [placeholder]="placeholderTime()"
+        [value]="value"
+        [matTimepicker]="timepicker"
+        [ngModelOptions]="{ updateOn: 'blur' }"
+        [readonly]="readonly()"
+      />
+      <mat-timepicker #timepicker />
+      <mat-timepicker-toggle [for]="timepicker" matSuffix />
+    </mat-form-field>
+  </div>
+</div>
+
+@if (formState().form) {
+  <am-field-error [formState]="formState()" [fieldName]="fieldName()" fieldText="Fecha" />
+}

@@ -1,4 +1,4 @@
-import { DateTimeProvider } from '../../../../core/i18n/types/datetime-provider.type';
+import { DateTime } from 'luxon';
 import { IdentityDocumentType } from '../../../../core/modules/users/identity-document/identity-document-type.enum';
 
 export interface PhoneNumber {
@@ -27,7 +27,7 @@ export interface AccountDetailsResponse {
   lastName: string;
   isEmailConfirmed: boolean;
   isActive: boolean;
-  createdAt: DateTimeProvider;
+  createdAt: DateTime;
   phoneNumber?: PhoneNumber;
   address?: Address;
   identityDocument?: IdentityDocument;

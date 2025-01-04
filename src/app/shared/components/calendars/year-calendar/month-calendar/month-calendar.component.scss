@@ -23,7 +23,7 @@
 }
 
 ::ng-deep .month-calendar {
-  // Ocultar header y navegación
+  // Ocultar header y navegación.
   mat-calendar-header {
     display: none;
   }
@@ -38,8 +38,15 @@
   }
 
   .mat-calendar-body-cell {
-    &.selected-date {
+    // Días no laborables.
+    &.selected-date,
+    &.unavailable {
       background-color: var(--mat-primary-container);
+    }
+
+    // Días festivos.
+    &.holiday {
+      background-color: rgba(142, 69, 133, 0.7);
     }
   }
 }

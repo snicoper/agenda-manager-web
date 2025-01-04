@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../config/api-urls';
 import { ApiBaseService } from '../../../../services/api/api.base.service';
@@ -16,7 +17,7 @@ export class AuthApiService extends ApiBaseService {
 
     return this.post<LoginRequest, LoginResponse>(request, endpoint, (response) => ({
       ...response.value,
-      expires: DateTimeUtils.fromApi(response.value.expires),
+      expires: DateTimeUtils.fromApi(response.value.expires) as DateTime,
     }));
   }
 
@@ -26,7 +27,7 @@ export class AuthApiService extends ApiBaseService {
 
     return this.post<RefreshTokenRequest, LoginResponse>(refreshToken, endpoint, (response) => ({
       ...response.value,
-      expires: DateTimeUtils.fromApi(response.value.expires),
+      expires: DateTimeUtils.fromApi(response.value.expires) as DateTime,
     }));
   }
 }
