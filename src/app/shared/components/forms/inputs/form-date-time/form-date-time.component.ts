@@ -40,9 +40,11 @@ export class FormDateTimeComponent implements ControlValueAccessor {
   readonly readonly = input(false);
   readonly icon = input('');
   readonly formIconPosition = input(FormIconPosition.prefix);
+  readonly intervalTime = input('30min');
 
   readonly value = signal(DateTime.local());
   readonly isDisabled = signal(false);
+
   readonly iconPositions = FormIconPosition;
 
   // Generate unique id for each instance of the component.

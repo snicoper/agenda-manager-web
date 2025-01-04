@@ -32,7 +32,7 @@
         [ngModelOptions]="{ updateOn: 'blur' }"
         [readonly]="readonly()"
       />
-      <mat-timepicker #timepicker />
+      <mat-timepicker #timepicker [interval]="intervalTime()" />
       <mat-timepicker-toggle [for]="timepicker" matSuffix />
     </mat-form-field>
   </div>
