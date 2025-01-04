@@ -5,8 +5,8 @@ import { MatCalendarCellClassFunction, MatCalendarView, MatDatepickerModule } fr
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DateTime } from 'luxon';
-import { Period } from '../../../../../core/models/period.model';
-import { CalendarItem } from '../models/calendar-event.model';
+import { CalendarItem } from '../models/calendar-item.model';
+import { DateTimeSelectedEvent } from '../models/date-time-selected-event.model';
 
 @Component({
   selector: 'am-month-calendar',
@@ -15,15 +15,15 @@ import { CalendarItem } from '../models/calendar-event.model';
   styleUrl: './month-calendar.component.scss',
 })
 export class MonthCalendarComponent {
-  month = input.required<DateTime>();
-  items = input.required<CalendarItem[]>();
-  loading = input<boolean>(false);
+  readonly month = input.required<DateTime>();
+  readonly items = input.required<CalendarItem[]>();
+  readonly loading = input<boolean>(false);
 
-  periodSelected = output<Period>();
+  readonly dateTimeSelected = output<DateTimeSelectedEvent>();
 
-  title = computed(() => this.month()?.toLocaleString({ month: 'long', year: 'numeric' }));
+  readonly title = computed(() => this.month()?.toLocaleString({ month: 'long', year: 'numeric' }));
 
-  minDate = computed(() => {
+  readonly minDate = computed(() => {
     const currentMonth = this.month();
 
     return DateTime.fromObject({
@@ -33,7 +33,7 @@ export class MonthCalendarComponent {
     });
   });
 
-  maxDate = computed(() => {
+  readonly maxDate = computed(() => {
     const currentMonth = this.month();
 
     return DateTime.fromObject({
@@ -57,14 +57,19 @@ export class MonthCalendarComponent {
     return '';
   };
 
-  handlePeriodSelected(date: DateTime | null): void {
+  handleDatetimeSelected(date: DateTime | null): void {
     if (!date) {
       return;
     }
 
-    this.periodSelected.emit({
+    const selectedDate = date.startOf('day');
+    const existingItem = this.findItem(selectedDate);
+
+    this.dateTimeSelected.emit({
+      id: existingItem?.id || '',
       start: date.startOf('day'),
       end: date.endOf('day'),
+      type: existingItem?.type || '',
     });
   }
 
@@ -77,19 +82,5 @@ export class MonthCalendarComponent {
       // Verificamos si la fecha está en el rango entre start y end.
       return checkDate >= startDate.startOf('day') && checkDate <= endDate.startOf('day');
     });
-  }
-
-  private isDateInPeriod(date: DateTime, period: Period): boolean {
-    if (!period.start) {
-      return false;
-    }
-
-    // Si no hay end o end es igual a start, comparamos solo con start.
-    if (!period.end || period.start.equals(period.end)) {
-      return date.hasSame(period.start, 'day');
-    }
-
-    // Si hay un rango, comparamos que esté entre start y end.
-    return date >= period.start && date <= period.end;
   }
 }

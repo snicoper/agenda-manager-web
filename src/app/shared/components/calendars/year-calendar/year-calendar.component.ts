@@ -1,8 +1,8 @@
 import { Component, effect, input, output, signal } from '@angular/core';
 import { DateTime } from 'luxon';
-import { Period } from '../../../../core/models/period.model';
 import { YearSelectorComponent } from '../year-selector/year-selector.component';
-import { CalendarItem } from './models/calendar-event.model';
+import { CalendarItem } from './models/calendar-item.model';
+import { DateTimeSelectedEvent } from './models/date-time-selected-event.model';
 import { MonthCalendarComponent } from './month-calendar/month-calendar.component';
 
 @Component({
@@ -17,7 +17,7 @@ export class YearCalendarComponent {
   readonly showYearSelector = input<boolean>(false);
   readonly loading = input<boolean>(false);
 
-  readonly periodSelected = output<Period>();
+  readonly dateTimeSelected = output<DateTimeSelectedEvent>();
   readonly yearChanged = output<number>();
 
   readonly months = signal<DateTime[]>([]);
@@ -26,8 +26,8 @@ export class YearCalendarComponent {
     this.initializeMonths();
   }
 
-  handlePeriodSelected(period: Period): void {
-    this.periodSelected.emit(period);
+  handleDateTimeSelected(dateTimeSelected: DateTimeSelectedEvent): void {
+    this.dateTimeSelected.emit(dateTimeSelected);
   }
 
   handlerYearSelected(date: DateTime): void {

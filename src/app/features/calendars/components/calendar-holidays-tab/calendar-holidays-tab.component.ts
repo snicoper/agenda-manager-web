@@ -1,10 +1,11 @@
 import { Component, computed, effect, inject, OnDestroy, signal } from '@angular/core';
 import { DateTime } from 'luxon';
 import { finalize, take } from 'rxjs';
-import { Period } from '../../../../core/models/period.model';
+import { logInfo } from '../../../../core/errors/logger/logger';
 import { DateTimeUtils } from '../../../../core/utils/date/datetime.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
-import { CalendarItem } from '../../../../shared/components/calendars/year-calendar/models/calendar-event.model';
+import { CalendarItem } from '../../../../shared/components/calendars/year-calendar/models/calendar-item.model';
+import { DateTimeSelectedEvent } from '../../../../shared/components/calendars/year-calendar/models/date-time-selected-event.model';
 import { YearCalendarComponent } from '../../../../shared/components/calendars/year-calendar/year-calendar.component';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarSelectedStateService } from '../../services/state/calendar-selected-state.service';
@@ -47,9 +48,30 @@ export class CalendarHolidaysTabComponent implements OnDestroy {
     this.bladeService.hide();
   }
 
-  handleDayClick(period: Period): void {
+  handleDateTimeSelected(dateTimeSelected: DateTimeSelectedEvent): void {
+    switch (dateTimeSelected.type) {
+      case 'holiday':
+        this.updateHoliday(dateTimeSelected);
+        break;
+      case 'unavailable':
+        if (dateTimeSelected.type === 'unavailable') {
+          return;
+        }
+
+        break;
+      default:
+        this.createHoliday(dateTimeSelected);
+        break;
+    }
+  }
+
+  handleYearChanged(year: number): void {
+    this.yearSelected.set(year);
+  }
+
+  private createHoliday(dateTimeSelected: DateTimeSelectedEvent): void {
     this.bladeService.show<CalendarHolidaysCreateDataBlade>(CalendarHolidaysCreateBladeComponent, {
-      data: { date: period.start },
+      data: { date: dateTimeSelected.start },
     });
 
     this.bladeService.result.pipe(take(1)).subscribe({
@@ -59,8 +81,8 @@ export class CalendarHolidaysTabComponent implements OnDestroy {
     });
   }
 
-  handleYearChanged(year: number): void {
-    this.yearSelected.set(year);
+  private updateHoliday(dateTimeSelected: DateTimeSelectedEvent): void {
+    logInfo('Update holiday', dateTimeSelected);
   }
 
   private loadListeners(): void {
@@ -74,10 +96,12 @@ export class CalendarHolidaysTabComponent implements OnDestroy {
 
       this.unAvailableDays$.set(
         unAvailableDays.map((day) => ({
+          id: day.toString(),
           period: {
             start: day,
             end: day,
           },
+          type: 'unavailable',
           cssClass: 'unavailable',
         })),
       );
@@ -99,10 +123,12 @@ export class CalendarHolidaysTabComponent implements OnDestroy {
       .subscribe({
         next: (response) => {
           const mappedHolidays = response.map((holiday) => ({
+            id: holiday.calendarHolidayId,
             period: {
               start: holiday.start,
               end: holiday.end,
             },
+            type: 'holiday',
             cssClass: 'holiday',
           }));
 

@@ -1,6 +1,6 @@
 <section class="d-flex flex-column">
   <am-year-calendar
-    (periodSelected)="handleDayClick($event)"
+    (dateTimeSelected)="handleDateTimeSelected($event)"
     (yearChanged)="handleYearChanged($event)"
     [showYearSelector]="true"
     [year]="yearSelected()"
