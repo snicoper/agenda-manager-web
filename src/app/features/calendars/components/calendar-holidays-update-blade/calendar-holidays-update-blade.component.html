@@ -43,10 +43,21 @@
 
     <!-- Actions -->
     <div class="d-flex justify-content-end mt-3 blade-actions">
+      <div class="me-auto">
+        <am-btn-loading
+          btnText="Eliminar festivo"
+          icon="delete"
+          styles="bg-error"
+          (eventClick)="handleDelete()"
+          [loading]="loadingDelete()"
+        />
+      </div>
+
       <button mat-flat-button class="me-2" (click)="handleCloseBlade()">
         <mat-icon>close</mat-icon>
         Cerrar
       </button>
+
       <am-btn-loading
         btnText="Actualizar festivo"
         icon="edit"
