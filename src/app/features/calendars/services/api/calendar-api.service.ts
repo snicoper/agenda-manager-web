@@ -159,4 +159,14 @@ export class CalendarApiService extends ApiBaseService {
 
     return this.put<EmptyRequest, NoContent>({}, endpoint);
   }
+
+  /** Delete calendar holiday. */
+  deleteCalendarHoliday(calendarId: string, holidayId: string): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.deleteCalendarHoliday, {
+      calendarId: calendarId,
+      holidayId: holidayId,
+    });
+
+    return this.delete<NoContent>(endpoint, (response) => response.value as NoContent);
+  }
 }
