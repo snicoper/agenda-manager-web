@@ -20,12 +20,13 @@ import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/m
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
+import { CalendarSelectorStateService } from '../../../../shared/components/selectors/calendar-selector/services/state/calendar-selector-state.service';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { CalendarCreateBladeComponent } from '../../components/calendar-create-blade/calendar-create-blade.component';
-import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarPaginatedResponse } from '../../models/responses/calendar-paginated.response';
+import { CalendarApiService } from '../../services/api/calendar-api.service';
 
 @Component({
   selector: 'am-calendar-list',
@@ -54,6 +55,7 @@ export class CalendarListComponent implements AfterViewInit {
   private readonly apiService = inject(CalendarApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
+  private readonly calendarSelectorState = inject(CalendarSelectorStateService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -102,6 +104,9 @@ export class CalendarListComponent implements AfterViewInit {
       next: (result) => {
         if (result) {
           this.loadCalendars();
+
+          // Refresh the calendar selector.
+          this.calendarSelectorState.refresh();
         }
       },
     });

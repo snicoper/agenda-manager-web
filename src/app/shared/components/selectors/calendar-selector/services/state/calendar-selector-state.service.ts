@@ -8,7 +8,7 @@ import { CalendarSelectedState } from '../../models/state/calendar-selector.stat
 import { CalendarSelectorApiService } from '../api/calendar-selector-api.service';
 
 @Injectable({ providedIn: 'root' })
-export class CalendarSelectedStateService {
+export class CalendarSelectorStateService {
   private readonly apiService = inject(CalendarSelectorApiService);
   private readonly browserStorageService = inject(BrowserStorageService);
   private readonly snackBarService = inject(SnackBarService);

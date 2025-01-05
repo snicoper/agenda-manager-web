@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { CalendarSelectedStateService } from './services/state/calendar-selected-state.service';
+import { CalendarSelectorStateService } from './services/state/calendar-selector-state.service';
 
 @Component({
   selector: 'am-calendar-selector',
@@ -11,11 +11,11 @@ import { CalendarSelectedStateService } from './services/state/calendar-selected
   styleUrl: './calendar-selector.component.scss',
 })
 export class CalendarSelectorComponent {
-  private readonly calendarSelectedState = inject(CalendarSelectedStateService);
+  private readonly calendarSelectorState = inject(CalendarSelectorStateService);
 
-  readonly calendarState = this.calendarSelectedState.state;
+  readonly calendarState = this.calendarSelectorState.state;
 
   handleSelectCalendar(calendarId: string): void {
-    this.calendarSelectedState.selectCalendar(calendarId);
+    this.calendarSelectorState.selectCalendar(calendarId);
   }
 }
