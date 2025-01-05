@@ -9,6 +9,7 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { ThemeColor } from '../../../../core/enums/theme-color.enum';
 import { AuthService } from '../../../../core/modules/auth/services/auth.service';
 import { CalendarSelectorComponent } from '../../selectors/calendar-selector/calendar-selector.component';
+import { CalendarSelectorStateService } from '../../selectors/calendar-selector/services/state/calendar-selector-state.service';
 import { LayoutService } from '../services/layout.service';
 import { ThemeStateService } from '../services/theme.state.service';
 
@@ -19,10 +20,12 @@ import { ThemeStateService } from '../services/theme.state.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  private layoutService = inject(LayoutService);
-  private authService = inject(AuthService);
-  private themeStateService = inject(ThemeStateService);
+  private readonly layoutService = inject(LayoutService);
+  private readonly authService = inject(AuthService);
+  private readonly themeStateService = inject(ThemeStateService);
+  private readonly calendarSelectorState = inject(CalendarSelectorStateService);
 
+  readonly calendarState = this.calendarSelectorState.state;
   readonly navbarState = this.layoutService.layoutState.navbarState;
   readonly theme = this.themeStateService.value;
 

@@ -1,18 +1,24 @@
 @if (navbarState()) {
   <nav class="navbar-container">
     <mat-toolbar class="mat-elevation-z1">
+      <!-- sidebar toggle -->
       <button mat-icon-button (click)="handleToggleSidebar()">
         <mat-icon>menu</mat-icon>
       </button>
 
+      <!-- site name -->
       <span class="cursor-pointer" [routerLink]="siteUrls.home">{{ siteName }}</span>
 
       <span class="d-flex m-auto"></span>
 
-      <am-calendar-selector />
+      <!-- calendar selector -->
+      @if (calendarState.calendars().length > 1) {
+        <am-calendar-selector />
+      }
 
       <span class="me-2"></span>
 
+      <!-- theme toggle -->
       <button (click)="handleToggleTheme()" mat-icon-button>
         <span>
           @if (theme() === themeColor.Light) {
@@ -23,6 +29,7 @@
         </span>
       </button>
 
+      <!-- user profile -->
       <button mat-raised-button [mat-menu-trigger-for]="profile" aria-label="Perfil de usuario">
         {{ userEmail }}
       </button>

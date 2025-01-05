@@ -43,7 +43,11 @@ export class CalendarSelectorStateService {
 
     this.calendarSelected$.set(calendar);
     this.browserStorageService.setObject(BrowserStorageKey.CalendarSelected, this.calendarSelected$());
-    this.snackBarService.success('Calendario seleccionado correctamente');
+
+    // Notify the user that the calendar has been selected.
+    if (this.calendars$().length > 1) {
+      this.snackBarService.success('Calendario seleccionado correctamente');
+    }
   }
 
   private loadCalendarFromStorage(): void {
@@ -67,6 +71,11 @@ export class CalendarSelectorStateService {
       .subscribe({
         next: (response) => {
           this.calendars$.set(response);
+
+          // If there is only one calendar, select it.
+          if (response.length === 1) {
+            this.selectCalendar(response[0].calendarId);
+          }
         },
       });
   }
