@@ -1,4 +1,4 @@
-export interface CalendarSelector {
+export interface CalendarSelectorRequest {
   calendarId: string;
   name: string;
 }

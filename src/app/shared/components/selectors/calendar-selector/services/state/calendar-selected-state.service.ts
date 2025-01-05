@@ -1,12 +1,17 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { finalize, take } from 'rxjs';
+import { BrowserStorageKey } from '../../../../../../core/enums/browser-storage-key.enum';
+import { BrowserStorageService } from '../../../../../../core/services/browser-storage.service';
+import { SnackBarService } from '../../../../../../core/services/snackbar.service';
 import { CalendarSelected } from '../../models/calendar-selected';
 import { CalendarSelectedState } from '../../models/state/calendar-selector.state';
 import { CalendarSelectorApiService } from '../api/calendar-selector-api.service';
 
 @Injectable({ providedIn: 'root' })
-export class CalendarSelectedService {
+export class CalendarSelectedStateService {
   private readonly apiService = inject(CalendarSelectorApiService);
+  private readonly browserStorageService = inject(BrowserStorageService);
+  private readonly snackBarService = inject(SnackBarService);
 
   private readonly calendars$ = signal<CalendarSelected[]>([]);
   private readonly calendarSelected$ = signal<CalendarSelected | null>(null);
@@ -21,6 +26,7 @@ export class CalendarSelectedService {
   };
 
   constructor() {
+    this.loadCalendarFromStorage();
     this.loadCalendar();
   }
 
@@ -36,6 +42,17 @@ export class CalendarSelectedService {
     }
 
     this.calendarSelected$.set(calendar);
+    this.browserStorageService.setObject(BrowserStorageKey.CalendarSelected, this.calendarSelected$());
+    this.snackBarService.success('Calendario seleccionado correctamente');
+  }
+
+  private loadCalendarFromStorage(): void {
+    const calendar = this.browserStorageService.getParse<CalendarSelected>(BrowserStorageKey.CalendarSelected);
+
+    if (calendar) {
+      this.calendarSelected$.set(calendar);
+      this.calendarId$.set(calendar.calendarId);
+    }
   }
 
   private loadCalendar(): void {

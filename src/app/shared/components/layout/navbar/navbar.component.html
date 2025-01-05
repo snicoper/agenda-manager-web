@@ -6,7 +6,12 @@
       </button>
 
       <span class="cursor-pointer" [routerLink]="siteUrls.home">{{ siteName }}</span>
+
       <span class="d-flex m-auto"></span>
+
+      <am-calendar-selector />
+
+      <span class="me-2"></span>
 
       <button (click)="handleToggleTheme()" mat-icon-button>
         <span>

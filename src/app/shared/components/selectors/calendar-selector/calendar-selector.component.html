@@ -1,1 +1,16 @@
-<p>calendar-selector works!</p>,
+@if (calendarState.loading()) {
+  <mat-spinner mode="indeterminate" diameter="24" class="calendar-spinner" />
+} @else {
+  <mat-form-field appearance="outline" class="calendar-selector">
+    <mat-label>Seleccionar Calendario</mat-label>
+    <mat-select
+      class="calendar-select"
+      [value]="calendarState.calendarId()"
+      (selectionChange)="handleSelectCalendar($event.value)"
+    >
+      @for (calendar of calendarState.calendars(); track calendar.calendarId) {
+        <mat-option [value]="calendar.calendarId">{{ calendar.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+}

@@ -8,12 +8,13 @@ import { AppEnvironment } from '../../../../core/config/app-environment';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { ThemeColor } from '../../../../core/enums/theme-color.enum';
 import { AuthService } from '../../../../core/modules/auth/services/auth.service';
+import { CalendarSelectorComponent } from '../../selectors/calendar-selector/calendar-selector.component';
 import { LayoutService } from '../services/layout.service';
 import { ThemeStateService } from '../services/theme.state.service';
 
 @Component({
   selector: 'am-navbar',
-  imports: [RouterLink, MatToolbarModule, MatButtonModule, MatMenuModule, MatIconModule],
+  imports: [RouterLink, MatToolbarModule, MatButtonModule, MatMenuModule, MatIconModule, CalendarSelectorComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })

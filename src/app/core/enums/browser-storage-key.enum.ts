@@ -6,4 +6,5 @@ export const enum BrowserStorageKey {
   Locale = 'locale',
   TimeZone = 'time_zone',
   Sidenav = 'sidenav',
+  CalendarSelected = 'calendar_selected',
 }
