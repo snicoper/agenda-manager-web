@@ -4,12 +4,11 @@
       <mat-label>{{ labelDate() }}</mat-label>
       <input
         matInput
-        (ngModelChange)="onChangeValue($event)"
-        [ngModel]="value()"
+        (ngModelChange)="handleDateChange($event)"
+        [ngModel]="date()"
         [disabled]="isDisabled()"
         [id]="id + '-date'"
         [placeholder]="placeholderDate()"
-        [value]="value"
         [matDatepicker]="datepicker"
         [readonly]="readonly()"
       />
@@ -23,11 +22,10 @@
       <mat-label>{{ labelTime() }}</mat-label>
       <input
         matInput
-        (ngModelChange)="onChangeValue($event)"
-        [ngModel]="value()"
+        (ngModelChange)="handleTimeChange($event)"
+        [ngModel]="time()"
         [id]="id + '-time'"
         [placeholder]="placeholderTime()"
-        [value]="value()"
         [matTimepicker]="timepicker"
         [ngModelOptions]="{ updateOn: 'blur' }"
         [readonly]="readonly()"
@@ -39,5 +37,5 @@
 </div>
 
 @if (formState().form) {
-  <am-field-error [formState]="formState()" [fieldName]="fieldName()" fieldText="Fecha" />
+  <am-field-error [formState]="formState()" [fieldName]="fieldName()" fieldText="Date" />
 }

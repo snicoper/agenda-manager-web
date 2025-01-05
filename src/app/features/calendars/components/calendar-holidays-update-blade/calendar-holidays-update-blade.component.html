@@ -1,0 +1,58 @@
+@if (loading() || !calendarHoliday()) {
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <mat-spinner diameter="32"></mat-spinner>
+  </div>
+} @else {
+  <section class="blade-content-container">
+    <h3 class="blade-title">Editar festivo</h3>
+
+    <div class="blade-body">
+      <form [formGroup]="formState.form">
+        <am-non-field-errors [badRequest]="formState.badRequest" />
+
+        <div class="row">
+          <!-- name field -->
+          <div class="col-12">
+            <am-form-input fieldName="name" formControlName="name" label="Nombre" [formState]="formState" />
+          </div>
+
+          <!-- start field -->
+          <div class="col-12 col">
+            <am-form-date-time
+              fieldName="start"
+              formControlName="start"
+              labelDate="Fecha inicio"
+              labelTime="Hora inicio"
+              [formState]="formState"
+            />
+          </div>
+
+          <!-- end field -->
+          <div class="col-12 col">
+            <am-form-date-time
+              fieldName="end"
+              formControlName="end"
+              labelDate="Fecha final"
+              labelTime="Hora final"
+              [formState]="formState"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex justify-content-end mt-3 blade-actions">
+      <button mat-flat-button class="me-2" (click)="handleCloseBlade()">
+        <mat-icon>close</mat-icon>
+        Cerrar
+      </button>
+      <am-btn-loading
+        btnText="Actualizar festivo"
+        icon="edit"
+        (eventClick)="handleSubmit()"
+        [loading]="formState.isLoading"
+      />
+    </div>
+  </section>
+}

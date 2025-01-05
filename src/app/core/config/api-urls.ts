@@ -21,11 +21,13 @@ export const ApiUrls = {
     getCalendarById: '/calendars/{calendarId}',
     getCalendarSettings: '/calendars/{calendarId}/settings',
     getCalendarHolidaysInYear: '/calendars/{calendarId}/holidays/year/{year}',
+    getCalendarHolidayById: '/calendars/{calendarId}/holidays/{holidayId}',
     createCalendar: '/calendars',
     createCalendarHoliday: '/calendars/{calendarId}/holidays',
     updateCalendar: '/calendars/{calendarId}',
     updateAvailableDays: '/calendars/{calendarId}/available-days',
     updateCalendarSettings: '/calendars/{calendarId}/settings',
+    updateCalendarHoliday: '/calendars/{calendarId}/holidays/{holidayId}',
     toggleIsActive: '/calendars/{calendarId}/toggle-is-active',
   },
   roles: {

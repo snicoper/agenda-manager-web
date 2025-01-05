@@ -1,5 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-empty-function */
-import { Component, forwardRef, input, signal } from '@angular/core';
+import { Component, computed, effect, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,10 +31,11 @@ import { FormIconPosition } from '../../types/form-icon-position.enum';
   ],
 })
 export class FormDateTimeComponent implements ControlValueAccessor {
+  // Inputs.
   readonly formState = input.required<FormState>();
   readonly fieldName = input.required<string>();
-  readonly labelDate = input<string>('Fecha de inicio');
-  readonly labelTime = input<string>('Hora de inicio');
+  readonly labelDate = input<string>('Start date');
+  readonly labelTime = input<string>('Start time');
   readonly placeholderDate = input('');
   readonly placeholderTime = input('');
   readonly readonly = input(false);
@@ -42,21 +43,53 @@ export class FormDateTimeComponent implements ControlValueAccessor {
   readonly formIconPosition = input(FormIconPosition.prefix);
   readonly intervalTime = input('30min');
 
-  readonly value = signal(DateTime.local());
+  // Internal state.
   readonly isDisabled = signal(false);
 
+  private readonly date$ = signal<DateTime>(DateTime.local());
+  private readonly time$ = signal<DateTime>(DateTime.local());
+
+  // Computed values.
+  readonly date = computed(() => this.date$());
+  readonly time = computed(() => this.time$());
+  readonly combinedDateTime = computed(() => this.getCombinedDateTime());
+
+  // Constants and IDs.
   readonly iconPositions = FormIconPosition;
-
-  // Generate unique id for each instance of the component.
   private static nextId = 0;
-  id = `input-field-${(FormDateTimeComponent.nextId += 1)}`;
+  readonly id = `input-field-${(FormDateTimeComponent.nextId += 1)}`;
 
-  onChange = (_: DateTime): void => {};
+  constructor() {
+    effect(() => {
+      const dateTime = this.combinedDateTime();
+      this.onChange(dateTime);
+      this.onTouch();
+    });
+  }
 
-  onTouch = (): void => {};
+  // Control Value Accessor callbacks.
+  private onChange: (value: DateTime) => void = () => {};
+  private onTouch: () => void = () => {};
+
+  private getCombinedDateTime(): DateTime {
+    const currentDate = this.date$();
+    const currentTime = this.time$();
+
+    return currentDate.set({
+      hour: currentTime.hour,
+      minute: currentTime.minute,
+      second: 0,
+      millisecond: 0,
+    });
+  }
 
   writeValue(value: DateTime): void {
-    this.value.set(value ?? DateTime.local());
+    if (!value) {
+      value = DateTime.local();
+    }
+
+    this.date$.set(value);
+    this.time$.set(value);
   }
 
   registerOnChange(fn: (value: DateTime) => void): void {
@@ -71,8 +104,12 @@ export class FormDateTimeComponent implements ControlValueAccessor {
     this.isDisabled.set(isDisabled);
   }
 
-  onChangeValue(value: DateTime): void {
-    this.onChange(value);
-    this.onTouch();
+  // Event Handlers.
+  handleDateChange(date: DateTime): void {
+    this.date$.set(date);
+  }
+
+  handleTimeChange(time: DateTime): void {
+    this.time$.set(time);
   }
 }

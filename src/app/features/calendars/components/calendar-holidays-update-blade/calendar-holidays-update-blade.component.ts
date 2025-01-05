@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DateTime } from 'luxon';
 import { finalize, take } from 'rxjs';
+import { logError } from '../../../../core/errors/logger/logger';
 import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
@@ -16,37 +18,41 @@ import { FormDateTimeComponent } from '../../../../shared/components/forms/input
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { dateStartGreaterThanEndValidator } from '../../../../shared/components/forms/validators/date-start-greater-then-end.validator';
 import { CalendarHolidayFieldsValidators } from '../../contracts/calendar-holiday-field-validator.contract';
-import { CalendarHolidayCreateRequest } from '../../models/requests/calendar-hoiday-create.request';
+import { CalendarHolidayUpdateRequest } from '../../models/requests/calendar-holiday-update.request';
+import { CalendarHolidayResponse } from '../../models/responses/calendar-holiday.response';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
 import { CalendarSelectedStateService } from '../../services/state/calendar-selected-state.service';
 
-export interface CalendarHolidaysCreateDataBlade {
-  dateSelected: DateTime;
+export interface CalendarHolidaysUpdateDataBlade {
+  id: string;
+  start: DateTime;
+  end: DateTime;
 }
 
 @Component({
-  selector: 'am-calendar-holidays-create-blade',
+  selector: 'am-calendar-holidays-update-blade',
   imports: [
     ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     FormInputComponent,
     FormDateTimeComponent,
     NonFieldErrorsComponent,
     BtnLoadingComponent,
   ],
-  templateUrl: './calendar-holidays-create-blade.component.html',
-  styleUrl: './calendar-holidays-create-blade.component.scss',
+  templateUrl: './calendar-holidays-update-blade.component.html',
+  styleUrl: './calendar-holidays-update-blade.component.scss',
 })
-export class CalendarHolidaysCreateBladeComponent implements OnInit {
-  // Injects.
+export class CalendarHolidaysUpdateBladeComponent implements OnInit {
   private readonly apiService = inject(CalendarApiService);
   private readonly calendarSelectedStateService = inject(CalendarSelectedStateService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly bladeService = inject(BladeService);
 
-  // State.
+  readonly loading = signal(false);
+  readonly calendarHoliday = signal<CalendarHolidayResponse | undefined>(undefined);
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
     badRequest: undefined,
@@ -55,18 +61,17 @@ export class CalendarHolidaysCreateBladeComponent implements OnInit {
   };
   readonly calendarState = this.calendarSelectedStateService.state;
 
-  // Internal state.
-  private dateSelected!: DateTime;
+  private data!: CalendarHolidaysUpdateDataBlade;
 
   ngOnInit(): void {
-    const data = this.bladeService.bladeState.options().data as CalendarHolidaysCreateDataBlade;
+    const data = this.bladeService.bladeState.options().data as CalendarHolidaysUpdateDataBlade;
 
-    if (!data?.dateSelected) {
-      throw new Error('Day is required for CalendarHolidaysCreateBlade');
+    if (!data) {
+      throw new Error('Data is required for CalendarHolidaysUpdateBlade');
     }
 
-    this.dateSelected = data.dateSelected;
-    this.buildForm();
+    this.data = data;
+    this.loadCalendarHoliday();
   }
 
   handleCloseBlade(): void {
@@ -81,34 +86,35 @@ export class CalendarHolidaysCreateBladeComponent implements OnInit {
     }
 
     this.formState.isLoading = true;
-    const request = this.mapToRequest();
-    this.create(request);
+    const response = this.mapToResponse();
+    this.update(response);
+  }
+
+  private mapToResponse(): CalendarHolidayUpdateRequest {
+    const form = this.formState.form.value;
+    const response: CalendarHolidayUpdateRequest = {
+      name: form.name,
+      start: DateTimeUtils.toApiIsoString(form.start),
+      end: DateTimeUtils.toApiIsoString(form.end),
+    };
+
+    return response;
   }
 
   private buildForm(): void {
-    const startValue = DateTime.local().set({
-      year: this.dateSelected.year,
-      month: this.dateSelected.month,
-      day: this.dateSelected.day,
-      hour: 0,
-      minute: 0,
-      second: 0,
-    });
+    const calendarHoliday = this.calendarHoliday();
 
-    const endValue = DateTime.local().set({
-      year: this.dateSelected.year,
-      month: this.dateSelected.month,
-      day: this.dateSelected.day,
-      hour: 23,
-      minute: 59,
-      second: 59,
-    });
+    if (!calendarHoliday) {
+      logError('Calendar holiday is not set');
+
+      return;
+    }
 
     this.formState.form = this.formBuilder.group(
       {
-        name: ['', CalendarHolidayFieldsValidators.name],
-        start: [startValue, CalendarHolidayFieldsValidators.start],
-        end: [endValue, CalendarHolidayFieldsValidators.end],
+        name: [calendarHoliday.name, CalendarHolidayFieldsValidators.name],
+        start: [calendarHoliday.start, CalendarHolidayFieldsValidators.start],
+        end: [calendarHoliday.end, CalendarHolidayFieldsValidators.end],
       },
       {
         validators: dateStartGreaterThanEndValidator('start', 'end'),
@@ -116,27 +122,39 @@ export class CalendarHolidaysCreateBladeComponent implements OnInit {
     );
   }
 
-  private mapToRequest(): CalendarHolidayCreateRequest {
-    const request: CalendarHolidayCreateRequest = {
-      name: this.formState.form.value.name,
-      start: DateTimeUtils.toApiIsoString(this.formState.form.value.start),
-      end: DateTimeUtils.toApiIsoString(this.formState.form.value.end),
-    };
-
-    return request;
-  }
-
-  private create(request: CalendarHolidayCreateRequest): void {
+  private update(response: CalendarHolidayUpdateRequest): void {
     this.apiService
-      .createCalendarHoliday(this.calendarState.calendarId()!, request)
+      .updateCalendarHoliday(this.calendarState.calendarId()!, this.data.id, response)
       .pipe(
         take(1),
-        finalize(() => (this.formState.isLoading = false)),
+        finalize(() => {
+          this.formState.isLoading = false;
+        }),
       )
       .subscribe({
         next: () => {
-          this.snackBarService.success('Día festivo creado correctamente');
+          this.snackBarService.success('Día festivo actualizado correctamente');
           this.bladeService.emitResult(true);
+        },
+        error: (error: HttpErrorResponse) => {
+          const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
+          this.formState.badRequest = badRequest;
+        },
+      });
+  }
+
+  private loadCalendarHoliday(): void {
+    this.loading.set(true);
+    this.apiService
+      .getCalendarHolidayById(this.calendarState.calendarId()!, this.data.id)
+      .pipe(
+        take(1),
+        finalize(() => this.loading.set(false)),
+      )
+      .subscribe({
+        next: (response) => {
+          this.calendarHoliday.set(response);
+          this.buildForm();
         },
         error: (error: HttpErrorResponse) => {
           const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
