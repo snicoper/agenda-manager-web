@@ -1,3 +1,15 @@
 :root {
   --navbar-height: 70px;
+
+  --holiday-color: rgba(142, 69, 133, 0.7);
+}
+
+html {
+  // Calendar.
+  --unavailable-day-color: var(--mat-primary-container);
+}
+
+.dark-theme {
+  // Calendar.
+  --unavailable-day-color: var(--mat-primary-container);
 }

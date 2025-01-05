@@ -41,12 +41,12 @@
     // Días no laborables.
     &.selected-date,
     &.unavailable {
-      background-color: var(--mat-primary-container);
+      background-color: var(--unavailable-day-color);
     }
 
     // Días festivos.
     &.holiday {
-      background-color: rgba(142, 69, 133, 0.7);
+      background-color: var(--holiday-color);
     }
   }
 }
