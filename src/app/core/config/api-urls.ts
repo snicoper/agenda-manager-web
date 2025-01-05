@@ -18,6 +18,7 @@ export const ApiUrls = {
   },
   calendars: {
     getCalendarsPaginated: '/calendars/paginated',
+    getCalendars: '/calendars',
     getCalendarById: '/calendars/{calendarId}',
     getCalendarSettings: '/calendars/{calendarId}/settings',
     getCalendarHolidaysInYear: '/calendars/{calendarId}/holidays/year/{year}',
