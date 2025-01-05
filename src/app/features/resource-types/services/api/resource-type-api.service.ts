@@ -6,6 +6,7 @@ import { PaginatedResult } from '../../../../core/modules/paginated-result/pagin
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { ResourceTypeCreateRequest } from '../../models/requests/resource-type-create.request';
+import { ResourceTypeUpdateRequest } from '../../models/requests/resource-type-update.request';
 import { ResourceTypeCreateResponse } from '../../models/responses/resource-type-create.response';
 import { ResourceTypeDetailsResponse } from '../../models/responses/resource-type-details.response';
 import { ResourceTypePaginatedResponse } from '../../models/responses/resource-type-paginated.response';
@@ -44,10 +45,10 @@ export class ResourceTypeApiService extends ApiBaseService {
   }
 
   /** Actualizar un tipo de recurso. */
-  updateResourceType(resourceTypeId: string, request: ResourceTypeCreateRequest): Observable<NoContent> {
+  updateResourceType(resourceTypeId: string, request: ResourceTypeUpdateRequest): Observable<NoContent> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.resourceTypes.updateResourceType, { resourceTypeId });
 
-    return this.put<ResourceTypeCreateRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
+    return this.put<ResourceTypeUpdateRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
   }
 
   /** Eliminar un tipo de recurso. */

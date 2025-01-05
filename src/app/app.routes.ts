@@ -30,6 +30,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/resource-types/resource-types.routes').then((m) => m.routes),
   },
   {
+    path: 'resources',
+    loadChildren: () => import('./features/resources/resources.routes').then((m) => m.routes),
+  },
+  {
     path: 'pruebas',
     loadChildren: () => import('./features/pruebas/pruebas.routes').then((m) => m.routes),
   },

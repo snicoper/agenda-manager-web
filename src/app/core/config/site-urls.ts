@@ -26,6 +26,10 @@ export const SiteUrls = {
     forbidden: '/errors/403',
   },
 
+  resources: {
+    list: '/resources',
+  },
+
   roles: {
     list: '/authorization/roles',
     details: '/authorization/roles/{id}',

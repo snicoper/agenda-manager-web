@@ -19,6 +19,7 @@ import { FormTextareaComponent } from '../../../../shared/components/forms/input
 import { ResourceTypeFieldsValidators } from '../../contracts/resource-type-fields-validator.contract';
 import { ResourceTypeCreateRequest } from '../../models/requests/resource-type-create.request';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
+import { ResourceCategory } from '../../../../core/modules/resource-management/resource-category/resource-category.enum';
 
 @Component({
   selector: 'am-resource-type-create-blade',
@@ -79,6 +80,7 @@ export class ResourceTypeCreateBladeComponent implements OnInit {
     const request: ResourceTypeCreateRequest = {
       name: this.formState.form.value.name,
       description: this.formState.form.value.description,
+      category: this.formState.form.value.category as ResourceCategory,
     };
 
     return request;
