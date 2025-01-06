@@ -2,8 +2,9 @@
   <mat-label>Search Account</mat-label>
 
   <input
-    type="text"
     matInput
+    amSelectOnFocus
+    type="text"
     [formControl]="searchControl"
     [matAutocomplete]="auto"
     [attr.aria-label]="'Search for account by email or name'"
@@ -17,7 +18,7 @@
       <mat-option disabled>
         <div class="d-flex flex-row">
           <mat-spinner matSuffix diameter="20" aria-label="Loading accounts" />
-          <span class="ms-2">Loading accounts...</span>
+          <span class="ms-2">Cargando cuentas...</span>
         </div>
       </mat-option>
     } @else {
@@ -26,7 +27,7 @@
           {{ account.firstName }} {{ account.lastName }} ({{ account.email }})
         </mat-option>
       } @empty {
-        <mat-option disabled>No accounts found</mat-option>
+        <mat-option disabled>No se han encontrado coincidencias</mat-option>
       }
     }
   </mat-autocomplete>

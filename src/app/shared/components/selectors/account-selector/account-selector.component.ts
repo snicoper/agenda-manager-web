@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, output, signal } from '@angular/core';
+import { Component, inject, input, OnDestroy, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { debounceTime, distinctUntilChanged, filter, finalize, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
+import { SelectOnFocusDirective } from '../../../directives/select-on-focus.directive';
 import { AccountSelectorResponse } from './models/responses/account-selecter.response';
 import { AccountSelectorApiService } from './services/api/account-selector-api.service';
 
@@ -18,6 +19,7 @@ import { AccountSelectorApiService } from './services/api/account-selector-api.s
     MatInputModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    SelectOnFocusDirective,
   ],
   templateUrl: './account-selector.component.html',
   styleUrl: './account-selector.component.scss',
@@ -25,24 +27,28 @@ import { AccountSelectorApiService } from './services/api/account-selector-api.s
 export class AccountSelectorComponent implements OnDestroy {
   private readonly accountSelectorApi = inject(AccountSelectorApiService);
 
-  protected readonly isLoading = signal(false);
-  protected readonly filteredUsers = signal<AccountSelectorResponse[]>([]);
+  readonly debounceTime = input<number>(300);
+  readonly pageSize = input<number>(10);
 
   readonly userSelected = output<AccountSelectorResponse>();
+
+  protected readonly isLoading = signal(false);
+  protected readonly filteredUsers = signal<AccountSelectorResponse[]>([]);
 
   readonly searchControl = new FormControl('');
 
   private readonly destroy$ = new Subject<void>();
-
-  private readonly PAGE_SIZE = 10;
-  private readonly DEBOUNCE_TIME = 300;
 
   constructor() {
     this.setupAccountSearch();
   }
 
   displayFn = (account: AccountSelectorResponse): string => {
-    return account?.email ?? '';
+    if (!account.email || !account.firstName || !account.lastName) {
+      return '';
+    }
+
+    return `${account.firstName} ${account.lastName} (${account?.email})`;
   };
 
   ngOnDestroy(): void {
@@ -57,7 +63,7 @@ export class AccountSelectorComponent implements OnDestroy {
   private setupAccountSearch(): void {
     this.searchControl.valueChanges
       .pipe(
-        debounceTime(this.DEBOUNCE_TIME),
+        debounceTime(this.debounceTime()),
         distinctUntilChanged(),
         filter((value): value is string => typeof value === 'string'),
         tap((term) => {
@@ -71,7 +77,7 @@ export class AccountSelectorComponent implements OnDestroy {
         }),
         filter((term) => term.trim().length > 0),
         switchMap((term) =>
-          this.accountSelectorApi.filterAccounts(term, this.PAGE_SIZE).pipe(
+          this.accountSelectorApi.filterAccounts(term, this.pageSize()).pipe(
             take(1),
             finalize(() => this.isLoading.set(false)),
           ),
