@@ -13,10 +13,10 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
 import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
-import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
+import { DotBackgroundColorComponent } from '../../../../shared/components/dots/dot-background-color/dot-background-color.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
@@ -24,9 +24,9 @@ import { TableFilterComponent } from '../../../../shared/components/tables/table
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
+import { ResourceCreateBladeComponent } from '../../components/resource-create-blade/resource-create-blade.component';
 import { ResourceResponse } from '../../models/responses/resource.response';
 import { ResourceApiService } from '../../services/api/resource-api.service';
-import { DotBackgroundColorComponent } from '../../../../shared/components/dots/dot-background-color/dot-background-color.component';
 
 @Component({
   selector: 'am-resource-list',
@@ -55,7 +55,6 @@ import { DotBackgroundColorComponent } from '../../../../shared/components/dots/
 export class ResourceListComponent implements AfterViewInit {
   private readonly router = inject(Router);
   private readonly apiService = inject(ResourceApiService);
-  private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -94,7 +93,15 @@ export class ResourceListComponent implements AfterViewInit {
   }
 
   handleCreateResource(): void {
-    // this.bladeService.show(ResourceCreateBladeComponent);
+    this.bladeService.show(ResourceCreateBladeComponent);
+
+    this.bladeService.result.pipe(take(1)).subscribe({
+      next: (result) => {
+        if (result) {
+          this.bladeService.hide();
+        }
+      },
+    });
   }
 
   handleClickDetails(resourceId: string): void {

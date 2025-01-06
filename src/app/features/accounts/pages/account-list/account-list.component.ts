@@ -13,7 +13,6 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
 import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
-import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
@@ -54,7 +53,6 @@ import { AccountApiService } from '../../services/api/account-api.service';
 export class AccountListComponent implements AfterViewInit {
   private readonly router = inject(Router);
   private readonly apiService = inject(AccountApiService);
-  private readonly snackBarService = inject(SnackBarService);
   private readonly bladeService = inject(BladeService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

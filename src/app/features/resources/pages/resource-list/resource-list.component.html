@@ -7,9 +7,9 @@
         <div class="d-flex flex-row">
           <!-- toolbar -->
           <button
+            mat-raised-button
             (click)="handleCreateResource()"
             [amRequiredPermission]="systemPermissions.Resources.Create"
-            mat-raised-button
           >
             <mat-icon>add</mat-icon>
             Añadir recurso
