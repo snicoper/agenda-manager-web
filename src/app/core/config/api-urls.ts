@@ -5,6 +5,7 @@ export const ApiUrls = {
   },
   accounts: {
     getAccountsPaginated: '/accounts/paginated',
+    filterAccounts: '/accounts/filter?term={term}&pageSize={pageSize}',
     getAccountById: '/accounts/{userId}',
     createAccount: '/accounts',
     requestPasswordReset: '/accounts/request-password-reset',
