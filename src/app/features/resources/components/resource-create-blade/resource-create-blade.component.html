@@ -1,1 +1,57 @@
-<p>resource-create-blade works!</p>,
+<section class="blade-content-container">
+  <h3 class="blade-title">Crear recurso</h3>
+
+  <div class="blade-body">
+    <form [formGroup]="formState.form">
+      <am-non-field-errors [badRequest]="formState.badRequest" />
+
+      <div class="row">
+        <!-- name field -->
+        <div class="col-12">
+          <am-form-input fieldName="name" formControlName="name" label="Nombre" [formState]="formState" />
+        </div>
+
+        <!-- description field -->
+        <div class="col-12">
+          <am-form-textarea
+            fieldName="description"
+            formControlName="description"
+            label="Descripción"
+            [formState]="formState"
+          />
+        </div>
+
+        <!-- text color field -->
+        <div class="col-6">
+          <am-form-color-picker
+            fieldName="textColor"
+            formControlName="textColor"
+            label="Color de texto"
+            [formState]="formState"
+          />
+        </div>
+
+        <!-- background color field -->
+        <div class="col-6">
+          <am-form-color-picker
+            fieldName="backgroundColor"
+            formControlName="backgroundColor"
+            label="Color de fondo"
+            [formState]="formState"
+          />
+        </div>
+
+        <!-- type field -->
+        <div class="col-12"></div>
+      </div>
+    </form>
+  </div>
+
+  <div class="d-flex justify-content-end mt-3 blade-actions">
+    <button mat-flat-button class="me-2" (click)="handleCloseBlade()">
+      <mat-icon>close</mat-icon>
+      Cerrar
+    </button>
+    <am-btn-loading btnText="Crear recurso" icon="add" (eventClick)="handleSubmit()" [loading]="formState.isLoading" />
+  </div>
+</section>

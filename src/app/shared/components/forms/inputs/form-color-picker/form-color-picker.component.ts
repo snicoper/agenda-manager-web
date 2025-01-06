@@ -1,7 +1,18 @@
 /* eslint-disable  @typescript-eslint/no-empty-function */
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, forwardRef, input, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  effect,
+  ElementRef,
+  forwardRef,
+  input,
+  OnDestroy,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import ColorPicker, { ColorPickerOptions } from '@thednp/color-picker';
+import { fromEvent, Subject, takeUntil } from 'rxjs';
 import { FormState } from '../../../../../core/forms/models/form-state.model';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
@@ -28,32 +39,58 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
 
   @ViewChild('colorPicker') readonly elementRef!: ElementRef;
 
+  private readonly destroy$ = new Subject<void>();
+
   readonly value = signal('');
   readonly isDisabled = signal(false);
 
   private colorPicker!: ColorPicker;
-
-  // Generate unique id for each instance of the component.
   private static nextId = 0;
-  id = `color-picker-field-${(FormColorPickerComponent.nextId += 1)}`;
+  readonly id = `color-picker-field-${(FormColorPickerComponent.nextId += 1)}`;
+
+  constructor() {
+    // Efecto para manejar cambios en el valor.
+    effect(() => {
+      const currentValue = this.value();
+
+      if (this.colorPicker) {
+        this.updateColorPicker(currentValue);
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
-    this.colorPicker = new ColorPicker(this.elementRef.nativeElement, this.options());
-    this.updateColorPicker(this.value());
-
-    // No he encontrado otra manera de actualizar el value.
-    setInterval(() => {
-      this.value.set(this.colorPicker.value);
-      this.onChange(this.value());
-    }, 1000);
+    this.initializeColorPicker();
+    this.setupColorPickerListeners();
   }
 
   ngOnDestroy(): void {
-    this.colorPicker.dispose();
+    this.destroy$.next();
+    this.destroy$.complete();
+    this.colorPicker?.dispose();
+  }
+
+  private initializeColorPicker(): void {
+    this.colorPicker = new ColorPicker(this.elementRef.nativeElement, this.options());
+    this.updateColorPicker(this.value());
+  }
+
+  private setupColorPickerListeners(): void {
+    // Escuchar cambios en el color picker usando rxjs.
+    fromEvent(this.elementRef.nativeElement, 'change')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        const newValue = this.colorPicker.value;
+
+        if (newValue !== this.value()) {
+          this.value.set(newValue);
+          this.onChange(newValue);
+          this.onTouch();
+        }
+      });
   }
 
   onChange = (_: string): void => {};
-
   onTouch = (): void => {};
 
   writeValue(value: string): void {
@@ -73,12 +110,13 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
   }
 
   onChangeValue(value: string): void {
+    this.value.set(value);
     this.onChange(value);
     this.onTouch();
   }
 
   private updateColorPicker(value: string): void {
-    if (!this.colorPicker) {
+    if (!this.colorPicker || value === this.colorPicker.value) {
       return;
     }
 

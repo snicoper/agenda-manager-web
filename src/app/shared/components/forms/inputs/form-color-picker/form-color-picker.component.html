@@ -3,14 +3,14 @@
   <div class="color-picker">
     <input
       #colorPicker
-      (ngModelChange)="onChangeValue($event)"
       [ngModel]="value()"
-      [disabled]="isDisabled()"
+      (ngModelChange)="onChangeValue($event)"
       [id]="id"
-      [name]="id"
-      [value]="value()"
+      [attr.name]="id"
+      [disabled]="isDisabled()"
       [attr.data-format]="dataFormat()"
       [readonly]="readonly()"
+      [attr.value]="value()"
       data-function="color-picker"
       class="btn-appearance"
     />
