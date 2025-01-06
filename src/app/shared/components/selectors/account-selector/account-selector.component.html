@@ -8,20 +8,26 @@
     [matAutocomplete]="auto"
     [attr.aria-label]="'Search for account by email or name'"
   />
-
-  @if (isLoading()) {
-    <mat-spinner matSuffix diameter="20" aria-label="Loading accounts" />
-  }
-
   <mat-autocomplete
     #auto="matAutocomplete"
     [displayWith]="displayFn"
     (optionSelected)="handleOptionSelected($event.option.value)"
   >
-    @for (account of filteredUsers(); track $index) {
-      <mat-option [value]="account"> {{ account.firstName }} {{ account.lastName }} ({{ account.email }}) </mat-option>
-    } @empty {
-      <mat-option disabled>No accounts found</mat-option>
+    @if (isLoading()) {
+      <mat-option disabled>
+        <div class="d-flex flex-row">
+          <mat-spinner matSuffix diameter="20" aria-label="Loading accounts" />
+          <span class="ms-2">Loading accounts...</span>
+        </div>
+      </mat-option>
+    } @else {
+      @for (account of filteredUsers(); track account.accountId) {
+        <mat-option [value]="account">
+          {{ account.firstName }} {{ account.lastName }} ({{ account.email }})
+        </mat-option>
+      } @empty {
+        <mat-option disabled>No accounts found</mat-option>
+      }
     }
   </mat-autocomplete>
 </mat-form-field>
