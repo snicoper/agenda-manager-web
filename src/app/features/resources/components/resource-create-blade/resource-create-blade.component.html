@@ -21,6 +21,16 @@
           />
         </div>
 
+        <!-- category field -->
+        <div class="col-12">
+          <am-form-category-resource-type
+            fieldName="category"
+            formControlName="category"
+            label="Categoría"
+            [formState]="formState"
+          />
+        </div>
+
         <!-- text color field -->
         <div class="col-6">
           <am-form-color-picker
@@ -40,9 +50,6 @@
             [formState]="formState"
           />
         </div>
-
-        <!-- type field -->
-        <div class="col-12"></div>
       </div>
     </form>
   </div>
