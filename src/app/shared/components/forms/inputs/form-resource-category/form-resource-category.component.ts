@@ -14,7 +14,7 @@ import { FormIconPosition } from '../../types/form-icon-position.enum';
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
-  selector: 'am-form-category-resource-type',
+  selector: 'am-form-resource-category',
   imports: [
     FormsModule,
     MatFormFieldModule,
@@ -24,17 +24,17 @@ import { FormIconPosition } from '../../types/form-icon-position.enum';
     FieldErrorComponent,
     SelectOnFocusDirective,
   ],
-  templateUrl: './form-category-resource-type.component.html',
-  styleUrl: './form-category-resource-type.component.scss',
+  templateUrl: './form-resource-category.component.html',
+  styleUrl: './form-resource-category.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormCategoryResourceTypeComponent),
+      useExisting: forwardRef(() => FormResourceCategoryComponent),
       multi: true,
     },
   ],
 })
-export class FormCategoryResourceTypeComponent implements ControlValueAccessor {
+export class FormResourceCategoryComponent implements ControlValueAccessor {
   readonly formState = input.required<FormState>();
   readonly fieldName = input.required<string>();
   readonly label = input.required<string>();
@@ -50,7 +50,7 @@ export class FormCategoryResourceTypeComponent implements ControlValueAccessor {
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
-  id = `form-category-resource-type-${(FormCategoryResourceTypeComponent.nextId += 1)}`;
+  id = `form-resource-category-${(FormResourceCategoryComponent.nextId += 1)}`;
 
   onChange = (_: ResourceCategory): void => {};
 

@@ -10,10 +10,10 @@ import { CommonUtils } from '../../../../core/utils/common/common.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
-import { FormCategoryResourceTypeComponent } from '../../../../shared/components/forms/inputs/form-category-resource-type/form-category-resource-type.component';
 import { FormColorPickerComponent } from '../../../../shared/components/forms/inputs/form-color-picker/form-color-picker.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
+import { FormResourceCategoryComponent } from '../../../../shared/components/forms/inputs/form-resource-category/form-resource-category.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { ResourceFieldsValidators } from '../../contracts/resource-fields-validator.contract';
 import { ResourceCreateRequest } from '../../models/requests/resource-create.request';
@@ -28,7 +28,7 @@ import { ResourceApiService } from '../../services/api/resource-api.service';
     FormInputComponent,
     FormTextareaComponent,
     FormColorPickerComponent,
-    FormCategoryResourceTypeComponent,
+    FormResourceCategoryComponent,
     NonFieldErrorsComponent,
     BtnLoadingComponent,
   ],

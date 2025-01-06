@@ -7,19 +7,19 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
+import { ResourceCategory } from '../../../../core/modules/resource-management/resource-category/resource-category.enum';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
-import { FormCategoryResourceTypeComponent } from '../../../../shared/components/forms/inputs/form-category-resource-type/form-category-resource-type.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
+import { FormResourceCategoryComponent } from '../../../../shared/components/forms/inputs/form-resource-category/form-resource-category.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { ResourceTypeFieldsValidators } from '../../contracts/resource-type-fields-validator.contract';
 import { ResourceTypeCreateRequest } from '../../models/requests/resource-type-create.request';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
-import { ResourceCategory } from '../../../../core/modules/resource-management/resource-category/resource-category.enum';
 
 @Component({
   selector: 'am-resource-type-create-blade',
@@ -30,7 +30,7 @@ import { ResourceCategory } from '../../../../core/modules/resource-management/r
     NonFieldErrorsComponent,
     FormInputComponent,
     FormTextareaComponent,
-    FormCategoryResourceTypeComponent,
+    FormResourceCategoryComponent,
     BtnLoadingComponent,
   ],
   templateUrl: './resource-type-create-blade.component.html',
