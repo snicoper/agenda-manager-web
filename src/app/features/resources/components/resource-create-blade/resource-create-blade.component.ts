@@ -1,9 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { finalize, take } from 'rxjs';
+import { SiteUrls } from '../../../../core/config/site-urls';
 import { FormState } from '../../../../core/forms/models/form-state.model';
+import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 import { ResourceCategory } from '../../../../core/modules/resource-management/resource-category/resource-category.enum';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { CommonUtils } from '../../../../core/utils/common/common.utils';
@@ -16,6 +20,8 @@ import { FormInputType } from '../../../../shared/components/forms/inputs/form-i
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { FormResourceTypeSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-resource-type-selector/form-resource-type-selector.component';
 import { SelectableResourceType } from '../../../../shared/components/forms/inputs/selectors/form-resource-type-selector/models/selectable-resource-type.model';
+import { AccountSelectorComponent } from '../../../../shared/components/selectors/account-selector/account-selector.component';
+import { AccountSelectorResponse } from '../../../../shared/components/selectors/account-selector/models/responses/account-selecter.response';
 import { ResourceFieldsValidators } from '../../contracts/resource-fields-validator.contract';
 import { ResourceCreateRequest } from '../../models/requests/resource-create.request';
 import { ResourceApiService } from '../../services/api/resource-api.service';
@@ -31,6 +37,7 @@ import { ResourceApiService } from '../../services/api/resource-api.service';
     FormColorPickerComponent,
     FormResourceTypeSelectorComponent,
     NonFieldErrorsComponent,
+    AccountSelectorComponent,
     BtnLoadingComponent,
   ],
   templateUrl: './resource-create-blade.component.html',
@@ -42,6 +49,8 @@ export class ResourceCreateBladeComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly bladeService = inject(BladeService);
+
+  readonly isStaff = signal(false);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -72,15 +81,23 @@ export class ResourceCreateBladeComponent implements OnInit {
 
   handleResourceTypeChange(resourceTypeSelected: SelectableResourceType): void {
     if (resourceTypeSelected.category === ResourceCategory.Staff) {
-      this.buildFormToStaff();
+      this.isStaff.set(true);
+    } else {
+      this.isStaff.set(false);
+      this.formState.form.get('userId')?.patchValue(null);
     }
+  }
+
+  handleUserSelected(account: AccountSelectorResponse): void {
+    this.formState.form.get('userId')?.patchValue(account.accountId);
   }
 
   private mapToRequest(): ResourceCreateRequest {
     const request: ResourceCreateRequest = {
+      resourceTypeId: this.formState.form.value.resourceType.resourceTypeId,
+      userId: this.formState.form.value.userId,
       name: this.formState.form.value.name,
       description: this.formState.form.value.description,
-      resourceType: this.formState.form.value.resourceType,
       textColor: this.formState.form.value.textColor,
       backgroundColor: this.formState.form.value.backgroundColor,
     };
@@ -90,19 +107,10 @@ export class ResourceCreateBladeComponent implements OnInit {
 
   private buildForm(): void {
     this.formState.form = this.formBuilder.group({
+      resourceType: [null, ResourceFieldsValidators.resourceType],
+      userId: [null, ResourceFieldsValidators.userId],
       name: ['', ResourceFieldsValidators.name],
       description: ['', ResourceFieldsValidators.description],
-      resourceType: ['', ResourceFieldsValidators.resourceType],
-      textColor: [CommonUtils.getRandomColorHexadecimal(), ResourceFieldsValidators.textColor],
-      backgroundColor: [CommonUtils.getRandomColorHexadecimal(), ResourceFieldsValidators.backgroundColor],
-    });
-  }
-
-  private buildFormToStaff(): void {
-    this.formState.form = this.formBuilder.group({
-      name: ['', ResourceFieldsValidators.name],
-      description: ['', ResourceFieldsValidators.description],
-      resourceType: ['', ResourceFieldsValidators.resourceType],
       textColor: [CommonUtils.getRandomColorHexadecimal(), ResourceFieldsValidators.textColor],
       backgroundColor: [CommonUtils.getRandomColorHexadecimal(), ResourceFieldsValidators.backgroundColor],
     });
@@ -110,5 +118,23 @@ export class ResourceCreateBladeComponent implements OnInit {
 
   private create(request: ResourceCreateRequest): void {
     this.formState.isLoading = true;
+
+    this.apiService
+      .createResource(request)
+      .pipe(
+        take(1),
+        finalize(() => (this.formState.isLoading = false)),
+      )
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Recurso creado correctamente');
+          this.bladeService.emitResult(true);
+          this.router.navigateByUrl(SiteUrls.resources.details);
+        },
+        error: (error: HttpErrorResponse) => {
+          const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
+          this.formState.badRequest = badRequest;
+        },
+      });
   }
 }

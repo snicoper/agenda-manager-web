@@ -3,9 +3,10 @@ import { colorHexadecimalValidator } from '../../../shared/components/forms/vali
 
 /** Validators for the resource form. */
 export const ResourceFieldsValidators = {
+  resourceType: [Validators.required],
+  userId: [],
   name: [Validators.required, Validators.maxLength(50)],
   description: [Validators.required, Validators.maxLength(500)],
-  resourceType: [Validators.required],
   textColor: [Validators.required, Validators.maxLength(7), colorHexadecimalValidator()],
   backgroundColor: [Validators.required, Validators.maxLength(7), colorHexadecimalValidator()],
 };

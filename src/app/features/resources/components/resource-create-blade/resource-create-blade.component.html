@@ -2,6 +2,7 @@
   <h3 class="blade-title">Crear recurso</h3>
 
   <div class="blade-body">
+    {{ isStaff() }}
     <form [formGroup]="formState.form">
       <am-non-field-errors [badRequest]="formState.badRequest" />
 
@@ -16,6 +17,13 @@
             [formState]="formState"
           />
         </div>
+
+        <!-- userId field-->
+        @if (isStaff()) {
+          <div class="col-12">
+            <am-account-selector (userSelected)="handleUserSelected($event)" />
+          </div>
+        }
 
         <!-- name field -->
         <div class="col-12">
