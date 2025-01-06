@@ -6,6 +6,17 @@
       <am-non-field-errors [badRequest]="formState.badRequest" />
 
       <div class="row">
+        <!-- resourceType field -->
+        <div class="col-12">
+          <am-form-resource-type-selector
+            fieldName="resourceType"
+            formControlName="resourceType"
+            label="Tipo de recurso"
+            (ngModelChange)="handleResourceTypeChange($event)"
+            [formState]="formState"
+          />
+        </div>
+
         <!-- name field -->
         <div class="col-12">
           <am-form-input fieldName="name" formControlName="name" label="Nombre" [formState]="formState" />
@@ -17,17 +28,6 @@
             fieldName="description"
             formControlName="description"
             label="Descripción"
-            [formState]="formState"
-          />
-        </div>
-
-        <!-- resourceType field -->
-        <div class="col-12">
-          <am-form-resource-type-selector
-            fieldName="resourceType"
-            formControlName="resourceType"
-            label="Tipo de recurso"
-            (ngModelChange)="handleResourceTypeChange($event)"
             [formState]="formState"
           />
         </div>

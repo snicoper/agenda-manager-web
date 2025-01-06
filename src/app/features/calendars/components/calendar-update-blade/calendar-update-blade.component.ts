@@ -13,6 +13,7 @@ import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-l
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
+import { CalendarSelectorStateService } from '../../../../shared/components/selectors/calendar-selector/services/state/calendar-selector-state.service';
 import { CalendarFieldsValidators } from '../../contracts/calendar-fields-valildators.contract';
 import { CalendarUpdateRequest } from '../../models/requests/calendar-update-request';
 import { CalendarApiService } from '../../services/api/calendar-api.service';
@@ -38,6 +39,7 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
   private readonly formBuilder = inject(FormBuilder);
   private readonly bladeService = inject(BladeService);
   private readonly calendarSelectedStateService = inject(CalendarSelectedStateService);
+  private readonly calendarSelectorStateService = inject(CalendarSelectorStateService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -104,6 +106,9 @@ export class CalendarUpdateBladeComponent implements OnInit, OnDestroy {
         next: () => {
           this.snackBarService.success('Calendario actualizado con éxito');
           this.calendarSelectedStateService.refresh();
+
+          // Refresh the calendar selector to update the calendar name.
+          this.calendarSelectorStateService.refresh();
           this.bladeService.emitResult(true);
         },
         error: (error) => {
