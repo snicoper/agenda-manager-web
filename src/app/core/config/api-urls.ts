@@ -34,6 +34,7 @@ export const ApiUrls = {
   },
   resources: {
     getResourcesPaginated: '/resources/paginated',
+    getResourceById: '/resources/{resourceId}',
   },
   roles: {
     getRolesPaginated: '/roles/paginated',

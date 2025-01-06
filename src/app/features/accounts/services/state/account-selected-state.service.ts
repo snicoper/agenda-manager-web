@@ -63,15 +63,13 @@ export class AccountSelectedStateService {
     this.loading$.set(true);
 
     this.accountApi
-      .getAccountDetails(this.userId$()!)
+      .getAccountById(this.userId$()!)
       .pipe(
         take(1),
         finalize(() => this.loading$.set(false)),
       )
       .subscribe({
-        next: (response) => {
-          this.account$.set(response);
-        },
+        next: (response) => this.account$.set(response),
         error: (error: HttpErrorResponse) => {
           if (error.status === HttpStatusCode.NotFound) {
             this.snackBarService.error('No se encontró la cuenta');

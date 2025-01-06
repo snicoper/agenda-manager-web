@@ -1,10 +1,9 @@
+/* eslint-disable  @typescript-eslint/no-empty-function */
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import ColorPicker, { ColorPickerOptions } from '@thednp/color-picker';
 import { FormState } from '../../../../../core/forms/models/form-state.model';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
-
-/* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
   selector: 'am-form-color-picker',

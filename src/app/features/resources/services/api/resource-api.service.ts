@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
 import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { DateTimeUtils } from '../../../../core/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
+import { ResourceDetailsResponse } from '../../models/responses/resource-details.response';
 import { ResourcePaginatedResponse } from '../../models/responses/resource-paginated.response';
 
 @Injectable({ providedIn: 'root' })
@@ -26,5 +27,17 @@ export class ResourceApiService extends ApiBaseService {
 
       return result;
     });
+  }
+
+  /** Get a resource by id. */
+  getResourceById(resourceId: string): Observable<ResourceDetailsResponse> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.getResourceById, { id: resourceId });
+
+    return this.get<ResourceDetailsResponse>(endpoint).pipe(
+      map((response) => ({
+        ...response,
+        createdAt: DateTimeUtils.fromApi(response.createdAt) as DateTime,
+      })),
+    );
   }
 }

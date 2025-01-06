@@ -40,7 +40,7 @@ export class AccountApiService extends ApiBaseService {
   }
 
   /** Get account details. */
-  getAccountDetails(userId: string): Observable<AccountDetailsResponse> {
+  getAccountById(userId: string): Observable<AccountDetailsResponse> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.getAccountDetails, { userId: userId });
 
     return this.get<AccountDetailsResponse>(endpoint, (response) => {
