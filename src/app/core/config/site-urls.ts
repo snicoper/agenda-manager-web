@@ -28,6 +28,7 @@ export const SiteUrls = {
 
   resources: {
     list: '/resources',
+    details: '/resources/{id}',
   },
 
   roles: {

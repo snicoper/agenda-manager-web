@@ -32,7 +32,9 @@ export const ApiUrls = {
     toggleIsActive: '/calendars/{calendarId}/toggle-is-active',
     deleteCalendarHoliday: '/calendars/{calendarId}/holidays/{holidayId}',
   },
-  resources: {},
+  resources: {
+    getResourcesPaginated: '/resources/paginated',
+  },
   roles: {
     getRolesPaginated: '/roles/paginated',
     getAllRoles: '/roles',

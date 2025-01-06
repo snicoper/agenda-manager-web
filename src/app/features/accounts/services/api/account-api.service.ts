@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
 import { EmptyRequest } from '../../../../core/http/types/empty-request.type';
@@ -31,7 +32,7 @@ export class AccountApiService extends ApiBaseService {
 
       result.items = result.items.map((account) => ({
         ...account,
-        dateJoined: DateTimeUtils.fromApi(account.dateJoined),
+        dateJoined: DateTimeUtils.fromApi(account.dateJoined) as DateTime,
       }));
 
       return result;
@@ -45,7 +46,7 @@ export class AccountApiService extends ApiBaseService {
     return this.get<AccountDetailsResponse>(endpoint, (response) => {
       return {
         ...response.value,
-        createAt: DateTimeUtils.fromApi(response.value.createdAt),
+        createAt: DateTimeUtils.fromApi(response.value.createdAt) as DateTime,
       };
     });
   }

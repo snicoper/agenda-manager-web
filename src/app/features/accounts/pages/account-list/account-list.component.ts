@@ -60,13 +60,13 @@ export class AccountListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  readonly loading = signal(false);
+
   readonly breadcrumb = new BreadcrumbCollection();
   readonly displayedColumns = ['email', 'firstName', 'lastName', 'isActive', 'isEmailConfirmed', 'dateJoined'];
   readonly fieldsFilter = ['email', 'profile.firstName', 'profile.lastName'];
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
-
-  readonly loading = signal(false);
 
   dataSource = new MatTableDataSource<AccountPaginatedResponse, MatPaginator>();
   paginatedResult = new PaginatedResult<AccountPaginatedResponse>();
@@ -139,7 +139,6 @@ export class AccountListComponent implements AfterViewInit {
             this.sort.direction = this.paginatedResult.order.orderType.toLowerCase() as SortDirection;
           }
         },
-        error: () => this.snackBarService.error('Ha ocurrido un error al cargar las cuentas.'),
       });
   }
 }
