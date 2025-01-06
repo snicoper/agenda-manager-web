@@ -6,6 +6,6 @@ export const ResourceFieldsValidators = {
   name: [Validators.required, Validators.maxLength(50)],
   description: [Validators.required, Validators.maxLength(500)],
   category: [Validators.required],
-  textColor: [Validators.required, colorHexadecimalValidator()],
-  backgroundColor: [Validators.required, colorHexadecimalValidator()],
+  textColor: [Validators.required, Validators.maxLength(7), colorHexadecimalValidator()],
+  backgroundColor: [Validators.required, Validators.maxLength(7), colorHexadecimalValidator()],
 };

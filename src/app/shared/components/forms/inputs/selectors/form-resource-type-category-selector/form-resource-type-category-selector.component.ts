@@ -4,17 +4,17 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormState } from '../../../../../core/forms/models/form-state.model';
-import { ResourceCategoryUtils } from '../../../../../core/modules/resource-management/resource-category/resource-category.const';
-import { ResourceCategory } from '../../../../../core/modules/resource-management/resource-category/resource-category.enum';
-import { SelectOnFocusDirective } from '../../../../directives/select-on-focus.directive';
-import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
-import { FormIconPosition } from '../../types/form-icon-position.enum';
+import { FormState } from '../../../../../../core/forms/models/form-state.model';
+import { ResourceCategoryUtils } from '../../../../../../core/modules/resource-management/resource-category/resource-category.const';
+import { ResourceCategory } from '../../../../../../core/modules/resource-management/resource-category/resource-category.enum';
+import { SelectOnFocusDirective } from '../../../../../directives/select-on-focus.directive';
+import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
+import { FormIconPosition } from '../../../types/form-icon-position.enum';
 
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
-  selector: 'am-form-resource-category',
+  selector: 'am-form-resource-type-category-selector',
   imports: [
     FormsModule,
     MatFormFieldModule,
@@ -24,17 +24,17 @@ import { FormIconPosition } from '../../types/form-icon-position.enum';
     FieldErrorComponent,
     SelectOnFocusDirective,
   ],
-  templateUrl: './form-resource-category.component.html',
-  styleUrl: './form-resource-category.component.scss',
+  templateUrl: './form-resource-type-category-selector.component.html',
+  styleUrl: './form-resource-type-category-selector.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormResourceCategoryComponent),
+      useExisting: forwardRef(() => FormResourceTypeCategorySelectorComponent),
       multi: true,
     },
   ],
 })
-export class FormResourceCategoryComponent implements ControlValueAccessor {
+export class FormResourceTypeCategorySelectorComponent implements ControlValueAccessor {
   readonly formState = input.required<FormState>();
   readonly fieldName = input.required<string>();
   readonly label = input.required<string>();
@@ -50,7 +50,7 @@ export class FormResourceCategoryComponent implements ControlValueAccessor {
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
-  id = `form-resource-category-${(FormResourceCategoryComponent.nextId += 1)}`;
+  id = `form-resource-type-category-selector-${(FormResourceTypeCategorySelectorComponent.nextId += 1)}`;
 
   onChange = (_: ResourceCategory): void => {};
 

@@ -7,40 +7,41 @@ import { MatSelectModule } from '@angular/material/select';
 import { finalize, take } from 'rxjs';
 import { FormState } from '../../../../../../core/forms/models/form-state.model';
 import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
-import { SelectableRole } from './models/selectable-role.model';
-import { RoleSelectorApiService } from './services/role-selector-api.service';
+import { SelectableResourceType } from './models/selectable-resource-type.model';
+import { ResourceTypeSelectorService } from './services/resource-type-selector.service';
 
 @Component({
-  selector: 'am-form-role-selector',
+  selector: 'am-form-resource-type-selector',
   imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, FieldErrorComponent],
-  templateUrl: './form-role-selector.component.html',
+  templateUrl: './form-resource-type-selector.component.html',
+  styleUrl: './form-resource-type-selector.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormRoleSelectorComponent),
+      useExisting: forwardRef(() => FormResourceTypeSelectorComponent),
       multi: true,
     },
-    RoleSelectorApiService,
+    ResourceTypeSelectorService,
   ],
 })
-export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
-  private readonly apiService = inject(RoleSelectorApiService);
+export class FormResourceTypeSelectorComponent implements ControlValueAccessor, OnInit {
+  private readonly apiService = inject(ResourceTypeSelectorService);
 
   readonly formState = input.required<FormState>();
   readonly fieldName = input.required<string>();
   readonly label = input.required<string>();
 
-  readonly availableRoles = signal<SelectableRole[]>([]);
+  readonly resourceTypes = signal<SelectableResourceType[]>([]);
   readonly isLoading = signal(false);
   readonly value = signal<string[]>([]);
   readonly isDisabled = signal(false);
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
-  id = `role-selector-field-${(FormRoleSelectorComponent.nextId += 1)}`;
+  id = `resource-type-selector-field-${(FormResourceTypeSelectorComponent.nextId += 1)}`;
 
   ngOnInit(): void {
-    this.loadRoles();
+    this.loadResourceTypes();
   }
 
   onChange = (_: string[]): void => {};
@@ -68,16 +69,16 @@ export class FormRoleSelectorComponent implements ControlValueAccessor, OnInit {
     this.onTouch();
   }
 
-  private loadRoles(): void {
+  private loadResourceTypes(): void {
     this.isLoading.set(true);
     this.apiService
-      .getAllRoles()
+      .getAllResourceTypes()
       .pipe(
         take(1),
         finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
-        next: (roles) => this.availableRoles.set(roles),
+        next: (response) => this.resourceTypes.set(response),
       });
   }
 }

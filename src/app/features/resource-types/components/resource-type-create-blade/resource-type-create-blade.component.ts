@@ -15,8 +15,8 @@ import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-l
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
-import { FormResourceCategoryComponent } from '../../../../shared/components/forms/inputs/form-resource-category/form-resource-category.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
+import { FormResourceTypeCategorySelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-resource-type-category-selector/form-resource-type-category-selector.component';
 import { ResourceTypeFieldsValidators } from '../../contracts/resource-type-fields-validator.contract';
 import { ResourceTypeCreateRequest } from '../../models/requests/resource-type-create.request';
 import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
@@ -30,7 +30,7 @@ import { ResourceTypeApiService } from '../../services/api/resource-type-api.ser
     NonFieldErrorsComponent,
     FormInputComponent,
     FormTextareaComponent,
-    FormResourceCategoryComponent,
+    FormResourceTypeCategorySelectorComponent,
     BtnLoadingComponent,
   ],
   templateUrl: './resource-type-create-blade.component.html',

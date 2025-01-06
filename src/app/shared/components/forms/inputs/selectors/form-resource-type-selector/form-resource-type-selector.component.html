@@ -10,11 +10,11 @@
     @if (isLoading()) {
       <mat-option disabled>
         <mat-progress-spinner mode="indeterminate" diameter="20" />
-        Cargando roles...
+        Cargando tipo de recursos...
       </mat-option>
     } @else {
-      @for (role of availableRoles(); track role.roleId) {
-        <mat-option [value]="role.roleId">{{ role.name }}</mat-option>
+      @for (resourceType of resourceTypes(); track resourceType.resourceTypeId) {
+        <mat-option [value]="resourceType.resourceTypeId">{{ resourceType.name }}</mat-option>
       }
     }
   </mat-select>

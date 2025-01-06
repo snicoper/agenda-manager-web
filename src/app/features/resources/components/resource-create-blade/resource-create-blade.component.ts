@@ -13,8 +13,8 @@ import { NonFieldErrorsComponent } from '../../../../shared/components/forms/err
 import { FormColorPickerComponent } from '../../../../shared/components/forms/inputs/form-color-picker/form-color-picker.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
-import { FormResourceCategoryComponent } from '../../../../shared/components/forms/inputs/form-resource-category/form-resource-category.component';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
+import { FormResourceTypeCategorySelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-resource-type-category-selector/form-resource-type-category-selector.component';
 import { ResourceFieldsValidators } from '../../contracts/resource-fields-validator.contract';
 import { ResourceCreateRequest } from '../../models/requests/resource-create.request';
 import { ResourceApiService } from '../../services/api/resource-api.service';
@@ -28,7 +28,7 @@ import { ResourceApiService } from '../../services/api/resource-api.service';
     FormInputComponent,
     FormTextareaComponent,
     FormColorPickerComponent,
-    FormResourceCategoryComponent,
+    FormResourceTypeCategorySelectorComponent,
     NonFieldErrorsComponent,
     BtnLoadingComponent,
   ],
