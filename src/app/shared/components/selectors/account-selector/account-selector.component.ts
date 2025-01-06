@@ -5,7 +5,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { debounceTime, distinctUntilChanged, filter, finalize, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, finalize, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { AccountSelectorResponse } from './models/responses/account-selecter.response';
 import { AccountSelectorApiService } from './services/api/account-selector-api.service';
 
@@ -71,7 +71,10 @@ export class AccountSelectorComponent implements OnDestroy {
         }),
         filter((term) => term.trim().length > 0),
         switchMap((term) =>
-          this.accountSelectorApi.filterAccounts(term, this.PAGE_SIZE).pipe(finalize(() => this.isLoading.set(false))),
+          this.accountSelectorApi.filterAccounts(term, this.PAGE_SIZE).pipe(
+            take(1),
+            finalize(() => this.isLoading.set(false)),
+          ),
         ),
         takeUntil(this.destroy$),
       )
