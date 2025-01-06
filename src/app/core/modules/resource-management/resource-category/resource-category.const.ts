@@ -5,7 +5,7 @@ import { ResourceCategory } from './resource-category.enum';
 export const ResourceCategoryDisplayInfo: Record<ResourceCategory, BaseEnumInfo> = {
   [ResourceCategory.Staff]: {
     code: 'Staff',
-    description: 'Empleado de la empresa',
+    description: 'Empleado',
   },
   [ResourceCategory.Place]: {
     code: 'Place',

@@ -27,6 +27,7 @@
             fieldName="resourceType"
             formControlName="resourceType"
             label="Tipo de recurso"
+            (ngModelChange)="handleResourceTypeChange($event)"
             [formState]="formState"
           />
         </div>

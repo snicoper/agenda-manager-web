@@ -15,6 +15,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
 import { FormResourceTypeSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-resource-type-selector/form-resource-type-selector.component';
+import { SelectableResourceType } from '../../../../shared/components/forms/inputs/selectors/form-resource-type-selector/models/selectable-resource-type.model';
 import { ResourceFieldsValidators } from '../../contracts/resource-fields-validator.contract';
 import { ResourceCreateRequest } from '../../models/requests/resource-create.request';
 import { ResourceApiService } from '../../services/api/resource-api.service';
@@ -69,11 +70,17 @@ export class ResourceCreateBladeComponent implements OnInit {
     this.create(request);
   }
 
+  handleResourceTypeChange(resourceTypeSelected: SelectableResourceType): void {
+    if (resourceTypeSelected.category === ResourceCategory.Staff) {
+      this.buildFormToStaff();
+    }
+  }
+
   private mapToRequest(): ResourceCreateRequest {
     const request: ResourceCreateRequest = {
       name: this.formState.form.value.name,
       description: this.formState.form.value.description,
-      resourceType: this.formState.form.value.category as ResourceCategory,
+      resourceType: this.formState.form.value.resourceType,
       textColor: this.formState.form.value.textColor,
       backgroundColor: this.formState.form.value.backgroundColor,
     };
@@ -82,6 +89,16 @@ export class ResourceCreateBladeComponent implements OnInit {
   }
 
   private buildForm(): void {
+    this.formState.form = this.formBuilder.group({
+      name: ['', ResourceFieldsValidators.name],
+      description: ['', ResourceFieldsValidators.description],
+      resourceType: ['', ResourceFieldsValidators.resourceType],
+      textColor: [CommonUtils.getRandomColorHexadecimal(), ResourceFieldsValidators.textColor],
+      backgroundColor: [CommonUtils.getRandomColorHexadecimal(), ResourceFieldsValidators.backgroundColor],
+    });
+  }
+
+  private buildFormToStaff(): void {
     this.formState.form = this.formBuilder.group({
       name: ['', ResourceFieldsValidators.name],
       description: ['', ResourceFieldsValidators.description],

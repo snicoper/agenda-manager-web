@@ -64,10 +64,8 @@ export class FormResourceTypeSelectorComponent implements ControlValueAccessor, 
   onChange = (_: SelectableResourceType): void => {};
   onTouch: () => void = () => {};
 
-  displayFn = (resourceTypeId: string): string => {
-    const option = this.resourceTypes().find((opt) => opt.resourceTypeId === resourceTypeId);
-
-    return option ? option.name : '';
+  displayFn = (resourceType: SelectableResourceType): string => {
+    return resourceType?.name ?? '';
   };
 
   writeValue(value: SelectableResourceType): void {

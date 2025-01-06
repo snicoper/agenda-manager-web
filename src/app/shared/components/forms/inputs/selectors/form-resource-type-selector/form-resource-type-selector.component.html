@@ -26,7 +26,7 @@
     <!-- autocomplete -->
     <mat-autocomplete #resourceTypesItems="matAutocomplete" [displayWith]="displayFn">
       @for (resourceType of resourceTypes(); track $index) {
-        <mat-option [value]="resourceType.resourceTypeId">{{ resourceType.name }}</mat-option>
+        <mat-option [value]="resourceType">{{ resourceType.name }}</mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>
