@@ -15,7 +15,7 @@
       aria-label="Selección de zona horaria"
       matInput
       amSelectOnFocus
-      (ngModelChange)="onChangeValue($event)"
+      (ngModelChange)="handleChangeValue($event)"
       [ngModel]="value()"
       [matAutocomplete]="timezones"
       [disabled]="isDisabled()"

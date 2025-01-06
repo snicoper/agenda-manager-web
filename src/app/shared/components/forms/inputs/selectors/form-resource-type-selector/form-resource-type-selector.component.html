@@ -1,25 +1,40 @@
-<mat-form-field style="width: 100%; display: block">
-  <mat-label>{{ label() }}</mat-label>
-  <mat-select
-    multiple
-    (ngModelChange)="handleSelectionChange($event)"
-    [ngModel]="value()"
-    [disabled]="isDisabled()"
-    [id]="id"
-  >
-    @if (isLoading()) {
-      <mat-option disabled>
-        <mat-progress-spinner mode="indeterminate" diameter="20" />
-        Cargando tipo de recursos...
-      </mat-option>
-    } @else {
-      @for (resourceType of resourceTypes(); track resourceType.resourceTypeId) {
+@if (resourceTypes().length && !isLoading()) {
+  <mat-form-field>
+    <!-- label -->
+    <mat-label>{{ label() }}</mat-label>
+
+    <!-- icon -->
+    @if (icon() && formIconPosition() === iconPositions.prefix) {
+      <mat-icon matPrefix>{{ icon() }}</mat-icon>
+    } @else if (icon() && formIconPosition() === iconPositions.suffix) {
+      <mat-icon matSuffix>{{ icon() }}</mat-icon>
+    }
+
+    <!-- input -->
+    <input
+      matInput
+      amSelectOnFocus
+      aria-label="Selección de tipo de recurso"
+      (ngModelChange)="handleSelectionChange($event)"
+      [ngModel]="value()"
+      [matAutocomplete]="resourceTypesItems"
+      [disabled]="isDisabled()"
+      [id]="id"
+      [placeholder]="placeholder()"
+    />
+
+    <!-- autocomplete -->
+    <mat-autocomplete #resourceTypesItems="matAutocomplete" [displayWith]="displayFn">
+      @for (resourceType of resourceTypes(); track $index) {
         <mat-option [value]="resourceType.resourceTypeId">{{ resourceType.name }}</mat-option>
       }
-    }
-  </mat-select>
-</mat-form-field>
+    </mat-autocomplete>
+  </mat-form-field>
 
-@if (formState().form) {
-  <am-field-error [formState]="formState()" [fieldName]="fieldName()" [fieldText]="label()" />
+  <!-- field error -->
+  @if (formState().form) {
+    <am-field-error [formState]="formState()" [fieldName]="fieldName()" [fieldText]="label()" />
+  }
+} @else {
+  <mat-spinner diameter="24" />
 }

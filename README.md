@@ -73,6 +73,6 @@ Features ← Shared
 - Los componentes en Shared deben ser verdaderamente reutilizables
 - Core debe mantenerse lo más pequeño posible
 - Features deben ser independientes entre sí
-- Data es opcional y depende de la complejidad del proyecto
+- Data es opcional y depende de   la complejidad del proyecto
 
 ---

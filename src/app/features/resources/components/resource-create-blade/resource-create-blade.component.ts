@@ -14,7 +14,7 @@ import { FormColorPickerComponent } from '../../../../shared/components/forms/in
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
-import { FormResourceTypeCategorySelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-resource-type-category-selector/form-resource-type-category-selector.component';
+import { FormResourceTypeSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-resource-type-selector/form-resource-type-selector.component';
 import { ResourceFieldsValidators } from '../../contracts/resource-fields-validator.contract';
 import { ResourceCreateRequest } from '../../models/requests/resource-create.request';
 import { ResourceApiService } from '../../services/api/resource-api.service';
@@ -28,7 +28,7 @@ import { ResourceApiService } from '../../services/api/resource-api.service';
     FormInputComponent,
     FormTextareaComponent,
     FormColorPickerComponent,
-    FormResourceTypeCategorySelectorComponent,
+    FormResourceTypeSelectorComponent,
     NonFieldErrorsComponent,
     BtnLoadingComponent,
   ],
@@ -73,9 +73,9 @@ export class ResourceCreateBladeComponent implements OnInit {
     const request: ResourceCreateRequest = {
       name: this.formState.form.value.name,
       description: this.formState.form.value.description,
+      resourceType: this.formState.form.value.category as ResourceCategory,
       textColor: this.formState.form.value.textColor,
       backgroundColor: this.formState.form.value.backgroundColor,
-      category: this.formState.form.value.category as ResourceCategory,
     };
 
     return request;
@@ -85,7 +85,7 @@ export class ResourceCreateBladeComponent implements OnInit {
     this.formState.form = this.formBuilder.group({
       name: ['', ResourceFieldsValidators.name],
       description: ['', ResourceFieldsValidators.description],
-      category: ['', ResourceFieldsValidators.category],
+      resourceType: ['', ResourceFieldsValidators.resourceType],
       textColor: [CommonUtils.getRandomColorHexadecimal(), ResourceFieldsValidators.textColor],
       backgroundColor: [CommonUtils.getRandomColorHexadecimal(), ResourceFieldsValidators.backgroundColor],
     });

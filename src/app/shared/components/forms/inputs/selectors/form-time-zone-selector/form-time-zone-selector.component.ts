@@ -82,7 +82,7 @@ export class FormTimeZoneSelectorComponent implements ControlValueAccessor {
     this.isDisabled.set(isDisabled);
   }
 
-  onChangeValue(value: string): void {
+  handleChangeValue(value: string): void {
     this.itemsFiltered.set(this.filter(value) ?? Array<string>);
     this.onChange(value);
     this.onTouch();

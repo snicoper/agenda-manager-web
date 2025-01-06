@@ -5,5 +5,5 @@ export interface ResourceCreateRequest {
   description: string;
   textColor: string;
   backgroundColor: string;
-  category: ResourceCategory;
+  resourceType: ResourceCategory;
 }

@@ -1,18 +1,31 @@
 /* eslint-disable  @typescript-eslint/no-empty-function */
+import { CommonModule } from '@angular/common';
 import { Component, forwardRef, inject, input, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
 import { finalize, take } from 'rxjs';
 import { FormState } from '../../../../../../core/forms/models/form-state.model';
+import { SelectOnFocusDirective } from '../../../../../directives/select-on-focus.directive';
 import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
+import { FormIconPosition } from '../../../types/form-icon-position.enum';
 import { SelectableResourceType } from './models/selectable-resource-type.model';
 import { ResourceTypeSelectorService } from './services/resource-type-selector.service';
 
 @Component({
   selector: 'am-form-resource-type-selector',
-  imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, FieldErrorComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    FieldErrorComponent,
+    SelectOnFocusDirective,
+  ],
   templateUrl: './form-resource-type-selector.component.html',
   styleUrl: './form-resource-type-selector.component.scss',
   providers: [
@@ -30,11 +43,15 @@ export class FormResourceTypeSelectorComponent implements ControlValueAccessor, 
   readonly formState = input.required<FormState>();
   readonly fieldName = input.required<string>();
   readonly label = input.required<string>();
+  readonly placeholder = input('');
+  readonly icon = input('');
+  readonly formIconPosition = input(FormIconPosition.prefix);
 
+  readonly value = signal<SelectableResourceType | null>(null);
   readonly resourceTypes = signal<SelectableResourceType[]>([]);
   readonly isLoading = signal(false);
-  readonly value = signal<string[]>([]);
   readonly isDisabled = signal(false);
+  readonly iconPositions = FormIconPosition;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
@@ -44,14 +61,20 @@ export class FormResourceTypeSelectorComponent implements ControlValueAccessor, 
     this.loadResourceTypes();
   }
 
-  onChange = (_: string[]): void => {};
+  onChange = (_: SelectableResourceType): void => {};
   onTouch: () => void = () => {};
 
-  writeValue(value: string[]): void {
-    this.value.set(value ?? []);
+  displayFn = (resourceTypeId: string): string => {
+    const option = this.resourceTypes().find((opt) => opt.resourceTypeId === resourceTypeId);
+
+    return option ? option.name : '';
+  };
+
+  writeValue(value: SelectableResourceType): void {
+    this.value.set(value ?? null);
   }
 
-  registerOnChange(fn: (value: string[]) => void): void {
+  registerOnChange(fn: (value: SelectableResourceType) => void): void {
     this.onChange = fn;
   }
 
@@ -63,9 +86,9 @@ export class FormResourceTypeSelectorComponent implements ControlValueAccessor, 
     this.isDisabled.set(isDisabled);
   }
 
-  handleSelectionChange(selectedIds: string[]): void {
-    this.value.set(selectedIds);
-    this.onChange(this.value());
+  handleSelectionChange(item: SelectableResourceType): void {
+    this.value.set(item);
+    this.onChange(this.value() as SelectableResourceType);
     this.onTouch();
   }
 
