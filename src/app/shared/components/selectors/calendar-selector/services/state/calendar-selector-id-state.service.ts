@@ -7,6 +7,8 @@ import { computed, Injectable, signal } from '@angular/core';
  * el estado del selector de calendario.
  *
  * Accesible también desde CalendarSelectorStateService.
+ *
+ * @see ApiInterceptor.
  */
 @Injectable({ providedIn: 'root' })
 export class CalendarSelectorIdStateService {
