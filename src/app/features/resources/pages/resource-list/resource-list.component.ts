@@ -25,7 +25,7 @@ import { RequiredPermissionDirective } from '../../../../shared/directives/requi
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { ResourceCreateBladeComponent } from '../../components/resource-create-blade/resource-create-blade.component';
-import { ResourceResponse } from '../../models/responses/resource.response';
+import { ResourcePaginatedResponse } from '../../models/responses/resource-paginated.response';
 import { ResourceApiService } from '../../services/api/resource-api.service';
 
 @Component({
@@ -76,8 +76,8 @@ export class ResourceListComponent implements AfterViewInit {
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
 
-  dataSource = new MatTableDataSource<ResourceResponse, MatPaginator>();
-  paginatedResult = new PaginatedResult<ResourceResponse>();
+  dataSource = new MatTableDataSource<ResourcePaginatedResponse, MatPaginator>();
+  paginatedResult = new PaginatedResult<ResourcePaginatedResponse>();
 
   constructor() {
     this.setBreadcrumb();
@@ -114,7 +114,7 @@ export class ResourceListComponent implements AfterViewInit {
     this.loadResources();
   }
 
-  handleFilterChange(paginatedResult: PaginatedResult<ResourceResponse>): void {
+  handleFilterChange(paginatedResult: PaginatedResult<ResourcePaginatedResponse>): void {
     this.paginatedResult = paginatedResult;
     this.loadResources();
   }
@@ -139,7 +139,7 @@ export class ResourceListComponent implements AfterViewInit {
       )
       .subscribe({
         next: (response) => {
-          this.paginatedResult = PaginatedResult.create<ResourceResponse>(response);
+          this.paginatedResult = PaginatedResult.create<ResourcePaginatedResponse>(response);
           this.dataSource.data = this.paginatedResult.items;
 
           if (this.sort && this.paginatedResult.order) {

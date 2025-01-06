@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-export interface ResourceResponse {
+export interface ResourcePaginatedResponse {
   resourceId: string;
   name: string;
   description: string;
