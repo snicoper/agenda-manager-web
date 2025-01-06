@@ -51,13 +51,17 @@
           <!-- text color field -->
           <ng-container matColumnDef="textColor">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Color de texto</th>
-            <td mat-cell *matCellDef="let row">{{ row.textColor }}</td>
+            <td mat-cell *matCellDef="let row">
+              <am-dot-background-color [hexColor]="row.textColor" />
+            </td>
           </ng-container>
 
           <!-- background color field -->
           <ng-container matColumnDef="backgroundColor">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Color de fondo</th>
-            <td mat-cell *matCellDef="let row">{{ row.backgroundColor }}</td>
+            <td mat-cell *matCellDef="let row">
+              <am-dot-background-color [hexColor]="row.backgroundColor" />
+            </td>
           </ng-container>
 
           <!-- isActive field -->

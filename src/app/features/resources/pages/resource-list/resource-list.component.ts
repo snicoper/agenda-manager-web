@@ -26,6 +26,7 @@ import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { ResourceResponse } from '../../models/responses/resource.response';
 import { ResourceApiService } from '../../services/api/resource-api.service';
+import { DotBackgroundColorComponent } from '../../../../shared/components/dots/dot-background-color/dot-background-color.component';
 
 @Component({
   selector: 'am-resource-list',
@@ -43,6 +44,7 @@ import { ResourceApiService } from '../../services/api/resource-api.service';
     PageHeaderComponent,
     TableFilterComponent,
     PaginatorComponent,
+    DotBackgroundColorComponent,
     BoolToIconPipe,
     DateTimeFormatPipe,
     RequiredPermissionDirective,
