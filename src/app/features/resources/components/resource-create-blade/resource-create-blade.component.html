@@ -21,7 +21,7 @@
         <!-- userId field-->
         @if (isStaff()) {
           <div class="col-12">
-            <am-account-selector (userSelected)="handleUserSelected($event)" />
+            <am-account-selector label="Asociar cuenta de usuario" (userSelected)="handleUserSelected($event)" />
           </div>
         }
 

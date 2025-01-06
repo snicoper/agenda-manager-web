@@ -27,6 +27,7 @@ import { AccountSelectorApiService } from './services/api/account-selector-api.s
 export class AccountSelectorComponent implements OnDestroy {
   private readonly accountSelectorApi = inject(AccountSelectorApiService);
 
+  readonly label = input<string>('Buscar cuenta de usuario');
   readonly debounceTime = input<number>(300);
   readonly pageSize = input<number>(10);
 
