@@ -6,21 +6,23 @@ import { SnackBarService } from '../../../../../../core/services/snackbar.servic
 import { CalendarSelected } from '../../models/calendar-selected';
 import { CalendarSelectedState } from '../../models/state/calendar-selector.state';
 import { CalendarSelectorApiService } from '../api/calendar-selector-api.service';
+import { CalendarSelectorIdStateService } from './calendar-selector-id-state.service';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarSelectorStateService {
+  private readonly calendarSelectorIdState = inject(CalendarSelectorIdStateService);
+
   private readonly apiService = inject(CalendarSelectorApiService);
   private readonly browserStorageService = inject(BrowserStorageService);
   private readonly snackBarService = inject(SnackBarService);
 
   private readonly calendars$ = signal<CalendarSelected[]>([]);
   private readonly calendarSelected$ = signal<CalendarSelected | null>(null);
-  private readonly calendarId$ = signal<string | null>(null);
   private readonly loading$ = signal<boolean>(false);
 
   readonly state: CalendarSelectedState = {
     calendars: computed(() => this.calendars$()),
-    calendarId: computed(() => this.calendarId$()),
+    calendarId: computed(() => this.calendarSelectorIdState.state()),
     calendar: computed(() => this.calendarSelected$()),
     loading: computed(() => this.loading$()),
   };
@@ -55,7 +57,7 @@ export class CalendarSelectorStateService {
 
     if (calendar) {
       this.calendarSelected$.set(calendar);
-      this.calendarId$.set(calendar.calendarId);
+      this.calendarSelectorIdState.setCalendarId(calendar.calendarId);
     }
   }
 
