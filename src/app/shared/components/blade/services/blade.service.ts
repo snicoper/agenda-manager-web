@@ -7,9 +7,14 @@ import { BladeState } from '../models/blade-state.model';
 export class BladeService {
   private readonly isVisible$ = signal(false);
   private readonly component$ = signal<Type<unknown> | null>(null);
-  private readonly options$ = signal<BladeOptions>({ width: '700px' });
+  private readonly options$ = signal<BladeOptions>({
+    width: '700px',
+    closeOnOutsideClick: false,
+    closeOnEscapeKey: true,
+  });
 
   private readonly resultSubject$ = new Subject<unknown>();
+
   readonly result = this.resultSubject$.asObservable();
 
   readonly bladeState: BladeState = {

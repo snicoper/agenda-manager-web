@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject, input, OnDestroy } from '@angular/core';
+import { Component, HostListener, inject, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BladeService } from './services/blade.service';
@@ -29,18 +29,15 @@ import { BladeService } from './services/blade.service';
 export class BladeComponent implements OnDestroy {
   readonly bladeService = inject(BladeService);
 
-  readonly closeOnContainerClick = input(true);
-  readonly closeOnEscapeKey = input(true);
-
   @HostListener('document:keydown.escape')
   handleEscapeKey(): void {
-    if (this.bladeService.bladeState.isVisible() && this.closeOnEscapeKey()) {
+    if (this.bladeService.bladeState.isVisible() && this.bladeService.bladeState.options().closeOnEscapeKey) {
       this.bladeService.hide();
     }
   }
 
   handleContainerClick(event: MouseEvent): void {
-    if (event.target === event.currentTarget && this.closeOnContainerClick()) {
+    if (event.target === event.currentTarget && this.bladeService.bladeState.options().closeOnOutsideClick) {
       this.bladeService.hide();
     }
   }
@@ -50,6 +47,6 @@ export class BladeComponent implements OnDestroy {
   }
 
   handleKeyDown(): void {
-    // Método vacío solo para satisfacer el linter
+    // Método vacío solo para satisfacer el linter.
   }
 }

@@ -1,9 +1,8 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import { HttpResponse } from '@angular/common/http';
 import { PaginatedResultFilter } from '../models/paginated-result-filter';
 import { PaginatedResultOrder } from '../models/paginated-result-order';
 import { PaginatedResult } from '../paginated-result';
-
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 
 interface ResultValue<T> {
   value: T;

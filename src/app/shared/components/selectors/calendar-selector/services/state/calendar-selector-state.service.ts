@@ -44,6 +44,7 @@ export class CalendarSelectorStateService {
     }
 
     this.calendarSelected$.set(calendar);
+    this.calendarSelectorIdState.setCalendarId(calendarId);
     this.browserStorageService.setObject(BrowserStorageKey.CalendarSelected, this.calendarSelected$());
 
     // Notify the user that the calendar has been selected.

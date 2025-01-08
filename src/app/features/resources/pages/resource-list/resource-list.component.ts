@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, inject, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, effect, inject, signal, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,12 +14,14 @@ import { SiteUrls } from '../../../../core/config/site-urls';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
 import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
+import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BreadcrumbCollection } from '../../../../shared/components/breadcrumb/models/breadcrumb-collection.model';
 import { DotBackgroundColorComponent } from '../../../../shared/components/dots/dot-background-color/dot-background-color.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
+import { CalendarSelectorIdStateService } from '../../../../shared/components/selectors/calendar-selector/services/state/calendar-selector-id-state.service';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { BoolToIconPipe } from '../../../../shared/pipes/bool-to-icon.pipe';
@@ -45,6 +47,7 @@ import { ResourceApiService } from '../../services/api/resource-api.service';
     TableFilterComponent,
     PaginatorComponent,
     DotBackgroundColorComponent,
+    AlertComponent,
     BoolToIconPipe,
     DateTimeFormatPipe,
     RequiredPermissionDirective,
@@ -53,13 +56,15 @@ import { ResourceApiService } from '../../services/api/resource-api.service';
   styleUrl: './resource-list.component.scss',
 })
 export class ResourceListComponent implements AfterViewInit {
-  private readonly router = inject(Router);
   private readonly apiService = inject(ResourceApiService);
+  private readonly calendarSelectorIdStateService = inject(CalendarSelectorIdStateService);
   private readonly bladeService = inject(BladeService);
+  private readonly router = inject(Router);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  readonly isCalendarSelected = signal(false);
   readonly loading = signal(false);
 
   readonly breadcrumb = new BreadcrumbCollection();
@@ -80,6 +85,14 @@ export class ResourceListComponent implements AfterViewInit {
   paginatedResult = new PaginatedResult<ResourcePaginatedResponse>();
 
   constructor() {
+    // Mientras no haya un calendario seleccionado, no se cargan los recursos.
+    effect(() => {
+      if (this.calendarSelectorIdStateService.state()) {
+        this.isCalendarSelected.set(true);
+        this.loadResources();
+      }
+    });
+
     this.setBreadcrumb();
   }
 
@@ -87,8 +100,6 @@ export class ResourceListComponent implements AfterViewInit {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
-      this.loadResources();
     });
   }
 

@@ -10,9 +10,7 @@ import { CalendarSettingsSelectedState } from '../../models/state/calendar-setti
 import { CalendarApiService } from '../api/calendar-api.service';
 import { CalendarSelectedStateService } from './calendar-selected-state.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class CalendarSettingsSelectedStateService {
   private readonly apiService = inject(CalendarApiService);
   private readonly calendarSelectedStateService = inject(CalendarSelectedStateService);
