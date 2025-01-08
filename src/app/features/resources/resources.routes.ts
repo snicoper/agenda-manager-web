@@ -18,7 +18,7 @@ export const routes: Routes = [
     },
   },
   {
-    path: ':id',
+    path: ':resourceId',
     component: ResourceDetailsComponent,
     title: 'Detalles del recurso',
     canActivate: [AuthGuard],

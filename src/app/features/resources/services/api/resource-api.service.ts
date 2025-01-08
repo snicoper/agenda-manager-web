@@ -33,7 +33,7 @@ export class ResourceApiService extends ApiBaseService {
 
   /** Get a resource by id. */
   getResourceById(resourceId: string): Observable<ResourceDetailsResponse> {
-    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.getResourceById, { id: resourceId });
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.getResourceById, { resourceId: resourceId });
 
     return this.get<ResourceDetailsResponse>(endpoint).pipe(
       map((response) => ({
