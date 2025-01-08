@@ -1,1 +1,57 @@
-<p>resource-info-tab works!</p>,
+@if (!resourceState.loading() && resourceState.resource(); as resource) {
+  <!-- actions -->
+  <div class="d-flex justify-content-start">
+    <button mat-raised-button (click)="handleOpenUpdateResourceBlade()">
+      <mat-icon>edit</mat-icon>
+      <span>Editar</span>
+    </button>
+  </div>
+
+  <!-- table info -->
+  <div class="custom-table-container">
+    <table class="table table-striped table-border-bottom">
+      <tbody>
+        <tr>
+          <th>Nombre</th>
+          <td>{{ resource.name }}</td>
+        </tr>
+        <tr>
+          <th>Descripción</th>
+          <td>{{ resource.description }}</td>
+        </tr>
+        <tr>
+          <th>Fecha de creación</th>
+          <td>{{ resource.createdAt | dateTimeFormat }}</td>
+        </tr>
+        <tr>
+          <th>Activo</th>
+          <td>
+            <mat-slide-toggle (change)="handleChangeStateIsActive()" [checked]="resource.isActive"></mat-slide-toggle>
+          </td>
+        </tr>
+        <tr>
+          <th>Color de texto</th>
+          <td>
+            <am-dot-background-color [hexColor]="resource.textColor" />
+          </td>
+        </tr>
+        <tr>
+          <th>Color de fondo</th>
+          <td>
+            <am-dot-background-color [hexColor]="resource.backgroundColor" />
+          </td>
+        </tr>
+        @if (resource.deactivationReason && !resource.isActive) {
+          <tr>
+            <th>Razón de desactivación</th>
+            <td>{{ resource.deactivationReason }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+} @else {
+  <div class="d-flex justify-content-center">
+    <mat-spinner diameter="100" />
+  </div>
+}
