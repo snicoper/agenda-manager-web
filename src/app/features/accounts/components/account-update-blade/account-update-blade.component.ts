@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -21,9 +21,7 @@ import { FormInputComponent } from '../../../../shared/components/forms/inputs/f
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormPhoneNumberComponent } from '../../../../shared/components/forms/inputs/form-phone-number/form-phone-number.component';
 import { FormPhoneNumberField } from '../../../../shared/components/forms/inputs/form-phone-number/models/form-phone-number-field.interface';
-import { addressCompleteValidator } from '../../../../shared/components/forms/validators/address-complete.validator';
-import { identityDocumentValidator } from '../../../../shared/components/forms/validators/identity-document.validator';
-import { phoneCompleteValidator } from '../../../../shared/components/forms/validators/phone-complete.validator';
+import { AccountFieldsValidators } from '../../contracts/account-fields-validator.contract';
 import { AccountUpdateRequest } from '../../models/requests/account-update.request';
 import { AccountApiService } from '../../services/api/account-api.service';
 import { AccountSelectedStateService } from '../../services/state/account-selected-state.service';
@@ -111,11 +109,11 @@ export class AccountUpdateBladeComponent implements OnInit, OnDestroy {
 
   private buildForm(): void {
     this.formState.form = this.formBuilder.group({
-      firstName: [this.getNameValue('firstName'), [Validators.required, Validators.maxLength(100)]],
-      lastName: [this.getNameValue('lastName'), [Validators.required, Validators.maxLength(100)]],
-      phone: [this.getPhoneNumberValue(), [phoneCompleteValidator()]],
-      address: [this.getAddressValue(), [addressCompleteValidator()]],
-      identityDocument: [this.getIdentityDocumentValue(), [identityDocumentValidator()]],
+      firstName: [this.getNameValue('firstName'), AccountFieldsValidators.firstName],
+      lastName: [this.getNameValue('lastName'), AccountFieldsValidators.lastName],
+      phone: [this.getPhoneNumberValue(), AccountFieldsValidators.phone],
+      address: [this.getAddressValue(), AccountFieldsValidators.address],
+      identityDocument: [this.getIdentityDocumentValue(), AccountFieldsValidators.identityDocument],
     });
   }
 

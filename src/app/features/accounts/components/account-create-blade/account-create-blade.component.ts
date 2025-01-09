@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -16,8 +16,7 @@ import { NonFieldErrorsComponent } from '../../../../shared/components/forms/err
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { FormRoleSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-role-selector/form-role-selector.component';
-import { emailValidator } from '../../../../shared/components/forms/validators/email.validator';
-import { minLengthArrayValidator } from '../../../../shared/components/forms/validators/min-length-array.validator';
+import { AccountFieldsValidators } from '../../contracts/account-fields-validator.contract';
 import { AccountCreateRequest, RoleToAdd } from '../../models/requests/account-create.request';
 import { AccountApiService } from '../../services/api/account-api.service';
 
@@ -83,10 +82,10 @@ export class AccountCreateBladeComponent implements OnInit {
 
   private buildForm(): void {
     this.formState.form = this.formBuilder.group({
-      email: ['', [Validators.required, emailValidator()]],
-      firstName: ['', [Validators.required, Validators.maxLength(100)]],
-      lastName: ['', [Validators.required, Validators.maxLength(100)]],
-      roles: [[], [minLengthArrayValidator(1)]],
+      email: ['', AccountFieldsValidators.email],
+      firstName: ['', AccountFieldsValidators.firstName],
+      lastName: ['', AccountFieldsValidators.lastName],
+      roles: [[], AccountFieldsValidators.roles],
     });
   }
 
