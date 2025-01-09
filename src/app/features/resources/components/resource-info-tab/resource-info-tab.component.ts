@@ -14,6 +14,7 @@ import { DeactivateResourceRequest } from '../../models/requests/deactivate-reso
 import { ResourceApiService } from '../../services/api/resource-api.service';
 import { ResourceSelectedStateService } from '../../services/state/resource-selected-state.service';
 import { ResourceDeactivationReasonDialogComponent } from '../resource-deactivation-reason-dialog/resource-deactivation-reason-dialog.component';
+import { ResourceUpdateBladeComponent } from '../resource-update-blade/resource-update-blade.component';
 
 @Component({
   selector: 'am-resource-info-tab',
@@ -66,7 +67,13 @@ export class ResourceInfoTabComponent {
   }
 
   handleOpenUpdateResourceBlade(): void {
-    // hanel open update resource blade
+    this.bladeService.open(ResourceUpdateBladeComponent);
+
+    this.bladeService.result.subscribe((result) => {
+      if (result) {
+        this.resourceSelectedStateService.refresh();
+      }
+    });
   }
 
   private deactivateResource(): void {
