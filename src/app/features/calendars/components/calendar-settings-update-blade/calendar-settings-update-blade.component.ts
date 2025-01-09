@@ -62,7 +62,7 @@ export class CalendarSettingsUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.bladeService.hide();
+    this.bladeService.close();
   }
 
   handleCloseBlade(): void {

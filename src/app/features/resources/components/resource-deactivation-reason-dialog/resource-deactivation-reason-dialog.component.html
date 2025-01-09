@@ -1,0 +1,12 @@
+<mat-dialog-content>
+  <p>¿Razón de desactivación?</p>
+  <mat-form-field>
+    <mat-label>Razón de desactivación</mat-label>
+    <input matInput [(ngModel)]="deactivationReason" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="handleClickCancel()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="deactivationReason()" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

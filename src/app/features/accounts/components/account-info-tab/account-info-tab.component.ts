@@ -92,7 +92,7 @@ export class AccountInfoTabComponent {
   }
 
   handleOpenUpdateAccountBlade(): void {
-    this.bladeService.show(AccountUpdateBladeComponent);
+    this.bladeService.open(AccountUpdateBladeComponent);
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: () => {

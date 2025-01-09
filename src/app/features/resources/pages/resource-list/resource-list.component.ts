@@ -104,12 +104,12 @@ export class ResourceListComponent implements AfterViewInit {
   }
 
   handleCreateResource(): void {
-    this.bladeService.show(ResourceCreateBladeComponent);
+    this.bladeService.open(ResourceCreateBladeComponent);
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: (result) => {
         if (result) {
-          this.bladeService.hide();
+          this.bladeService.close();
         }
       },
     });

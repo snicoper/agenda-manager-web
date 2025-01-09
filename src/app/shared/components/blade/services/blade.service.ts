@@ -30,7 +30,7 @@ export class BladeService {
     });
   }
 
-  show<TData>(component: Type<unknown>, options?: BladeOptions<TData>): void {
+  open<TData>(component: Type<unknown>, options?: BladeOptions<TData>): void {
     this.component$.set(component);
 
     if (options) {
@@ -44,13 +44,13 @@ export class BladeService {
     this.isVisible$.set(true);
   }
 
-  hide(): void {
+  close(): void {
     this.isVisible$.set(false);
     this.component$.set(null);
   }
 
   emitResult<TResult>(result: TResult): void {
     this.resultSubject$.next(result);
-    this.hide();
+    this.close();
   }
 }

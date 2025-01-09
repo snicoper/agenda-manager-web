@@ -2,10 +2,13 @@ import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { map, Observable } from 'rxjs';
 import { ApiUrls } from '../../../../core/config/api-urls';
+import { EmptyRequest } from '../../../../core/http/types/empty-request.type';
+import { NoContent } from '../../../../core/http/types/no-content.type';
 import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { ApiBaseService } from '../../../../core/services/api/api.base.service';
 import { DateTimeUtils } from '../../../../core/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
+import { DeactivateResourceRequest } from '../../models/requests/deactivate-resource.request';
 import { ResourceCreateRequest } from '../../models/requests/resource-create.request';
 import { ResourceCreateResponse } from '../../models/responses/resource-create.response';
 import { ResourceDetailsResponse } from '../../models/responses/resource-details.response';
@@ -52,5 +55,19 @@ export class ResourceApiService extends ApiBaseService {
       endpoint,
       (response) => response.value as ResourceCreateResponse,
     );
+  }
+
+  /** Deactivate a resource. */
+  deactivateResource(resourceId: string, request: DeactivateResourceRequest): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.deactivateResource, { resourceId: resourceId });
+
+    return this.put<DeactivateResourceRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
+  }
+
+  /** Activate a resource. */
+  activateResource(resourceId: string): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.activateResource, { resourceId: resourceId });
+
+    return this.put<EmptyRequest, NoContent>({}, endpoint, (response) => response.value as NoContent);
   }
 }

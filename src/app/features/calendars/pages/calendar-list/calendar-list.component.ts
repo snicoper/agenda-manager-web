@@ -98,7 +98,7 @@ export class CalendarListComponent implements AfterViewInit {
   }
 
   handleCreateCalendar(): void {
-    this.bladeService.show(CalendarCreateBladeComponent);
+    this.bladeService.open(CalendarCreateBladeComponent);
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: (result) => {

@@ -32,13 +32,13 @@ export class BladeComponent implements OnDestroy {
   @HostListener('document:keydown.escape')
   handleEscapeKey(): void {
     if (this.bladeService.bladeState.isVisible() && this.bladeService.bladeState.options().closeOnEscapeKey) {
-      this.bladeService.hide();
+      this.bladeService.close();
     }
   }
 
   handleContainerClick(event: MouseEvent): void {
     if (event.target === event.currentTarget && this.bladeService.bladeState.options().closeOnOutsideClick) {
-      this.bladeService.hide();
+      this.bladeService.close();
     }
   }
 

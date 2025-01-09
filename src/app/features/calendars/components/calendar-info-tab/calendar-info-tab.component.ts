@@ -37,7 +37,7 @@ export class CalendarInfoTabComponent {
   readonly calendarState = this.calendarSelectedStateService.state;
 
   handleOpenUpdateCalendarBlade(): void {
-    this.bladeService.show(CalendarUpdateBladeComponent);
+    this.bladeService.open(CalendarUpdateBladeComponent);
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: () => {

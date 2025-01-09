@@ -48,7 +48,7 @@ export class CalendarHolidaysTabComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.bladeService.hide();
+    this.bladeService.close();
   }
 
   handleYearChanged(year: number): void {
@@ -64,7 +64,7 @@ export class CalendarHolidaysTabComponent implements OnDestroy {
   }
 
   private createHoliday(dateTimeSelected: DateTimeSelectedEvent): void {
-    this.bladeService.show<CalendarHolidaysCreateDataBlade>(CalendarHolidaysCreateBladeComponent, {
+    this.bladeService.open<CalendarHolidaysCreateDataBlade>(CalendarHolidaysCreateBladeComponent, {
       data: { dateSelected: dateTimeSelected.start },
     });
 
@@ -82,7 +82,7 @@ export class CalendarHolidaysTabComponent implements OnDestroy {
       end: dateTimeSelected.end,
     };
 
-    this.bladeService.show<CalendarHolidaysUpdateDataBlade>(CalendarHolidaysUpdateBladeComponent, {
+    this.bladeService.open<CalendarHolidaysUpdateDataBlade>(CalendarHolidaysUpdateBladeComponent, {
       data: data,
     });
 

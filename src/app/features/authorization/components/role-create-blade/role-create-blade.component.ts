@@ -47,7 +47,7 @@ export class RoleCreateBladeComponent {
   }
 
   handleCloseBlade(): void {
-    this.bladeService.hide();
+    this.bladeService.close();
   }
 
   handleSubmit(): void {

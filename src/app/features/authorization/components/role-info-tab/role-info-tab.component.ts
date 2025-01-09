@@ -36,7 +36,7 @@ export class RoleInfoTabComponent {
   readonly roleState = this.roleSelectedStateService.state;
 
   handleOpenUpdateRoleBlade(): void {
-    this.bladeService.show(RoleUpdateBladeComponent);
+    this.bladeService.open(RoleUpdateBladeComponent);
   }
 
   handleDeleteRole(): void {

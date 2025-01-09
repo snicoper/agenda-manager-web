@@ -83,12 +83,12 @@ export class AccountListComponent implements AfterViewInit {
   }
 
   handleCreateAccount(): void {
-    this.bladeService.show(AccountCreateBladeComponent);
+    this.bladeService.open(AccountCreateBladeComponent);
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: (result) => {
         if (result) {
-          this.bladeService.hide();
+          this.bladeService.close();
         }
       },
     });

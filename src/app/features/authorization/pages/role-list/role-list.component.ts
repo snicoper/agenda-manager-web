@@ -103,7 +103,7 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   handleOpenCreateRoleBlade(): void {
-    this.bladeService.show(RoleCreateBladeComponent);
+    this.bladeService.open(RoleCreateBladeComponent);
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: (result) => {

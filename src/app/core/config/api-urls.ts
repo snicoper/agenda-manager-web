@@ -37,6 +37,8 @@ export const ApiUrls = {
     getResourcesPaginated: '/resources/paginated',
     getResourceById: '/resources/{resourceId}',
     createResource: '/resources',
+    deactivateResource: '/resources/{resourceId}/deactivate',
+    activateResource: '/resources/{resourceId}/activate',
   },
   roles: {
     getRolesPaginated: '/roles/paginated',

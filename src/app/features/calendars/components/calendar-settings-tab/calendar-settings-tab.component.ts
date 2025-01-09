@@ -47,7 +47,7 @@ export class CalendarSettingsTabComponent {
   }
 
   handleOpenUpdateCalendarSettingsBlade(): void {
-    this.bladeService.show(CalendarSettingsUpdateBladeComponent);
+    this.bladeService.open(CalendarSettingsUpdateBladeComponent);
   }
 
   handleWorkingDaysChange(value: number): void {

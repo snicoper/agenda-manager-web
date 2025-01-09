@@ -36,7 +36,7 @@ export class ResourceTypeInfoTabComponent {
   readonly resourceCategoryUtils = ResourceCategoryUtils;
 
   handleOpenUpdateResourceTypeBlade(): void {
-    this.bladeService.show(ResourceTypeUpdateBladeComponent);
+    this.bladeService.open(ResourceTypeUpdateBladeComponent);
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: () => {

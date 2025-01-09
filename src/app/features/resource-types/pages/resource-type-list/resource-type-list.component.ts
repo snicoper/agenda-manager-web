@@ -24,8 +24,8 @@ import { PaginatorComponent } from '../../../../shared/components/paginator/pagi
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { ResourceTypeCreateBladeComponent } from '../../components/resource-type-create-blade/resource-type-create-blade.component';
-import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
 import { ResourceTypePaginatedResponse } from '../../models/responses/resource-type-paginated.response';
+import { ResourceTypeApiService } from '../../services/api/resource-type-api.service';
 
 @Component({
   selector: 'am-resource-type-list',
@@ -95,7 +95,7 @@ export class ResourceTypeListComponent implements AfterViewInit {
   }
 
   handleCreateResourceType(): void {
-    this.bladeService.show(ResourceTypeCreateBladeComponent);
+    this.bladeService.open(ResourceTypeCreateBladeComponent);
 
     this.bladeService.result.pipe(take(1)).subscribe({
       next: (result) => {
