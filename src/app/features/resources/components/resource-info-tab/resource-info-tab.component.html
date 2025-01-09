@@ -29,6 +29,12 @@
             <mat-slide-toggle (change)="handleChangeStateIsActive()" [checked]="resource.isActive"></mat-slide-toggle>
           </td>
         </tr>
+        @if (resource.deactivationReason && !resource.isActive) {
+          <tr>
+            <th>Razón de desactivación</th>
+            <td>{{ resource.deactivationReason }}</td>
+          </tr>
+        }
         <tr>
           <th>Color de texto</th>
           <td>
@@ -41,12 +47,6 @@
             <am-dot-background-color [hexColor]="resource.backgroundColor" />
           </td>
         </tr>
-        @if (resource.deactivationReason && !resource.isActive) {
-          <tr>
-            <th>Razón de desactivación</th>
-            <td>{{ resource.deactivationReason }}</td>
-          </tr>
-        }
       </tbody>
     </table>
   </div>
