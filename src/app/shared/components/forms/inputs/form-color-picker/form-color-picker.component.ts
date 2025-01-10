@@ -72,26 +72,6 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
     this.colorPicker?.dispose();
   }
 
-  private initializeColorPicker(): void {
-    this.colorPicker = new ColorPicker(this.elementRef.nativeElement, this.options());
-    this.updateColorPicker(this.value());
-  }
-
-  private setupColorPickerListeners(): void {
-    // Escuchar cambios en el color picker usando rxjs.
-    fromEvent(this.elementRef.nativeElement, 'colorpicker.change')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        const newValue = this.colorPicker.value;
-
-        if (newValue !== this.value()) {
-          this.value.set(newValue);
-          this.onChange(newValue);
-          this.onTouch();
-        }
-      });
-  }
-
   onChange = (_: string): void => {};
   onTouch = (): void => {};
 
@@ -115,6 +95,26 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
     this.value.set(value);
     this.onChange(value);
     this.onTouch();
+  }
+
+  private initializeColorPicker(): void {
+    this.colorPicker = new ColorPicker(this.elementRef.nativeElement, this.options());
+    this.updateColorPicker(this.value());
+  }
+
+  private setupColorPickerListeners(): void {
+    // Escuchar cambios en el color picker usando rxjs.
+    fromEvent(this.elementRef.nativeElement, 'colorpicker.change')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        const newValue = this.colorPicker.value;
+
+        if (newValue !== this.value()) {
+          this.value.set(newValue);
+          this.onChange(newValue);
+          this.onTouch();
+        }
+      });
   }
 
   private updateColorPicker(value: string): void {
