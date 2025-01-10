@@ -51,9 +51,16 @@ export class ResourceInfoTabComponent {
 
     const dialogRef = this.dialog.open(ResourceDeactivationReasonDialogComponent, {
       data: { deactivationReason: this.deactivationReason() },
+      width: '500px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: string) => {
+      if (result === undefined) {
+        this.resourceSelectedStateService.refresh();
+
+        return;
+      }
+
       if (result) {
         this.deactivationReason.set(result);
         this.deactivateResource();

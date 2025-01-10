@@ -13,6 +13,7 @@ import { ResourceCreateRequest } from '../../models/requests/resource-create.req
 import { ResourceCreateResponse } from '../../models/responses/resource-create.response';
 import { ResourceDetailsResponse } from '../../models/responses/resource-details.response';
 import { ResourcePaginatedResponse } from '../../models/responses/resource-paginated.response';
+import { ResourceUpdateRequest } from '../../models/requests/resource-update.request';
 
 @Injectable({ providedIn: 'root' })
 export class ResourceApiService extends ApiBaseService {
@@ -69,5 +70,12 @@ export class ResourceApiService extends ApiBaseService {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.activateResource, { resourceId: resourceId });
 
     return this.put<EmptyRequest, NoContent>({}, endpoint, (response) => response.value as NoContent);
+  }
+
+  /** Update a resource. */
+  updateResource(resourceId: string, request: ResourceUpdateRequest): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.updateResource, { resourceId: resourceId });
+
+    return this.put<ResourceUpdateRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
   }
 }

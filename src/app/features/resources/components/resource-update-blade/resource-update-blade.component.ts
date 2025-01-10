@@ -107,6 +107,17 @@ export class ResourceUpdateBladeComponent implements OnInit, OnDestroy {
   }
 
   private update(request: ResourceUpdateRequest): void {
-    // Implement this method.
+    this.formState.isLoading = true;
+
+    this.apiService.updateResource(this.resourceState.resourceId()!, request).subscribe({
+      next: () => {
+        this.snackBarService.success('Recurso actualizado correctamente');
+        this.bladeService.emitResult(true);
+      },
+      error: (error) => {
+        this.formState.badRequest = error.error;
+        this.formState.isLoading = false;
+      },
+    });
   }
 }
