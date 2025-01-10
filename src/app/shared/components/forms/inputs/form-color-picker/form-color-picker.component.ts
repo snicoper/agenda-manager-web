@@ -45,6 +45,8 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
   readonly isDisabled = signal(false);
 
   private colorPicker!: ColorPicker;
+
+  // Generate unique id for each instance of the component.
   private static nextId = 0;
   readonly id = `color-picker-field-${(FormColorPickerComponent.nextId += 1)}`;
 
@@ -77,7 +79,7 @@ export class FormColorPickerComponent implements AfterViewInit, OnDestroy, Contr
 
   private setupColorPickerListeners(): void {
     // Escuchar cambios en el color picker usando rxjs.
-    fromEvent(this.elementRef.nativeElement, 'change')
+    fromEvent(this.elementRef.nativeElement, 'colorpicker.change')
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         const newValue = this.colorPicker.value;
