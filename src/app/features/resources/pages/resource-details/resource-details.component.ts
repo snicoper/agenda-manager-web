@@ -9,7 +9,9 @@ import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar
 import { NavToolbarComponent } from '../../../../shared/components/layout/nav-toolbar/nav-toolbar.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
+import { ResourceCalendarTabComponent } from '../../components/resource-calendar-tab/resource-calendar-tab.component';
 import { ResourceInfoTabComponent } from '../../components/resource-info-tab/resource-info-tab.component';
+import { ResourceSchedulesTabComponent } from '../../components/resource-schedules-tab/resource-schedules-tab.component';
 import { ResourceSelectedStateService } from '../../services/state/resource-selected-state.service';
 
 @Component({
@@ -33,6 +35,22 @@ export class ResourceDetailsComponent implements OnInit, OnDestroy {
         icon: 'info',
         permissions: [SystemPermissions.Resources.Read],
         component: ResourceInfoTabComponent,
+      },
+      {
+        index: 1,
+        name: 'calendar',
+        label: 'Calendario',
+        icon: 'calendar_today',
+        permissions: [SystemPermissions.ResourceSchedules.Read],
+        component: ResourceCalendarTabComponent,
+      },
+      {
+        index: 2,
+        name: 'schedules',
+        label: 'Horarios',
+        icon: 'schedule',
+        permissions: [SystemPermissions.ResourceSchedules.Read],
+        component: ResourceSchedulesTabComponent,
       },
     ],
   };
