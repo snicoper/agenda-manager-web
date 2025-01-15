@@ -17,6 +17,7 @@ import { ResourceFieldsValidators } from '../../contracts/resource-fields-valida
 import { ResourceUpdateRequest } from '../../models/requests/resource-update.request';
 import { ResourceApiService } from '../../services/api/resource-api.service';
 import { ResourceSelectedStateService } from '../../services/state/resource-selected-state.service';
+import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
 
 @Component({
   selector: 'am-resource-update-blade',
@@ -115,8 +116,8 @@ export class ResourceUpdateBladeComponent implements OnInit, OnDestroy {
         this.bladeService.emitResult(true);
       },
       error: (error) => {
-        this.formState.badRequest = error.error;
-        this.formState.isLoading = false;
+        const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
+        this.formState.badRequest = badRequest;
       },
     });
   }

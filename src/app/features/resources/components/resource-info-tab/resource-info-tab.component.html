@@ -1,9 +1,23 @@
 @if (!resourceState.loading() && resourceState.resource(); as resource) {
   <!-- actions -->
   <div class="d-flex justify-content-start">
-    <button mat-raised-button (click)="handleOpenUpdateResourceBlade()">
+    <button
+      mat-raised-button
+      (click)="handleOpenUpdateResourceBlade()"
+      [amRequiredPermission]="systemPermissions.Resources.Update"
+    >
       <mat-icon>edit</mat-icon>
       <span>Editar</span>
+    </button>
+
+    <button
+      mat-raised-button
+      class="bg-error ms-2"
+      (click)="handleDeleteResource()"
+      [amRequiredPermission]="systemPermissions.Resources.Delete"
+    >
+      <mat-icon>delete</mat-icon>
+      <span>Eliminar</span>
     </button>
   </div>
 

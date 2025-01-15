@@ -22,4 +22,8 @@ export const ApiResultErrors = {
   resourceTypes: {
     cannotDeleteResourceType: 'ResourceTypeErrors.CannotDeleteResourceType',
   },
+
+  resources: {
+    cannotDelete: 'ResourceErrors.CannotDelete',
+  },
 };

@@ -2,21 +2,20 @@
   <div class="d-flex justify-content-start">
     <button
       mat-raised-button
+      (click)="handleOpenUpdateRoleBlade()"
       [amRequiredPermission]="systemPermissions.Roles.Update"
       [disabled]="!roleState.role()?.isEditable"
-      (click)="handleOpenUpdateRoleBlade()"
     >
       <mat-icon>edit</mat-icon>
       <span>Editar</span>
     </button>
 
-    <span class="me-2"></span>
-
     <button
       mat-raised-button
+      class="bg-error ms-2"
+      (click)="handleDeleteRole()"
       [amRequiredPermission]="systemPermissions.Roles.Delete"
       [disabled]="!roleState.role()?.isEditable"
-      (click)="handleDeleteRole()"
     >
       <mat-icon>delete</mat-icon>
       <span>Eliminar</span>

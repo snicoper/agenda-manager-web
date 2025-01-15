@@ -10,10 +10,10 @@ import { DateTimeUtils } from '../../../../core/utils/date/datetime.utils';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { DeactivateResourceRequest } from '../../models/requests/deactivate-resource.request';
 import { ResourceCreateRequest } from '../../models/requests/resource-create.request';
+import { ResourceUpdateRequest } from '../../models/requests/resource-update.request';
 import { ResourceCreateResponse } from '../../models/responses/resource-create.response';
 import { ResourceDetailsResponse } from '../../models/responses/resource-details.response';
 import { ResourcePaginatedResponse } from '../../models/responses/resource-paginated.response';
-import { ResourceUpdateRequest } from '../../models/requests/resource-update.request';
 
 @Injectable({ providedIn: 'root' })
 export class ResourceApiService extends ApiBaseService {
@@ -77,5 +77,12 @@ export class ResourceApiService extends ApiBaseService {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.updateResource, { resourceId: resourceId });
 
     return this.put<ResourceUpdateRequest, NoContent>(request, endpoint, (response) => response.value as NoContent);
+  }
+
+  /** Delete a resource. */
+  deleteResource(resourceId: string): Observable<NoContent> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.deleteResource, { resourceId: resourceId });
+
+    return this.delete<NoContent>(endpoint, (response) => response.value as NoContent);
   }
 }

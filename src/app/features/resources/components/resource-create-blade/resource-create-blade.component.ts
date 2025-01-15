@@ -11,6 +11,7 @@ import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-
 import { ResourceCategory } from '../../../../core/modules/resource-management/resource-category/resource-category.enum';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { CommonUtils } from '../../../../core/utils/common/common.utils';
+import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
@@ -126,10 +127,12 @@ export class ResourceCreateBladeComponent implements OnInit {
         finalize(() => (this.formState.isLoading = false)),
       )
       .subscribe({
-        next: () => {
+        next: (response) => {
           this.snackBarService.success('Recurso creado correctamente');
           this.bladeService.emitResult(true);
-          this.router.navigateByUrl(SiteUrls.resources.details);
+
+          const url = UrlUtils.buildSiteUrl(SiteUrls.resources.details, { id: response.resourceId });
+          this.router.navigateByUrl(url);
         },
         error: (error: HttpErrorResponse) => {
           const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
