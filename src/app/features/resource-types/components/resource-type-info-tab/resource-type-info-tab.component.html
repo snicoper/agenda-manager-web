@@ -1,4 +1,4 @@
-@if (!resourceTypeState.loading() && resourceTypeState.resourceType(); as resourceType) {
+@if (!resourceTypeState.isLoading() && resourceTypeState.resourceType(); as resourceType) {
   <!-- actions -->
   <div class="d-flex justify-content-start">
     <button mat-raised-button (click)="handleOpenUpdateResourceTypeBlade()">

@@ -1,7 +1,7 @@
-@if (!settingsState.loading() && settingsState.settings(); as settings) {
+@if (!settingsState.isLoading() && settingsState.settings(); as settings) {
   <!-- working days -->
   <div class="d-flex justify-content-center mb-4">
-    @if (calendarState.loading()) {
+    @if (calendarState.isLoading()) {
       <mat-spinner diameter="40" class="mt-4" />
     } @else {
       <am-working-days-week

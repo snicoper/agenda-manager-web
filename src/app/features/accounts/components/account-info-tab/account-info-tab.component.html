@@ -1,4 +1,4 @@
-@if (!accountState.loading() && accountState.account(); as account) {
+@if (!accountState.isLoading() && accountState.account(); as account) {
   <!-- actions -->
   <div class="d-flex justify-content-start">
     <button mat-raised-button (click)="handleOpenUpdateAccountBlade()">

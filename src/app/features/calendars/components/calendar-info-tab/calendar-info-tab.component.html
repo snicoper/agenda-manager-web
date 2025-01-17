@@ -1,4 +1,4 @@
-@if (!calendarState.loading() && calendarState.calendar(); as calendar) {
+@if (!calendarState.isLoading() && calendarState.calendar(); as calendar) {
   <!-- actions -->
   <div class="d-flex justify-content-start">
     <button mat-raised-button (click)="handleOpenUpdateCalendarBlade()">
