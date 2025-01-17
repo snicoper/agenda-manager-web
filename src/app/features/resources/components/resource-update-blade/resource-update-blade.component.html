@@ -1,5 +1,5 @@
 <section class="blade-content-container">
-  @if (resourceState.loading() || formState.isLoading) {
+  @if (resourceState.isLoading() || formState.isLoading) {
     <div class="d-flex justify-content-center">
       <mat-spinner />
     </div>
@@ -60,7 +60,7 @@
         btnText="Actualizar recurso"
         icon="update"
         (eventClick)="handleSubmit()"
-        [loading]="formState.isLoading"
+        [isLoading]="formState.isLoading"
       />
     </div>
   }

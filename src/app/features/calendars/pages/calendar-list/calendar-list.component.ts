@@ -67,7 +67,7 @@ export class CalendarListComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource<CalendarPaginatedResponse>();
   paginatedResult = new PaginatedResult<CalendarPaginatedResponse>();
-  loading = true;
+  isLoading = true;
 
   constructor() {
     this.setBreadcrumb();
@@ -122,12 +122,12 @@ export class CalendarListComponent implements AfterViewInit {
   }
 
   private loadCalendars(): void {
-    this.loading = true;
+    this.isLoading = true;
     this.apiService
       .getCalendarsPaginated(this.paginatedResult)
       .pipe(
         take(1),
-        finalize(() => (this.loading = false)),
+        finalize(() => (this.isLoading = false)),
       )
       .subscribe({
         next: (response) => {

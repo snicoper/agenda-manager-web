@@ -5,5 +5,5 @@ export interface CalendarSelectedState {
   calendars: Signal<CalendarSelected[]>;
   calendarId: Signal<string | null>;
   calendar: Signal<CalendarSelected | null>;
-  loading: Signal<boolean>;
+  isLoading: Signal<boolean>;
 }

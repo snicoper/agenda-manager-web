@@ -18,13 +18,13 @@ export class CalendarSelectorStateService {
 
   private readonly calendars$ = signal<CalendarSelected[]>([]);
   private readonly calendarSelected$ = signal<CalendarSelected | null>(null);
-  private readonly loading$ = signal<boolean>(false);
+  private readonly isLoading$ = signal<boolean>(false);
 
   readonly state: CalendarSelectedState = {
     calendars: computed(() => this.calendars$()),
     calendarId: computed(() => this.calendarSelectorIdState.state()),
     calendar: computed(() => this.calendarSelected$()),
-    loading: computed(() => this.loading$()),
+    isLoading: computed(() => this.isLoading$()),
   };
 
   constructor() {
@@ -63,13 +63,13 @@ export class CalendarSelectorStateService {
   }
 
   private loadCalendar(): void {
-    this.loading$.set(true);
+    this.isLoading$.set(true);
 
     this.apiService
       .getCalendars()
       .pipe(
         take(1),
-        finalize(() => this.loading$.set(false)),
+        finalize(() => this.isLoading$.set(false)),
       )
       .subscribe({
         next: (response) => {

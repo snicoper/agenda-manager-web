@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      @if (!loading) {
+      @if (!isLoading) {
         @for (permission of role?.permissions; track $index) {
           <tr>
             <th>{{ getModuleRoleDisplayName(permission.moduleName) }}</th>

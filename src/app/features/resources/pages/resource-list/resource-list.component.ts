@@ -65,7 +65,7 @@ export class ResourceListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly isCalendarSelected = signal(false);
-  readonly loading = signal(false);
+  readonly isLoading = signal(false);
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly displayedColumns = [
@@ -140,13 +140,13 @@ export class ResourceListComponent implements AfterViewInit {
   }
 
   private loadResources(): void {
-    this.loading.set(true);
+    this.isLoading.set(true);
 
     this.apiService
       .getResourcesPaginated(this.paginatedResult)
       .pipe(
         take(1),
-        finalize(() => this.loading.set(false)),
+        finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
         next: (response) => {

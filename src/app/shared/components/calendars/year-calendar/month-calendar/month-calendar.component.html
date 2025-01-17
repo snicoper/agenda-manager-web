@@ -2,7 +2,7 @@
   <mat-card-content>
     <h4 class="d-flex justify-content-center">{{ title() }}</h4>
 
-    @if (!loading() && items() && month()) {
+    @if (!isLoading() && items() && month()) {
       <mat-calendar
         [startAt]="month()"
         [minDate]="minDate()"

@@ -4,5 +4,5 @@ import { CalendarDetailsResponse } from '../responses/calendar-details.response'
 export interface CalendarSelectedState {
   calendarId: Signal<string | null>;
   calendar: Signal<CalendarDetailsResponse | null>;
-  loading: Signal<boolean>;
+  isLoading: Signal<boolean>;
 }

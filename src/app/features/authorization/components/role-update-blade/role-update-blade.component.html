@@ -1,5 +1,5 @@
 <div class="blade-content-container">
-  @if (roleSelectedState.loading() || formState.isLoading) {
+  @if (roleSelectedState.isLoading() || formState.isLoading) {
     <div class="blade-loading">
       <mat-spinner diameter="100"></mat-spinner>
     </div>
@@ -13,10 +13,10 @@
 
         <!-- description field -->
         <am-form-textarea
-          [formState]="formState"
           fieldName="description"
           formControlName="description"
           label="Descripción"
+          [formState]="formState"
         />
       </form>
     </div>
@@ -27,7 +27,12 @@
         <mat-icon>close</mat-icon>
         Cerrar
       </button>
-      <am-btn-loading [loading]="formState.isLoading" icon="save" btnText="Actualizar" (eventClick)="handleSubmit()" />
+      <am-btn-loading
+        btnText="Actualizar"
+        icon="save"
+        (eventClick)="handleSubmit()"
+        [isLoading]="formState.isLoading"
+      />
     </div>
   }
 </div>

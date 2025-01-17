@@ -15,7 +15,7 @@ export class YearCalendarComponent {
   readonly year = input.required<number>();
   readonly items = input.required<CalendarItem[]>();
   readonly showYearSelector = input<boolean>(false);
-  readonly loading = input<boolean>(false);
+  readonly isLoading = input<boolean>(false);
 
   readonly dateTimeSelected = output<DateTimeSelectedEvent>();
   readonly yearChanged = output<number>();

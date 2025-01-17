@@ -58,7 +58,7 @@ export class AccountListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  readonly loading = signal(false);
+  readonly isLoading = signal(false);
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly displayedColumns = ['email', 'firstName', 'lastName', 'isActive', 'isEmailConfirmed', 'dateJoined'];
@@ -119,13 +119,13 @@ export class AccountListComponent implements AfterViewInit {
   }
 
   private loadAccounts(): void {
-    this.loading.set(true);
+    this.isLoading.set(true);
 
     this.apiService
       .getAccountsPaginated(this.paginatedResult)
       .pipe(
         take(1),
-        finalize(() => this.loading.set(false)),
+        finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
         next: (response) => {

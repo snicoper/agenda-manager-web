@@ -1,5 +1,5 @@
 <section class="blade-content-container">
-  @if (calendarState.loading() || formState.isLoading) {
+  @if (calendarState.isLoading() || formState.isLoading) {
     <div class="d-flex justify-content-center">
       <mat-spinner />
     </div>
@@ -40,7 +40,7 @@
         btnText="Actualizar calendario"
         icon="update"
         (eventClick)="handleSubmit()"
-        [loading]="formState.isLoading"
+        [isLoading]="formState.isLoading"
       />
     </div>
   }

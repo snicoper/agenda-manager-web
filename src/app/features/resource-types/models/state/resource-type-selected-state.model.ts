@@ -4,5 +4,5 @@ import { ResourceTypeDetailsResponse } from '../responses/resource-type-details.
 export interface ResourceTypeSelectedState {
   resourceTypeId: Signal<string | null>;
   resourceType: Signal<ResourceTypeDetailsResponse | null>;
-  loading: Signal<boolean>;
+  isLoading: Signal<boolean>;
 }

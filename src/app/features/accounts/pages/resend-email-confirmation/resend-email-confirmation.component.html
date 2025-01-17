@@ -16,7 +16,7 @@
       <mat-card-footer class="mt-4 ms-2 d-flex justify-content-center">
         <am-btn-loading
           (eventClick)="handleSendCode()"
-          [loading]="isLoading()"
+          [isLoading]="isLoading()"
           [btnText]="resultSuccess() ? 'Código enviado con éxito' : 'Reenviar código'"
           [disabled]="resultSuccess()"
           [styles]="resultSuccess() ? 'btn-success' : ''"

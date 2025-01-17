@@ -42,6 +42,11 @@
       <mat-icon>close</mat-icon>
       Cerrar
     </button>
-    <am-btn-loading btnText="Crear festivo" icon="add" (eventClick)="handleSubmit()" [loading]="formState.isLoading" />
+    <am-btn-loading
+      btnText="Crear festivo"
+      icon="add"
+      (eventClick)="handleSubmit()"
+      [isLoading]="formState.isLoading"
+    />
   </div>
 </section>

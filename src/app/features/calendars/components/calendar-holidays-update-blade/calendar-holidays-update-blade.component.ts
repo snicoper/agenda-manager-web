@@ -53,7 +53,7 @@ export class CalendarHolidaysUpdateBladeComponent implements OnInit {
   private readonly bladeService = inject(BladeService);
   private readonly confirmationDialogService = inject(ConfirmationDialogService);
 
-  readonly loading = signal(false);
+  readonly isLoading = signal(false);
   readonly calendarHoliday = signal<CalendarHolidayResponse | undefined>(undefined);
   readonly loadingDelete = signal(false);
 
@@ -176,12 +176,12 @@ export class CalendarHolidaysUpdateBladeComponent implements OnInit {
   }
 
   private loadCalendarHoliday(): void {
-    this.loading.set(true);
+    this.isLoading.set(true);
     this.apiService
       .getCalendarHolidayById(this.calendarState.calendarId()!, this.data.id)
       .pipe(
         take(1),
-        finalize(() => this.loading.set(false)),
+        finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
         next: (response) => {

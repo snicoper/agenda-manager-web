@@ -35,7 +35,7 @@
         </mat-card-content>
 
         <mat-card-footer class="mt-4 ms-2">
-          <am-btn-loading [loading]="formSate.isLoading" btnText="Iniciar sesión" icon="login" />
+          <am-btn-loading [isLoading]="formSate.isLoading" btnText="Iniciar sesión" icon="login" />
           <button mat-flat-button class="ms-2" type="button" [routerLink]="[siteUrls.accounts.requestPasswordReset]">
             <mat-icon>lock_reset</mat-icon>
             ¿Olvidaste contraseña?

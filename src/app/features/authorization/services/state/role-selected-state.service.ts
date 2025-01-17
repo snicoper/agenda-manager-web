@@ -5,8 +5,8 @@ import { finalize, take } from 'rxjs';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
-import { AuthorizationApiService } from '../api/authorization-api.service';
 import { RoleDetailsResponse } from '../../models/responses/role-details.response';
+import { AuthorizationApiService } from '../api/authorization-api.service';
 
 @Injectable({ providedIn: 'root' })
 export class RoleSelectedStateService {
@@ -16,12 +16,12 @@ export class RoleSelectedStateService {
 
   private readonly roleId$ = signal<string | null>(null);
   private readonly role$ = signal<RoleDetailsResponse | null>(null);
-  private readonly loading$ = signal<boolean>(false);
+  private readonly isLoading$ = signal<boolean>(false);
 
   readonly state = {
     roleId: computed(() => this.roleId$()),
     role: computed(() => this.role$()),
-    loading: computed(() => this.loading$()),
+    isLoading: computed(() => this.isLoading$()),
   };
 
   load(roleId: string): void {
@@ -44,7 +44,7 @@ export class RoleSelectedStateService {
   }
 
   setLoadingState(isLoading: boolean): void {
-    this.loading$.update(() => isLoading);
+    this.isLoading$.update(() => isLoading);
   }
 
   clean(): void {
@@ -59,13 +59,13 @@ export class RoleSelectedStateService {
       return;
     }
 
-    this.loading$.set(true);
+    this.isLoading$.set(true);
 
     this.apiService
       .getRoleById(this.state.roleId()!)
       .pipe(
         take(1),
-        finalize(() => this.loading$.set(false)),
+        finalize(() => this.isLoading$.set(false)),
       )
       .subscribe({
         next: (response) => this.role$.set(response),

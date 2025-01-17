@@ -8,13 +8,13 @@ import { logError } from '../../../../core/errors/logger/logger';
 import { ModuleRoleDisplayName } from '../../../../core/modules/auth/constants/module-role-display-name.const';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
-import { AuthorizationApiService } from '../../services/api/authorization-api.service';
-import { RoleSelectedStateService } from '../../services/state/role-selected-state.service';
 import { UpdatePermissionForRoleRequest } from '../../models/requests/update-permission-for-role.request';
 import {
   GetRolePermissionsByIdResponse,
   PermissionDetail,
 } from '../../models/responses/get-role-permissions-by-id.response';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
+import { RoleSelectedStateService } from '../../services/state/role-selected-state.service';
 
 @Component({
   selector: 'am-role-permissions-tab',
@@ -30,7 +30,7 @@ export class RolePermissionsTabComponent {
   private readonly actionOrder = ['Read', 'Update', 'Create', 'Delete'];
 
   role: GetRolePermissionsByIdResponse | null = null;
-  loading = false;
+  isLoading = false;
   isUpdating = false;
   roleNotFound = false;
 
@@ -88,13 +88,13 @@ export class RolePermissionsTabComponent {
   }
 
   private loadRolePermissions(): void {
-    this.loading = true;
+    this.isLoading = true;
 
     this.apiService
       .getRolePermissionsById(this.roleSelectedStateService.state.roleId()!)
       .pipe(
         take(1),
-        finalize(() => (this.loading = false)),
+        finalize(() => (this.isLoading = false)),
       )
       .subscribe({
         next: (response) => (this.role = response),

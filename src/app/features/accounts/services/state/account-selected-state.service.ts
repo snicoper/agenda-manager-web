@@ -17,12 +17,12 @@ export class AccountSelectedStateService {
 
   private readonly userId$ = signal<string | null>(null);
   private readonly account$ = signal<AccountDetailsResponse | null>(null);
-  private readonly loading$ = signal<boolean>(false);
+  private readonly isLoading$ = signal<boolean>(false);
 
   readonly state: AccountSelectedState = {
     userId: computed(() => this.userId$()),
     account: computed(() => this.account$()),
-    loading: computed(() => this.loading$()),
+    isLoading: computed(() => this.isLoading$()),
   };
 
   load(userId: string): void {
@@ -45,7 +45,7 @@ export class AccountSelectedStateService {
   }
 
   setLoadingState(isLoading: boolean): void {
-    this.loading$.set(isLoading);
+    this.isLoading$.set(isLoading);
   }
 
   clean(): void {
@@ -60,13 +60,13 @@ export class AccountSelectedStateService {
       return;
     }
 
-    this.loading$.set(true);
+    this.isLoading$.set(true);
 
     this.accountApi
       .getAccountById(this.userId$()!)
       .pipe(
         take(1),
-        finalize(() => this.loading$.set(false)),
+        finalize(() => this.isLoading$.set(false)),
       )
       .subscribe({
         next: (response) => this.account$.set(response),

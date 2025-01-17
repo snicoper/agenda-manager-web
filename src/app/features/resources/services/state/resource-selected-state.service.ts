@@ -17,12 +17,12 @@ export class ResourceSelectedStateService {
 
   private readonly resourceId$ = signal<string | null>(null);
   private readonly resource$ = signal<ResourceDetailsResponse | null>(null);
-  private readonly loading$ = signal<boolean>(false);
+  private readonly isLoading$ = signal<boolean>(false);
 
   readonly state: ResourceSelectedState = {
     resourceId: computed(() => this.resourceId$()),
     resource: computed(() => this.resource$()),
-    loading: computed(() => this.loading$()),
+    isLoading: computed(() => this.isLoading$()),
   };
 
   load(resourceId: string): void {
@@ -45,7 +45,7 @@ export class ResourceSelectedStateService {
   }
 
   setLoadingState(isLoading: boolean): void {
-    this.loading$.set(isLoading);
+    this.isLoading$.set(isLoading);
   }
 
   clean(): void {
@@ -60,13 +60,13 @@ export class ResourceSelectedStateService {
       return;
     }
 
-    this.loading$.set(true);
+    this.isLoading$.set(true);
 
     this.apiService
       .getResourceById(this.resourceId$()!)
       .pipe(
         take(1),
-        finalize(() => this.loading$.set(false)),
+        finalize(() => this.isLoading$.set(false)),
       )
       .subscribe({
         next: (response) => this.resource$.set(response),

@@ -9,7 +9,7 @@
         <am-month-calendar
           [month]="month"
           [items]="getItemsForMonth(month)"
-          [loading]="loading()"
+          [isLoading]="isLoading()"
           (dateTimeSelected)="handleDateTimeSelected($event)"
         />
       }

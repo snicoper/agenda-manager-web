@@ -1,4 +1,4 @@
-@if (loading() || !calendarHoliday()) {
+@if (isLoading() || !calendarHoliday()) {
   <div class="d-flex justify-content-center align-items-center h-100">
     <mat-spinner diameter="32"></mat-spinner>
   </div>
@@ -49,7 +49,7 @@
           icon="delete"
           styles="bg-error"
           (eventClick)="handleDelete()"
-          [loading]="loadingDelete()"
+          [isLoading]="loadingDelete()"
         />
       </div>
 
@@ -62,7 +62,7 @@
         btnText="Actualizar festivo"
         icon="edit"
         (eventClick)="handleSubmit()"
-        [loading]="formState.isLoading"
+        [isLoading]="formState.isLoading"
       />
     </div>
   </section>

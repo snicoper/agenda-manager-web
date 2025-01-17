@@ -64,7 +64,7 @@ export class RoleListComponent implements AfterViewInit {
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
 
-  readonly loading = signal(false);
+  readonly isLoading = signal(false);
 
   dataSource = new MatTableDataSource<RolePaginatedResponse, MatPaginator>();
   paginatedResult = new PaginatedResult<RolePaginatedResponse>();
@@ -122,13 +122,13 @@ export class RoleListComponent implements AfterViewInit {
   }
 
   private loadRoles(): void {
-    this.loading.set(true);
+    this.isLoading.set(true);
 
     this.apiService
       .getRolesPaginated(this.paginatedResult)
       .pipe(
         take(1),
-        finalize(() => this.loading.set(false)),
+        finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
         next: (response) => {

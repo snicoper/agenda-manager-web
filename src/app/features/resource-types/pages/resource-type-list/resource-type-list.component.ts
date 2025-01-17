@@ -65,7 +65,7 @@ export class ResourceTypeListComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource<ResourceTypePaginatedResponse>();
   paginatedResult = new PaginatedResult<ResourceTypePaginatedResponse>();
-  loading = true;
+  isLoading = true;
 
   constructor() {
     this.setBreadcrumb();
@@ -116,13 +116,13 @@ export class ResourceTypeListComponent implements AfterViewInit {
   }
 
   private loadResourceTypes(): void {
-    this.loading = true;
+    this.isLoading = true;
 
     this.apiService
       .getResourceTypesPaginated(this.paginatedResult)
       .pipe(
         take(1),
-        finalize(() => (this.loading = false)),
+        finalize(() => (this.isLoading = false)),
       )
       .subscribe({
         next: (response) => {

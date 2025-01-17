@@ -17,7 +17,7 @@ import { DateTimeSelectedEvent } from '../models/date-time-selected-event.model'
 export class MonthCalendarComponent {
   readonly month = input.required<DateTime>();
   readonly items = input.required<CalendarItem[]>();
-  readonly loading = input<boolean>(false);
+  readonly isLoading = input<boolean>(false);
 
   readonly dateTimeSelected = output<DateTimeSelectedEvent>();
 

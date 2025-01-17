@@ -14,6 +14,7 @@ import { ResourceUpdateRequest } from '../../models/requests/resource-update.req
 import { ResourceCreateResponse } from '../../models/responses/resource-create.response';
 import { ResourceDetailsResponse } from '../../models/responses/resource-details.response';
 import { ResourcePaginatedResponse } from '../../models/responses/resource-paginated.response';
+import { ResourceScheduleResponse } from '../../models/responses/resource-schedule.response';
 
 @Injectable({ providedIn: 'root' })
 export class ResourceApiService extends ApiBaseService {
@@ -45,6 +46,13 @@ export class ResourceApiService extends ApiBaseService {
         createdAt: DateTimeUtils.fromApi(response.createdAt) as DateTime,
       })),
     );
+  }
+
+  /** Get a list of schedules by resource id. */
+  getSchedulesByResourceId(resourceId: string): Observable<ResourceScheduleResponse[]> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.getSchedulesByResourceId, { resourceId: resourceId });
+
+    return this.get<ResourceScheduleResponse[]>(endpoint, (response) => response.value as ResourceScheduleResponse[]);
   }
 
   /** Create a resource. */

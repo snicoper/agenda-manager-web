@@ -15,8 +15,8 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { TableFilterComponent } from '../../../../shared/components/tables/table-filter/table-filter.component';
-import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 import { UserNotInRoleResponse } from '../../models/responses/user-not-in-role.response';
+import { AuthorizationApiService } from '../../services/api/authorization-api.service';
 
 @Component({
   selector: 'am-role-available-users',
@@ -50,7 +50,7 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource<UserNotInRoleResponse>();
   paginatedResult = new PaginatedResult<UserNotInRoleResponse>();
-  loading = true;
+  isLoading = true;
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -83,12 +83,12 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
   }
 
   handleAssignUserToRole(userId: string): void {
-    this.loading = true;
+    this.isLoading = true;
     this.apiService
       .assignUserToRole(this.roleId(), userId)
       .pipe(
         take(1),
-        finalize(() => (this.loading = false)),
+        finalize(() => (this.isLoading = false)),
       )
       .subscribe({
         next: () => {
@@ -100,13 +100,13 @@ export class RoleAvailableUsersComponent implements AfterViewInit {
   }
 
   private getUsersNotInRole(): void {
-    this.loading = true;
+    this.isLoading = true;
 
     this.apiService
       .getUsersNotInRoleIdPaginated(this.roleId(), this.paginatedResult)
       .pipe(
         take(1),
-        finalize(() => (this.loading = false)),
+        finalize(() => (this.isLoading = false)),
       )
       .subscribe({
         next: (response) => {

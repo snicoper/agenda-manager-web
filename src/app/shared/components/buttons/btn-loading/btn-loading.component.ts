@@ -11,7 +11,7 @@ import { BtnType } from './btn-type';
   templateUrl: './btn-loading.component.html',
 })
 export class BtnLoadingComponent {
-  readonly loading = input.required<boolean>();
+  readonly isLoading = input.required<boolean>();
   readonly color = input('primary');
   readonly icon = input<string>();
   readonly btnText = input<string>();

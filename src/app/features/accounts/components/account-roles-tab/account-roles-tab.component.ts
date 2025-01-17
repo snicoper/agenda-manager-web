@@ -26,14 +26,14 @@ export class AccountRolesTabComponent implements OnInit {
   readonly accountState = this.accountSelectedStateService.state;
 
   readonly roles = signal<AvailableRolesByUserIdResponse[]>([]);
-  readonly loading = signal(false);
+  readonly isLoading = signal(false);
 
   ngOnInit(): void {
     this.loadAccountRoles();
   }
 
   handleRoleChange(roleId: string, isAssigned: boolean): void {
-    this.loading.set(true);
+    this.isLoading.set(true);
 
     if (isAssigned) {
       this.assignUserToRole(roleId);
@@ -51,7 +51,7 @@ export class AccountRolesTabComponent implements OnInit {
   private assignUserToRole(roleId: string): void {
     this.accountRoleApiService
       .assignUserToRole(roleId, this.accountState.userId()!)
-      .pipe(finalize(() => this.loading.set(false)))
+      .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
         next: () => {
           this.snackBarService.success('Rol asignado correctamente');
@@ -66,7 +66,7 @@ export class AccountRolesTabComponent implements OnInit {
   private unassignUserFromRole(roleId: string): void {
     this.accountRoleApiService
       .unAssignedUserFromRole(roleId, this.accountState.userId()!)
-      .pipe(finalize(() => this.loading.set(false)))
+      .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
         next: () => {
           this.snackBarService.success('Rol desasignado correctamente');
@@ -80,14 +80,14 @@ export class AccountRolesTabComponent implements OnInit {
 
   private loadAccountRoles(): void {
     this.accountSelectedStateService.setLoadingState(true);
-    this.loading.set(true);
+    this.isLoading.set(true);
 
     this.accountRoleApiService
       .getAvailableRolesByUserId(this.accountState.userId()!)
       .pipe(
         finalize(() => {
           this.accountSelectedStateService.setLoadingState(false);
-          this.loading.set(false);
+          this.isLoading.set(false);
         }),
       )
       .subscribe({

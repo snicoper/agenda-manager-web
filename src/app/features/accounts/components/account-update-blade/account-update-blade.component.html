@@ -1,5 +1,5 @@
 <section class="blade-content-container">
-  @if (accountState.loading() || formState.isLoading) {
+  @if (accountState.isLoading() || formState.isLoading) {
     <div class="d-flex justify-content-center">
       <mat-spinner />
     </div>
@@ -59,7 +59,7 @@
         btnText="Actualizar cuenta"
         icon="update"
         (eventClick)="handleSubmit()"
-        [loading]="formState.isLoading"
+        [isLoading]="formState.isLoading"
       />
     </div>
   }

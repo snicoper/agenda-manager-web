@@ -1,4 +1,4 @@
-@if (loading()) {
+@if (isLoading()) {
   <button mat-flat-button disabled (click)="handleClick()" [ngClass]="styles()" [color]="color()" [type]="btnType()">
     <mat-spinner [color]="spinnerColor()" [diameter]="25" /> {{ btnTextLoading() }}
   </button>
