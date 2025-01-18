@@ -1,1 +1,10 @@
-<p>resource-schedules-tab works!</p>,
+<div class="d-flex justify-content-start">
+  <button
+    mat-raised-button
+    [amRequiredPermission]="systemPermissions.ResourceSchedules.Create"
+    (click)="handleCreateSchedule()"
+  >
+    <mat-icon>add</mat-icon>
+    Añadir horario
+  </button>
+</div>
