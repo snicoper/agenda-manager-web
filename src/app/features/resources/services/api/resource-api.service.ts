@@ -11,10 +11,12 @@ import { UrlUtils } from '../../../../core/utils/url/url.utils';
 import { DeactivateResourceRequest } from '../../models/requests/deactivate-resource.request';
 import { ResourceCreateRequest } from '../../models/requests/resource-create.request';
 import { ResourceUpdateRequest } from '../../models/requests/resource-update.request';
+import { ScheduleCreateRequest } from '../../models/requests/schedule-create.request';
 import { ResourceCreateResponse } from '../../models/responses/resource-create.response';
 import { ResourceDetailsResponse } from '../../models/responses/resource-details.response';
 import { ResourcePaginatedResponse } from '../../models/responses/resource-paginated.response';
 import { ResourceScheduleResponse } from '../../models/responses/resource-schedule.response';
+import { ScheduleCreateResponse } from '../../models/responses/schedule-create.response';
 
 @Injectable({ providedIn: 'root' })
 export class ResourceApiService extends ApiBaseService {
@@ -63,6 +65,17 @@ export class ResourceApiService extends ApiBaseService {
       request,
       endpoint,
       (response) => response.value as ResourceCreateResponse,
+    );
+  }
+
+  /** Crear horario. */
+  createSchedule(resourceId: string, request: ScheduleCreateRequest): Observable<ScheduleCreateResponse> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.createSchedule, { resourceId: resourceId });
+
+    return this.post<ScheduleCreateRequest, ScheduleCreateResponse>(
+      request,
+      endpoint,
+      (response) => response.value as ScheduleCreateResponse,
     );
   }
 

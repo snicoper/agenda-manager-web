@@ -1,11 +1,18 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { DateTime } from 'luxon';
 import { FormState } from '../../../../core/forms/models/form-state.model';
+import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
+import { ResourceScheduleType } from '../../../../core/modules/resource-management/resource-schedules/resource-schedule.type';
+import { WeekDay } from '../../../../core/modules/week-days/week-days.type';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
+import { ScheduleFieldsValidators } from '../../contracts/schedule-fields-validator.contract';
+import { ScheduleCreateRequest } from '../../models/requests/schedule-create.request';
 import { ResourceApiService } from '../../services/api/resource-api.service';
+import { ResourceSelectedStateService } from '../../services/state/resource-selected-state.service';
 
 @Component({
   selector: 'am-schedule-create-blade',
@@ -17,8 +24,8 @@ export class ScheduleCreateBladeComponent implements OnInit {
   private readonly apiService = inject(ResourceApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
-  private readonly router = inject(Router);
   private readonly bladeService = inject(BladeService);
+  private readonly resourceSelectedStateService = inject(ResourceSelectedStateService);
 
   readonly formState: FormState = {
     form: this.formBuilder.group({}),
@@ -42,9 +49,45 @@ export class ScheduleCreateBladeComponent implements OnInit {
     if (this.formState.form.invalid) {
       return;
     }
+
+    const request = this.mapToRequest();
+    this.create(request);
+  }
+
+  private mapToRequest(): ScheduleCreateRequest {
+    return {
+      name: this.formState.form.value.name,
+      description: this.formState.form.value.description,
+      type: this.formState.form.value.type as ResourceScheduleType,
+      availableDays: this.formState.form.value.availableDays as WeekDay,
+      start: this.formState.form.value.start as DateTime,
+      end: this.formState.form.value.end as DateTime,
+    };
   }
 
   private buildForm(): void {
-    this.formState.form = this.formBuilder.group({});
+    this.formState.form = this.formBuilder.group({
+      name: ['', ScheduleFieldsValidators.name],
+      description: ['', ScheduleFieldsValidators.description],
+      type: [null, ScheduleFieldsValidators.type],
+      availableDays: [null, ScheduleFieldsValidators.availableDays],
+      start: [null, ScheduleFieldsValidators.start],
+      end: [null, ScheduleFieldsValidators.end],
+    });
+  }
+
+  private create(request: ScheduleCreateRequest): void {
+    this.formState.isLoading = true;
+
+    this.apiService.createSchedule(this.resourceSelectedStateService.state.resourceId()!, request).subscribe({
+      next: () => {
+        this.snackBarService.success('Horario creado correctamente');
+        this.bladeService.emitResult(true);
+      },
+      error: (error: HttpErrorResponse) => {
+        const badRequest = HttpErrorResponseMappingUtils.mapToBadRequest(error);
+        this.formState.badRequest = badRequest;
+      },
+    });
   }
 }

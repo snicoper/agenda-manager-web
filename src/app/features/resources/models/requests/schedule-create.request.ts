@@ -3,7 +3,6 @@ import { ResourceScheduleType } from '../../../../core/modules/resource-manageme
 import { WeekDay } from '../../../../core/modules/week-days/week-days.type';
 
 export interface ScheduleCreateRequest {
-  resourceId: string;
   name: string;
   description: string;
   type: ResourceScheduleType;

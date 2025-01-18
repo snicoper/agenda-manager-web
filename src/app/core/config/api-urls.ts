@@ -38,6 +38,7 @@ export const ApiUrls = {
     getResourceById: '/resources/{resourceId}',
     getSchedulesByResourceId: '/resources/{resourceId}/schedules',
     createResource: '/resources',
+    createSchedule: '/resources/{resourceId}/schedules',
     deactivateResource: '/resources/{resourceId}/deactivate',
     activateResource: '/resources/{resourceId}/activate',
     updateResource: '/resources/{resourceId}',
