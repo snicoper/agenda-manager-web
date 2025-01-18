@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,7 @@ import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { ConfirmationDialogService } from '../../../../shared/components/dialogs/confirmation-dialog/services/confirmation-dialog.service';
 import { DotBackgroundColorComponent } from '../../../../shared/components/dots/dot-background-color/dot-background-color.component';
+import { CalendarSelectorIdStateService } from '../../../../shared/components/selectors/calendar-selector/services/state/calendar-selector-id-state.service';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { DateTimeFormatPipe } from '../../../../shared/pipes/date-time-format.pipe';
 import { DeactivateResourceRequest } from '../../models/requests/deactivate-resource.request';
@@ -40,6 +41,7 @@ export class ResourceInfoTabComponent {
   private readonly apiService = inject(ResourceApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly resourceSelectedStateService = inject(ResourceSelectedStateService);
+  private readonly calendarSelectorIdStateService = inject(CalendarSelectorIdStateService);
   private readonly bladeService = inject(BladeService);
   private readonly dialog = inject(MatDialog);
   private readonly confirmationDialogService = inject(ConfirmationDialogService);
@@ -51,6 +53,17 @@ export class ResourceInfoTabComponent {
   readonly resourceState = this.resourceSelectedStateService.state;
   readonly siteUrls = SiteUrls;
   readonly systemPermissions = SystemPermissions;
+
+  private readonly calendarSelectedId = this.calendarSelectorIdStateService.state();
+
+  constructor() {
+    effect(() => {
+      // If the calendar selector id changes, navigate to the resources list page.
+      if (this.calendarSelectorIdStateService.state() !== this.calendarSelectedId) {
+        this.router.navigateByUrl(SiteUrls.resources.list);
+      }
+    });
+  }
 
   handleChangeStateIsActive(): void {
     if (!this.resourceState.resource()?.isActive) {
