@@ -11,6 +11,7 @@ import { RequiredPermissionDirective } from '../../../../shared/directives/requi
 import { ResourceScheduleResponse } from '../../models/responses/resource-schedule.response';
 import { ResourceApiService } from '../../services/api/resource-api.service';
 import { ResourceSelectedStateService } from '../../services/state/resource-selected-state.service';
+import { ScheduleCreateBladeComponent } from '../schedule-create-blade/schedule-create-blade.component';
 
 @Component({
   selector: 'am-resource-schedules-tab',
@@ -43,7 +44,13 @@ export class ResourceSchedulesTabComponent implements AfterViewInit {
   }
 
   handleCreateSchedule(): void {
-    // TODO: Implement handleCreateSchedule method
+    this.bladeService.open(ScheduleCreateBladeComponent);
+
+    this.bladeService.result.subscribe((result) => {
+      if (result) {
+        this.loadSchedules();
+      }
+    });
   }
 
   private loadSchedules(): void {

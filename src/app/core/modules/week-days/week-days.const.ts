@@ -1,4 +1,4 @@
-// Definición del enum como objeto const
+// Definición del enum como objeto const.
 export const WeekDays = {
   None: 0,
   Monday: 1 << 0,
