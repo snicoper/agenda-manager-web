@@ -6,18 +6,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { DateTime } from 'luxon';
 import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
+import { ResourceScheduleType } from '../../../../core/modules/resource-management/resource-schedule-type/resource-schedule-type.enum';
 import { WeekDay } from '../../../../core/modules/week-days/week-days.type';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
 import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
+import { FormDateTimeComponent } from '../../../../shared/components/forms/inputs/form-date-time/form-date-time.component';
 import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
+import { FormTextareaComponent } from '../../../../shared/components/forms/inputs/form-textarea/form-textarea.component';
+import { FormResourceScheduleTypeSelectorComponent } from '../../../../shared/components/forms/inputs/selectors/form-resource-schedule-type-selector/form-resource-schedule-type-selector.component';
 import { ScheduleFieldsValidators } from '../../contracts/schedule-fields-validator.contract';
 import { ScheduleCreateRequest } from '../../models/requests/schedule-create.request';
 import { ResourceApiService } from '../../services/api/resource-api.service';
 import { ResourceSelectedStateService } from '../../services/state/resource-selected-state.service';
-import { ResourceScheduleType } from '../../../../core/modules/resource-management/resource-schedule-type/resource-schedule-type.enum';
 
 @Component({
   selector: 'am-schedule-create-blade',
@@ -26,6 +29,9 @@ import { ResourceScheduleType } from '../../../../core/modules/resource-manageme
     MatButtonModule,
     MatIconModule,
     FormInputComponent,
+    FormTextareaComponent,
+    FormResourceScheduleTypeSelectorComponent,
+    FormDateTimeComponent,
     NonFieldErrorsComponent,
     BtnLoadingComponent,
   ],

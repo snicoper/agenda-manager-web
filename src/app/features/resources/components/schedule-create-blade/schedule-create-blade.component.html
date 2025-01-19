@@ -1,5 +1,60 @@
 <section class="blade-content-container">
   <h3 class="blade-title">Crear horario</h3>
 
-  <div class="blade-body"></div>
+  <div class="blade-body">
+    <form [formGroup]="formState.form">
+      <am-non-field-errors [badRequest]="formState.badRequest" />
+
+      <div class="row">
+        <!-- name field -->
+        <div class="col-12">
+          <am-form-input fieldName="name" formControlName="name" label="Nombre" [formState]="formState" />
+        </div>
+
+        <!-- description field -->
+        <div class="col-12">
+          <am-form-textarea
+            fieldName="description"
+            formControlName="description"
+            label="Descripción"
+            [formState]="formState"
+          />
+        </div>
+
+        <!-- type field -->
+        <div class="col-12">
+          <am-form-resource-schedule-type-selector
+            fieldName="type"
+            formControlName="type"
+            label="Tipo"
+            [formState]="formState"
+          />
+        </div>
+
+        <!-- start field -->
+        <div class="col-12">
+          <am-form-date-time fieldName="start" formControlName="start" label="Fecha inicial" [formState]="formState" />
+        </div>
+
+        <!-- end field -->
+        <div class="col-12">
+          <am-form-date-time fieldName="end" formControlName="end" label="Fecha final" [formState]="formState" />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- buttons -->
+  <div class="d-flex justify-content-end mt-3 blade-actions">
+    <button mat-flat-button class="me-2" (click)="handleCloseBlade()">
+      <mat-icon>close</mat-icon>
+      Cerrar
+    </button>
+    <am-btn-loading
+      btnText="Crear horario"
+      icon="add"
+      (eventClick)="handleSubmit()"
+      [isLoading]="formState.isLoading"
+    />
+  </div>
 </section>
