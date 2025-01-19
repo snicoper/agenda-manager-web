@@ -1,22 +1,34 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { DateTime } from 'luxon';
 import { FormState } from '../../../../core/forms/models/form-state.model';
 import { HttpErrorResponseMappingUtils } from '../../../../core/http/utils/http-error-response-mapping.utils';
-import { ResourceScheduleType } from '../../../../core/modules/resource-management/resource-schedules/resource-schedule.type';
 import { WeekDay } from '../../../../core/modules/week-days/week-days.type';
 import { SnackBarService } from '../../../../core/services/snackbar.service';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
+import { BtnLoadingComponent } from '../../../../shared/components/buttons/btn-loading/btn-loading.component';
+import { NonFieldErrorsComponent } from '../../../../shared/components/forms/errors/non-field-errors/non-field-errors.component';
+import { FormInputComponent } from '../../../../shared/components/forms/inputs/form-input/form-input.component';
 import { FormInputType } from '../../../../shared/components/forms/inputs/form-input/types/form-input.type';
 import { ScheduleFieldsValidators } from '../../contracts/schedule-fields-validator.contract';
 import { ScheduleCreateRequest } from '../../models/requests/schedule-create.request';
 import { ResourceApiService } from '../../services/api/resource-api.service';
 import { ResourceSelectedStateService } from '../../services/state/resource-selected-state.service';
+import { ResourceScheduleType } from '../../../../core/modules/resource-management/resource-schedule-type/resource-schedule-type.enum';
 
 @Component({
   selector: 'am-schedule-create-blade',
-  imports: [],
+  imports: [
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    FormInputComponent,
+    NonFieldErrorsComponent,
+    BtnLoadingComponent,
+  ],
   templateUrl: './schedule-create-blade.component.html',
   styleUrl: './schedule-create-blade.component.scss',
 })

@@ -6,14 +6,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FormState } from '../../../../../../core/forms/models/form-state.model';
-import { ResourceCategoryUtils } from '../../../../../../core/modules/resource-management/resource-category/resource-category.const';
-import { ResourceCategory } from '../../../../../../core/modules/resource-management/resource-category/resource-category.enum';
+import { ResourceScheduleTypeUtils } from '../../../../../../core/modules/resource-management/resource-schedule-type/resource-schedule-type.const';
+import { ResourceScheduleType } from '../../../../../../core/modules/resource-management/resource-schedule-type/resource-schedule-type.enum';
 import { SelectOnFocusDirective } from '../../../../../directives/select-on-focus.directive';
 import { FieldErrorComponent } from '../../../errors/field-error/field-error.component';
 import { FormIconPosition } from '../../../types/form-icon-position.enum';
 
 @Component({
-  selector: 'am-form-resource-type-category-selector',
+  selector: 'am-form-resource-schedule-type-selector',
   imports: [
     FormsModule,
     MatFormFieldModule,
@@ -23,17 +23,17 @@ import { FormIconPosition } from '../../../types/form-icon-position.enum';
     FieldErrorComponent,
     SelectOnFocusDirective,
   ],
-  templateUrl: './form-resource-type-category-selector.component.html',
-  styleUrl: './form-resource-type-category-selector.component.scss',
+  templateUrl: './form-resource-schedule-type-selector.component.html',
+  styleUrl: './form-resource-schedule-type-selector.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormResourceTypeCategorySelectorComponent),
+      useExisting: forwardRef(() => FormResourceScheduleTypeSelectorComponent),
       multi: true,
     },
   ],
 })
-export class FormResourceTypeCategorySelectorComponent implements ControlValueAccessor {
+export class FormResourceScheduleTypeSelectorComponent implements ControlValueAccessor {
   readonly formState = input.required<FormState>();
   readonly fieldName = input.required<string>();
   readonly label = input.required<string>();
@@ -42,30 +42,30 @@ export class FormResourceTypeCategorySelectorComponent implements ControlValueAc
   readonly icon = input('');
   readonly formIconPosition = input(FormIconPosition.prefix);
 
-  readonly value = signal<ResourceCategory>({} as ResourceCategory);
+  readonly value = signal<ResourceScheduleType | null>(null);
   readonly isDisabled = signal(false);
   readonly iconPositions = FormIconPosition;
-  readonly resourceCategoryUtils = ResourceCategoryUtils;
+  readonly resourceScheduleTypeUtils = ResourceScheduleTypeUtils;
 
   // Generate unique id for each instance of the component.
   private static nextId = 0;
-  id = `form-resource-type-category-selector-${(FormResourceTypeCategorySelectorComponent.nextId += 1)}`;
+  id = `form-resource-schedule-type-selector-${(FormResourceScheduleTypeSelectorComponent.nextId += 1)}`;
 
-  onChange = (_: ResourceCategory): void => {};
+  onChange = (_: ResourceScheduleType): void => {};
 
   onTouch = (): void => {};
 
-  displayFn = (value: number): string => {
-    const option = this.resourceCategoryUtils.getOptions().find((opt) => opt.value === value);
+  displayFn = (value: ResourceScheduleType): string => {
+    const option = this.resourceScheduleTypeUtils.getOptions().find((opt) => opt.value === value);
 
     return option ? option.description : '';
   };
 
-  writeValue(value: ResourceCategory): void {
-    this.value.set(value ?? ({} as ResourceCategory));
+  writeValue(value: ResourceScheduleType): void {
+    this.value.set(value);
   }
 
-  registerOnChange(fn: (value: ResourceCategory) => void): void {
+  registerOnChange(fn: (value: ResourceScheduleType) => void): void {
     this.onChange = fn;
   }
 
@@ -77,7 +77,7 @@ export class FormResourceTypeCategorySelectorComponent implements ControlValueAc
     this.isDisabled.set(isDisabled);
   }
 
-  onChangeValue(value: ResourceCategory): void {
+  onChangeValue(value: ResourceScheduleType): void {
     this.onChange(value);
     this.onTouch();
   }

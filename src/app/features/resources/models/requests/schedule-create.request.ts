@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
-import { ResourceScheduleType } from '../../../../core/modules/resource-management/resource-schedules/resource-schedule.type';
 import { WeekDay } from '../../../../core/modules/week-days/week-days.type';
+import { ResourceScheduleType } from '../../../../core/modules/resource-management/resource-schedule-type/resource-schedule-type.enum';
 
 export interface ScheduleCreateRequest {
   name: string;

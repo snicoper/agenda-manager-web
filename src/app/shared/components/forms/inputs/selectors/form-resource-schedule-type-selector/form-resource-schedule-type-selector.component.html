@@ -1,0 +1,40 @@
+@if (resourceScheduleTypeUtils.getOptions().length > 0) {
+  <mat-form-field>
+    <!-- label -->
+    <mat-label>{{ label() }}</mat-label>
+
+    <!-- icon -->
+    @if (icon() && formIconPosition() === iconPositions.prefix) {
+      <mat-icon matPrefix>{{ icon() }}</mat-icon>
+    } @else if (icon() && formIconPosition() === iconPositions.suffix) {
+      <mat-icon matSuffix>{{ icon() }}</mat-icon>
+    }
+
+    <!-- input -->
+    <input
+      aria-label="Selección de tipo de horario de recurso"
+      matInput
+      amSelectOnFocus
+      (ngModelChange)="onChangeValue($event)"
+      [ngModel]="value()"
+      [matAutocomplete]="scheduleTypes"
+      [disabled]="isDisabled()"
+      [id]="id"
+      [placeholder]="placeholder()"
+    />
+
+    <!-- autocomplete -->
+    <mat-autocomplete #scheduleTypes="matAutocomplete" [displayWith]="displayFn">
+      @for (option of resourceScheduleTypeUtils.getOptions(); track $index) {
+        <mat-option [value]="option.value">
+          {{ option.description }}
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <!-- field error -->
+  @if (formState().form) {
+    <am-field-error [formState]="formState()" [fieldName]="fieldName()" [fieldText]="label()" />
+  }
+}
