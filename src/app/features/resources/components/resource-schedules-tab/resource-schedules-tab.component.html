@@ -7,4 +7,94 @@
     <mat-icon>add</mat-icon>
     Añadir horario
   </button>
+
+  <!-- filter -->
+  <div class="ms-auto">
+    <am-table-filter
+      (filterChange)="handleFilterChange($event)"
+      [paginatedResult]="paginatedResult"
+      [fieldsFilter]="fieldsFilter"
+    />
+  </div>
+</div>
+
+<!-- table -->
+<div class="table-container">
+  <table
+    mat-table
+    matSort
+    matSortActive="start"
+    matSortDirection="asc"
+    class="table-striped"
+    (matSortChange)="handleSortChange($event)"
+    [dataSource]="dataSource"
+    [ngClass]="{ hidden: isLoading() }"
+  >
+    <!-- name field-->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+      <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+    </ng-container>
+
+    <!-- description field -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+      <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+    </ng-container>
+
+    <!-- start field -->
+    <ng-container matColumnDef="start">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Inicio</th>
+      <td mat-cell *matCellDef="let row">{{ row.start | dateTimeFormat }}</td>
+    </ng-container>
+
+    <!-- end field -->
+    <ng-container matColumnDef="end">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fin</th>
+      <td mat-cell *matCellDef="let row">{{ row.end | dateTimeFormat }}</td>
+    </ng-container>
+
+    <!-- type field -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+      <td mat-cell *matCellDef="let row">{{ row.type }}</td>
+    </ng-container>
+
+    <!-- availableDays field -->
+    <ng-container matColumnDef="availableDays">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Días disponibles</th>
+      <td mat-cell *matCellDef="let row">{{ row.availableDays }}</td>
+    </ng-container>
+
+    <!-- isActive field -->
+    <ng-container matColumnDef="isActive">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Activo</th>
+      <td mat-cell *matCellDef="let row">
+        <span [innerHTML]="row.isActive | boolToIcon"></span>
+      </td>
+    </ng-container>
+
+    <!-- columns -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row class="cursor-pointer" *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- no data row -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell p-4" [attr.colspan]="displayedColumns.length">
+        <div class="d-flex justify-content-center">No hay datos a mostrar</div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- paginator -->
+  @if (dataSource) {
+    <am-paginator (pageEvent)="handlePageEvent($event)" [paginatedResult]="paginatedResult" />
+  }
+
+  <!-- spinner -->
+  @if (isLoading()) {
+    <div class="d-flex justify-content-center p-5">
+      <mat-progress-spinner mode="indeterminate" />
+    </div>
+  }
 </div>
