@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/no-empty-function */
 import { Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,8 +8,6 @@ import { FormState } from '../../../../../core/forms/models/form-state.model';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 import { FormIconPosition } from '../../types/form-icon-position.enum';
 import { FormInputType } from './types/form-input.type';
-
-/* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
   selector: 'am-form-input',

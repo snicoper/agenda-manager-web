@@ -6,6 +6,16 @@
       <am-non-field-errors [badRequest]="formState.badRequest" />
 
       <div class="row">
+        <!-- available days field -->
+        <div class="col-12 mb-3">
+          <am-form-working-days-week
+            fieldName="availableDays"
+            formControlName="availableDays"
+            label="Días disponibles"
+            [formState]="formState"
+          />
+        </div>
+
         <!-- name field -->
         <div class="col-12">
           <am-form-input fieldName="name" formControlName="name" label="Nombre" [formState]="formState" />
@@ -33,12 +43,24 @@
 
         <!-- start field -->
         <div class="col-12">
-          <am-form-date-time fieldName="start" formControlName="start" label="Fecha inicial" [formState]="formState" />
+          <am-form-date-time
+            fieldName="start"
+            formControlName="start"
+            labelDate="Fecha inicial"
+            labelTime="Hora inicial"
+            [formState]="formState"
+          />
         </div>
 
         <!-- end field -->
         <div class="col-12">
-          <am-form-date-time fieldName="end" formControlName="end" label="Fecha final" [formState]="formState" />
+          <am-form-date-time
+            fieldName="end"
+            formControlName="end"
+            labelDate="Fecha final"
+            labelTime="Hora final"
+            [formState]="formState"
+          />
         </div>
       </div>
     </form>

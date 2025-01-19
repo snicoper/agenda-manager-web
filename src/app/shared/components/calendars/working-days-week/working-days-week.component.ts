@@ -27,7 +27,7 @@ export class WorkingDaysWeekComponent {
       }));
   });
 
-  protected onSelectionChange(event: MatChipListboxChange): void {
+  protected handleSelectionChange(event: MatChipListboxChange): void {
     const selectedDayNames = event.value as string[];
 
     if (!selectedDayNames?.length) {

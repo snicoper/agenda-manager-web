@@ -5,7 +5,7 @@
     <span class="help-text">{{ helpText() }}</span>
   }
 
-  <mat-chip-listbox multiple aria-label="Day selection" (change)="onSelectionChange($event)">
+  <mat-chip-listbox multiple aria-label="Day selection" (change)="handleSelectionChange($event)">
     @for (day of days(); track day.value) {
       <mat-chip-option [selected]="day.selected">
         {{ day.name }}

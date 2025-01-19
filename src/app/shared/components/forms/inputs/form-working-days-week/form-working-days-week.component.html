@@ -1,0 +1,25 @@
+<section class="working-days-week-container">
+  <h4>{{ label() }}</h4>
+
+  <mat-chip-listbox
+    multiple
+    aria-label="Day selection"
+    (change)="handleSelectionChange($event)"
+    [disabled]="isDisabled()"
+    [id]="id"
+  >
+    @for (day of days(); track day.value) {
+      <mat-chip-option [selected]="day.selected">
+        {{ day.name }}
+      </mat-chip-option>
+    }
+  </mat-chip-listbox>
+
+  @if (helpText()) {
+    <span class="help-text">{{ helpText() }}</span>
+  }
+
+  @if (formState().form) {
+    <am-field-error [formState]="formState()" [fieldName]="fieldName()" [fieldText]="label()" />
+  }
+</section>
