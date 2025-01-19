@@ -1,6 +1,6 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SiteUrls } from '../../../../core/config/site-urls';
 import { logError } from '../../../../core/errors/logger/logger';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
@@ -9,6 +9,7 @@ import { NavToolbarData } from '../../../../shared/components/layout/nav-toolbar
 import { NavToolbarComponent } from '../../../../shared/components/layout/nav-toolbar/nav-toolbar.component';
 import { PageBaseComponent } from '../../../../shared/components/layout/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../shared/components/layout/page-header/page-header.component';
+import { CalendarSelectorIdStateService } from '../../../../shared/components/selectors/calendar-selector/services/state/calendar-selector-id-state.service';
 import { ResourceCalendarTabComponent } from '../../components/resource-calendar-tab/resource-calendar-tab.component';
 import { ResourceInfoTabComponent } from '../../components/resource-info-tab/resource-info-tab.component';
 import { ResourceSchedulesTabComponent } from '../../components/resource-schedules-tab/resource-schedules-tab.component';
@@ -22,7 +23,9 @@ import { ResourceSelectedStateService } from '../../services/state/resource-sele
 })
 export class ResourceDetailsComponent implements OnInit, OnDestroy {
   private readonly resourceSelectedStateService = inject(ResourceSelectedStateService);
+  private readonly calendarSelectorIdStateService = inject(CalendarSelectorIdStateService);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
   readonly resourceId = this.route.snapshot.params['resourceId'];
   readonly breadcrumb = new BreadcrumbCollection();
@@ -55,6 +58,15 @@ export class ResourceDetailsComponent implements OnInit, OnDestroy {
     ],
   };
   readonly resource = this.resourceSelectedStateService.state.resource;
+
+  constructor() {
+    effect(() => {
+      // If the calendar selector id changes, navigate to the resources list page.
+      if (this.calendarSelectorIdStateService.state()) {
+        this.router.navigateByUrl(SiteUrls.resources.list);
+      }
+    });
+  }
 
   ngOnInit(): void {
     if (!this.resourceId) {
