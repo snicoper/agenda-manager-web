@@ -31,7 +31,7 @@ export class CalendarApiService extends ApiBaseService {
   ): Observable<PaginatedResult<CalendarPaginatedResponse>> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.calendars.getCalendarsPaginated);
 
-    return this.getPaginated(
+    return this.getPaginated<CalendarPaginatedResponse>(
       paginatedResult,
       endpoint,
       (response) => response.value as PaginatedResult<CalendarPaginatedResponse>,

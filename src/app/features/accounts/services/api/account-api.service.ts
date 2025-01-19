@@ -27,7 +27,7 @@ export class AccountApiService extends ApiBaseService {
   ): Observable<PaginatedResult<AccountPaginatedResponse>> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.accounts.getAccountsPaginated);
 
-    return this.getPaginated(paginatedResult, endpoint, (response) => {
+    return this.getPaginated<AccountPaginatedResponse>(paginatedResult, endpoint, (response) => {
       const result = PaginatedResult.create<AccountPaginatedResponse>(response.value);
 
       result.items = result.items.map((account) => ({

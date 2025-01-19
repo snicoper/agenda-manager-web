@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, inject, signal, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { finalize, take } from 'rxjs';
 import { SystemPermissions } from '../../../../core/modules/auth/constants/system-permissions.const';
+import { PaginatedResult } from '../../../../core/modules/paginated-result/paginated-result';
 import { BladeService } from '../../../../shared/components/blade/services/blade.service';
 import { RequiredPermissionDirective } from '../../../../shared/directives/required-permission.directive';
 import { ResourceScheduleResponse } from '../../models/responses/resource-schedule.response';
@@ -33,12 +34,14 @@ export class ResourceSchedulesTabComponent implements AfterViewInit {
   readonly fieldsFilter = ['name', 'description'];
   readonly systemPermissions = SystemPermissions;
 
-  dataSource = new MatTableDataSource<ResourceScheduleResponse>();
-  schedules: ResourceScheduleResponse[] = [];
+  dataSource = new MatTableDataSource<ResourceScheduleResponse, MatPaginator>();
+  paginatedResult = new PaginatedResult<ResourceScheduleResponse>();
 
   ngAfterViewInit(): void {
     setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
       this.loadSchedules();
     }, 0);
   }
@@ -53,11 +56,26 @@ export class ResourceSchedulesTabComponent implements AfterViewInit {
     });
   }
 
+  handlePageEvent(pageEvent: PageEvent): void {
+    this.paginatedResult = this.paginatedResult.handlePageEvent(pageEvent);
+    this.loadSchedules();
+  }
+
+  handleFilterChange(paginatedResult: PaginatedResult<ResourceScheduleResponse>): void {
+    this.paginatedResult = paginatedResult;
+    this.loadSchedules();
+  }
+
+  handleSortChange(sortState: Sort): void {
+    this.paginatedResult.handleSortChange(sortState);
+    this.loadSchedules();
+  }
+
   private loadSchedules(): void {
     this.isLoading.set(true);
 
     this.apiService
-      .getSchedulesByResourceId(this.resourceSelectedStateService.state.resourceId()!)
+      .getSchedulesByResourceIdPaginated(this.resourceSelectedStateService.state.resourceId()!, this.paginatedResult)
       .pipe(
         take(1),
         finalize(() => this.isLoading.set(false)),

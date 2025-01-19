@@ -26,12 +26,34 @@ export class ResourceApiService extends ApiBaseService {
   ): Observable<PaginatedResult<ResourcePaginatedResponse>> {
     const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.getResourcesPaginated);
 
-    return this.getPaginated(paginatedResult, endpoint, (response) => {
+    return this.getPaginated<ResourcePaginatedResponse>(paginatedResult, endpoint, (response) => {
       const result = PaginatedResult.create<ResourcePaginatedResponse>(response.value);
 
       result.items = result.items.map((resource) => ({
         ...resource,
         createdAt: DateTimeUtils.fromApi(resource.createdAt) as DateTime,
+      }));
+
+      return result;
+    });
+  }
+
+  /** Get a list of schedules by resource id. */
+  getSchedulesByResourceIdPaginated(
+    resourceId: string,
+    paginatedResult: PaginatedResult<ResourceScheduleResponse>,
+  ): Observable<PaginatedResult<ResourceScheduleResponse>> {
+    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.getSchedulesByResourceIdPaginated, {
+      resourceId: resourceId,
+    });
+
+    return this.getPaginated<ResourceScheduleResponse>(paginatedResult, endpoint, (response) => {
+      const result = PaginatedResult.create<ResourceScheduleResponse>(response.value);
+
+      result.items = result.items.map((schedule) => ({
+        ...schedule,
+        start: DateTimeUtils.fromApi(schedule.start) as DateTime,
+        end: DateTimeUtils.fromApi(schedule.end) as DateTime,
       }));
 
       return result;
@@ -48,13 +70,6 @@ export class ResourceApiService extends ApiBaseService {
         createdAt: DateTimeUtils.fromApi(response.createdAt) as DateTime,
       })),
     );
-  }
-
-  /** Get a list of schedules by resource id. */
-  getSchedulesByResourceId(resourceId: string): Observable<ResourceScheduleResponse[]> {
-    const endpoint = UrlUtils.buildApiUrl(ApiUrls.resources.getSchedulesByResourceId, { resourceId: resourceId });
-
-    return this.get<ResourceScheduleResponse[]>(endpoint, (response) => response.value as ResourceScheduleResponse[]);
   }
 
   /** Create a resource. */
