@@ -1,78 +1,86 @@
-# Agenda Manager Web
+# Agenda Manager - SPA
 
-## Estructura de Carpetas en Angular
+## 🌟 Descripción
 
-## Core
+Agenda Manager SPA es la aplicación frontend desarrollada en **Angular** para la gestión de citas y recursos. Se comunica con la **Agenda Manager API** para proporcionar una interfaz intuitiva y eficiente para la administración de calendarios, usuarios y servicios.
 
-La carpeta `core` contiene elementos fundamentales y singleton de la aplicación:
+## 🔎 Tecnologías Utilizadas
 
-- **Servicios Singleton**: Servicios que deben tener una única instancia (auth, user service)
-- **Guards Globales**: Protección de rutas a nivel aplicación
-- **Interceptores**: Manejo de peticiones HTTP
-- **Configuración Global**: Configuraciones base de la aplicación
-- **Estado Global**: Gestión del estado que afecta a toda la app
+- **Angular 19** - Framework principal
+- **RxJS** - Programación reactiva
+- **Angular Material** - UI Components
+- **Bootstrap 5.3.3** - Uso exclusivo de Flexbox (y Grid en el futuro)
+- **Luxon** - Manejo de fechas y zonas horarias
+- **jwt-decode** - Decodificación de tokens JWT
+- **i18n-iso-countries** - Manejo de códigos de países
+- **libphonenumber-js** - Validación de números de teléfono
 
-*El core representa la infraestructura base y no debería importar de features o shared.*
+## 🛠️ Estructura del Proyecto
 
-## Features
+El proyecto sigue una organización modular y escalable:
 
-Contiene los módulos específicos de la aplicación, cada uno con su propia estructura:
-
-```shell
-features/
-  feature-name/
-    components/    # Componentes específicos de la feature
-    contracts/     # Contratos/interfaces específicos
-    interfaces/    # Modelos de datos (requests/responses)
-    pages/         # Componentes página/rutas
-    services/      # Servicios específicos de la feature
+```
+📦 src/
+ ┣ 📂 app/                # Configuración principal de la aplicación
+ ┃ ┣ 📂 core/             # Servicios y funcionalidades compartidas
+ ┃ ┣ 📂 features/         # Módulos y componentes específicos por funcionalidad
+ ┃ ┣ 📂 shared/           # Componentes y utilidades reutilizables
+ ┃ ┣ 📜 app.component.ts  # Componente principal
+ ┃ ┣ 📜 app.routes.ts     # Configuración de rutas
+ ┃ ┣ 📜 app.config.ts     # Configuración de la aplicación
+ ┣ 📂 environments/       # Configuraciones de entorno
+ ┣ 📂 styles/             # Estilos globales y SCSS
+ ┣ 📜 index.html          # Archivo principal HTML
+ ┣ 📜 main.ts             # Punto de entrada de la aplicación
 ```
 
-*Cada feature es independiente y puede importar de shared, pero no de otras features.*
+## 🔧 Configuración y Ejecución
 
-## Shared
+Para correr la SPA localmente:
 
-Contiene elementos reutilizables en toda la aplicación:
+1. Clonar el repositorio:
 
-- **Components**: Componentes UI reutilizables
-- **Directives**: Directivas compartidas
-- **Pipes**: Pipes reutilizables
-- **Interfaces**: Modelos/interfaces compartidos
-- **Utils**: Utilidades y helpers
-- **Services**: Servicios no singleton reutilizables
+   ```bash
+   git clone https://github.com/snicoper/agenda-manager-web.git
+   cd agenda-manager-web
+   ```
 
-*Shared no debe tener dependencias de features o core.*
+2. Instalar dependencias:
 
-## Data (Opcional)
+   ```bash
+   npm install
+   ```
 
-Si se implementa, contiene la capa de acceso a datos:
+3. Ejecutar la aplicación en modo desarrollo:
 
-- **Repositories**: Implementación del patrón repository
-- **Services**: Servicios de acceso a datos
-- **Models**: Modelos de datos/DTOs
-- **Mappers**: Transformación de datos
-- **API**: Configuración y clientes HTTP
+   ```bash
+   npm start
+   ```
 
-*Data solo debería ser importado por features o core, nunca por shared.*
+   Esto levantará la aplicación en `http://localhost:4200/`
 
-### Reglas de Dependencias
+4. Ejecutar la SPA con Docker:
 
-```shell
-Data → ← Core
-  ↑      ↑
-Features ← Shared
-```
+   ```bash
+   docker-compose up -d
+   ```
 
-- Core puede importar de Data
-- Features puede importar de Shared, Core y Data
-- Shared no importa de ninguno
-- Data puede importar de Core para configuración
+   Esto iniciará el contenedor con **NGINX** y expondrá la SPA en `http://localhost`
 
-### Consideraciones
+5. Para detener el contenedor:
 
-- Los componentes en Shared deben ser verdaderamente reutilizables
-- Core debe mantenerse lo más pequeño posible
-- Features deben ser independientes entre sí
-- Data es opcional y depende de   la complejidad del proyecto
+   ```bash
+   docker-compose down
+   ```
 
----
+## 💌 Enlaces Relacionados
+
+- **API:** [Agenda Manager API](https://github.com/snicoper/agenda-manager-api)
+- **Documentación:** [Agenda Manager Docs](https://github.com/snicoper/agenda-manager-docs)
+- **Colección Bruno:** [Agenda Manager Bruno](https://github.com/snicoper/agenda-manager-bruno)
+
+## ✅ Roadmap y Mejoras Pendientes
+
+- [ ] Optimizar el rendimiento de carga inicial
+- [ ] Mejorar el soporte para internacionalización (i18n)
+- [ ] Implementar testing automatizado con Karma/Jasmine
