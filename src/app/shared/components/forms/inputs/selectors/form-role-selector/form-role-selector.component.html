@@ -13,8 +13,8 @@
         Cargando roles...
       </mat-option>
     } @else {
-      @for (role of availableRoles(); track role.roleId) {
-        <mat-option [value]="role.roleId">{{ role.name }}</mat-option>
+      @for (role of availableRoles(); track role.id) {
+        <mat-option [value]="role.id">{{ role.name }}</mat-option>
       }
     }
   </mat-select>

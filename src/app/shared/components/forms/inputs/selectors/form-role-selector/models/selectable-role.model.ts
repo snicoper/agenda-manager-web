@@ -1,4 +1,4 @@
 export interface SelectableRole {
-  roleId: string;
+  id: string;
   name: string;
 }
