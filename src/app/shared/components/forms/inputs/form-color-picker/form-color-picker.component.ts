@@ -11,10 +11,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import ColorPicker, { ColorPickerOptions } from '@thednp/color-picker';
+import ColorPicker from '@thednp/color-picker';
 import { fromEvent, Subject, takeUntil } from 'rxjs';
 import { FormState } from '../../../../../core/forms/models/form-state.model';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
+
+type ColorPickerOptions = ConstructorParameters<typeof ColorPicker>[1];
 
 @Component({
   selector: 'am-form-color-picker',
