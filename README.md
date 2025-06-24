@@ -6,7 +6,7 @@ Agenda Manager SPA es la aplicación frontend desarrollada en **Angular** para l
 
 ## 🔎 Tecnologías Utilizadas
 
-- **Angular 19** - Framework principal
+- **Angular 20** - Framework principal
 - **RxJS** - Programación reactiva
 - **Angular Material** - UI Components
 - **Bootstrap 5.3.3** - Uso exclusivo de Flexbox (y Grid en el futuro)
@@ -19,7 +19,7 @@ Agenda Manager SPA es la aplicación frontend desarrollada en **Angular** para l
 
 El proyecto sigue una organización modular y escalable:
 
-```
+```bash
 📦 src/
  ┣ 📂 app/                # Configuración principal de la aplicación
  ┃ ┣ 📂 core/             # Servicios y funcionalidades compartidas
